@@ -1,0 +1,192 @@
+- model: animals.person
+  pk: 1
+  fields:
+    name: Saravanakkumar Chennappan
+    email: Saravanakkumar.Chennappan@leibniz-fli.de
+    responsible_for_lab: 1
+- model: animals.person
+  pk: 2
+  fields:
+    name: Dagmar Kruspe
+    email: Dagmar.Kruspe@leibniz-fli.de
+    responsible_for_lab: 2
+- model: animals.person
+  pk: 3
+  fields:
+    name: Danny Schnerwitzki
+    email: Danny.Schnerwitzki@leibniz-fli.de
+    responsible_for_lab: 2
+- model: animals.person
+  pk: 4
+  fields:
+    name: Oleksandr Dakhovnik
+    email: Oleksandr.Dakhovnik@leibniz-fli.de
+    responsible_for_lab: 3
+- model: animals.person
+  pk: 5
+  fields:
+    name: WooKee Min
+    email: WooKee.Min@leibniz-fli.de
+    responsible_for_lab: 4
+- model: animals.person
+  pk: 6
+  fields:
+    name: Daniela Reichenbach
+    email: Daniela.Reichenbach@leibniz-fli.de
+    responsible_for_lab: 5
+- model: animals.person
+  pk: 7
+  fields:
+    name: Sigrun Nagel
+    email: Sigrun.Nagel@leibniz-fli.de 
+    responsible_for_lab: 5
+- model: animals.person
+  pk: 8
+  fields:
+    name: Christina Valkova
+    email: Christina.Valkova@leibniz-fli.de
+    responsible_for_lab: 5
+- model: animals.person
+  pk: 9
+  fields:
+    name: Lars Riecken
+    email: Lars.Riecken@leibniz-fli.de
+    responsible_for_lab: 6
+- model: animals.person
+  pk: 10
+  fields:
+    name: Michael Reuter
+    email: Michael.Reuter@leibniz-fli.de 
+    responsible_for_lab: 6
+- model: animals.person
+  pk: 11
+  fields:
+    name: Karl-Gunther Glowalla
+    email: Karl-Gunther.Glowalla@leibniz-fli.de
+    responsible_for_lab: 7
+- model: animals.person
+  pk: 12
+  fields:
+    name: Cathrin Mueller
+    email: Cathrin.Mueller@leibniz-fli.de
+    responsible_for_lab: 7
+- model: animals.person
+  pk: 13
+  fields:
+    name: Frank Kaufmann
+    email: Frank.Kaufmann@leibniz-fli.de
+    responsible_for_lab: 7
+- model: animals.person
+  pk: 14
+  fields:
+    name: Francesco Neri
+    email: Francesco.Neri@leibniz-fli.de
+    responsible_for_lab: 8
+- model: animals.person
+  pk: 15
+  fields:
+    name: Rasmus Freter
+    email: Rasmus.Freter@leibniz-fli.de
+    responsible_for_lab: 8
+- model: animals.person
+  pk: 16
+  fields:
+    name: Sandra Kaeppel
+    email: Sandra.Kaeppel@leibniz-fli.de
+    responsible_for_lab: 8
+- model: animals.person
+  pk: 17
+  fields:
+    name: Alessandro Ori
+    email: Alessandro.Ori@leibniz-fli.de
+    responsible_for_lab: 9
+- model: animals.person
+  pk: 18
+  fields:
+    name: Aspasia Ploubidou
+    email: Aspasia.Ploubidou@leibniz-fli.de
+    responsible_for_lab: 11
+- model: animals.person
+  pk: 19
+  fields:
+    name: Huaibiao Li
+    email: Huaibiao.Li@leibniz-fli.de
+    responsible_for_lab: 11
+- model: animals.person
+  pk: 20
+  fields:
+    name: Yu-Chieh Lin
+    email: Yu-Chieh.Lin@leibniz-fli.de
+    responsible_for_lab: 11
+- model: animals.person
+  pk: 21
+  fields:
+    name: Melanie Kettering
+    email: Melanie.Kettering@leibniz-fli.de
+    responsible_for_lab: 12
+- model: animals.person
+  pk: 22
+  fields:
+    name: Nadine Poempner
+    email: Nadine.Poempner@leibniz-fli.de
+    responsible_for_lab: 12
+- model: animals.person
+  pk: 23
+  fields:
+    name: Sabrina Eichwald
+    email: Sabrina.Eichwald@leibniz-fli.de
+    responsible_for_lab: 12
+- model: animals.person
+  pk: 24
+  fields:
+    name: Bjoern von Eyss
+    email: Bjoern.vonEyss@leibniz-fli.de
+    responsible_for_lab: 13
+- model: animals.person
+  pk: 25
+  fields:
+    name: Julia von Maltzahn
+    email: Julia.vonmaltzahn@leibniz-fli.de
+    responsible_for_lab: 14
+- model: animals.person
+  pk: 26
+  fields:
+    name: Hellen Ahrens
+    email: Hellen.Ahrens@leibniz-fli.de
+    responsible_for_lab: 14
+- model: animals.person
+  pk: 27
+  fields:
+    name: Paulius Grigaravicius
+    email: Paulius.Grigaravicius@leibniz-fli.de
+    responsible_for_lab: 15
+- model: animals.person
+  pk: 28
+  fields:
+    name: Tjard Joerss
+    email: Tjard.Joerss@leibniz-fli.de
+    responsible_for_lab: 15
+- model: animals.person
+  pk: 29
+  fields:
+    name: Ronny Haenold
+    email: Ronny.Haenold@leibniz-fli.de
+    responsible_for_lab: 16
+- model: animals.person
+  pk: 30
+  fields:
+    name: Omid Omrani
+    email: Omid.Omrani@leibniz-fli.de
+    responsible_for_lab: 8
+- model: animals.person
+  pk: 31
+  fields:
+    name: Zhiyang Chen
+    email: Zhiyang.Chen@leibniz-fli.de
+    responsible_for_lab: 12
+- model: animals.person
+  pk: 32
+  fields:
+    name: Marc Riemann
+    email: marc.riemann@leibniz-fli.de 
+    responsible_for_lab: 17

@@ -1,0 +1,72 @@
+- model: animals.lab
+  pk: 0
+  fields:
+    name: No
+- model: animals.lab
+  pk: 1
+  fields:
+    name: Cristea
+- model: animals.lab
+  pk: 2
+  fields:
+    name: Englert
+- model: animals.lab
+  pk: 3
+  fields:
+    name: Ermolaeva
+- model: animals.lab
+  pk: 4
+  fields:
+    name: Herrlich
+- model: animals.lab
+  pk: 5
+  fields:
+    name: Kaether
+- model: animals.lab
+  pk: 6
+  fields:
+    name: Morrison
+- model: animals.lab
+  pk: 7
+  fields:
+    name: Mouse facility
+- model: animals.lab
+  pk: 8
+  fields:
+    name: Neri
+- model: animals.lab
+  pk: 9
+  fields:
+    name: Ori
+- model: animals.lab
+  pk: 10
+  fields:
+    name: Ploubidou
+- model: animals.lab
+  pk: 11
+  fields:
+    name: Rudolph
+- model: animals.lab
+  pk: 12
+  fields:
+    name: Rudolph/Waskow
+- model: animals.lab
+  pk: 13
+  fields:
+    name: von Eyss
+- model: animals.lab
+  pk: 14
+  fields:
+    name: von Maltzahn
+- model: animals.lab
+  pk: 15
+  fields:
+    name: Wang
+- model: animals.lab
+  pk: 16
+  fields:
+    name: Weih/Haerold
+- model: animals.lab
+  pk: 17
+  fields:
+    name: Waskow
