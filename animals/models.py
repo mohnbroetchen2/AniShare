@@ -26,12 +26,12 @@ class Animal(models.Model):
     mutations = models.TextField(blank=True,null=True)
     licence_number = models.CharField(max_length=200)
     responsible_person = models.ForeignKey(Person, on_delete=models.CASCADE, default=0)
-    available_from = models.DateField(default=datetime.today())
+    available_from = models.DateField(default=datetime.now)
     available_to = models.DateField(default=datetime.today() + timedelta(days=14))
     new_owner = models.CharField(max_length=200, blank=True) # turn into foreignkey to auth_users?
 
     def age(self):
-        return datetime.now - self.day_of_birth
+        return int((self.entry_date - self.day_of_birth).days / 7)
 
     def __str__(self):
         return self.licence_number
