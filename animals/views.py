@@ -11,4 +11,4 @@ class AnimalIndexView(generic.ListView):
     context_object_name = 'all_animals'
     def get_queryset(self):
         """Return the latest additions to the Animals table"""
-        return Animal.objects.order_by('-entry_date')#[:100]
+        return Animal.objects.order_by('-entry_date')[:100]

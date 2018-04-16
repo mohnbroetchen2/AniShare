@@ -39,6 +39,10 @@ class Animal(models.Model):
     def age(self):
         return int((self.entry_date - self.day_of_birth).days / 7)
 
+    def available(self):
+        today = datetime.now().date()
+        return (self.available_from <= today) and (today <= self.available_to)
+
     def __str__(self):
         return self.licence_number
 
