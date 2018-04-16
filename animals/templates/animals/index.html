@@ -1,0 +1,23 @@
+
+
+
+{% if all_animals %}
+<table>
+    {% for a in all_animals %}
+    <tr>
+    <td>{{a.amount}}</td>
+    <td>{{a.animal_type}}</td>
+    <td>{{a.get_sex_display}}</td>
+    <td>{{a.entry_date}}</td>
+    <td>{{a.day_of_birth}}</td>
+    <td>{{a.age}}</td>
+    <td>{{a.available_from}}</td>
+    <td>{{a.available_to}}</td>
+    <td>{{a.line}}</td>
+    <td>{{a.mutations}}</td>
+    <td>{{a.location}}</td>
+    <td>{{a.new_owner}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
