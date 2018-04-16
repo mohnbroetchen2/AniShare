@@ -105,25 +105,25 @@
   fields:
     name: Aspasia Ploubidou
     email: aspasia.ploubidou@leibniz-fli.de
-    responsible_for_lab: 11
+    responsible_for_lab: 10
 - model: animals.person
   pk: 19
   fields:
     name: Huaibiao Li
     email: huaibiao.li@leibniz-fli.de
-    responsible_for_lab: 11
+    responsible_for_lab: 10
 - model: animals.person
   pk: 20
   fields:
     name: Yu-Chieh Lin
     email: yu-chieh.lin@leibniz-fli.de
-    responsible_for_lab: 11
+    responsible_for_lab: 10
 - model: animals.person
   pk: 21
   fields:
     name: Melanie Kettering
     email: melanie.kettering@leibniz-fli.de
-    responsible_for_lab: 12
+    responsible_for_lab: 11
 - model: animals.person
   pk: 22
   fields:
@@ -135,7 +135,7 @@
   fields:
     name: Sabrina Eichwald
     email: sabrina.eichwald@leibniz-fli.de
-    responsible_for_lab: 12
+    responsible_for_lab: 11
 - model: animals.person
   pk: 24
   fields:
@@ -183,7 +183,7 @@
   fields:
     name: Zhiyang Chen
     email: zhiyang.chen@leibniz-fli.de
-    responsible_for_lab: 12
+    responsible_for_lab: 11
 - model: animals.person
   pk: 32
   fields:

@@ -65,7 +65,7 @@
 - model: animals.lab
   pk: 16
   fields:
-    name: Weih/Haerold
+    name: Weih/Haenold
 - model: animals.lab
   pk: 17
   fields:
