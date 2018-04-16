@@ -1,6 +1,7 @@
+{% extends 'base.html' %}
 
 
-
+{% block content %}
 {% if all_animals %}
 <table>
     {% for a in all_animals %}
@@ -21,3 +22,6 @@
     {% endfor %}
 </table>
 {% endif %}
+
+
+{% endblock %}
