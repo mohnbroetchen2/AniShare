@@ -5,6 +5,9 @@ class Lab(models.Model):
     name = models.CharField(max_length=200)
     def __str__(self):
         return self.name + ' Lab'
+    def responsible_person(self):
+        persons = Person.objects.filter(responsible_for_lab=self)
+        return ', '.join(i.name for i in persons)
 
 class Person(models.Model):
     name = models.CharField(max_length=200)
@@ -15,10 +18,13 @@ class Person(models.Model):
 
 class Animal(models.Model):
     amount = models.IntegerField(default=1, help_text="How many animals? (eg. fish in tank)")
-    pyrat_id = models.CharField(max_length=200)
+    animal_type = models.CharField(max_length=100, choices = (('mouse', 'mus musculus'),('fish','fish'), ('u','unknown')), default='mouse')
+    external_id = models.CharField(max_length=200)
+    external_lab_id = models.CharField(max_length=200)
+    creation_date = models.DateTimeField(null=False, auto_now_add=True)
+    modification_date = models.DateTimeField(null=False, auto_now=True)
 #    nr = models.IntegerField(null=False)
-    entry_date = models.DateField(null=False, auto_now_add=True)
-    pyrat_lab_id = models.CharField(max_length=200)
+    entry_date = models.DateField(null=False)
     day_of_birth = models.DateField()
     line = models.CharField(max_length=200)
     sex = models.CharField(max_length=2, choices = (('m','male'),('f','female'), ('u','unknown')))
