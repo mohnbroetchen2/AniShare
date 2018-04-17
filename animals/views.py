@@ -1,10 +1,13 @@
-from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 from django.views import generic
 
-from .models import Animal, Person
+from .models import Animal
 
+class AnimalDetailView(generic.ListView):
+    model = Animal
+    template_name = 'animals/animal-detail.html'
+#    def get_context_data(self, **kwargs):
+#        context = super(AnimalDetailView, self).get_context_data(**kwargs)
+#        return context
 
 class AnimalIndexView(generic.ListView):
     model = Animal

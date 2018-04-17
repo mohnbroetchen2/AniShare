@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<ul>
+                        <li><a href="/animals/{{object.pk}}">{{object.pk}}</a>
+                        <li>{{object.available}}
+                        <li>{{object.animal_type}}
+                        <li>{{object.get_sex_display}}
+                        <li>{{object.entry_date}}
+                        <li>{{object.day_of_birth}}
+                        <li>{{object.age}}
+                        <li>{{object.available_from}}
+                        <li>{{object.available_to}}
+                        <li>{{object.line}}
+                        <li>{{object.mutations}}
+                        <li>{{object.location}}
+                        <li>
+                            {% if object.new_owner %}
+                                {{object.new_owner}}
+                            {% elif object.available %}
+                                <a href="/claim">Claim!</a>
+                            {% else %}
+                                no longer available
+                            {% endif %}
+ </ul>                       
+
+{% endblock %}
+

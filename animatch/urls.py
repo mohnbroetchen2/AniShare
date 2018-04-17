@@ -19,8 +19,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from animals import urls
+import animals
 
 urlpatterns = [
+    path('', animals.views.AnimalIndexView.as_view(), name='root'),
     path('animals/', include('animals.urls', namespace='animals-index')),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

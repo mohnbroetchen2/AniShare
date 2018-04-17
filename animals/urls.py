@@ -20,4 +20,5 @@ from . import views
 app_name = 'animals'
 urlpatterns = [
     path('index', views.AnimalIndexView.as_view(), name='index'),
+    path('<int:pk>', views.AnimalDetailView.as_view(), name='animal-detail'),
 ]
