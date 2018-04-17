@@ -2,7 +2,7 @@
 
 {% block content %}
 {% if all_animals %}
-<h1 class="text-center"> Animal Data </h1>
+<h1 class="text-center"> Animals2GiveAway </h1>
 	<div class="col-lg-12">
         <div class="table-responsive">
             <table class="table table-bordered table-hover table-striped tablesorter">
@@ -27,7 +27,7 @@
                     {% for a in all_animals %}
                     <tr {% if not a.available %}class="strikeout"{% endif %}>
                         <td><a href="/animals/{{a.pk}}">{{a.pk}}</a></td>
-                        <td>{{a.available}}</td>
+                        <td>{{a.amount}}</td>
                         <td>{{a.animal_type}}</td>
                         <td>{{a.get_sex_display}}</td>
                         <td>{{a.entry_date}}</td>

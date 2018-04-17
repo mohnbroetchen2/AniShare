@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.db import models
 from datetime import datetime, timedelta
 
@@ -45,6 +46,9 @@ class Animal(models.Model):
     def available(self):
         today = datetime.now().date()
         return (self.available_from <= today) and (today <= self.available_to)
+
+    def get_absolute_url(self):
+        return reverse('animals:animal-detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return "{} ({})".format(self.pk, self.day_of_birth)
