@@ -1,6 +1,7 @@
 from django.contrib import admin
-
 from .models import Animal, Person, Lab
+
+admin.site.site_header = 'Animatch admin interface'
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
@@ -21,3 +22,5 @@ class AnimalAdmin(admin.ModelAdmin):
 class LabAdmin(admin.ModelAdmin):
     list_display = ('name','responsible_person')
     search_fields=('name',)
+
+
