@@ -18,13 +18,16 @@ class Person(models.Model):
 
 class Animal(models.Model):
     amount = models.IntegerField(default=1, help_text="How many animals? (eg. fish in tank)")
-    animal_type = models.CharField(max_length=100, choices = (('mouse', 'mus musculus'),('fish','fish'), ('u','unknown')), default='mouse')
+    animal_type = models.CharField(max_length=100, choices = (
+        ('mouse', 'mus musculus'),
+        ('fish','fish'),
+        ('u','unknown')),
+        default='mouse')
     external_id = models.CharField(max_length=200)
     external_lab_id = models.CharField(max_length=200)
     creation_date = models.DateTimeField(null=False, auto_now_add=True)
     modification_date = models.DateTimeField(null=False, auto_now=True)
-#    nr = models.IntegerField(null=False)
-    entry_date = models.DateField(null=False)
+    entry_date = models.DateField(null=False, default=datetime.now)
     day_of_birth = models.DateField()
     line = models.CharField(max_length=200)
     sex = models.CharField(max_length=2, choices = (('m','male'),('f','female'), ('u','unknown')))
@@ -44,6 +47,4 @@ class Animal(models.Model):
         return (self.available_from <= today) and (today <= self.available_to)
 
     def __str__(self):
-        return self.licence_number
-
- # Nr.	Entry date	ID	Lab ID	DOB	Age (w)	Line / Strain	Mutation 1	Grade 1	Mutation 2	Grade 2	Mutation 3	Grade 3	Mutation 4	Grade 4	Sex	Building	Licence number	Responsible person	Available from	Available until	New Owner
+        return "{} ({})".format(self.pk, self.day_of_birth)
