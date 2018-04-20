@@ -18,7 +18,7 @@ class Person(models.Model):
         return self.name + ' (' + str(self.responsible_for_lab) + ')'
 
 class Animal(models.Model):
-    amount = models.IntegerField(default=1, help_text="How many animals? (eg. fish in tank)")
+    amount = models.PositiveIntegerField(default=1, help_text="How many animals? (eg. fish in tank)")
     animal_type = models.CharField(max_length=100, choices = (
         ('mouse', 'mus musculus'),
         ('fish','fish'),
@@ -38,6 +38,7 @@ class Animal(models.Model):
     responsible_person = models.ForeignKey(Person, on_delete=models.CASCADE, default=0)
     available_from = models.DateField(default=datetime.now)
     available_to = models.DateField(default=datetime.today() + timedelta(days=14))
+    comment = models.TextField(blank=True, null=True)
     new_owner = models.CharField(max_length=200, blank=True) # turn into foreignkey to auth_users?
 
     def age(self):
