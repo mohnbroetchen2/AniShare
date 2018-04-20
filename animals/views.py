@@ -1,14 +1,12 @@
 from django.views import generic
+from django.shortcuts import get_object_or_404
 #from django.core.urlresolvers import reverse_lazy
 
 from .models import Animal
 
-class AnimalDetailView(generic.ListView):
+class AnimalDetailView(generic.DetailView):
     model = Animal
     template_name = 'animals/animal-detail.html'
-#    def get_context_data(self, **kwargs):
-#        context = super(AnimalDetailView, self).get_context_data(**kwargs)
-#        return context
 
 class AnimalCreateView(generic.CreateView):
     model = Animal

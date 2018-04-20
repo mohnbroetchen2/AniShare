@@ -2,29 +2,29 @@
 
 {% block content %}
 
-{{object}}
-<ul>
-                        <li><a href="/animals/{{object.pk}}">{{object.pk}}</a>
-                        <li>{{object.available}}
-                        <li>{{object.animal_type}}
-                        <li>{{object.get_sex_display}}
-                        <li>{{object.entry_date}}
-                        <li>{{object.day_of_birth}}
-                        <li>{{object.age}}
-                        <li>{{object.available_from}}
-                        <li>{{object.available_to}}
-                        <li>{{object.line}}
-                        <li>{{object.mutations}}
-                        <li>{{object.location}}
-                        <li>
-                            {% if object.new_owner %}
-                                {{object.new_owner}}
-                            {% elif object.available %}
-                                <a href="/claim">Claim!</a>
-                            {% else %}
-                                no longer available
-                            {% endif %}
- </ul>                       
+  On 
+  {{object.entry_date}},
+
+  {{object.responsible_person}} offered
+  the {{object.get_sex_display}}
+  {{object.animal_type}} id {{object.pk}}
+  born on {{object.day_of_birth}} ({{object.age}} weeks old)
+  available from {{object.available_from}} until
+  {{object.available_to}}
+
+  <br/>Details about this {{object.animal_type}}:<br/>
+  Strain/Line: {{object.line}}<br/>
+  Mutations:{{object.mutations}}<br/>
+  Location: {{object.location}}<br/>
+
+  This animal 
+      {% if object.new_owner %}
+          has been claimed by {{object.new_owner}}
+      {% elif object.available %}
+          can be <a href="/claim">claimed!</a>
+      {% else %}
+          is no longer available
+      {% endif %}
 
 {% endblock %}
 
