@@ -1,7 +1,9 @@
 from django.contrib import admin
 from .models import Animal, Person, Lab
 
-admin.site.site_header = 'Animatch admin interface'
+admin.site.site_header = 'Animals2Share admin interface'
+admin.site.site_title = 'Animals2Share'
+admin.site.index_title = 'Welcome to Animals2Share'
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
