@@ -50,6 +50,28 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'django_auth_ldap.backend.LDAPBackend',
+]
+
+import ldap
+from django_auth_ldap.config import LDAPSearch
+
+AUTH_LDAP_CONNECTION_OPTIONS = { ldap.OPT_REFERRALS: 0 }
+AUTH_LDAP_SERVER_URI = 'ldap://192.168.160.20'
+#AUTH_LDAP_USER_DN_TEMPLATE = "dc=flinet,dc=fli-leibniz,dc=de"
+AUTH_LDAP_USER_DN_TEMPLATE = "FLINET\%(user)s"
+
+import logging
+
+logger = logging.getLogger('django_auth_ldap')
+logger.addHandler(logging.StreamHandler())
+logger.setLevel(logging.DEBUG)
+
+# ldapsearch -H ldap://192.168.160.21  -D 'FLINET\hdinkel' -W -b "dc=flinet,dc=fli-leibniz,dc=de"
+# sAMAccountName
+
 ROOT_URLCONF = 'animatch.urls'
 
 TEMPLATES = [
