@@ -25,7 +25,7 @@ SECRET_KEY = 'ap+hka^fvs+b1^_=^wwx9-v4&u&29%(&9)19=13gde8$b^j$^i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ '192.168.176.205' ]
+ALLOWED_HOSTS = [ '192.168.176.205', '127.0.0.1']
 
 
 # Application definition
@@ -63,11 +63,10 @@ AUTH_LDAP_SERVER_URI = 'ldap://192.168.160.20'
 #AUTH_LDAP_USER_DN_TEMPLATE = "dc=flinet,dc=fli-leibniz,dc=de"
 AUTH_LDAP_USER_DN_TEMPLATE = "FLINET\%(user)s"
 
-import logging
-
-logger = logging.getLogger('django_auth_ldap')
-logger.addHandler(logging.StreamHandler())
-logger.setLevel(logging.DEBUG)
+# import logging
+# logger = logging.getLogger('django_auth_ldap')
+# logger.addHandler(logging.StreamHandler())
+# logger.setLevel(logging.DEBUG)
 
 # ldapsearch -H ldap://192.168.160.21  -D 'FLINET\hdinkel' -W -b "dc=flinet,dc=fli-leibniz,dc=de"
 # sAMAccountName
