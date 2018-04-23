@@ -5,9 +5,9 @@ from datetime import datetime, timedelta
 
 from django.conf import settings
 
-admin.site.site_header = 'Animals2Share admin interface'
-admin.site.site_title = 'Animals2Share'
-admin.site.index_title = 'Welcome to Animals2Share'
+admin.site.site_header = 'AniShare admin interface'
+admin.site.site_title = 'AniShare'
+admin.site.index_title = 'Welcome to AniShare'
 
 class AnimalForm(forms.ModelForm):
     class Meta:
