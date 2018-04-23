@@ -1,9 +1,31 @@
 from django.contrib import admin
+from django import forms
 from .models import Animal, Person, Lab
+from datetime import datetime, timedelta
+
+from django.conf import settings
 
 admin.site.site_header = 'Animals2Share admin interface'
 admin.site.site_title = 'Animals2Share'
 admin.site.index_title = 'Welcome to Animals2Share'
+
+class AnimalForm(forms.ModelForm):
+    class Meta:
+        model = Animal
+        fields = ( 'amount', 'available_from', 'available_to', 'day_of_birth', 'entry_date', 'external_id', 'external_lab_id', 'line', 'location', 'mutations', 'new_owner', 'responsible_person', 'sex',)
+
+    def clean(self):
+        available_from = self.cleaned_data.get('available_from')
+        available_to = self.cleaned_data.get('available_to')
+        day_of_birth = self.cleaned_data.get('day_of_birth')
+        if available_from > available_to:
+            raise forms.ValidationError("Dates are incorrect")
+        if day_of_birth and ((datetime.now().date() -  day_of_birth) <= timedelta(days=settings.MIN_SHARE_DURATION_PUPS)):
+            if available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION_PUPS):
+                raise forms.ValidationError("Minimum share duration for pups must be {} days!".format(settings.MIN_SHARE_DURATION_PUPS ))
+        elif available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION):
+            raise forms.ValidationError("Minimum share duration must be {} days!".format(settings.MIN_SHARE_DURATION ))
+        return self.cleaned_data
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
@@ -19,10 +41,9 @@ class AnimalAdmin(admin.ModelAdmin):
     list_filter = ('sex', 'responsible_person__responsible_for_lab', 'location')
     radio_fields = {'sex':admin.HORIZONTAL}
     readonly_fields = ('creation_date','modification_date')
+    form = AnimalForm
 
 @admin.register(Lab)
 class LabAdmin(admin.ModelAdmin):
     list_display = ('name','responsible_person')
     search_fields=('name',)
-
-

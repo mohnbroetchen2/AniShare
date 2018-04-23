@@ -1,6 +1,6 @@
-- [  ] minimum: 1w pups, 2w adults
 - [  ] show email address in claim field
 - [  ] intermediate page "are you sure you want to claim this animal"?
 - [  ] take back own claim
+- [X] minimum: 1w pups, 2w adults
 - [X] login required
 - [X] only resp. person to add animals
