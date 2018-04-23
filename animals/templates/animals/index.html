@@ -9,17 +9,18 @@
                 <thead>
                 <tr>
                   <th class="header"> ID <i class="icon-sort"></i></th>
-                  <th class="header"> Amount <i class="icon-sort"></i></th>
+                  <th class="header"> # <i class="icon-sort"></i></th>
                   <th class="header"> Type <i class="icon-sort"></i></th>
                   <th class="header"> Sex<i class="icon-sort"></i></th>
                   <th class="header"> Entry Date<i class="icon-sort"></i></th>
                   <th class="header"> Date of Birth <i class="icon-sort"></i></th>
-                  <th class="header"> Age <i class="icon-sort"></i></th>
+                  <th class="header"> Age (w) <i class="icon-sort"></i></th>
                   <th class="header"> Available From <i class="icon-sort"></i></th>
                   <th class="header"> Available To <i class="icon-sort"></i></th>
                   <th class="header"> Line <i class="icon-sort"></i></th>
                   <th class="header"> Mutations <i class="icon-sort"></i></th>
                   <th class="header"> Location <i class="icon-sort"></i></th>
+                  <th class="header"> License# <i class="icon-sort"></i></th>
                   <th class="header"> New Owner <i class="icon-sort"></i></th>
                 </tr>
             </thead>
@@ -29,7 +30,14 @@
                         <td><a href="/animals/{{a.pk}}">{{a.pk}}</a></td>
                         <td>{{a.amount}}</td>
                         <td>{{a.animal_type}}</td>
-                        <td>{{a.get_sex_display}}</td>
+                        <td>{% if a.get_sex_display == 'female' %}
+                            <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
+                            {% elif a.get_sex_display == 'male' %}
+                            <i class="fas fa-mars" style="color:#77F; font-size:13pt;"></i>
+                            {% else %}
+                            <i class="fas fa-question"></i>
+                            {% endif %}
+                        </td>
                         <td>{{a.entry_date}}</td>
                         <td>{{a.day_of_birth}}</td>
                         <td>{{a.age}}</td>
@@ -38,6 +46,7 @@
                         <td>{{a.line}}</td>
                         <td>{{a.mutations}}</td>
                         <td>{{a.location}}</td>
+                        <td>{{a.licence_number}}</td>
                         <td>
                             {% if a.new_owner %}
                                 {{a.new_owner}}
