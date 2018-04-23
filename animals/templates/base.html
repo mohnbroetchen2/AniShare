@@ -28,7 +28,7 @@
     <title>{% block title %} Animals2GiveAway {% endblock %}</title>
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar navbar-default" role="navigation">
       <a class="navbar-brand" href="#">Animals2GiveAway</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -44,6 +44,8 @@
 {% block content %}
 
 {% endblock %}
+
+<div class="col-xs-12" style="height:50px;"></div>
 
 <div class='footer'>
     <div class="col-md-3">
@@ -83,7 +85,7 @@
                 <div class="csc-textpic-imagewrap">
                     <div class="csc-textpic-center-outer">
                         <div class="csc-textpic-center-inner">
-                            <div class="csc-textpic-image csc-textpic-last"><a href="https://www.leibniz-gemeinschaft.de/en/home/" target="_blank"><img src="fileadmin/media/pictures/pictures-logos/Leibniz_Logo_EN_blue_black_500px.png" alt=""></a>
+                            <div class="csc-textpic-image csc-textpic-last"><a href="https://www.leibniz-gemeinschaft.de/en/home/" target="_blank"><img src="{% static 'Leibniz_Logo_EN_blue_black_500px.png' %}" width="110" alt=""></a>
                             </div>
                         </div>
                     </div>
@@ -91,8 +93,8 @@
             </div>
         </div>
     </div>
+<div class="col-xs-12" style="height:50px;"></div>
         
-
     <script src="{% static 'js/jquery-2.0.3.min.js' %}"></script>
 </body>
 </html>
