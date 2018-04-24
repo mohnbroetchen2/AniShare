@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.core.mail import send_mail
+from datetime import datetime
 #from django.core.urlresolvers import reverse_lazy
 
 from .models import Animal
@@ -41,12 +42,29 @@ def send_email(request):
     email = request.POST['email']
     pk = request.POST['pk']
     animal = Animal.objects.get(pk=pk)
-    print(animal.responsible_person)
-#    send_mail(
-#        'Subject here',
-#        'Here is the message.',
-#        'holger.dinkel@leibniz-fli.de',
-#        ['holger.dinkel@leibniz-fli.de'],
-#        fail_silently=False,
-#        )
+    animal.new_owner = email
+    animal.save()
+    subject = "User {} claimed animal {} in AniShare".format(email, pk)
+    message = "Dear " + animal.responsible_person.name +\
+    ",\nOn " + str(datetime.now()) +\
+    " " + email + " " + \
+    "claimed " + str(animal.amount) + " " + animal.animal_type + " with id " + str(animal.pk) + ".\n" +\
+    "Further information:\n" + "\n" +\
+    "external_id: " + animal.external_id  + "\n" +\
+    "external_lab_id: " + animal.external_lab_id  + "\n" +\
+    "day_of_birth: " + str(animal.day_of_birth)  + "\n" +\
+    "line: " + animal.line  + "\n" +\
+    "sex: " + animal.sex  + "\n" +\
+    "location: " + animal.location  + "\n" +\
+    "mutations: " + str(animal.mutations)  + "\n" +\
+    "licence_number: " + str(animal.licence_number)  + "\n" +\
+    "comment: " + str(animal.comment)
+
+    send_mail(
+        subject,
+        message,
+        email,
+        [animal.responsible_person.email,],
+        fail_silently=False,
+        )
     return HttpResponseRedirect('/')
