@@ -51,22 +51,35 @@ MIDDLEWARE = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
     'django_auth_ldap.backend.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 import ldap
 from django_auth_ldap.config import LDAPSearch
 
 AUTH_LDAP_CONNECTION_OPTIONS = { ldap.OPT_REFERRALS: 0 }
-AUTH_LDAP_SERVER_URI = 'ldap://192.168.160.20'
-#AUTH_LDAP_USER_DN_TEMPLATE = "dc=flinet,dc=fli-leibniz,dc=de"
-AUTH_LDAP_USER_DN_TEMPLATE = "FLINET\%(user)s"
+AUTH_LDAP_SERVER_URI = "ldap://nevada-dc01.flinet.fli-leibniz.de" #'ldap://192.168.160.20'
+AUTH_LDAP_USER_SEARCH = LDAPSearch(
+    "DC=FLINET,DC=fli-leibniz,DC=de",
+    ldap.SCOPE_SUBTREE,
+    "(sAMAccountName=%(user)s)")
+AUTH_LDAP_BIND_DN = ''
+AUTH_LDAP_BIND_PASSWORD = ''
+#AUTH_LDAP_USER_DN_TEMPLATE = "flinet\%(user)s"
+AUTH_LDAP_BIND_AS_AUTHENTICATING_USER = True
+AUTH_LDAP_USER_ATTR_MAP = {
+    "email": "mail",
+    "first_name": "givenName",
+    "last_name": "sn",
+}
+AUTH_LDAP_PROFILE_ATTR_MAP = {
+}
 
-# import logging
-# logger = logging.getLogger('django_auth_ldap')
-# logger.addHandler(logging.StreamHandler())
-# logger.setLevel(logging.DEBUG)
+import logging
+logger = logging.getLogger('django_auth_ldap')
+logger.addHandler(logging.StreamHandler())
+logger.setLevel(logging.DEBUG)
 
 # ldapsearch -H ldap://192.168.160.21  -D 'FLINET\hdinkel' -W -b "dc=flinet,dc=fli-leibniz,dc=de"
 # sAMAccountName
