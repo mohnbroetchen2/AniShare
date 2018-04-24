@@ -64,8 +64,6 @@ AUTH_LDAP_USER_SEARCH = LDAPSearch(
     "DC=FLINET,DC=fli-leibniz,DC=de",
     ldap.SCOPE_SUBTREE,
     "(sAMAccountName=%(user)s)")
-AUTH_LDAP_BIND_DN = ''
-AUTH_LDAP_BIND_PASSWORD = ''
 #AUTH_LDAP_USER_DN_TEMPLATE = "flinet\%(user)s"
 AUTH_LDAP_BIND_AS_AUTHENTICATING_USER = True
 AUTH_LDAP_USER_ATTR_MAP = {
@@ -174,3 +172,9 @@ LOGOUT_REDIRECT_URL = '/'
 
 MIN_SHARE_DURATION = 14
 MIN_SHARE_DURATION_PUPS = 7
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
