@@ -1,7 +1,7 @@
 from django.views import generic
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.core.mail import send_mail
 #from django.core.urlresolvers import reverse_lazy
 
@@ -35,3 +35,18 @@ class AnimalIndexView(LoginRequiredMixin,generic.ListView):
     def get_queryset(self):
         """Return the latest additions to the Animals table"""
         return Animal.objects.order_by('-entry_date')#[:100]
+
+
+def send_email(request):
+    email = request.POST['email']
+    pk = request.POST['pk']
+    animal = Animal.objects.get(pk=pk)
+    print(animal.responsible_person)
+#    send_mail(
+#        'Subject here',
+#        'Here is the message.',
+#        'holger.dinkel@leibniz-fli.de',
+#        ['holger.dinkel@leibniz-fli.de'],
+#        fail_silently=False,
+#        )
+    return HttpResponseRedirect('/')
