@@ -1,9 +1,15 @@
 from django.views import generic
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse, HttpResponseNotFound
+from django.core.mail import send_mail
 #from django.core.urlresolvers import reverse_lazy
 
 from .models import Animal
+
+def claim(request, pk):
+    animal = get_object_or_404(Animal, pk=pk)
+    return render(request, 'animals/animal-claim.html', {'object': animal})
 
 class AnimalDetailView(LoginRequiredMixin,generic.DetailView):
     model = Animal

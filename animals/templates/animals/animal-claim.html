@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+Dear <b>{{request.user.first_name}} {{request.user.last_name}}</b>,
+
+do you really want to claim the following animal for yourself?<br/>
+
+            <table class="table table-bordered table-hover table-striped tablesorter">
+                <thead>
+                <tr>
+                  <th class="header"> ID <i class="icon-sort"></i></th>
+                  <th class="header"> # <i class="icon-sort"></i></th>
+                  <th class="header"> Type <i class="icon-sort"></i></th>
+                  <th class="header"> Sex<i class="icon-sort"></i></th>
+                  <th class="header"> Entry Date<i class="icon-sort"></i></th>
+                  <th class="header"> Date of Birth <i class="icon-sort"></i></th>
+                  <th class="header"> Age (w) <i class="icon-sort"></i></th>
+                  <th class="header"> Available From <i class="icon-sort"></i></th>
+                  <th class="header"> Available To <i class="icon-sort"></i></th>
+                  <th class="header"> Line <i class="icon-sort"></i></th>
+                  <th class="header"> Mutations <i class="icon-sort"></i></th>
+                  <th class="header"> Location <i class="icon-sort"></i></th>
+                  <th class="header"> License# <i class="icon-sort"></i></th>
+                  <th class="header"> New Owner <i class="icon-sort"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr {% if not object.available %}class="strikeout"{% endif %}>
+                        <td><a href="/animals/{{object.pk}}">{{object.pk}}</a></td>
+                        <td>{{object.amount}}</td>
+                        <td>{{object.animal_type}}</td>
+                        <td>{% if object.get_sex_display == 'female' %}
+                            <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
+                            {% elif object.get_sex_display == 'male' %}
+                            <i class="fas fa-mars" style="color:#77F; font-size:13pt;"></i>
+                            {% else %}
+                            <i class="fas fa-question"></i>
+                            {% endif %}
+                        </td>
+                        <td>{{object.entry_date}}</td>
+                        <td>{{object.day_of_birth}}</td>
+                        <td>{{object.age}}</td>
+                        <td>{{object.available_from}}</td>
+                        <td>{{object.available_to}}</td>
+                        <td>{{object.line}}</td>
+                        <td>{{object.mutations}}</td>
+                        <td>{{object.location}}</td>
+                        <td>{{object.licence_number}}</td>
+                        <td>
+                            {% if object.new_owner %}
+                                {{object.new_owner}}
+                            {% elif object.available %}
+                                <a href="/claim">Claim!</a>
+                            {% else %}
+                                no longer available
+                            {% endif %}
+                        </td>
+                    </tr>
+            
+            </tbody>
+            </table>
+
+<form action="/animals/send_email" method="post"> {% csrf_token %}
+By clicking on the button, an email will be sent from 
+  <input name="email" type='text' style="width:220px;" value={{request.user.email}} readonly="readonly">
+to <b>{{object.responsible_person}}</b>, informing them that you take responsibility for animal 
+<input name="pk" type="text" style="width:50px;" value="{{object.id}}" readonly="readonly">.
+They will make the necessary adjustments in the database. This will incur <b>costs</b> for you!
+  <input type="submit" name='claim' value="Claim this animal!">
+</form>
+
+{% endblock %}
+
+

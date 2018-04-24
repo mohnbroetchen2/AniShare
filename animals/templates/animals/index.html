@@ -51,7 +51,7 @@
                             {% if a.new_owner %}
                                 {{a.new_owner}}
                             {% elif a.available %}
-                                <a href="/claim">Claim!</a>
+                            <a href="/animals/claim/{{a.pk}}">Claim!</a>
                             {% else %}
                                 no longer available
                             {% endif %}
