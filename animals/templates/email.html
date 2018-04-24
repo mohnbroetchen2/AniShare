@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<body>
+
+<div> Dear <b>{{ animal.responsible_person.name }}</b>, </div>
+
+<div>On {{ now }}, <b>{{ email }}</b> claimed {{ animal.amount }} {{ animal.animal_type }} with id <b>{{ animal.external_id }}</b> (AniShare-ID: {{ animal.pk }}).
+
+Further information:<ul>
+    <li>external_id:  {{animal.external_id }}</li>
+    <li>external_lab_id:  {{animal.external_lab_id }}</li>
+    <li>day_of_birth:  {{animal.day_of_birth}} </li>
+    <li>line:  {{animal.line }}</li>
+    <li>sex:  {{animal.sex }}</li>
+    <li>location:  {{animal.location }}</li>
+    <li>mutations:  {{animal.mutations}} </li>
+      <li>licence_number:  {{animal.licence_number}} </li>
+      <li>comment:  {{animal.comment}}</li>
+      </ul>
+</div>
+
+
+</body>
+</html>
