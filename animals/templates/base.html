@@ -12,14 +12,15 @@
 <!-- Optional theme 
 <link rel="stylesheet" href="/static/css/bootstrap-theme.cosmo.min.css" >
 -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/solid.css" integrity="sha384-HTDlLIcgXajNzMJv5hiW5s2fwegQng6Hi+fN6t5VAcwO/9qbg2YEANIyKBlqLsiT" crossorigin="anonymous">
+<!--
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/solid.css" integrity="sha384-HTDlLIcgXajNzMJv5hiW5s2fwegQng6Hi+fN6t5VAcwO/9qbg2YEANIyKBlqLsiT" crossorigin="anonymous">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+-->
+<link rel="stylesheet" href="{% static 'css/fontawesome-all.min.css' %}">
 <link rel="stylesheet" href="{% static 'css/bootstrap-theme.cerulean.min.css' %}" >
 <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 <!--<link rel="stylesheet" href="{% static 'css/bootstrap-solarized-dark.css' %}">-->
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <style>
         .strikeout { color:#888;}
@@ -66,8 +67,7 @@
     <div class="navbar-collapse collapse w-110 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-item nav-link" href="/animals/feed"><i class="fas fa-rss">RSS</i>RSS Feed</a>
-                            <i class="fas fa-rss-square" style="color:#F77; font-size:13pt;"></i>
+              <a class="nav-item nav-link" href="/animals/feed">RSS Feed</a>
             </li>
             <li class="nav-item">
               <a class="nav-item nav-link">{% if user.is_authenticated %} Logged in as: {{ user  }}   </a>
@@ -136,6 +136,11 @@
     </div>
 <div class="col-xs-12" style="height:50px;"></div>
         
-    <script src="{% static 'js/jquery-2.0.3.min.js' %}"></script>
+<!-- Latest compiled and minified JavaScript 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="{% static '/js/jquery-2.0.3.min.js' %}"></script>
+-->
+<script src="{% static '/js/bootstrap.min.js' %}"></script>
+<script src="{% static '/js/fontawesome-all.min.js' %}"></script>
 </body>
 </html>
