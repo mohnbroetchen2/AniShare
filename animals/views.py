@@ -36,7 +36,16 @@ class AnimalIndexView(LoginRequiredMixin,generic.ListView):
     paginate_by = 100
     def get_queryset(self):
         """Return the latest additions to the Animals table"""
-        return Animal.objects.order_by('-entry_date')#[:100]
+        try:
+            show = self.kwargs['show']
+        except KeyError:
+            show = 'current'
+        if show == 'archive':
+            return Animal.objects.filter(available_to__lte=datetime.now().date()).order_by('-entry_date')
+        elif show == 'current':
+            return Animal.objects.filter(available_to__gte=datetime.now().date()).order_by('-entry_date')
+        else:
+            return Animal.objects.order_by('-entry_date')
 
 
 def send_email(request):

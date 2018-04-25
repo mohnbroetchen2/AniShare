@@ -19,8 +19,10 @@ from . import views
 
 app_name = 'animals'
 urlpatterns = [
-    path('', views.AnimalIndexView.as_view(), name='animal-list'),
-    path('index', views.AnimalIndexView.as_view(), name='index'),
+    path('', views.AnimalIndexView.as_view(), {'show':'current'}, name='animal-list'),
+    path('index', views.AnimalIndexView.as_view(), {'show':'current'}, name='index'),
+    path('archive', views.AnimalIndexView.as_view(), {'show':'archive'}, name='archive'),
+    path('all', views.AnimalIndexView.as_view(), {'show':'all'}, name='all'),
     path('claim/<int:pk>', views.claim, name='claim'),
     path('send_email', views.send_email, name='send_email'),
     path('<int:pk>', views.AnimalDetailView.as_view(), name='animal-detail'),
