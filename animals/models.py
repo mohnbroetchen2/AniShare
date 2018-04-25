@@ -52,4 +52,9 @@ class Animal(models.Model):
         return reverse('animals:animal-detail', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return "{} ({})".format(self.pk, self.day_of_birth)
+        return "{} {} {}, {} id:{} [{}]".format(
+            self.amount, self.get_sex_display(), self.animal_type, self.line, self.pk, self.day_of_birth)
+
+    def description(self):
+        return "id:{}, lab_id:{}, available:{}-{}, location:{}, mutations:{}".format(
+            self.external_id, self.external_lab_id, self.available_from, self.available_to, self.location, "".join(self.mutations))

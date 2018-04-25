@@ -5,7 +5,8 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from datetime import datetime
-#from django.core.urlresolvers import reverse_lazy
+from django.contrib.syndication.views import Feed
+from django.urls import reverse
 
 from .models import Animal
 
@@ -58,3 +59,18 @@ def send_email(request):
     message = render_to_string('email.html', {'email': email, 'animal': animal, 'now': datetime.now()})
     send_mail( subject, message, email, [animal.responsible_person.email,], fail_silently=False, html_message=message)
     return HttpResponseRedirect('/')
+
+
+class LatestAnimalsFeed(Feed):
+    title = 'Anishare animal feed'
+    link = '/animals/feed'
+    description = 'Updates on animals to share.'
+
+    def items(self):
+        return Animal.objects.order_by('-entry_date')[:10]
+
+    def item_title(self, item):
+        return item
+
+    def item_description(self, item):
+        return item.description()
