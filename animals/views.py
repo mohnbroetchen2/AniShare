@@ -54,7 +54,7 @@ def send_email(request):
     pk = request.POST['pk']
     animal = Animal.objects.get(pk=pk)
     animal.new_owner = email
-#    animal.save()
+    animal.save()
     subject = "User {} claimed animal {} in AniShare".format(email, pk)
     message = render_to_string('email.html', {'email': email, 'animal': animal, 'now': datetime.now()})
     send_mail( subject, message, email, [animal.responsible_person.email,], fail_silently=False, html_message=message)
