@@ -23,15 +23,14 @@ EMAIL_HOST = ''
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = ''
 ALLOWED_HOSTS = [ ]
-STATIC_URL = '/static/'
+STATIC_URL = ''
+DEBUG = False # SECURITY WARNING: don't run with debug turned on in production!
 
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
 
 # Application definition
@@ -180,5 +179,6 @@ MIN_SHARE_DURATION_PUPS = 7
 try:
     from .local_settings import *
 except ImportError:
+    print("Could not import local_settings!")
     pass
 
