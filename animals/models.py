@@ -37,7 +37,7 @@ class Animal(models.Model):
     licence_number = models.CharField(max_length=200)
     responsible_person = models.ForeignKey(Person, on_delete=models.CASCADE, default=0)
     available_from = models.DateField(default=datetime.now)
-    available_to = models.DateField(default=datetime.today() + timedelta(days=14))
+    available_to = models.DateField(default=datetime.today() + timedelta(days=15))
     comment = models.TextField(blank=True, null=True)
     new_owner = models.CharField(max_length=200, blank=True) # turn into foreignkey to auth_users?
 

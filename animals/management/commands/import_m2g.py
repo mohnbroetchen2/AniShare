@@ -52,6 +52,7 @@ class Command(BaseCommand):
                 a.available_from = xldate_as_datetime(xl_sheet.cell(row_idx, 19).value, xl.datemode)
                 a.available_to = xldate_as_datetime(xl_sheet.cell(row_idx, 20).value, xl.datemode)
                 a.new_owner = str(xl_sheet.cell(row_idx, 21).value).strip()
+                a.animal_type = 'mouse'
 
                 a.mutations =  mutation_1 + ' ' + grade_1 + '\n' + \
                             mutation_2 + ' ' + grade_2 + '\n' + \
