@@ -2,7 +2,7 @@ from django.views import generic
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.template.loader import render_to_string
 from datetime import datetime
 from django.contrib.syndication.views import Feed
@@ -57,7 +57,12 @@ def send_email(request):
     animal.save()
     subject = "User {} claimed animal {} in AniShare".format(email, pk)
     message = render_to_string('email.html', {'email': email, 'animal': animal, 'now': datetime.now()})
-    send_mail( subject, message, email, [animal.responsible_person.email, email], fail_silently=False, html_message=message)
+
+    msg = EmailMessage(subject, message, email, [animal.responsible_person.email, email])
+    msg.content_subtype = "html"
+    msg.send()
+#    send_mail( subject, message, email, [animal.responsible_person.email, email], fail_silently=False, html_message=message)
+
     return HttpResponseRedirect('/')
 
 
