@@ -32,6 +32,11 @@ class PersonAdmin(admin.ModelAdmin):
     list_display = ('name', 'email','responsible_for_lab')
     search_fields=('name','email','responsible_for_lab__name')
 
+def clear_claim(modeladmin, request, queryset):
+    queryset.update(new_owner = '')
+    clear_claim.short_description = "Clear 'new_owner' from selected animals"
+
+
 @admin.register(Animal)
 class AnimalAdmin(admin.ModelAdmin):
     list_display = ( 'amount', 'entry_date', 'day_of_birth', 'age', 'available_from', 'available_to', 'line', 'sex', 'location', 'new_owner')
@@ -42,6 +47,7 @@ class AnimalAdmin(admin.ModelAdmin):
     radio_fields = {'sex':admin.HORIZONTAL}
     readonly_fields = ('creation_date','modification_date')
     form = AnimalForm
+    actions = [clear_claim,]
 
 @admin.register(Lab)
 class LabAdmin(admin.ModelAdmin):
