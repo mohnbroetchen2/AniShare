@@ -1,12 +1,13 @@
-from django.views import generic
-from django.shortcuts import get_object_or_404, render
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-from django.core.mail import send_mail, EmailMessage
-from django.template.loader import render_to_string
 from datetime import datetime
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.syndication.views import Feed
+from django.core.mail import send_mail, EmailMessage
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.template.loader import render_to_string
 from django.urls import reverse
+from django.views import generic
 
 from .models import Animal
 
@@ -61,6 +62,7 @@ def send_email(request):
     msg = EmailMessage(subject, message, email, [animal.responsible_person.email, email])
     msg.content_subtype = "html"
     msg.send()
+    messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(animal.responsible_person.email))
 #    send_mail( subject, message, email, [animal.responsible_person.email, email], fail_silently=False, html_message=message)
 
     return HttpResponseRedirect('/')
