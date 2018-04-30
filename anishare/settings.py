@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import ldap
+from django_auth_ldap.config import LDAPSearch
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -60,16 +62,13 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-import ldap
-from django_auth_ldap.config import LDAPSearch
 
 AUTH_LDAP_CONNECTION_OPTIONS = { ldap.OPT_REFERRALS: 0 }
-AUTH_LDAP_SERVER_URI = "ldap://nevada-dc01.flinet.fli-leibniz.de" #'ldap://192.168.160.20'
+AUTH_LDAP_SERVER_URI = ""
 AUTH_LDAP_USER_SEARCH = LDAPSearch(
-    "DC=FLINET,DC=fli-leibniz,DC=de",
+    "",
     ldap.SCOPE_SUBTREE,
     "(sAMAccountName=%(user)s)")
-#AUTH_LDAP_USER_DN_TEMPLATE = "flinet\%(user)s"
 AUTH_LDAP_BIND_AS_AUTHENTICATING_USER = True
 AUTH_LDAP_USER_ATTR_MAP = {
     "email": "mail",
