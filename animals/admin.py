@@ -12,7 +12,7 @@ admin.site.index_title = 'Welcome to AniShare'
 class AnimalForm(forms.ModelForm):
     class Meta:
         model = Animal
-        fields = ( 'amount', 'available_from', 'available_to', 'day_of_birth', 'sex', 'entry_date', 'external_id', 'external_lab_id', 'line', 'location', 'mutations', 'responsible_person','new_owner', )
+        fields = ( 'amount', 'animal_type', 'entry_date', 'day_of_birth', 'available_from', 'available_to', 'sex', 'external_id', 'external_lab_id', 'line', 'location', 'mutations', 'responsible_person','new_owner', )
 
     def clean(self):
         available_from = self.cleaned_data.get('available_from')

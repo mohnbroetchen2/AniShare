@@ -20,9 +20,11 @@ class Person(models.Model):
 class Animal(models.Model):
     amount = models.PositiveIntegerField(default=1, help_text="How many animals? (eg. fish in tank)")
     animal_type = models.CharField(max_length=100, choices = (
-        ('mouse', 'mus musculus'),
         ('fish','fish'),
-        ('u','unknown')),
+        ('fly','fly'),
+        ('mouse', 'mouse'),
+        ('unknown','unknown'),
+        ('worm','worm')),
         default='mouse')
     external_id = models.CharField(max_length=200)
     external_lab_id = models.CharField(max_length=200)
