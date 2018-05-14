@@ -1,6 +1,6 @@
 from django.urls import reverse
 from django.db import models
-from datetime import datetime, timedelta
+from datetime import datetime #, timedelta
 
 class Lab(models.Model):
     name = models.CharField(max_length=200)
@@ -17,6 +17,11 @@ class Person(models.Model):
     def __str__(self):
         return self.name + ' (' + str(self.responsible_for_lab) + ')'
 
+class Location(models.Model):
+    name = models.CharField(max_length=200)
+    def __str__(self):
+        return self.name
+
 class Animal(models.Model):
     amount = models.PositiveIntegerField(default=1, help_text="How many animals? (eg. fish in tank)")
     animal_type = models.CharField(max_length=100, choices = (
@@ -28,13 +33,17 @@ class Animal(models.Model):
         default='mouse')
     organ_type = models.CharField(max_length=100, choices = (
         ('bladder', 'bladder'),
+        ('bone marrow', 'bone marrow'),
         ('brain', 'brain'),
+        ('genitals','genitals'),
         ('heart','heart'),
+        ('intestine','intestine'),
         ('kidney', 'kidney'),
         ('liver','liver'),
-        ('lung', 'lung'),
-        ('other','other'),
+        ('lungs', 'lungs'),
         ('spleen', 'spleen'),
+        ('stomach', 'stomach'),
+        ('other','other'),
         ('whole animal','whole animal'),
         ),
         default='whole animal')
@@ -46,7 +55,8 @@ class Animal(models.Model):
     day_of_birth = models.DateField()
     line = models.CharField(max_length=200)
     sex = models.CharField(max_length=2, choices = (('m','male'),('f','female'), ('u','unknown')), help_text='Select "unknown" if multiple animals.')
-    location = models.CharField(max_length=200, help_text='Where is the animal housed?')
+#    location = models.CharField(max_length=200, help_text='Where is the animal housed?')
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, help_text='Where is the animal housed?')
     mutations = models.TextField(blank=True,null=True)
     licence_number = models.CharField(max_length=200)
     responsible_person = models.ForeignKey(Person, on_delete=models.CASCADE, default=0, help_text='Person who is responsible in the lab for dealing with the animals')

@@ -1,0 +1,28 @@
+- model: animals.location
+  pk: 0
+  fields:
+    name: No
+- model: animals.location
+  pk: 1
+  fields:
+    name: Tierhaus4
+- model: animals.location
+  pk: 2
+  fields:
+    name: Neubau
+- model: animals.location
+  pk: 3
+  fields:
+    name: Mauscontainer
+- model: animals.location
+  pk: 4
+  fields:
+    name: Untergeschoss
+- model: animals.location
+  pk: 5
+  fields:
+    name: BIZ
+- model: animals.location
+  pk: 6
+  fields:
+    name: Zucht

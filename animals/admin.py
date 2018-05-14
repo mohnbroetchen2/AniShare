@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import Animal, Person, Lab
+from .models import Animal, Person, Lab, Location
 from datetime import datetime, timedelta
 
 from django.conf import settings
@@ -31,6 +31,11 @@ class AnimalForm(forms.ModelForm):
 class PersonAdmin(admin.ModelAdmin):
     list_display = ('name', 'email','responsible_for_lab')
     search_fields=('name','email','responsible_for_lab__name')
+
+@admin.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields=('name',)
 
 def clear_claim(modeladmin, request, queryset):
     queryset.update(new_owner = '')
