@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.db.models import Q
-from animals.models import Animal, Person
+from animals.models import Animal, Person, Location
 #import datetime
 import xlrd
 from xlrd import xldate_as_datetime
@@ -46,22 +46,41 @@ class Command(BaseCommand):
                 mutation_4 = str(xl_sheet.cell(row_idx, 13).value).strip()
                 grade_4 = str(xl_sheet.cell(row_idx, 14).value).strip()
                 a.sex = str(xl_sheet.cell(row_idx, 15).value).strip().lower() or 'u'
-                a.location = str(xl_sheet.cell(row_idx, 16).value).strip()
                 a.licence_number = str(xl_sheet.cell(row_idx, 17).value).strip()
                 responsible_person = str(xl_sheet.cell(row_idx, 18).value).strip().strip()
                 a.available_from = xldate_as_datetime(xl_sheet.cell(row_idx, 19).value, xl.datemode)
                 a.available_to = xldate_as_datetime(xl_sheet.cell(row_idx, 20).value, xl.datemode)
                 a.new_owner = str(xl_sheet.cell(row_idx, 21).value).strip()
                 a.animal_type = 'mouse'
+#                a.organ_type = 'whole animal'
 
                 a.mutations =  mutation_1 + ' ' + grade_1 + '\n' + \
                             mutation_2 + ' ' + grade_2 + '\n' + \
                             mutation_3 + ' ' + grade_3 + '\n' + \
                             mutation_4 + ' ' + grade_4 + '\n'
 
+                location_name = str(xl_sheet.cell(row_idx, 16).value).strip()
+                try:
+                    a.location = Location.objects.get(name=location_name)
+                except Location.DoesNotExist:
+                    loc = Location(name=location_name)
+                    loc.save()
+                    a.location = loc
+
                 a.responsible_person = Person.objects.get(Q(email=responsible_person.lower()) | Q(name__iexact=responsible_person.lower()))
-                a.save()
-                lines_count += 1
+                try:
+                    Animal.objects.get(entry_date=a.entry_date,
+                                       day_of_birth=a.day_of_birth,
+                                       available_from=a.available_from,
+                                       available_to=a.available_to,
+                                       line=a.line,
+                                       external_id=a.external_id,
+                                       external_lab_id=a.external_lab_id,
+                                       location=a.location,
+                                       sex=a.sex)
+                except Animal.DoesNotExist:
+                    a.save()
+                    lines_count += 1
             print()
 
         self.stdout.write(self.style.SUCCESS('Successfully imported %i lines.' % lines_count))
