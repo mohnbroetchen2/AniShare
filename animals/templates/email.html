@@ -7,19 +7,26 @@
 
 <div>On {{ now }}, <b>{{ email }}</b> claimed {{ animal.amount }} {{ animal.animal_type }} with id <b>{{ animal.external_id }}</b> (AniShare-ID: {{ animal.pk }}).
 
-Further information:<ul>
-    <li>external_id:  {{animal.external_id }}</li>
-    <li>external_lab_id:  {{animal.external_lab_id }}</li>
-    <li>day_of_birth:  {{animal.day_of_birth}} </li>
-    <li>line:  {{animal.line }}</li>
-    <li>sex:  {{animal.sex }}</li>
-    <li>location:  {{animal.location }}</li>
-    <li>mutations:  {{animal.mutations}} </li>
-      <li>licence_number:  {{animal.licence_number}} </li>
-      <li>comment:  {{animal.comment}}</li>
-      </ul>
+</br>
+Further information:
+<dl>
+  <dt>external_id:</dt><dd> {{animal.external_id }}</dd>
+    <dt>external_lab_id:</dt><dd>{{animal.external_lab_id }}</dd>
+    <dt>day_of_birth:</dt><dd>{{animal.day_of_birth}} </dd>
+    <dt>line:</dt><dd>{{animal.line }}</dd>
+    <dt>sex:</dt><dd>{{animal.get_sex_display }}</dd>
+    <dt>organ:</dt><dd>{{animal.organ_type}}</dd>
+    <dt>location:</dt><dd>{{animal.location }}</dd>
+    <dt>mutations:</dt><dd>{{animal.mutations}} </dd>
+    <dt>licence_number:</dt><dd>{{animal.licence_number}} </dd>
+    <dt>comment:</dt><dd>{{animal.comment}}</dd>
+</dl>
 </div>
 
+
+Best,
+
+your <a href="http://anishare.leibniz-fli.de">anishare</a> admin.
 
 </body>
 </html>
