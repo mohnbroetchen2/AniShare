@@ -26,22 +26,35 @@ class Animal(models.Model):
         ('unknown','unknown'),
         ('worm','worm')),
         default='mouse')
+    organ_type = models.CharField(max_length=100, choices = (
+        ('bladder', 'bladder'),
+        ('brain', 'brain'),
+        ('heart','heart'),
+        ('kidney', 'kidney'),
+        ('liver','liver'),
+        ('lung', 'lung'),
+        ('other','other'),
+        ('spleen', 'spleen'),
+        ('whole animal','whole animal'),
+        ),
+        default='whole animal')
     external_id = models.CharField(max_length=200)
     external_lab_id = models.CharField(max_length=200)
     creation_date = models.DateTimeField(null=False, auto_now_add=True)
     modification_date = models.DateTimeField(null=False, auto_now=True)
-    entry_date = models.DateField(null=False, default=datetime.now)
+    entry_date = models.DateField(null=False)
     day_of_birth = models.DateField()
     line = models.CharField(max_length=200)
-    sex = models.CharField(max_length=2, choices = (('m','male'),('f','female'), ('u','unknown')))
-    location = models.CharField(max_length=200)
+    sex = models.CharField(max_length=2, choices = (('m','male'),('f','female'), ('u','unknown')), help_text='Select "unknown" if multiple animals.')
+    location = models.CharField(max_length=200, help_text='Where is the animal housed?')
     mutations = models.TextField(blank=True,null=True)
     licence_number = models.CharField(max_length=200)
-    responsible_person = models.ForeignKey(Person, on_delete=models.CASCADE, default=0)
-    available_from = models.DateField(default=datetime.now)
-    available_to = models.DateField(default=datetime.today() + timedelta(days=15))
-    comment = models.TextField(blank=True, null=True)
-    new_owner = models.CharField(max_length=200, blank=True) # turn into foreignkey to auth_users?
+    responsible_person = models.ForeignKey(Person, on_delete=models.CASCADE, default=0, help_text='Person who is responsible in the lab for dealing with the animals')
+    available_from = models.DateField()
+    available_to = models.DateField() # default=datetime.today() + timedelta(days=15))
+    comment = models.TextField(blank=True, null=True, help_text='Comments, such as individual organs to be offered')
+    new_owner = models.CharField(max_length=200, blank=True, help_text='Person claiming this animal for themselves') # turn into foreignkey to auth_users?
+#    TODO: if organ, then no 14 minimum sharing time
 
     def age(self):
         return int((self.entry_date - self.day_of_birth).days / 7)
