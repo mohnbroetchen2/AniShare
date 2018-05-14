@@ -2,12 +2,15 @@ from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.syndication.views import Feed
+from django.db.models import Q
 from django.core.mail import send_mail, EmailMessage
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views import generic
+import operator
+from functools import reduce
 
 from .models import Animal
 
@@ -38,16 +41,30 @@ class AnimalIndexView(LoginRequiredMixin,generic.ListView):
     paginate_by = 100
     def get_queryset(self):
         """Return the latest additions to the Animals table"""
-        try:
-            show = self.kwargs['show']
-        except KeyError:
-            show = 'current'
-        if show == 'archive':
-            return Animal.objects.filter(available_to__lte=datetime.now().date()).order_by('-entry_date')
-        elif show == 'current':
-            return Animal.objects.filter(available_to__gte=datetime.now().date()).order_by('-entry_date')
+        result = super(AnimalIndexView, self).get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            query_list = query.split()
+            result = result.filter(
+                reduce(operator.and_, (Q(comment__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(mutations__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(external_id__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(external_lab_id__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(location__name__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(licence_number__icontains=q) for q in query_list))
+            )
+            return result
         else:
-            return Animal.objects.order_by('-entry_date')
+            try:
+                show = self.kwargs['show']
+            except KeyError:
+                show = 'current'
+            if show == 'archive':
+                return Animal.objects.filter(available_to__lte=datetime.now().date()).order_by('-entry_date')
+            elif show == 'current':
+                return Animal.objects.filter(available_to__gte=datetime.now().date()).order_by('-entry_date')
+            else:
+                return Animal.objects.order_by('-entry_date')
 
 
 def send_email(request):

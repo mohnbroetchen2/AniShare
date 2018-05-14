@@ -64,7 +64,8 @@ db.sqlite3
 db.sqlite3.*
 animals/lab.yaml
 animals/person.yaml
-
+animals/animals.yaml
+animals/auth.yaml
 
 anishare/local_settings.py
 static_collected
