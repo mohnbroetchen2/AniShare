@@ -18,13 +18,15 @@ class AnimalForm(forms.ModelForm):
         available_from = self.cleaned_data.get('available_from')
         available_to = self.cleaned_data.get('available_to')
         day_of_birth = self.cleaned_data.get('day_of_birth')
+        organ_type = self.cleaned_data.get('organ_type')
         if available_from > available_to:
             raise forms.ValidationError("Dates are incorrect")
-        if day_of_birth and ((datetime.now().date() -  day_of_birth) <= timedelta(days=settings.MIN_SHARE_DURATION_PUPS)):
-            if available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION_PUPS):
-                raise forms.ValidationError("Minimum share duration for pups must be {} days!".format(settings.MIN_SHARE_DURATION_PUPS ))
-        elif available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION):
-            raise forms.ValidationError("Minimum share duration must be {} days!".format(settings.MIN_SHARE_DURATION ))
+        if organ_type == 'whole animal':
+            if day_of_birth and ((datetime.now().date() -  day_of_birth) <= timedelta(days=settings.MIN_SHARE_DURATION_PUPS)):
+                if available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION_PUPS):
+                    raise forms.ValidationError("Minimum share duration for pups must be {} days!".format(settings.MIN_SHARE_DURATION_PUPS ))
+            elif available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION):
+                raise forms.ValidationError("Minimum share duration must be {} days!".format(settings.MIN_SHARE_DURATION ))
         return self.cleaned_data
 
 @admin.register(Person)
