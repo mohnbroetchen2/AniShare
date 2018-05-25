@@ -58,9 +58,9 @@ do you really want to claim the following animal for yourself?<br/>
 <form action="/animals/send_email" method="post"> {% csrf_token %}
 By clicking on the button, an email will be sent from 
   <input name="email" type='text' style="width:220px;" value={{request.user.email}} readonly="readonly">
-to <b>{{object.responsible_person}}</b>, informing them that you take responsibility for animal 
+to <b>{{object.responsible_person}}</b>, informing that you take responsibility for animal 
 <input name="pk" type="text" style="width:50px;" value="{{object.id}}" readonly="readonly">.
-They will make the necessary adjustments in the database. This will incur <b>costs</b> for you!
+They will make the necessary adjustments in the database. 
   <input type="submit" name='claim' value="Claim this animal!">
 </form>
 
