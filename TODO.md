@@ -6,10 +6,10 @@
 - [X] only resp. person to add animals
 - [X] responsible person should be in alphabetical order
 - [  ] log who offered the animal
-- [  ] use logged in resp person for resp person? foreignkey to users?
+- [maybe] use logged in resp person for resp person? foreignkey to users?
 - [  ] send email to resp person when animal created
 - [X] show resp person in admin list
-- [  ] show resp person in normal list
+- [X] show resp person in normal list
 - [  ] show who created the animal in normal list
 - [X] field license missing in admin
 - [  ] search for age/ date_of_birth [not possible in admin]
@@ -20,4 +20,4 @@
 - [  ] create separate table for organs -> create new table (or mix both?) id, species, sex, DOB, DOD, age at DOD, line, organ type to be taken, mutations, location, method of killing, killing person
 - [  ] no claim for organs! Or leave the claim even after claimed so other users can claim other organs
 - [  ] type = species
-- [maybe  ] separate table for fish (6 weeks); no species/type needed???
+- [maybe] separate table for fish (6 weeks); no species/type needed???

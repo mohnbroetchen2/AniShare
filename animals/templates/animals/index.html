@@ -12,16 +12,15 @@
                   <th class="header"> # <i class="icon-sort"></i></th>
                   <th class="header"> Type <i class="icon-sort"></i></th>
                   <th class="header"> Sex<i class="icon-sort"></i></th>
-                  <th class="header"> Entry Date<i class="icon-sort"></i></th>
                   <th class="header"> Date of Birth <i class="icon-sort"></i></th>
                   <th class="header"> Age (w) <i class="icon-sort"></i></th>
-                  <th class="header"> Available From <i class="icon-sort"></i></th>
-                  <th class="header"> Available To <i class="icon-sort"></i></th>
+                  <th class="header"> Available From/To <i class="icon-sort"></i></th>
                   <th class="header"> Line <i class="icon-sort"></i></th>
                   <th class="header"> Organ Type <i class="icon-sort"></i></th>
                   <th class="header"> Mutations <i class="icon-sort"></i></th>
                   <th class="header"> Location <i class="icon-sort"></i></th>
                   <th class="header"> License# <i class="icon-sort"></i></th>
+                  <th class="header"> Resp. Person<i class="icon-sort"></i></th>
                   <th class="header"> New Owner <i class="icon-sort"></i></th>
                 </tr>
             </thead>
@@ -39,16 +38,16 @@
                             <i class="fas fa-question"></i>
                             {% endif %}
                         </td>
-                        <td>{{a.entry_date}}</td>
                         <td>{{a.day_of_birth}}</td>
                         <td>{{a.age}}</td>
-                        <td>{{a.available_from}}</td>
-                        <td>{{a.available_to}}</td>
+                        <td>{{a.available_from}}<br/>
+                            {{a.available_to}}</td>
                         <td>{{a.line}}</td>
                         <td>{{a.organ_type}}</td>
                         <td>{{a.mutations}}</td>
                         <td>{{a.location}}</td>
                         <td>{{a.licence_number}}</td>
+                        <td>{{a.responsible_person}}</td>
                         <td>
                             {% if a.new_owner %}
                                 {{a.new_owner}}
