@@ -8,13 +8,13 @@
 - [  ] log who offered the animal
 - [  ] use logged in resp person for resp person? foreignkey to users?
 - [  ] send email to resp person when animal created
-- [  ] show resp person in admin list
+- [X] show resp person in admin list
 - [  ] show resp person in normal list
 - [  ] show who created the animal in normal list
-- [  ] field license missing in admin
-- [  ] search for age/ date_of_birth
+- [X] field license missing in admin
+- [  ] search for age/ date_of_birth [not possible in admin]
 - [  ] add filtering/ sorting for normal table
-- [  ] add license to admin filter
+- [X] add license to admin filter
 - [  ] admin write (age(w))
 - [  ] how to take individual animals from a batch of several (fish)? When claiming, add field (how many) and create a new animal entry with the rest
 - [  ] create separate table for organs -> create new table (or mix both?) id, species, sex, DOB, DOD, age at DOD, line, organ type to be taken, mutations, location, method of killing, killing person

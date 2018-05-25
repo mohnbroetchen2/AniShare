@@ -12,7 +12,7 @@ admin.site.index_title = 'Welcome to AniShare'
 class AnimalForm(forms.ModelForm):
     class Meta:
         model = Animal
-        fields = ( 'amount', 'animal_type', 'organ_type', 'entry_date', 'day_of_birth', 'available_from', 'available_to', 'sex', 'external_id', 'external_lab_id', 'line', 'location', 'responsible_person', 'mutations', 'comment', 'new_owner', )
+        fields = ( 'amount', 'animal_type', 'organ_type', 'entry_date', 'day_of_birth', 'available_from', 'available_to', 'sex', 'external_id', 'external_lab_id', 'line', 'location', 'responsible_person', 'licence_number', 'mutations', 'comment', 'new_owner', )
 
     def clean(self):
         available_from = self.cleaned_data.get('available_from')
@@ -46,11 +46,11 @@ def clear_claim(modeladmin, request, queryset):
 
 @admin.register(Animal)
 class AnimalAdmin(admin.ModelAdmin):
-    list_display = ( 'amount', 'entry_date', 'day_of_birth', 'age', 'available_from', 'available_to', 'line', 'sex', 'location', 'new_owner')
-    list_display_links = ( 'amount', 'entry_date', 'day_of_birth', 'age', 'available_from', 'available_to', 'line', 'sex', 'location', 'new_owner')
-    search_fields = ( 'amount', 'entry_date', 'external_id', 'external_lab_id', 'day_of_birth', 'line', 'sex', 'location', 'responsible_person__name', 'new_owner', 'mutations', 'available_from', 'available_to')
+    list_display = ( 'amount', 'entry_date', 'day_of_birth', 'age', 'available_from', 'available_to', 'line', 'sex', 'location', 'licence_number', 'responsible_person', 'new_owner')
+    list_display_links = ( 'amount', 'entry_date', 'day_of_birth', 'age', 'available_from', 'available_to', 'line', 'sex', 'location', 'licence_number', 'responsible_person', 'new_owner')
+    search_fields = ( 'amount', 'entry_date', 'external_id', 'external_lab_id', 'day_of_birth', 'line', 'sex', 'location__name', 'new_owner', 'licence_number', 'mutations', 'available_from', 'available_to', 'responsible_person__name', 'responsible_person__email')
     autocomplete_fields = ['responsible_person']
-    list_filter = ('sex', 'responsible_person__responsible_for_lab', 'location')
+    list_filter = ('sex', 'responsible_person__responsible_for_lab', 'location', 'licence_number')
     radio_fields = {'sex':admin.HORIZONTAL}
     readonly_fields = ('creation_date','modification_date')
     form = AnimalForm
