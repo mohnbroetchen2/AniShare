@@ -1,10 +1,10 @@
 - [X] show email address in claim field
-- [  ] intermediate page "are you sure you want to claim this animal"?
-- [  ] take back own claim
+- [N] intermediate page "are you sure you want to claim this animal"?
+- [ ] take back own claim
 - [X] minimum: 1w pups, 2w adults
 - [X] login required
 - [X] only resp. person to add animals
-- [  ] responsible person should be in alphabetical order
+- [X] responsible person should be in alphabetical order
 - [  ] log who offered the animal
 - [  ] use logged in resp person for resp person? foreignkey to users?
 - [  ] send email to resp person when animal created

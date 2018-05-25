@@ -33,6 +33,7 @@ class AnimalForm(forms.ModelForm):
 class PersonAdmin(admin.ModelAdmin):
     list_display = ('name', 'email','responsible_for_lab')
     search_fields=('name','email','responsible_for_lab__name')
+    ordering = ('name', )
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
