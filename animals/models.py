@@ -67,7 +67,12 @@ class Animal(models.Model):
 #    TODO: if organ, then no 14 minimum sharing time
 
     def age(self):
-        return int((self.entry_date - self.day_of_birth).days / 7)
+#        return int((self.entry_date - self.day_of_birth).days / 7)
+        now = datetime.today().date()
+        if now < self.available_to:
+            return int((now - self.day_of_birth).days / 7)
+        else:
+            return int((self.available_to - self.day_of_birth).days / 7)
 
     def available(self):
         today = datetime.now().date()
