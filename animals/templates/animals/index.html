@@ -1,11 +1,30 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extrascripts %}
+
+  <script src="{% static '/js/jquery-2.0.3.min.js' %}"></script>
+  <script src="{% static '/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static '/js/dataTables.bootstrap4.min.js' %}"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+  
+  <script>
+    $(document).ready(function() {
+      $('#datatable').DataTable({
+      "searching": false,
+      "paging": false,
+      });
+    } );
+  </script>
+  
+{% endblock %}
 
 {% block content %}
 {% if all_animals %}
 <h1 class="text-center"> AniShare </h1>
 	<div class="col-lg-12">
         <div class="table-responsive">
-            <table class="table table-bordered table-hover table-striped tablesorter">
+            <table id="datatable" class="table table-bordered table-hover table-striped tablesorter">
                 <thead>
                 <tr>
                   <th class="header"> ID <i class="icon-sort"></i></th>

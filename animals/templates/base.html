@@ -18,6 +18,8 @@
         .pagination a:hover:not(.active) {background-color: #ddd;}
     </style>
 
+    {% block extrascripts %} 
+    {% endblock %}
     <title>{% block title %} AniShare {% endblock %}</title>
 </head>
 
@@ -76,7 +78,6 @@
         
 <!-- Latest compiled and minified JavaScript 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="{% static '/js/jquery-2.0.3.min.js' %}"></script>
 -->
 <script src="{% static '/js/bootstrap.min.js' %}"></script>
 <script src="{% static '/js/fontawesome-all.min.js' %}"></script>
