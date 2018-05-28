@@ -1,23 +1,22 @@
 - [X] show email address in claim field
 - [N] intermediate page "are you sure you want to claim this animal"?
-- [ ] take back own claim
+- [N] take back own claim
 - [X] minimum: 1w pups, 2w adults
 - [X] login required
 - [X] only resp. person to add animals
 - [X] responsible person should be in alphabetical order
-- [  ] log who offered the animal
 - [maybe] use logged in resp person for resp person? foreignkey to users?
+- [  ] log who offered the animal
 - [  ] send email to resp person when animal created
+- [  ] show who created the animal in normal list
 - [X] show resp person in admin list
 - [X] show resp person in normal list
-- [  ] show who created the animal in normal list
 - [X] field license missing in admin
-- [  ] search for age/ date_of_birth [not possible in admin]
+- [maybe] search for age/ date_of_birth [not possible in admin]
 - [X] add filtering/ sorting for normal table
 - [X] add license to admin filter
-- [  ] admin write (age(w))
+- [X] admin write (age(w) instead of just age)
 - [  ] how to take individual animals from a batch of several (fish)? When claiming, add field (how many) and create a new animal entry with the rest
 - [  ] create separate table for organs -> create new table (or mix both?) id, species, sex, DOB, DOD, age at DOD, line, organ type to be taken, mutations, location, method of killing, killing person
 - [  ] no claim for organs! Or leave the claim even after claimed so other users can claim other organs
-- [  ] type = species
 - [maybe] separate table for fish (6 weeks); no species/type needed???

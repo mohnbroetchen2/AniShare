@@ -56,6 +56,9 @@ class AnimalAdmin(admin.ModelAdmin):
     readonly_fields = ('creation_date','modification_date')
     form = AnimalForm
     actions = [clear_claim,]
+    def age(self, obj):
+        return obj.age()
+    age.short_description = 'Age (w)'
 
 @admin.register(Lab)
 class LabAdmin(admin.ModelAdmin):
