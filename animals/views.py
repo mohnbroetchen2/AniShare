@@ -83,18 +83,18 @@ def send_email(request):
     animal.amount = count
     animal.save()
     messages.add_message(request, messages.SUCCESS, 'The entry {} has been claimed by {}.'.format(animal.pk, animal.new_owner))
-    if amount_difference > 0:  # Save remainder of animals as new object
-        animal.pk = None
-        animal.amount = amount_difference
-        animal.new_owner = ''
-        animal.save()
-        messages.add_message(request, messages.SUCCESS, 'The amount of available animals in this entry has been reduced to {}.'.format(animal.amount))
     subject = "User {} claimed animal {} in AniShare".format(email, pk)
     message = render_to_string('email.html', {'email': email, 'animal': animal, 'now': datetime.now()})
 
     msg = EmailMessage(subject, message, email, [animal.responsible_person.email, email])
     msg.content_subtype = "html"
     msg.send()
+    if amount_difference > 0:  # Save remainder of animals as new object
+        animal.pk = None
+        animal.amount = amount_difference
+        animal.new_owner = ''
+        animal.save()
+        messages.add_message(request, messages.SUCCESS, 'The amount of available animals in this entry has been reduced to {}.'.format(animal.amount))
     messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(animal.responsible_person.email))
 
     return HttpResponseRedirect('/')
