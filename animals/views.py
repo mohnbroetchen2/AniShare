@@ -54,6 +54,7 @@ class AnimalIndexView(LoginRequiredMixin,generic.ListView):
                 reduce(operator.and_, (Q(external_lab_id__icontains=q) for q in query_list)) |
                 reduce(operator.and_, (Q(location__name__icontains=q) for q in query_list)) |
                 reduce(operator.and_, (Q(new_owner__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(responsible_person__name__icontains=q) for q in query_list)) |
                 reduce(operator.and_, (Q(licence_number__icontains=q) for q in query_list))
             )
             return result

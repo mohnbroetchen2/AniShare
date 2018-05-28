@@ -51,7 +51,7 @@ class AnimalAdmin(admin.ModelAdmin):
     list_display_links = ( 'amount', 'entry_date', 'day_of_birth', 'age', 'available_from', 'available_to', 'line', 'sex', 'location', 'licence_number', 'responsible_person', 'new_owner')
     search_fields = ( 'amount', 'entry_date', 'external_id', 'external_lab_id', 'day_of_birth', 'line', 'sex', 'location__name', 'new_owner', 'licence_number', 'mutations', 'available_from', 'available_to', 'responsible_person__name', 'responsible_person__email')
     autocomplete_fields = ['responsible_person']
-    list_filter = ('sex', 'responsible_person__responsible_for_lab', 'location', 'licence_number')
+    list_filter = ('amount', 'sex', 'responsible_person__responsible_for_lab', 'location', 'licence_number', 'new_owner')
     radio_fields = {'sex':admin.HORIZONTAL}
     readonly_fields = ('creation_date','modification_date')
     form = AnimalForm

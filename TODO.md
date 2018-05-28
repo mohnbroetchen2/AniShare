@@ -20,3 +20,5 @@
 - [  ] create separate table for organs -> create new table (or mix both?) id, species, sex, DOB, DOD, age at DOD, line, organ type to be taken, mutations, location, method of killing, killing person
 - [  ] no claim for organs! Or leave the claim even after claimed so other users can claim other organs
 - [maybe] separate table for fish (6 weeks); no species/type needed???
+- [  ] Use datatable pagination instead of Django pagination
+
