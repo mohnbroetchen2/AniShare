@@ -13,7 +13,7 @@
 - [  ] show who created the animal in normal list
 - [X] field license missing in admin
 - [  ] search for age/ date_of_birth [not possible in admin]
-- [  ] add filtering/ sorting for normal table
+- [X] add filtering/ sorting for normal table
 - [X] add license to admin filter
 - [  ] admin write (age(w))
 - [  ] how to take individual animals from a batch of several (fish)? When claiming, add field (how many) and create a new animal entry with the rest

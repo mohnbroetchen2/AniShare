@@ -69,3 +69,4 @@ animals/auth.yaml
 
 anishare/local_settings.py
 static_collected
+static/admin
