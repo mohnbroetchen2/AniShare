@@ -1,4 +1,5 @@
 from datetime import datetime
+from django import forms
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.syndication.views import Feed
@@ -76,6 +77,9 @@ def send_email(request):
     animal = Animal.objects.get(pk=pk)
     animal.new_owner = email
     amount_difference = int(animal.amount)-int(count)
+    if amount_difference < 0:  # Save remainder of animals as new object
+        messages.add_message(request, messages.ERROR, 'You cannot claim more animals then are available!')
+        raise forms.ValidationError("You cannot claim more animals then are available!")
     animal.amount = count
     animal.save()
     messages.add_message(request, messages.SUCCESS, 'The entry {} has been claimed by {}.'.format(animal.pk, animal.new_owner))

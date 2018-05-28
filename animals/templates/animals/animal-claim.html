@@ -57,14 +57,15 @@ do you really want to claim the following animal for yourself?<br/>
 
 <form action="/animals/send_email" method="post" style="margin:auto; text-align:center;"> {% csrf_token %}
   By clicking on the button, an email will be sent from <br/>
-  <input name="email" type='text' style="width:220px;" value={{request.user.email}} readonly="readonly"><br/>
-  to <b>{{object.responsible_person}}</b>, informing that you take responsibility for 
+  <input name="email" type='text' style="width:220px;" value={{request.user.email}} readonly="readonly"> to<br/>
+  <b>{{object.responsible_person.name}}</b> ({{object.responsible_person.email}}), <br/>
+  informing that you take responsibility for 
   <input name="count" type="text" style="width:30px;" value="{{object.amount}}"> 
   out of 
   <input name="max_count" type="text" style="width:25px;" value="{{object.amount}}" readonly="readonly"> animal{{object.amount|pluralize}}
   from entry <input name="pk" type="text" style="width:50px;" value="{{object.id}}" readonly="readonly">.<br/>
-They will make the necessary adjustments in the database. 
-  <input type="submit" name='claim' value="Yes, I want to claim this animal!">
+  They will make the necessary adjustments in the database. <br/>
+  <input type="submit" name='claim' value="Yes, I want to claim this!">
 </form>
 
 {% endblock %}
