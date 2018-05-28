@@ -16,7 +16,7 @@
 - [X] add filtering/ sorting for normal table
 - [X] add license to admin filter
 - [X] admin write (age(w) instead of just age)
-- [  ] how to take individual animals from a batch of several (fish)? When claiming, add field (how many) and create a new animal entry with the rest
+- [X] take individual animals from a batch of several (fish). When claiming, add field (how many) and create a new animal entry with the rest
 - [  ] create separate table for organs -> create new table (or mix both?) id, species, sex, DOB, DOD, age at DOD, line, organ type to be taken, mutations, location, method of killing, killing person
 - [  ] no claim for organs! Or leave the claim even after claimed so other users can claim other organs
 - [maybe] separate table for fish (6 weeks); no species/type needed???

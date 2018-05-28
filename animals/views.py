@@ -3,11 +3,11 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.syndication.views import Feed
 from django.db.models import Q
-from django.core.mail import send_mail, EmailMessage
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.core.mail import EmailMessage
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
-from django.urls import reverse
+#from django.urls import reverse
 from django.views import generic
 import operator
 from functools import reduce
@@ -72,9 +72,19 @@ class AnimalIndexView(LoginRequiredMixin,generic.ListView):
 def send_email(request):
     email = request.POST['email']
     pk = request.POST['pk']
+    count = request.POST['count']
     animal = Animal.objects.get(pk=pk)
     animal.new_owner = email
+    amount_difference = int(animal.amount)-int(count)
+    animal.amount = count
     animal.save()
+    messages.add_message(request, messages.SUCCESS, 'The entry {} has been claimed by {}.'.format(animal.pk, animal.new_owner))
+    if amount_difference > 0:  # Save remainder of animals as new object
+        animal.pk = None
+        animal.amount = amount_difference
+        animal.new_owner = ''
+        animal.save()
+        messages.add_message(request, messages.SUCCESS, 'The amount of available animals in this entry has been reduced to {}.'.format(animal.amount))
     subject = "User {} claimed animal {} in AniShare".format(email, pk)
     message = render_to_string('email.html', {'email': email, 'animal': animal, 'now': datetime.now()})
 
@@ -82,7 +92,6 @@ def send_email(request):
     msg.content_subtype = "html"
     msg.send()
     messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(animal.responsible_person.email))
-#    send_mail( subject, message, email, [animal.responsible_person.email, email], fail_silently=False, html_message=message)
 
     return HttpResponseRedirect('/')
 
