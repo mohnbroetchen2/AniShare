@@ -6,9 +6,9 @@
 - [X] only resp. person to add animals
 - [X] responsible person should be in alphabetical order
 - [maybe] use logged in resp person for resp person? foreignkey to users?
-- [  ] log who offered the animal
+- [X] log who offered the animal
 - [  ] send email to resp person when animal created
-- [  ] show who created the animal in normal list
+- [X] show who created the animal in normal list
 - [X] show resp person in admin list
 - [X] show resp person in normal list
 - [X] field license missing in admin

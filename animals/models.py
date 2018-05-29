@@ -1,6 +1,7 @@
 from django.urls import reverse
 from django.db import models
 from datetime import datetime #, timedelta
+from django.contrib.auth.models import User
 
 class Lab(models.Model):
     name = models.CharField(max_length=200)
@@ -64,7 +65,7 @@ class Animal(models.Model):
     available_to = models.DateField() # default=datetime.today() + timedelta(days=15))
     comment = models.TextField(blank=True, null=True, help_text='Comments, such as individual organs to be offered')
     new_owner = models.CharField(max_length=200, blank=True, help_text='Person claiming this animal for themselves') # turn into foreignkey to auth_users?
-#    TODO: if organ, then no 14 minimum sharing time
+    added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE)
 
     def age(self):
 #        return int((self.entry_date - self.day_of_birth).days / 7)
