@@ -80,7 +80,7 @@ class Animal(models.Model):
         return (self.available_from <= today) and (today <= self.available_to)
 
     def get_absolute_url(self):
-        return reverse('animals:animal-detail', kwargs={'pk': self.pk})
+        return reverse('animals:claim', kwargs={'pk': self.pk})
 
     def __str__(self):
         return "{} {} {}, {} id:{} [{}]".format(
