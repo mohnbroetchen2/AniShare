@@ -8,6 +8,8 @@ By sharing animals within the institute, less animals in total have to be sacrif
 ## Installation
 Install django and other dependancies (We recommend using a virtual environment for this):
 
+    virtualenv -p python3 .
+    source bin/activate
     pip install -r requirements.txt
 
 ##  First time setup
@@ -28,3 +30,8 @@ This will listen on ``http://localhost:8000``, so browse to the admin page
 ``http://localhost:8000/admin`` and you should see this after login:
 
 ![empty admin](doc/img/admin_empty.png "Empty Admin")
+
+
+After adding several animals, the main (index) view should look like this:
+![index view](doc/img/anishare_index_view.png "Index View")
+
