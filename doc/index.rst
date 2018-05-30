@@ -10,11 +10,20 @@ Welcome to anishare's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-Webservice to share animals to minimize animal usage
+Introduction
+------------
 
-This django app is meant to be used by research institutes that want to share research animals. 
+**anishare** is a webservice for research institutes to share animals with the goal to minimize animal usage.
+
+This django app is meant to be used by researchers who want to share research animals with their colleagues. 
+The basic idea is that animals are bred for experiments. However, often, not all parts of the animal are used or sometimes 
+an experiment gets cancelled for whatever reason.
 By sharing animals within the institute, less animals in total have to be sacrificed for research.
 
+Anishare is a simple database of animals offered for reuse and a easy way to claim an animal with automatic generation 
+of email messages as well as an RSS feed for updates.
+
+.. image:: img/anishare_index_view.png
 
 Installation
 ------------
@@ -50,28 +59,29 @@ This will listen on ``http://localhost:8000``, so browse to the admin page
 .. image:: img/admin_empty.png
 
 
+Click on ``Animals`` -> ``Add`` to add an animal.
+
+.. image:: img/admin_add_animal.png
+   :width: 50%
+
 After adding several animals, the main (index) view should look like this:
 
 .. image:: img/anishare_index_view.png
 
-Alternatively, you can also import a dummy set of data using the ``loaddata`` command::
+.. Note:: Alternatively, you can also import a dummy set of data using the ``loaddata`` command:
+
+::
 
    python manage.py loaddata initial_data.json
-
-.. .. literalinclude:: ../animals/admin.py
-..    :language: python
-..    :linenos:
-..   :lines: 15-28
-..   :emphasize-lines: 12,15-18
-
-
 
 
 API documentation
 ==================
 
+.. include::   modules/admin.rst
 .. include::   modules/models.rst
 .. include::   modules/views.rst
+.. include::   modules/urls.rst
 
 .. Indices and tables
 .. ==================
