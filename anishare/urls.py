@@ -24,6 +24,7 @@ import animals
 urlpatterns = [
     path('', animals.views.AnimalIndexView.as_view(), name='root'),
     path('animals/', include('animals.urls', namespace='animals-index')),
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
