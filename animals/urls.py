@@ -28,7 +28,7 @@ urlpatterns = [
     path('<int:pk>', views.AnimalDetailView.as_view(), name='animal-detail'),
     path('feed', views.LatestAnimalsFeed(), name='feed')
 
-#    path('add', views.AnimalCreateView.as_view(), name='animal-add'),
-#    path('<int:pk>/edit', views.AnimalUpdateView.as_view(), name='animal-update'),
-#    path('<int:pk>/delete', views.AnimalDeleteView.as_view(), name='animal-delete'),
+    #    path('add', views.AnimalCreateView.as_view(), name='animal-add'),
+    #    path('<int:pk>/edit', views.AnimalUpdateView.as_view(), name='animal-update'),
+    #    path('<int:pk>/delete', views.AnimalDeleteView.as_view(), name='animal-delete'),
 ]

@@ -1,18 +1,27 @@
+"""
+Admin module
+"""
+from datetime import datetime, timedelta
 from django.contrib import admin
 from django import forms
-from .models import Animal, Person, Lab, Location
-from datetime import datetime, timedelta
-
 from django.conf import settings
+from .models import Animal, Person, Lab, Location
+
 
 admin.site.site_header = 'AniShare admin interface'
 admin.site.site_title = 'AniShare'
 admin.site.index_title = 'Welcome to AniShare'
 
 class AnimalForm(forms.ModelForm):
+    """
+    Form for animal editing in admin
+    """
     class Meta:
         model = Animal
-        fields = ( 'amount', 'animal_type', 'organ_type', 'entry_date', 'day_of_birth', 'available_from', 'available_to', 'sex', 'external_id', 'external_lab_id', 'line', 'location', 'responsible_person', 'licence_number', 'mutations', 'comment', 'new_owner', )
+        fields = ('amount', 'animal_type', 'organ_type', 'day_of_birth',
+                  'available_from', 'available_to', 'sex', 'external_id',
+                  'external_lab_id', 'line', 'location', 'responsible_person',
+                  'licence_number', 'mutations', 'comment', 'new_owner', )
 
     def clean(self):
         available_from = self.cleaned_data.get('available_from')
@@ -23,41 +32,68 @@ class AnimalForm(forms.ModelForm):
         if available_from > available_to:
             raise forms.ValidationError("Dates are incorrect")
         if organ_type == 'whole animal':
-            if day_of_birth and ((datetime.now().date() -  day_of_birth) <= timedelta(days=settings.MIN_SHARE_DURATION_PUPS)):
+            if day_of_birth and (
+                    (datetime.now().date() -  day_of_birth) <=
+                    timedelta(days=settings.MIN_SHARE_DURATION_PUPS)):
                 if available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION_PUPS):
-                    raise forms.ValidationError("Minimum share duration for pups must be {} days!".format(settings.MIN_SHARE_DURATION_PUPS ))
+                    raise forms.ValidationError(
+                        "Minimum share duration for pups must be {} days!".format(
+                            settings.MIN_SHARE_DURATION_PUPS))
             elif available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION):
-                raise forms.ValidationError("Minimum share duration must be {} days!".format(settings.MIN_SHARE_DURATION ))
+                raise forms.ValidationError(
+                    "Minimum share duration must be {} days!".format(settings.MIN_SHARE_DURATION))
         return self.cleaned_data
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email','responsible_for_lab')
-    search_fields=('name','email','responsible_for_lab__name')
+    """
+    ModelAdmin for Person model
+    """
+    list_display = ('name', 'email', 'responsible_for_lab')
+    search_fields = ('name', 'email', 'responsible_for_lab__name')
     ordering = ('name', )
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
+    """
+    ModelAdmin for Location model
+    """
     list_display = ('name',)
-    search_fields=('name',)
+    search_fields = ('name',)
 
 def clear_claim(modeladmin, request, queryset):
-    queryset.update(new_owner = '')
+    """
+    Convenience Function to delete a claim from several selected animals
+    """
+    queryset.update(new_owner='')
     clear_claim.short_description = "Clear 'new_owner' from selected animals"
 
 
 @admin.register(Animal)
 class AnimalAdmin(admin.ModelAdmin):
-    list_display = ( 'amount', 'entry_date', 'day_of_birth', 'age', 'available_from', 'available_to', 'line', 'sex', 'location', 'licence_number', 'responsible_person', 'added_by', 'new_owner')
-    list_display_links = ( 'amount', 'entry_date', 'day_of_birth', 'age', 'available_from', 'available_to', 'line', 'sex', 'location', 'licence_number', 'responsible_person', 'added_by', 'new_owner')
-    search_fields = ( 'amount', 'entry_date', 'external_id', 'external_lab_id', 'day_of_birth', 'line', 'sex', 'location__name', 'new_owner', 'licence_number', 'mutations', 'available_from', 'available_to', 'responsible_person__name', 'responsible_person__email', 'added_by' )
+    """
+    ModelAdmin for Animal model
+    """
+    list_display = ('amount', 'entry_date', 'day_of_birth', 'age', 'available_from',
+                    'available_to', 'line', 'sex', 'location', 'licence_number',
+                    'responsible_person', 'added_by', 'new_owner')
+    list_display_links = ('amount', 'entry_date', 'day_of_birth', 'age',
+                          'available_from', 'available_to', 'line', 'sex',
+                          'location', 'licence_number', 'responsible_person',
+                          'added_by', 'new_owner')
+    search_fields = ('amount', 'external_id', 'external_lab_id', 'day_of_birth',
+                     'line', 'sex', 'location__name', 'new_owner', 'licence_number',
+                     'mutations', 'available_from', 'available_to', 'responsible_person__name',
+                     'responsible_person__email', 'added_by')
     autocomplete_fields = ['responsible_person']
-    list_filter = ('amount', 'sex', 'responsible_person__responsible_for_lab', 'location', 'licence_number', 'new_owner', 'added_by')
+    list_filter = ('amount', 'sex', 'responsible_person__responsible_for_lab',
+                   'location', 'licence_number', 'new_owner', 'added_by')
     radio_fields = {'sex':admin.HORIZONTAL}
-    readonly_fields = ('creation_date','modification_date')
+    readonly_fields = ('creation_date', 'modification_date')
     form = AnimalForm
     actions = [clear_claim,]
-    def age(self, obj):  # Show the age in the admin as 'Age (w)' instead of 'age'
+    def age(self, obj):
+        """Show the age in the admin as 'Age (w)' instead of 'age'"""
         return obj.age()
     age.short_description = 'Age (w)'
 #    def formfield_for_foreignkey(self, db_field, request, **kwargs):
@@ -72,5 +108,8 @@ class AnimalAdmin(admin.ModelAdmin):
 
 @admin.register(Lab)
 class LabAdmin(admin.ModelAdmin):
-    list_display = ('name','responsible_person')
-    search_fields=('name',)
+    """
+    ModelAdmin for Lab model
+    """
+    list_display = ('name', 'responsible_person')
+    search_fields = ('name',)
