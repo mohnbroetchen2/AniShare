@@ -66,7 +66,7 @@ Click on ``Animals`` -> ``Add`` to add an animal.
 
 After adding several animals, the main (index) view should look like this:
 
-.. image:: img/anishare_index_view.png
+.. image:: img/admin_after_loaddata.png
 
 .. Note:: Alternatively, you can also import a dummy set of data using the ``loaddata`` command:
 
