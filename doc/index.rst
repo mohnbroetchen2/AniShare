@@ -15,8 +15,9 @@ Introduction
 
 **anishare** is a webservice for research institutes to share animals with the goal to minimize animal usage.
 
+It has been developed by Holger Dinkel at the `Leibniz institute for aging research <http://leibniz-fli.de>`_ in Jena.
 This django app is meant to be used by researchers who want to share research animals with their colleagues. 
-The basic idea is that animals are bred for experiments. However, often, not all parts of the animal are used or sometimes 
+The basic idea is that animals are bred for experiments; however, often, not all parts of the animal are used or sometimes 
 an experiment gets cancelled for whatever reason.
 By sharing animals within the institute, less animals in total have to be sacrificed for research.
 
@@ -24,6 +25,8 @@ Anishare is a simple database of animals offered for reuse and a easy way to cla
 of email messages as well as an RSS feed for updates.
 
 .. image:: img/anishare_index_view.png
+
+At the moment, the software/database is geared towards handling of mice, however, it can be adjusted to handle any kind of research animal.
 
 Installation
 ------------
@@ -74,6 +77,14 @@ After adding several animals, the main (index) view should look like this:
 
    python manage.py loaddata initial_data.json
 
+
+Importing existing data
+^^^^^^^^^^^^^^^^^^^^^^^
+For import of existing data in tabular (excel) format, a management command is available at::
+   
+   python manage.py import_m2g
+
+.. Note:: See the file ``example_import.xls`` for an example...
 
 API documentation
 ==================
