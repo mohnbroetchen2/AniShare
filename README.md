@@ -13,11 +13,20 @@ Install django and other dependancies (We recommend using a virtual environment 
     pip install -r requirements.txt
 
 ##  First time setup
-Run migrations:
+
+First, in the folder ``anishare``, copy the file ``local_settings.py.template``
+to ``local_settings.py`` and fill it in. If you want to use LDAP, comment in
+the respective lines. Most importantly, you should configure the following lines:
+
+    EMAIL_HOST = ''
+    SECRET_KEY = ''
+    ALLOWED_HOSTS = ['127.0.0.1', ]
+
+Then, you can run migrations:
 
     python manage.py migrate
 
-This will create the sqlite database ``db.sqlite3``.
+This will create the sqlite database ``db.sqlite3`` containing all the models as defined in ``models.py``.
 Now create a superuser:
 
     python manage.py createsuperuser
