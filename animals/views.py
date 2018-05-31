@@ -1,5 +1,10 @@
 """
-Django Views
+Django Views contains all the
+It also contains an RSS Feed generator class to create an RSS feed from newly created animals
+
+**Important**:
+    When adding new functions, use the login_required decorator
+    When adding new classes, use the LoginRequiredMixin
 """
 import operator
 from functools import reduce
@@ -24,6 +29,11 @@ from .models import Animal
 def claim(request, primary_key):
     """
     View to claim an animal.
+
+    :param primary_key: the id/pk of the animal to retrieve
+
+    :returns: rendered page with the claim form
+              or 404 if animal not found
     """
     animal = get_object_or_404(Animal, pk=primary_key)
     return render(request, 'animals/animal-claim.html', {'object': animal})
@@ -31,6 +41,7 @@ def claim(request, primary_key):
 class AnimalDetailView(LoginRequiredMixin, generic.DetailView):
     """
     Detail view for an animal.
+    This is rarely used, rather use the claim page.
     """
     model = Animal
     template_name = 'animals/animal-detail.html'
@@ -38,6 +49,10 @@ class AnimalDetailView(LoginRequiredMixin, generic.DetailView):
 class AnimalIndexView(LoginRequiredMixin, generic.ListView):
     """
     Index / List view for all available animals.
+    Generic ListView using the LoginRequiredMixin
+
+    :param q: query / search term to filter the results
+    :param show: limit the results to 'current', 'archive', or all animals
     """
     model = Animal
     template_name = 'animals/index.html'
@@ -75,7 +90,12 @@ class AnimalIndexView(LoginRequiredMixin, generic.ListView):
 def send_email(request):
     """
     Function to send an email about an animal being claimed.
+
     Needs these variables in the POST request: email, pk, count
+
+    :param email: email address of the request user / new owner
+    :param pk: primary_key of the animal(s) to be claimed
+    :param count: how many animals are being claimed
     """
     email = request.POST['email']
     primary_key = request.POST['pk']
