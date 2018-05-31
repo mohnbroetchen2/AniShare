@@ -33,12 +33,11 @@ Installation
 
 Requirements
 ^^^^^^^^^^^^
-We use the latest version of django, which requires python3.
-Install django and other dependancies (We recommend using a virtual environment for this)::
+We use the latest version of `django <https://www.djangoproject.com>`_, which requires `python3 <https://www.python.org>`_.
+Install django and other dependancies (see file requirements.txt. We recommend using a virtual environment for this)::
 
     virtualenv -p python3 .
     source bin/activate
-    pip install -r requirements.txt
     pip install -r requirements.txt
 
 First time setup
