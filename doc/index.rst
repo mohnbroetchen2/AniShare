@@ -94,12 +94,22 @@ After adding several animals, the main (index) view should look like this:
 
    python manage.py loaddata initial_data.json
 
+RSS Feed
+^^^^^^^^
+
+An RSS feed containing the latest (10) animals is automatically generated and can be found at 
+`http://localhost:8000/animals/feed`
+
+.. image:: img/anishare_rss_feed.png
+   :width: 50%
+
 
 Importing existing data
 ^^^^^^^^^^^^^^^^^^^^^^^
 For import of existing data in tabular (excel) format, a management command is available at 
 :py:mod:`animals.models`.
 :py:mod:`animals.management.commands.import_animals` ::
+      ../animals/management/commands/import_animals.py
    
    python manage.py import_animals
 
