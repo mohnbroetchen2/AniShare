@@ -18,11 +18,11 @@ from django.views import generic
 
 from .models import Animal
 
-def claim(request, primary_key):
+def claim(request, pk):
     """
     View to claim an animal.
     """
-    animal = get_object_or_404(Animal, pk=primary_key)
+    animal = get_object_or_404(Animal, pk=pk)
     return render(request, 'animals/animal-claim.html', {'object': animal})
 
 class AnimalDetailView(LoginRequiredMixin, generic.DetailView):
