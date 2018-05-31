@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to anishare's documentation!
-====================================
+Welcome to the documentation of anishare !
+==========================================
 
 .. toctree::
    :maxdepth: 2
@@ -15,7 +15,7 @@ Introduction
 
 **anishare** is a webservice for research institutes to share animals with the goal to minimize animal usage.
 
-It has been developed by Holger Dinkel at the `Leibniz institute for aging research <http://leibniz-fli.de>`_ in Jena.
+It has been developed at the `Leibniz institute for aging research <http://leibniz-fli.de>`_ in Jena.
 This django app is meant to be used by researchers who want to share research animals with their colleagues. 
 The basic idea is that animals are bred for experiments; however, often, not all parts of the animal are used or sometimes 
 an experiment gets cancelled for whatever reason.
@@ -80,7 +80,9 @@ This will listen on ``http://localhost:8000``, so browse to the admin page
 Click on ``Animals`` -> ``Add`` to add an animal.
 
 .. image:: img/admin_add_animal.png
-   :width: 50%
+   :width: 40%
+
+All fields in bold **need** to be filled in, the others are optional.
 
 After adding several animals, the main (index) view should look like this:
 
@@ -95,11 +97,14 @@ After adding several animals, the main (index) view should look like this:
 
 Importing existing data
 ^^^^^^^^^^^^^^^^^^^^^^^
-For import of existing data in tabular (excel) format, a management command is available at::
+For import of existing data in tabular (excel) format, a management command is available at 
+:py:mod:`animals.models`.
+:py:mod:`animals.management.commands.import_animals` ::
    
    python manage.py import_animals
 
 .. Note:: See the file ``example_import.xls`` for an example...
+.. image:: img/import_excel_sheet.png
 
 Running Tests
 -------------
