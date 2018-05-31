@@ -86,6 +86,13 @@ For import of existing data in tabular (excel) format, a management command is a
 
 .. Note:: See the file ``example_import.xls`` for an example...
 
+Running Tests
+-------------
+Tests reside in ``animals/tests.py``.
+You can invoke the django tests like so::
+
+    python manage.py test
+
 API documentation
 ==================
 

@@ -1,15 +1,14 @@
 """
-Tests for Alerts
+Tests for Animals
 """
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from django.core.management import call_command
 
-class GetAllAlertsTest(TestCase):
+class GetAnimalsTest(TestCase):
     """
-    Test module to GET all Alerts via the API
+    Test module to GET Animals
     """
-    #fixtures = ['initial_data.json']
 
     def setUp(self):
         """ Creating some first """

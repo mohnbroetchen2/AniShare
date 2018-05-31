@@ -35,3 +35,8 @@ This will listen on ``http://localhost:8000``, so browse to the admin page
 After adding several animals, the main (index) view should look like this:
 ![index view](doc/img/anishare_index_view.png "Index View")
 
+##  Running Tests
+Tests reside in ``animals/tests.py``.
+You can invoke the django tests like so:
+
+    python manage.py test
