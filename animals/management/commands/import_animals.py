@@ -15,7 +15,8 @@ class Command(BaseCommand):
         lines_count = 0
         fname = options['filename'][0]
         xl = xlrd.open_workbook(fname) # Open the workbook
-        for sheet in (2,0):
+#        for sheet in (2,0):
+        for sheet in (0,):
             print('Sheet #' + str(sheet))
             xl_sheet = xl.sheet_by_index(sheet) # grab sheet
 

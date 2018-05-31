@@ -90,7 +90,7 @@ class Animal(models.Model):
                                help_text='Comments, such as individual organs to be offered')
     new_owner = models.CharField(max_length=200, blank=True,
                                  help_text='Person claiming this animal for themselves') # turn into foreignkey to auth_users?
-    added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE)
+    added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, default=1)
 
     def age(self):
         """
