@@ -47,6 +47,7 @@ release = '0.9'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
+    'sphinx.ext.intersphinx',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -168,3 +169,10 @@ texinfo_documents = [
 
 
 # -- Extension configuration -------------------------------------------------
+
+
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3.6', None),
+    'django': ('http://django.readthedocs.org/en/latest/', None),
+    'sphinx': ('http://sphinx.readthedocs.org/en/latest/', None),
+    }
