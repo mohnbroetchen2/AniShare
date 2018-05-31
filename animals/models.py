@@ -114,7 +114,7 @@ class Animal(models.Model):
         """
         Get absolute url for this model. Important to link from the admin.
         """
-        return reverse('animals:claim', kwargs={'pk': self.pk})
+        return reverse('animals:claim', kwargs={'primary_key': self.pk})
 
     def __str__(self):
         return "{} {} {}, {} id:{} [{}]".format(
