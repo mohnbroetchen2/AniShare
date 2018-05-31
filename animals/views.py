@@ -6,10 +6,12 @@ from functools import reduce
 from datetime import datetime
 from django import forms
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.syndication.views import Feed
 from django.db.models import Q
 from django.core.mail import EmailMessage
+from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
@@ -18,6 +20,7 @@ from django.views import generic
 
 from .models import Animal
 
+@login_required
 def claim(request, primary_key):
     """
     View to claim an animal.
@@ -112,6 +115,12 @@ class LatestAnimalsFeed(Feed):
     title = 'Anishare animal feed'
     link = '/animals/feed'
     description = 'Updates on animals to share.'
+
+    def __call__(self,request,*args,**kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
+        else:
+            return super().__call__(request,*args,**kwargs)
 
     def items(self):
         """
