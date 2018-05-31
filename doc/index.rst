@@ -82,7 +82,7 @@ Importing existing data
 ^^^^^^^^^^^^^^^^^^^^^^^
 For import of existing data in tabular (excel) format, a management command is available at::
    
-   python manage.py import_m2g
+   python manage.py import_animals
 
 .. Note:: See the file ``example_import.xls`` for an example...
 
