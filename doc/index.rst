@@ -13,27 +13,30 @@ Welcome to the documentation of anishare !
 Introduction
 ------------
 
-**anishare** is a webservice for research institutes to share animals with the goal to minimize animal usage.
+**anishare** is a webservice for research institutes to share animals with the goal to re-use
+animals and thus minimize total animal usage.
 
-It has been developed at the `Leibniz institute for aging research <http://leibniz-fli.de>`_ in Jena.
-This django app is meant to be used by researchers who want to share research animals with their colleagues. 
-The basic idea is that animals are bred for experiments; however, often, not all parts of the animal are used or sometimes 
-an experiment gets cancelled for whatever reason.
-By sharing animals within the institute, less animals in total have to be sacrificed for research.
+It has been developed at the `Leibniz institute for aging research <http://leibniz-fli.de>`_ in
+Jena. This django app is meant to be used by researchers who want to share research animals with
+their colleagues. The basic idea is that animals are bred for experiments; however, sometimes, not
+all parts of the animal are used or sometimes an experiment gets cancelled for whatever reason. By
+sharing animals within the institute, less animals in total have to be sacrificed for research.
 
-Anishare is a simple database of animals offered for reuse and a easy way to claim an animal with automatic generation 
-of email messages as well as an RSS feed for updates.
+Anishare is a simple database of animals offered for reuse and a easy way to claim an animal with
+automatic generation of email messages as well as an RSS feed for updates.
 
 .. image:: img/anishare_index_view.png
 
-At the moment, the software/database is geared towards handling of mice, however, it can be adjusted to handle any kind of research animal.
+At the moment, the software/database is geared towards handling of mice, however, it can be adjusted
+to handle any kind of research animal.
 
 Installation
 ------------
 
 Requirements
 ^^^^^^^^^^^^
-We use the latest version of `django <https://www.djangoproject.com>`_, which requires `python3 <https://www.python.org>`_.
+
+We use the latest version of `django <https://www.djangoproject.com>`_, which requires `python3 <https://www.python.org>`_. 
 Install django and other dependancies (see file requirements.txt. We recommend using a virtual environment for this)::
 
     virtualenv -p python3 .
@@ -57,11 +60,6 @@ Then, you can run migrations::
 
 .. note:: This will create the sqlite database ``db.sqlite3`` containing all the models 
           (eg. tables) as defined in :py:mod:`animals.models`.
-
-.. :py:class:`animals.models.Animal`
-
-.. .. currentmodule:: animals.views
-.. .. autofunction:: claim
 
 Now create a superuser::
 
@@ -94,22 +92,11 @@ After adding several animals, the main (index) view should look like this:
 
    python manage.py loaddata initial_data.json
 
-RSS Feed
-^^^^^^^^
-
-An RSS feed containing the latest (10) animals is automatically generated and can be found at 
-`http://localhost:8000/animals/feed`
-
-.. image:: img/anishare_rss_feed.png
-   :width: 50%
-
-
 Importing existing data
 ^^^^^^^^^^^^^^^^^^^^^^^
 For import of existing data in tabular (excel) format, a management command is available at 
 :py:mod:`animals.models`.
 :py:mod:`animals.management.commands.import_animals` ::
-      ../animals/management/commands/import_animals.py
    
    python manage.py import_animals
 
@@ -117,18 +104,94 @@ For import of existing data in tabular (excel) format, a management command is a
 .. image:: img/import_excel_sheet.png
 
 Running Tests
--------------
+^^^^^^^^^^^^^
 Tests reside in ``animals/tests.py``.
 You can invoke the django tests like so::
 
     python manage.py test
 
-.. automodule:: animals.tests
-    :members:
-
 .. literalinclude:: ../animals/tests.py
    :language: python
    :linenos:
+
+Using the software
+------------------
+
+The webservice is split in two parts: The **input** method is via the Django Admin interface (See link
+"Add Animal" top right) and is meant for *animal administrators* only. 
+The **claim** method is via the normal web interface and is meant for normal users (who need to be
+authenticated, though).
+
+In order to be able to add/edit animals, a user has to be in the group *responsible_person* and be a
+*staff* member in django admin.
+
+.. image:: img/admin_permissions_user.png
+   :width: 75%
+
+In order to promote a *user* to an *animal administrator*, an *administrator* has to set these
+values (*staff* and group *responsible_person*) in the admin interface in "Authentication and
+Authorization" -> "Users".
+
+Main admin tasks
+^^^^^^^^^^
+The admin interface allows to edit the following types of entries:
+
+.. image:: img/admin_overview.png
+   :width: 60%
+
+Animals
+   The main category, animals to share.
+   Here, several filters (such as "sex", "location", etc.) are available to search for any set of animals.
+.. image:: img/admin_animals.png
+.. Note:: in order to remove a claim (thus making the animal available again), either click on an animal 
+          and remove the email address from the field "new owner", or select one or multiple animals and 
+          select the "clear claim" *Action* and click "Go".
+.. Note:: Once created, an animal cannot be deleted, except by the administrator.
+Labs
+   are research labs/research groups and need to have at least one responsible/contact person each
+.. image:: img/admin_labs.png
+   :width: 60%
+Locations
+   are where animals are stored. Usually something like room numbers or "animal house" or "fish facility".
+.. image:: img/admin_locations.png
+   :width: 60%
+Persons
+   responsible for the animals. Could be a vet or similar.
+   Every animal needs to have a responsible person associated to them. This person then gets
+   emailled when the animal is being claimed.
+.. image:: img/admin_persons.png
+
+
+Main user interface
+^^^^^^^^^^^^^^^^^^^
+
+The main user-facing site is the list of animals to be shared. A user can browse this list, sort it
+via the headers or search for a term using the search bar.
+
+.. image:: img/anishare_index.png
+
+If a user is interested in an animal, they should click on the button "Claim" which will bring up
+another page (see below) in which they can review their claim before finally submitting. When they
+click on "Yes, I want to claim this!", then they will be entered as *new owner* of this animal and
+an email will be send to them as well as the responsible/contact person informing them about this
+transaction. Further steps might need to be necessary such as transferring the animal in the LIMS
+(eg. PyRat).
+
+.. Note:: If more than one animal is available, the user can adjust the number they want to claim.
+          The remaining animals will still be available for claim.
+
+.. image:: img/anishare_claim.png
+
+RSS Feed
+^^^^^^^^
+
+An RSS feed containing the latest ten animals is automatically generated and can be found at
+`http://localhost:8000/animals/feed`. Users can subscribe (Most email clients allow the subscription
+to RSS feeds) to this feed to stay up-to-date with the animal catalogue. By clicking on a link in
+the feed, they are directed to the claim page of the individual animal.
+
+.. image:: img/anishare_rss_feed.png
+   :width: 50%
 
 
 API documentation
