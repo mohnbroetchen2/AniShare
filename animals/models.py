@@ -69,18 +69,17 @@ class Animal(models.Model):
         ('whole animal', 'whole animal'),
         ),
                                   default='whole animal')
-    external_id = models.CharField(max_length=200)
-    external_lab_id = models.CharField(max_length=200)
+    external_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT")
+    external_lab_id = models.CharField(max_length=200, help_text="ID of lab in eg. PYRAT")
     creation_date = models.DateTimeField(null=False, auto_now_add=True)
     modification_date = models.DateTimeField(null=False, auto_now=True)
     entry_date = models.DateField(null=False, auto_now_add=True)
     day_of_birth = models.DateField()
-    line = models.CharField(max_length=200)
+    line = models.CharField(max_length=200, help_text="genetic trait of animal")
     sex = models.CharField(max_length=2, choices=(('m', 'male'), ('f', 'female'), ('u', 'unknown')),
                            help_text='Select "unknown" if multiple animals.')
-#    location = models.CharField(max_length=200, help_text='Where is the animal housed?')
     location = models.ForeignKey(Location, on_delete=models.CASCADE, help_text='Where is the animal housed?')
-    mutations = models.TextField(blank=True, null=True)
+    mutations = models.TextField(blank=True, null=True, help_text="Describe the mutations of this line in as much detail as possible")
     licence_number = models.CharField(max_length=200)
     responsible_person = models.ForeignKey(Person, on_delete=models.CASCADE, default=0,
                                            help_text='Person who is responsible in the lab for dealing with the animals')
