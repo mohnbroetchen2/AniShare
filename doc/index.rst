@@ -123,6 +123,13 @@ You can invoke the django tests like so::
 
     python manage.py test
 
+.. automodule:: animals.tests
+    :members:
+
+.. literalinclude:: ../animals/tests.py
+   :language: python
+   :linenos:
+
 
 API documentation
 ==================

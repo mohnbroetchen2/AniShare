@@ -1,5 +1,5 @@
 """
-Tests for Animals
+Tests for Anishare website
 """
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
@@ -7,11 +7,11 @@ from django.core.management import call_command
 
 class GetAnimalsTest(TestCase):
     """
-    Test module to GET Animals
+    Test module to GET Animal pages
     """
 
     def setUp(self):
-        """ Creating some first """
+        """ Creating a user first and loading fixtures"""
         call_command('loaddata', 'initial_data.json', verbosity=0)  # Load fixtures
         self.user = User.objects.create_user(pk=1, username='testuser', password='12345')
         self.client = Client()
