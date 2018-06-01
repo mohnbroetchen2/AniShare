@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 class Lab(models.Model):
     """
-    Lab are only defined by a name and are referenced by
+    Labs are only defined by a name and are referenced by
     Person(s) which are responsible (contact) person for this lab
     """
     name = models.CharField(max_length=200)

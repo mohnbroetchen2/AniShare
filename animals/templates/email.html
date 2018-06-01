@@ -5,7 +5,7 @@
 
 <div> Dear <b>{{ animal.responsible_person.name }}</b>, </div>
 
-<div>On {{ now }}, <b>{{ email }}</b> claimed {{ animal.amount }} {{ animal.animal_type }} with id <b>{{ animal.external_id }}</b> (AniShare-ID: {{ animal.pk }}).
+<div>On {{ now }}, <b>{{ email }}</b> claimed {{ animal.amount }} {{ animal.animal_type }}{{animal.amount|pluralize}} with id <b>{{ animal.external_id }}</b> (AniShare-ID: {{ animal.pk }}).
 
 </br>
 Further information:
