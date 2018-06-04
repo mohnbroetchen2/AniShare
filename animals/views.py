@@ -186,15 +186,15 @@ def send_email_organ(request):
 
     organ = Organ.objects.get(pk=primary_key)
     subject = "AniShare User {} claimed organ(s) {}".format(email, organs_wanted)
-    message = render_to_string('email.html', {'email': email, 'object': organ, 'now': datetime.now()})
+    message = render_to_string('email.html', {'email': email, 'organs_wanted':organs_wanted, 'object': organ, 'now': datetime.now()})
 
     msg = EmailMessage(subject, message, email, [organ.responsible_person.email, email])
     msg.content_subtype = "html"
-    print(msg)
+    print(msg.message())
 #    msg.send()
     messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(organ.responsible_person.email))
 
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/organs/')
 
 
 class LatestAnimalsFeed(Feed):

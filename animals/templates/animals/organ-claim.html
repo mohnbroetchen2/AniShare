@@ -4,7 +4,7 @@
 
 Dear <b>{{request.user.first_name}} {{request.user.last_name}}</b>,
 
-do you really want to claim an organ of the following animal for yourself?<br/>
+do you really want to claim an <b>organ</b> of the following animal for yourself?<br/>
 
             <table class="table table-bordered table-hover table-striped tablesorter">
                 <thead>
@@ -67,8 +67,8 @@ do you really want to claim an organ of the following animal for yourself?<br/>
   <input name="email" type='text' style="width:220px;" value={{request.user.email}} readonly="readonly"> to<br/>
   <b>{{object.killing_person}}</b> <br/>
   informing that you are interested in the following organs/parts <br/>
-  <input name="organs_wanted" type="text" style="width:300px;" > 
-  from entry <input name="pk" type="text" style="width:50px;" value="{{object.id}}" readonly="readonly">.<br/>
+  <input name="organs_wanted" type="text" placeholder="enter organs you want" style="width:300px;" > 
+  from the entry above<input name="pk" type="hidden" style="width:50px;" value="{{object.id}}" readonly="readonly">.<br/>
   They will get in touch with you.<br/>
   <input type="submit" name='claim' value="Yes, I want to claim this!">
 </form>

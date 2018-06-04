@@ -5,14 +5,19 @@
 
 <div> Dear <b>{{ object.responsible_person.name }}</b>, </div>
 
-<div>On {{ now }}, <b>{{ email }}</b> claimed {{ object.amount }} {{ object.animal_type }}{{object.amount|pluralize}} with id <b>{{ object.database_id }}</b> (AniShare-ID: {{ object.pk }}).
-
-</br>
+<div>On {{ now }}, <b>{{ email }}</b> claimed 
+    {% if object.day_of_death %} the following organ(s):"{{ organs_wanted }}" from {% endif %} {{ object.amount }} {{ object.animal_type }} with id <b>{{ object.database_id }}</b> 
+    (AniShare-ID: {{ object.pk }}). </br>
 Further information:
 <dl>
   <dt>database_id:</dt><dd> {{object.database_id }}</dd>
     <dt>lab_id:</dt><dd>{{object.lab_id }}</dd>
     <dt>day_of_birth:</dt><dd>{{object.day_of_birth}} </dd>
+    {% if object.day_of_death %}
+    <dt>day_of_death:</dt><dd>{{object.day_of_death}} </dd>
+    <dt>killing method:</dt><dd>{{object.method_of_killing}} </dd>
+    <dt>killing person:</dt><dd>{{object.killing_person}} </dd>
+    {% endif %}
     <dt>line:</dt><dd>{{object.line }}</dd>
     <dt>sex:</dt><dd>{{object.get_sex_display }}</dd>
     <dt>location:</dt><dd>{{object.location }}</dd>
