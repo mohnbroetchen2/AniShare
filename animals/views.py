@@ -190,8 +190,7 @@ def send_email_organ(request):
 
     msg = EmailMessage(subject, message, email, [organ.responsible_person.email, email])
     msg.content_subtype = "html"
-    print(msg.message())
-#    msg.send()
+    msg.send()
     messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(organ.responsible_person.email))
 
     return HttpResponseRedirect('/organs/')
