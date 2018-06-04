@@ -1,5 +1,5 @@
 """
-Django Views contains all the
+Django Views contains all the functions for rendering objects (HTML display).
 It also contains an RSS Feed generator class to create an RSS feed from newly created animals
 
 **Important**:

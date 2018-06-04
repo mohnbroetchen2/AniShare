@@ -133,7 +133,7 @@ values (*staff* and group *responsible_person*) in the admin interface in "Authe
 Authorization" -> "Users".
 
 Main admin tasks
-^^^^^^^^^^
+^^^^^^^^^^^^^^^^
 The admin interface allows to edit the following types of entries:
 
 .. image:: img/admin_overview.png
@@ -158,7 +158,7 @@ Locations
 Persons
    responsible for the animals. Could be a vet or similar.
    Every animal needs to have a responsible person associated to them. This person then gets
-   emailled when the animal is being claimed.
+   an email when the animal is being claimed.
 .. image:: img/admin_persons.png
 
 

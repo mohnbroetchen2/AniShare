@@ -24,7 +24,7 @@ class Lab(models.Model):
 class Person(models.Model):
     """
     The responsible (contact) person for each lab.
-    This person gets emailled when an animal is being claimed.
+    This person gets an email when an animal is being claimed.
     """
     name = models.CharField(max_length=200)
     email = models.EmailField()
