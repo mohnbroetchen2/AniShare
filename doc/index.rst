@@ -197,6 +197,40 @@ and group *animal manager*):
 .. image:: img/admin_permissions_user.png
    :width: 75%
 
+Upgrading django
+"""""""""""""""
+To upgrade django or any other python library for anishare, go into the anishare directory, and
+activate its virtualenv::
+
+   cd anishare
+   source bin/activate
+
+Next, install/upgrade whatever library (here: django to the latest version)::
+
+   pip install --upgrade django
+
+.. Note:: It's best to test the latest version in a local/development environment first!
+
+Upgrading python
+""""""""""""""""
+When upgrading the python version of the host operating system, it might be necessary to also
+upgrade the python in the virtualenv. Otherwise an error like the following might occur:
+
+   ``python: error while loading shared libraries: libpython3.4m.so.1.0: cannot open shared object file: No such file or directory``
+
+In that case, go into the anishare directory, and delete the following directories:
+
+- bin
+- include
+- lib
+- lib64
+
+Afterwards, create a new virtualenv and install the required libraries like so::
+
+    virtualenv -p python3 .
+    source bin/activate
+    pip install -r requirements.txt
+
 
 Main user interface
 ^^^^^^^^^^^^^^^^^^^
@@ -219,7 +253,7 @@ transaction. Further steps might need to be necessary such as transferring the a
 .. image:: img/anishare_claim.png
 
 RSS Feed
-^^^^^^^^
+""""""""
 
 An RSS feed containing the latest ten animals is automatically generated and can be found at
 `/animals/feed`. Users can subscribe (Most email clients allow the subscription
