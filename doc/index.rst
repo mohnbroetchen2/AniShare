@@ -170,10 +170,13 @@ the feed, they are directed to the claim page of the individual animal/organ.
 
 Main animal manager tasks
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-An *animal manager* can add animals to the database.
+An *animal manager* can add animals and organs to the database.
 
 .. image:: img/admin_overview_manager.png
    :width: 60%
+
+Animals
+""""""
 
 Click on ``Animals`` -> ``Add`` to add an animal.
 
@@ -185,6 +188,17 @@ All fields in bold **need** to be filled in, the others are optional.
 After adding several animals, the main (index) view should look like this:
 
 .. image:: img/admin_after_loaddata.png
+
+Organs
+""""""
+
+Click on ``Organs`` -> ``Add`` to add an organ.
+
+.. image:: img/admin_add_organ.png
+   :width: 40%
+
+All fields in bold **need** to be filled in, the others are optional.
+
 
 Main admin tasks
 ^^^^^^^^^^^^^^^^
