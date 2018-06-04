@@ -81,7 +81,6 @@
   "fields": {
     "amount": 2,
     "animal_type": "mouse",
-    "organ_type": "whole animal",
     "external_id": "274628",
     "external_lab_id": "LAB648",
     "creation_date": "2018-05-29T11:46:40.606Z",
@@ -107,7 +106,6 @@
   "fields": {
     "amount": 1,
     "animal_type": "mouse",
-    "organ_type": "whole animal",
     "external_id": "159758",
     "external_lab_id": "LAB3584",
     "creation_date": "2018-05-29T11:48:04.436Z",
@@ -133,7 +131,6 @@
   "fields": {
     "amount": 10,
     "animal_type": "fish",
-    "organ_type": "whole animal",
     "external_id": "248962",
     "external_lab_id": "LAB648",
     "creation_date": "2018-05-30T10:26:08.098Z",
@@ -159,7 +156,6 @@
   "fields": {
     "amount": 2,
     "animal_type": "mouse",
-    "organ_type": "whole animal",
     "external_id": "695968",
     "external_lab_id": "LAB3584",
     "creation_date": "2018-05-30T10:28:06.566Z",
