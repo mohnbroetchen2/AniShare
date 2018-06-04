@@ -1,0 +1,80 @@
+[
+{
+  "model": "animals.organ",
+  "pk": 1,
+  "fields": {
+    "amount": 1,
+    "animal_type": "mouse",
+    "sex": "f",
+    "organ_type": "brain",
+    "day_of_birth": "2018-03-14",
+    "day_of_death": "2018-06-09",
+    "method_of_killing": "CO2",
+    "killing_person": "hannibal.lecter@nowhere.com",
+    "database_id": "321658",
+    "lab_id": "59135",
+    "entry_date": "2018-06-04",
+    "line": "no line",
+    "location": 3,
+    "licence_number": "007",
+    "responsible_person": 2,
+    "mutations": "",
+    "comment": "",
+    "creation_date": "2018-06-04T09:01:55.108Z",
+    "modification_date": "2018-06-04T10:14:12.375Z",
+    "added_by": 2
+  }
+},
+{
+  "model": "animals.organ",
+  "pk": 3,
+  "fields": {
+    "amount": 2,
+    "animal_type": "fish",
+    "sex": "unknown",
+    "organ_type": "brain",
+    "day_of_birth": "2018-02-10",
+    "day_of_death": "2018-06-09",
+    "method_of_killing": "CO2",
+    "killing_person": "hannibal.lecter@nowhere.com",
+    "database_id": "321659",
+    "lab_id": "59135",
+    "entry_date": "2018-06-04",
+    "line": "no line",
+    "location": 3,
+    "licence_number": "007",
+    "responsible_person": 2,
+    "mutations": "",
+    "comment": "",
+    "creation_date": "2018-06-04T09:01:55.108Z",
+    "modification_date": "2018-06-04T10:14:12.375Z",
+    "added_by": 2
+  }
+},
+{
+  "model": "animals.organ",
+  "pk": 2,
+  "fields": {
+    "amount": 1,
+    "animal_type": "mouse",
+    "sex": "m",
+    "organ_type": "spleen",
+    "day_of_birth": "2018-03-10",
+    "day_of_death": "2018-06-05",
+    "method_of_killing": "CO2",
+    "killing_person": "hannibal.lecter@nowhere.com",
+    "database_id": "322222",
+    "lab_id": "53335",
+    "entry_date": "2018-06-04",
+    "line": "no line",
+    "location": 3,
+    "licence_number": "007",
+    "responsible_person": 2,
+    "mutations": "none",
+    "comment": "no comment",
+    "creation_date": "2018-06-04T09:01:55.108Z",
+    "modification_date": "2018-06-04T10:14:12.375Z",
+    "added_by": 2
+  }
+}
+]
