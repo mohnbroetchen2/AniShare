@@ -124,7 +124,9 @@ class OrganIndexView(LoginRequiredMixin, generic.ListView):
                 reduce(operator.and_, (Q(line__icontains=q) for q in query_list)) |
                 reduce(operator.and_, (Q(lab_id__icontains=q) for q in query_list)) |
                 reduce(operator.and_, (Q(location__name__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(responsible_person__name__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(killing_person__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(animal_type__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(method_of_killing__icontains=q) for q in query_list)) |
                 reduce(operator.and_, (Q(licence_number__icontains=q) for q in query_list))
             )
             return result
