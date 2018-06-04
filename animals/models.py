@@ -51,22 +51,6 @@ class Animal(models.Model):
         ('mouse', 'mouse'),
                                   ),
                                    default='mouse')
-#    organ_type = models.CharField(max_length=100, choices=(
-#        ('bladder', 'bladder'),
-#        ('bone marrow', 'bone marrow'),
-#        ('brain', 'brain'),
-#        ('genitals', 'genitals'),
-#        ('heart', 'heart'),
-#        ('intestine', 'intestine'),
-#        ('kidney', 'kidney'),
-#        ('liver', 'liver'),
-#        ('lungs', 'lungs'),
-#        ('spleen', 'spleen'),
-#        ('stomach', 'stomach'),
-#        ('other', 'other'),
-#        ('whole animal', 'whole animal'),
-#        ),
-#                                  default='whole animal')
     database_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT")
     lab_id = models.CharField(max_length=200, help_text="ID of lab in eg. PYRAT")
     creation_date = models.DateTimeField(null=False, auto_now_add=True)
@@ -160,7 +144,11 @@ class Organ(models.Model):
     day_of_death = models.DateField()
     method_of_killing = models.CharField(max_length=100, choices=(
         ('CO2', 'CO2'),
-        ('mazeration', 'mazeration'),
+        ('cervicale dislocation', 'cervicale dislocation'),
+        ('decapitation', 'decapitation'),
+        ('blood withdrawl', 'blood withdrawl'),
+        ('finale heart punction', 'finale heart punction'),
+        ('overdose anaesthetics', 'overdose anaesthetic'),
         ('other', 'other'),
         ),)
     killing_person = models.EmailField(help_text='Email address of the person who is responsible for killing the animal')
