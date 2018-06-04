@@ -23,7 +23,7 @@
       {% if object.new_owner %}
           has been claimed by {{object.new_owner}}
       {% elif object.available %}
-          can be <a href="/claim">claimed!</a>
+      can be <a href="/animals/claim/{{object.pk}}">claimed!</a>
       {% else %}
           is no longer available
       {% endif %}
