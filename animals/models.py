@@ -49,7 +49,7 @@ class Animal(models.Model):
     animal_type = models.CharField(max_length=100, choices=(
         ('fish', 'fish'),
         ('mouse', 'mouse'),
-                                  ),
+    ),
                                    default='mouse')
     database_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT")
     lab_id = models.CharField(max_length=200, help_text="ID of lab in eg. PYRAT")
@@ -60,8 +60,10 @@ class Animal(models.Model):
     line = models.CharField(max_length=200, help_text="genetic trait of animal")
     sex = models.CharField(max_length=2, choices=(('m', 'male'), ('f', 'female'), ('u', 'unknown')),
                            help_text='Select "unknown" if multiple animals.')
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, help_text='Where is the animal housed?')
-    mutations = models.TextField(blank=True, null=True, help_text="Describe the mutations of this line in as much detail as possible")
+    location = models.ForeignKey(Location, on_delete=models.CASCADE,
+                                 help_text='Where is the animal housed?')
+    mutations = models.TextField(blank=True, null=True,
+                                 help_text="Describe the mutations of this line in as much detail as possible")
     licence_number = models.CharField(max_length=200)
     responsible_person = models.ForeignKey(Person, on_delete=models.CASCADE, default=0,
                                            help_text='Person who is responsible in the lab for dealing with the animals')
@@ -139,7 +141,7 @@ class Organ(models.Model):
         ('stomach', 'stomach'),
         ('other', 'other'),
         ),
-                                  )
+                                 )
     day_of_birth = models.DateField()
     day_of_death = models.DateField()
     method_of_killing = models.CharField(max_length=100, choices=(
@@ -180,7 +182,7 @@ class Organ(models.Model):
         Returns True if the animal is still available
         """
         today = datetime.now().date()
-        return (self.day_of_death >= today)
+        return self.day_of_death >= today
 
     def get_absolute_url(self):
         """

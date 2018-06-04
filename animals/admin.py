@@ -113,11 +113,11 @@ class OrganAdmin(admin.ModelAdmin):
                     'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
                     'sex', 'location', 'licence_number', 'responsible_person', 'added_by')
     list_display_links = ('amount', 'animal_type', 'organ_type', 'entry_date', 'day_of_birth',
-                    'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
-                    'sex', 'location', 'licence_number', 'responsible_person', 'added_by')
+                          'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
+                          'sex', 'location', 'licence_number', 'responsible_person', 'added_by')
     search_fields = ('amount', 'animal_type', 'organ_type', 'entry_date', 'day_of_birth',
-                    'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
-                    'sex', 'location', 'licence_number', 'responsible_person', 'added_by')
+                     'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
+                     'sex', 'location', 'licence_number', 'responsible_person', 'added_by')
     autocomplete_fields = ['responsible_person']
     list_filter = ('amount', 'sex', 'responsible_person__responsible_for_lab',
                    'location', 'licence_number', 'added_by')

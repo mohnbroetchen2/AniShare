@@ -190,6 +190,7 @@ def send_email_organ(request):
 
     msg = EmailMessage(subject, message, email, [organ.responsible_person.email, email])
     msg.content_subtype = "html"
+    print(msg)
 #    msg.send()
     messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(organ.responsible_person.email))
 
@@ -204,11 +205,10 @@ class LatestAnimalsFeed(Feed):
     link = '/animals/feed'
     description = 'Updates on animals to share.'
 
-    def __call__(self,request,*args,**kwargs):
+    def __call__(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return HttpResponse(status=401)
-        else:
-            return super().__call__(request,*args,**kwargs)
+        return super().__call__(request, *args, **kwargs)
 
     def items(self):
         """
