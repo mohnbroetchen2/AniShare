@@ -3,22 +3,22 @@
 <html>
 <body>
 
-<div> Dear <b>{{ animal.responsible_person.name }}</b>, </div>
+<div> Dear <b>{{ object.responsible_person.name }}</b>, </div>
 
-<div>On {{ now }}, <b>{{ email }}</b> claimed {{ animal.amount }} {{ animal.animal_type }}{{animal.amount|pluralize}} with id <b>{{ animal.database_id }}</b> (AniShare-ID: {{ animal.pk }}).
+<div>On {{ now }}, <b>{{ email }}</b> claimed {{ object.amount }} {{ object.animal_type }}{{object.amount|pluralize}} with id <b>{{ object.database_id }}</b> (AniShare-ID: {{ object.pk }}).
 
 </br>
 Further information:
 <dl>
-  <dt>database_id:</dt><dd> {{animal.database_id }}</dd>
-    <dt>lab_id:</dt><dd>{{animal.lab_id }}</dd>
-    <dt>day_of_birth:</dt><dd>{{animal.day_of_birth}} </dd>
-    <dt>line:</dt><dd>{{animal.line }}</dd>
-    <dt>sex:</dt><dd>{{animal.get_sex_display }}</dd>
-    <dt>location:</dt><dd>{{animal.location }}</dd>
-    <dt>mutations:</dt><dd>{{animal.mutations}} </dd>
-    <dt>licence_number:</dt><dd>{{animal.licence_number}} </dd>
-    <dt>comment:</dt><dd>{{animal.comment}}</dd>
+  <dt>database_id:</dt><dd> {{object.database_id }}</dd>
+    <dt>lab_id:</dt><dd>{{object.lab_id }}</dd>
+    <dt>day_of_birth:</dt><dd>{{object.day_of_birth}} </dd>
+    <dt>line:</dt><dd>{{object.line }}</dd>
+    <dt>sex:</dt><dd>{{object.get_sex_display }}</dd>
+    <dt>location:</dt><dd>{{object.location }}</dd>
+    <dt>mutations:</dt><dd>{{object.mutations}} </dd>
+    <dt>licence_number:</dt><dd>{{object.licence_number}} </dd>
+    <dt>comment:</dt><dd>{{object.comment}}</dd>
 </dl>
 </div>
 

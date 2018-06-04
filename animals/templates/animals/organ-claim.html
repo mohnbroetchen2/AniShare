@@ -12,6 +12,7 @@ do you really want to claim an organ of the following animal for yourself?<br/>
                   <th class="header"> ID <i class="icon-sort"></i></th>
                   <th class="header"> # <i class="icon-sort"></i></th>
                   <th class="header"> Type <i class="icon-sort"></i></th>
+                  <th class="header"> Organ <i class="icon-sort"></i></th>
                   <th class="header"> Sex<i class="icon-sort"></i></th>
                   <th class="header"> Date of Birth <i class="icon-sort"></i></th>
                   <th class="header"> Date of Death <i class="icon-sort"></i></th>
@@ -32,6 +33,7 @@ do you really want to claim an organ of the following animal for yourself?<br/>
                         <td>{{object.pk}}</td>
                         <td>{{object.amount}}</td>
                         <td>{{object.animal_type}}</td>
+                        <td>{{object.organ_type}}</td>
                         <td>{% if object.get_sex_display == 'female' %}
                             <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
                             {% elif object.get_sex_display == 'male' %}
@@ -60,7 +62,7 @@ do you really want to claim an organ of the following animal for yourself?<br/>
             </tbody>
             </table>
 
-<form action="/animals/send_email" method="post" style="margin:auto; text-align:center;"> {% csrf_token %}
+<form action="/animals/send_email_organ" method="post" style="margin:auto; text-align:center;"> {% csrf_token %}
   By clicking on the button, an email will be sent from <br/>
   <input name="email" type='text' style="width:220px;" value={{request.user.email}} readonly="readonly"> to<br/>
   <b>{{object.killing_person}}</b> <br/>

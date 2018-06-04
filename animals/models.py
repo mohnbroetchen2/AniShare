@@ -163,8 +163,8 @@ class Organ(models.Model):
     mutations = models.TextField(blank=True, null=True, help_text="Describe the mutations of this line in as much detail as possible")
     comment = models.TextField(blank=True, null=True,
                                help_text='Comments, such as individual organs to be offered')
-    new_owner = models.CharField(max_length=200, blank=True,
-                                 help_text='Person claiming this animal for themselves') # turn into foreignkey to auth_users?
+#    new_owner = models.CharField(max_length=200, blank=True,
+#                                 help_text='Person claiming this animal for themselves') # turn into foreignkey to auth_users?
     creation_date = models.DateTimeField(null=False, auto_now_add=True)
     modification_date = models.DateTimeField(null=False, auto_now=True)
     added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, default=1)

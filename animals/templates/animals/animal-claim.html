@@ -60,7 +60,7 @@ do you really want to claim the following animal for yourself?<br/>
             </tbody>
             </table>
 
-<form action="/animals/send_email" method="post" style="margin:auto; text-align:center;"> {% csrf_token %}
+<form action="/animals/send_email_animal" method="post" style="margin:auto; text-align:center;"> {% csrf_token %}
   By clicking on the button, an email will be sent from <br/>
   <input name="email" type='text' style="width:220px;" value={{request.user.email}} readonly="readonly"> to<br/>
   <b>{{object.responsible_person.name}}</b> ({{object.responsible_person.email}}), <br/>

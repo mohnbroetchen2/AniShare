@@ -124,15 +124,13 @@ class OrganIndexView(LoginRequiredMixin, generic.ListView):
                 reduce(operator.and_, (Q(line__icontains=q) for q in query_list)) |
                 reduce(operator.and_, (Q(lab_id__icontains=q) for q in query_list)) |
                 reduce(operator.and_, (Q(location__name__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(new_owner__icontains=q) for q in query_list)) |
                 reduce(operator.and_, (Q(responsible_person__name__icontains=q) for q in query_list)) |
                 reduce(operator.and_, (Q(licence_number__icontains=q) for q in query_list))
             )
             return result
         return Organ.objects.order_by('-entry_date')
 
-
-def send_email(request):
+def send_email_animal(request):
     """
     Function to send an email about an animal being claimed.
 
@@ -157,7 +155,7 @@ def send_email(request):
     messages.add_message(request, messages.SUCCESS,
                          'The entry {} has been claimed by {}.'.format(animal.pk, animal.new_owner))
     subject = "User {} claimed animal {} in AniShare".format(email, primary_key)
-    message = render_to_string('email.html', {'email': email, 'animal': animal, 'now': datetime.now()})
+    message = render_to_string('email.html', {'email': email, 'object': animal, 'now': datetime.now()})
 
     msg = EmailMessage(subject, message, email, [animal.responsible_person.email, email])
     msg.content_subtype = "html"
@@ -169,6 +167,31 @@ def send_email(request):
         animal.save()
         messages.add_message(request, messages.SUCCESS, 'The amount of available animals in this entry has been reduced to {}.'.format(animal.amount))
     messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(animal.responsible_person.email))
+
+    return HttpResponseRedirect('/')
+
+def send_email_organ(request):
+    """
+    Function to send an email about an animal being claimed.
+
+    Needs these variables in the POST request: email, pk, count
+
+    :param email: email address of the request user / new owner
+    :param pk: primary_key of the animal(s) to be claimed
+    :param organs_wanted: organs wanted from the given animal
+    """
+    email = request.POST['email']
+    primary_key = request.POST['pk']
+    organs_wanted = request.POST['organs_wanted']
+
+    organ = Organ.objects.get(pk=primary_key)
+    subject = "AniShare User {} claimed organ(s) {}".format(email, organs_wanted)
+    message = render_to_string('email.html', {'email': email, 'object': organ, 'now': datetime.now()})
+
+    msg = EmailMessage(subject, message, email, [organ.responsible_person.email, email])
+    msg.content_subtype = "html"
+#    msg.send()
+    messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(organ.responsible_person.email))
 
     return HttpResponseRedirect('/')
 
