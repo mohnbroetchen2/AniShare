@@ -171,7 +171,7 @@ class Organ(models.Model):
     modification_date = models.DateTimeField(null=False, auto_now=True)
     added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, default=1)
 
-    def age_at_death(self):
+    def age(self):
         """
         Return the age of the animal, at the time of death
         """

@@ -1,24 +1,24 @@
-- [X] show email address in claim field
-- [N] intermediate page "are you sure you want to claim this animal"?
-- [N] take back own claim
-- [X] minimum: 1w pups, 2w adults
-- [X] login required
-- [X] only resp. person to add animals
-- [X] responsible person should be in alphabetical order
-- [N] use logged in resp person for resp person? foreignkey to users?
-- [X] log who offered the animal
-- [  ] send email to resp person when animal created
-- [X] show who created the animal in normal list
-- [X] show resp person in admin list
-- [X] show resp person in normal list
-- [X] field license missing in admin
-- [maybe] search for age/ date_of_birth [not possible in admin]
 - [X] add filtering/ sorting for normal table
 - [X] add license to admin filter
 - [X] admin write (age(w) instead of just age)
+- [X] create separate table for organs -> create new table (or mix both?) id, species, sex, DOB, DOD, age at DOD, line, organ type to be taken, mutations, location, method of killing, killing person
+- [X] field license missing in admin
+- [X] log who offered the animal
+- [X] login required
+- [X] minimum: 1w pups, 2w adults
+- [X] no claim for organs! Or leave the claim even after claimed so other users can claim other organs
+- [X] only resp. person to add animals
+- [X] responsible person should be in alphabetical order
+- [X] show email address in claim field
+- [X] show resp person in admin list
+- [X] show resp person in normal list
+- [X] show who created the animal in normal list
 - [X] take individual animals from a batch of several (fish). When claiming, add field (how many) and create a new animal entry with the rest
-- [  ] create separate table for organs -> create new table (or mix both?) id, species, sex, DOB, DOD, age at DOD, line, organ type to be taken, mutations, location, method of killing, killing person
-- [  ] no claim for organs! Or leave the claim even after claimed so other users can claim other organs
+- [N] intermediate page "are you sure you want to claim this animal"?
+- [N] take back own claim
+- [N] use logged in resp person for resp person? foreignkey to users?
+- [?] send email to resp person when animal created
+- [maybe] Use datatable pagination instead of Django pagination
+- [maybe] better errormessage when animal_count > count
+- [maybe] search for age/ date_of_birth [not possible in admin]
 - [maybe] separate table for fish (6 weeks); no species/type needed???
-- [  ] Use datatable pagination instead of Django pagination
-

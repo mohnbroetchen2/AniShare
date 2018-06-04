@@ -128,7 +128,7 @@ class OrganAdmin(admin.ModelAdmin):
 
     def age(self, obj):
         """Show the age in the admin as 'Age (w)' instead of 'age'"""
-        return obj.age_at_death()
+        return obj.age()
     age.short_description = 'Age (w)'
 
     def save_model(self, request, obj, form, change):
