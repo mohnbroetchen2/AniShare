@@ -209,6 +209,6 @@ class Organ(models.Model):
         Return description of this model
         """
         return "id:{}, lab_id:{}, available:{}-{}, location:{}, mutations:{}".format(
-            self.external_id, self.external_lab_id, self.available_from,
+            self.database_id, self.lab_id, self.available_from,
             self.available_to, self.location, "".join(self.mutations))
 

@@ -80,9 +80,9 @@ class AnimalIndexView(LoginRequiredMixin, generic.ListView):
             result = result.filter(
                 reduce(operator.and_, (Q(comment__icontains=q) for q in query_list)) |
                 reduce(operator.and_, (Q(mutations__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(external_id__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(database_id__icontains=q) for q in query_list)) |
                 reduce(operator.and_, (Q(line__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(external_lab_id__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(lab_id__icontains=q) for q in query_list)) |
                 reduce(operator.and_, (Q(location__name__icontains=q) for q in query_list)) |
                 reduce(operator.and_, (Q(new_owner__icontains=q) for q in query_list)) |
                 reduce(operator.and_, (Q(responsible_person__name__icontains=q) for q in query_list)) |

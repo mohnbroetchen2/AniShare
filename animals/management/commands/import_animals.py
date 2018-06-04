@@ -33,8 +33,8 @@ class Command(BaseCommand):
 
 #                a.pk = int(xl_sheet.cell(row_idx, 0).value)
                 a.entry_date = xldate_as_datetime(xl_sheet.cell(row_idx, 1).value, xl.datemode)
-                a.external_id = str(xl_sheet.cell(row_idx, 2).value).strip()
-                a.external_lab_id = str(xl_sheet.cell(row_idx, 3).value).strip()
+                a.database_id = str(xl_sheet.cell(row_idx, 2).value).strip()
+                a.lab_id = str(xl_sheet.cell(row_idx, 3).value).strip()
                 a.day_of_birth = xldate_as_datetime(xl_sheet.cell(row_idx, 4).value, xl.datemode)
                 age = int(xl_sheet.cell(row_idx, 5).value)
                 a.line = str(xl_sheet.cell(row_idx, 6).value).strip()
@@ -75,8 +75,8 @@ class Command(BaseCommand):
                                        available_from=a.available_from,
                                        available_to=a.available_to,
                                        line=a.line,
-                                       external_id=a.external_id,
-                                       external_lab_id=a.external_lab_id,
+                                       database_id=a.database_id,
+                                       lab_id=a.lab_id,
                                        location=a.location,
                                        sex=a.sex)
                 except Animal.DoesNotExist:
