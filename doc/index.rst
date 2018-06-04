@@ -25,7 +25,7 @@ sharing animals within the institute, less animals in total have to be sacrifice
 Anishare is a simple database of animals offered for reuse and a easy way to claim an animal with
 automatic generation of email messages as well as an RSS feed for updates.
 
-.. image:: img/anishare_index_view.png
+.. image:: img/anishare_index.png
 
 At the moment, the software/database is geared towards handling of mice, however, it can be adjusted
 to handle any kind of research animal.
@@ -114,6 +114,58 @@ The webservice is split in two parts: The **animal input** method is via the Dja
 "Add Animal" top right) and is meant for *animal managers* only. 
 The **claim** method is via the normal web interface and is meant for normal users (who need to be
 authenticated, though).
+
+Main user interface
+^^^^^^^^^^^^^^^^^^^
+
+Animals
+"""""""
+
+The main user-facing site is the list of animals to be shared. A user can browse this list, sort it
+via the headers or search for a term using the search bar.
+
+.. image:: img/anishare_index.png
+
+If a user is interested in an animal, they should click on the button "Claim" which will bring up
+another page (see below) in which they can review their claim before finally submitting. When they
+click on "Yes, I want to claim this!", then they will be entered as *new owner* of this animal and
+an email will be send to them as well as the responsible/contact person informing them about this
+transaction. Further steps might need to be necessary such as transferring the animal in the LIMS
+(eg. PyRat).
+
+.. Note:: If more than one animal is available, the user can adjust the number they want to claim.
+          The remaining animals will still be available for claim.
+
+.. image:: img/anishare_claim.png
+
+Organs
+""""""
+
+There exists an individual page for animal organ share. It is very similar to the animal page,
+however only individual organs are for offer. Also there is no availability period, but a day at
+which the animal gets sacrificed. The person responsible for killing the animal will be informed via
+email if anybody claims some of the available organs. The entry will remain available to others (as
+they might want to claim other organs).
+
+Organ index view:
+
+.. image:: img/organs_index.png
+
+Organ claim view:
+
+.. image:: img/organs_claim.png
+
+
+RSS Feed
+""""""""
+
+An RSS feed containing the latest ten animals and organs is automatically generated and can be found at
+`/animals/feed`. Users can subscribe (Most email clients allow the subscription
+to RSS feeds) to this feed to stay up-to-date with the animal catalogue. By clicking on a link in
+the feed, they are directed to the claim page of the individual animal/organ.
+
+.. image:: img/anishare_rss_feed.png
+   :width: 50%
 
 
 Main animal manager tasks
@@ -230,38 +282,6 @@ Afterwards, create a new virtualenv and install the required libraries like so::
     virtualenv -p python3 .
     source bin/activate
     pip install -r requirements.txt
-
-
-Main user interface
-^^^^^^^^^^^^^^^^^^^
-
-The main user-facing site is the list of animals to be shared. A user can browse this list, sort it
-via the headers or search for a term using the search bar.
-
-.. image:: img/anishare_index.png
-
-If a user is interested in an animal, they should click on the button "Claim" which will bring up
-another page (see below) in which they can review their claim before finally submitting. When they
-click on "Yes, I want to claim this!", then they will be entered as *new owner* of this animal and
-an email will be send to them as well as the responsible/contact person informing them about this
-transaction. Further steps might need to be necessary such as transferring the animal in the LIMS
-(eg. PyRat).
-
-.. Note:: If more than one animal is available, the user can adjust the number they want to claim.
-          The remaining animals will still be available for claim.
-
-.. image:: img/anishare_claim.png
-
-RSS Feed
-""""""""
-
-An RSS feed containing the latest ten animals is automatically generated and can be found at
-`/animals/feed`. Users can subscribe (Most email clients allow the subscription
-to RSS feeds) to this feed to stay up-to-date with the animal catalogue. By clicking on a link in
-the feed, they are directed to the claim page of the individual animal.
-
-.. image:: img/anishare_rss_feed.png
-   :width: 50%
 
 
 API documentation
