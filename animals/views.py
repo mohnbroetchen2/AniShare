@@ -23,7 +23,7 @@ from django.template.loader import render_to_string
 #from django.urls import reverse
 from django.views import generic
 
-from .models import Animal
+from .models import Animal, Organ
 
 @login_required
 def claim(request, primary_key):
@@ -37,6 +37,19 @@ def claim(request, primary_key):
     """
     animal = get_object_or_404(Animal, pk=primary_key)
     return render(request, 'animals/animal-claim.html', {'object': animal})
+
+@login_required
+def claim_organ(request, primary_key):
+    """
+    View to claim an organ.
+
+    :param primary_key: the id/pk of the organ to retrieve
+
+    :returns: rendered page with the claim form
+              or 404 if organ not found
+    """
+    organ = get_object_or_404(Organ, pk=primary_key)
+    return render(request, 'animals/organ-claim.html', {'object': organ})
 
 class AnimalDetailView(LoginRequiredMixin, generic.DetailView):
     """
@@ -85,6 +98,38 @@ class AnimalIndexView(LoginRequiredMixin, generic.ListView):
         elif show == 'current':
             return Animal.objects.filter(available_to__gte=datetime.now().date()).order_by('-entry_date')
         return Animal.objects.order_by('-entry_date')
+
+class OrganIndexView(LoginRequiredMixin, generic.ListView):
+    """
+    Index / List view for all available Organs.
+    Generic ListView using the LoginRequiredMixin
+
+    :param q: query / search term to filter the results
+    :param show: limit the results to 'current', 'archive', or all Organs
+    """
+    model = Organ
+    template_name = 'animals/organs.html'
+    context_object_name = 'all_organs'
+    paginate_by = 100
+    def get_queryset(self):
+        """Return the latest additions to the Organs table"""
+        result = super(OrganIndexView, self).get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            query_list = query.split()
+            result = result.filter(
+                reduce(operator.and_, (Q(comment__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(mutations__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(database_id__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(line__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(lab_id__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(location__name__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(new_owner__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(responsible_person__name__icontains=q) for q in query_list)) |
+                reduce(operator.and_, (Q(licence_number__icontains=q) for q in query_list))
+            )
+            return result
+        return Organ.objects.order_by('-entry_date')
 
 
 def send_email(request):

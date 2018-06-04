@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+Dear <b>{{request.user.first_name}} {{request.user.last_name}}</b>,
+
+do you really want to claim an organ of the following animal for yourself?<br/>
+
+            <table class="table table-bordered table-hover table-striped tablesorter">
+                <thead>
+                <tr>
+                  <th class="header"> ID <i class="icon-sort"></i></th>
+                  <th class="header"> # <i class="icon-sort"></i></th>
+                  <th class="header"> Type <i class="icon-sort"></i></th>
+                  <th class="header"> Sex<i class="icon-sort"></i></th>
+                  <th class="header"> Date of Birth <i class="icon-sort"></i></th>
+                  <th class="header"> Date of Death <i class="icon-sort"></i></th>
+                  <th class="header"> Method of Killing <i class="icon-sort"></i></th>
+                  <th class="header"> Killing Person<i class="icon-sort"></i></th>
+                  <th class="header"> Age (w) <i class="icon-sort"></i></th>
+                  <th class="header"> Line <i class="icon-sort"></i></th>
+                  <th class="header"> Mutations <i class="icon-sort"></i></th>
+                  <th class="header"> Location <i class="icon-sort"></i></th>
+                  <th class="header"> License# <i class="icon-sort"></i></th>
+                  <th class="header"> ext. Info<i class="icon-sort"></i></th>
+                  <th class="header"> Added By <i class="icon-sort"></i></th>
+                  <th class="header"> Comments <i class="icon-sort"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td>{{object.pk}}</td>
+                        <td>{{object.amount}}</td>
+                        <td>{{object.animal_type}}</td>
+                        <td>{% if object.get_sex_display == 'female' %}
+                            <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
+                            {% elif object.get_sex_display == 'male' %}
+                            <i class="fas fa-mars" style="color:#77F; font-size:13pt;"></i>
+                            {% else %}
+                            <i class="fas fa-question"></i>
+                            {% endif %}
+                        </td>
+                        <td>{{object.day_of_birth}}</td>
+                        <td>{{object.day_of_death}}</td>
+                        <td>{{object.method_of_killing}}</td>
+                        <td>{{object.killing_person}}</td>
+                        <td>{{object.age_at_death}}</td>
+                        <td>{{object.line}}</td>
+                        <td>{{object.mutations}}</td>
+                        <td>{{object.location}}</td>
+                        <td>{{object.licence_number}}</td>
+                        <td>{{object.external_id}}<br/>
+                            {{object.external_lab_id}} </td>
+                        <td><a
+                            href="mailto:{{object.added_by.email}}">{{object.added_by.first_name}}
+                            {{object.added_by.last_name}}</a></td>
+                        <td>{{object.comments}}</td>
+                    </tr>
+            
+            </tbody>
+            </table>
+
+<form action="/animals/send_email" method="post" style="margin:auto; text-align:center;"> {% csrf_token %}
+  By clicking on the button, an email will be sent from <br/>
+  <input name="email" type='text' style="width:220px;" value={{request.user.email}} readonly="readonly"> to<br/>
+  <b>{{object.killing_person}}</b> <br/>
+  informing that you are interested in the following organs/parts <br/>
+  <input name="organs_wanted" type="text" style="width:300px;" > 
+  from entry <input name="pk" type="text" style="width:50px;" value="{{object.id}}" readonly="readonly">.<br/>
+  They will get in touch with you.<br/>
+  <input type="submit" name='claim' value="Yes, I want to claim this!">
+</form>
+
+{% endblock %}
+
+

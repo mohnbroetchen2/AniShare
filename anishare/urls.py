@@ -24,6 +24,8 @@ import animals
 urlpatterns = [
     path('', animals.views.AnimalIndexView.as_view(), name='root'),
     path('animals/', include('animals.urls', namespace='animals-index')),
+    path('organs/', animals.views.OrganIndexView.as_view(), name='organs'),
+    path('organs/claim/<int:primary_key>', animals.views.claim_organ, name='claim_organ'),
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),

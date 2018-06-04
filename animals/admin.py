@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from django.contrib import admin
 from django import forms
 from django.conf import settings
-from .models import Animal, Person, Lab, Location
+from .models import Animal, Person, Lab, Location, Organ
 
 
 admin.site.site_header = 'AniShare admin interface'
@@ -98,6 +98,42 @@ class AnimalAdmin(admin.ModelAdmin):
 #        if db_field.name == 'author':
 #            kwargs['queryset'] = get_user_model().objects.filter(username=request.user.username)
 #        return super(AnimalAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:
+            # Only set added_by during the first save.
+            obj.added_by = request.user
+        super().save_model(request, obj, form, change)
+
+@admin.register(Organ)
+class OrganAdmin(admin.ModelAdmin):
+    """
+    ModelAdmin for Organ model
+    """
+    list_display = ('amount', 'animal_type', 'organ_type', 'entry_date', 'day_of_birth',
+                    'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
+                    'sex', 'location', 'licence_number', 'responsible_person', 'added_by',
+                    'new_owner')
+    list_display_links = ('amount', 'animal_type', 'organ_type', 'entry_date', 'day_of_birth',
+                    'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
+                    'sex', 'location', 'licence_number', 'responsible_person', 'added_by',
+                    'new_owner')
+    search_fields = ('amount', 'animal_type', 'organ_type', 'entry_date', 'day_of_birth',
+                    'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
+                    'sex', 'location', 'licence_number', 'responsible_person', 'added_by',
+                    'new_owner')
+    autocomplete_fields = ['responsible_person']
+    list_filter = ('amount', 'sex', 'responsible_person__responsible_for_lab',
+                   'location', 'licence_number', 'new_owner', 'added_by')
+    radio_fields = {'sex':admin.HORIZONTAL}
+    readonly_fields = ('added_by', 'creation_date', 'modification_date')
+#    form = OrganForm
+    actions = [clear_claim,]
+
+    def age(self, obj):
+        """Show the age in the admin as 'Age (w)' instead of 'age'"""
+        return obj.age_at_death()
+    age.short_description = 'Age (w)'
+
     def save_model(self, request, obj, form, change):
         if not obj.pk:
             # Only set added_by during the first save.
