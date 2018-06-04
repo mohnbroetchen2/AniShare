@@ -198,11 +198,11 @@ def send_email_organ(request):
 
 class LatestAnimalsFeed(Feed):
     """
-    RSS Feed for new animals.
+    RSS Feed for new animals/organs.
     """
-    title = 'Anishare animal feed'
+    title = 'Anishare animal/organ feed'
     link = '/animals/feed'
-    description = 'Updates on animals to share.'
+    description = 'Updates on animals/organs to share.'
 
     def __call__(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -213,7 +213,10 @@ class LatestAnimalsFeed(Feed):
         """
         Get latest animals as items.
         """
-        return Animal.objects.order_by('-entry_date')[:10]
+        from itertools import chain
+        animals = Animal.objects.order_by('-entry_date')[:10]
+        organs = Organ.objects.order_by('-entry_date')[:10]
+        return chain(animals, organs)
 
     def item_title(self, item):
         """
