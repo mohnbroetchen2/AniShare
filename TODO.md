@@ -5,7 +5,7 @@
 - [X] login required
 - [X] only resp. person to add animals
 - [X] responsible person should be in alphabetical order
-- [maybe] use logged in resp person for resp person? foreignkey to users?
+- [N] use logged in resp person for resp person? foreignkey to users?
 - [X] log who offered the animal
 - [  ] send email to resp person when animal created
 - [X] show who created the animal in normal list

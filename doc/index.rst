@@ -74,23 +74,14 @@ This will listen on ``http://localhost:8000``, so browse to the admin page
 
 .. image:: img/admin_empty.png
 
+You can also import a dummy set of data using the ``loaddata`` command::
 
-Click on ``Animals`` -> ``Add`` to add an animal.
+   python manage.py loaddata initial_data.json
 
-.. image:: img/admin_add_animal.png
-   :width: 40%
-
-All fields in bold **need** to be filled in, the others are optional.
-
-After adding several animals, the main (index) view should look like this:
+After loading the data, the main admin interface should look like this:
 
 .. image:: img/admin_after_loaddata.png
 
-.. Note:: Alternatively, you can also import a dummy set of data using the ``loaddata`` command:
-
-::
-
-   python manage.py loaddata initial_data.json
 
 Importing existing data
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -117,20 +108,31 @@ You can invoke the django tests like so::
 Using the software
 ------------------
 
-The webservice is split in two parts: The **input** method is via the Django Admin interface (See link
-"Add Animal" top right) and is meant for *animal administrators* only. 
+.. image:: img/anishare_index_highlight.png
+
+The webservice is split in two parts: The **animal input** method is via the Django Admin interface (See link
+"Add Animal" top right) and is meant for *animal managers* only. 
 The **claim** method is via the normal web interface and is meant for normal users (who need to be
 authenticated, though).
 
-In order to be able to add/edit animals, a user has to be in the group *responsible_person* and be a
-*staff* member in django admin.
 
-.. image:: img/admin_permissions_user.png
-   :width: 75%
+Main animal manager tasks
+^^^^^^^^^^^^^^^^^^^^^^^^^
+An *animal manager* can add animals to the database.
 
-In order to promote a *user* to an *animal administrator*, an *administrator* has to set these
-values (*staff* and group *responsible_person*) in the admin interface in "Authentication and
-Authorization" -> "Users".
+.. image:: img/admin_overview_manager.png
+   :width: 60%
+
+Click on ``Animals`` -> ``Add`` to add an animal.
+
+.. image:: img/admin_add_animal.png
+   :width: 40%
+
+All fields in bold **need** to be filled in, the others are optional.
+
+After adding several animals, the main (index) view should look like this:
+
+.. image:: img/admin_after_loaddata.png
 
 Main admin tasks
 ^^^^^^^^^^^^^^^^
@@ -140,26 +142,60 @@ The admin interface allows to edit the following types of entries:
    :width: 60%
 
 Animals
-   The main category, animals to share.
-   Here, several filters (such as "sex", "location", etc.) are available to search for any set of animals.
+""""""
+
+The main category to administer are animals to share.
+Here, several filters (such as "sex", "location", etc.) are available to search for any set of animals.
+
 .. image:: img/admin_animals.png
+
 .. Note:: in order to remove a claim (thus making the animal available again), either click on an animal 
           and remove the email address from the field "new owner", or select one or multiple animals and 
           select the "clear claim" *Action* and click "Go".
 .. Note:: Once created, an animal cannot be deleted, except by the administrator.
+
 Labs
-   are research labs/research groups and need to have at least one responsible/contact person each
+""""
+
+Labs are research labs/research groups and need to have at least one responsible/contact person each
+
 .. image:: img/admin_labs.png
    :width: 60%
+
+.. Note:: Only *administrators* are allowed to see and change Labs
+
 Locations
-   are where animals are stored. Usually something like room numbers or "animal house" or "fish facility".
+"""""""""
+
+Locations are where animals are stored. Usually something like room numbers or "animal house" or "fish facility".
+
 .. image:: img/admin_locations.png
    :width: 60%
+
+.. Note:: Only *administrators* are allowed to see and change Locations
+
 Persons
-   responsible for the animals. Could be a vet or similar.
-   Every animal needs to have a responsible person associated to them. This person then gets
-   an email when the animal is being claimed.
+"""""""
+
+Persons responsible for the animals. Could be a vet or similar.
+Every animal needs to have a responsible person associated to them. This person then gets
+an email when the animal is being claimed.
+
 .. image:: img/admin_persons.png
+
+.. Note:: Only *administrators* are allowed to see and change Persons
+
+Make a user an animal manager
+"""""""""""""""""""""""""""""
+
+In order to be able to add/edit animals, a user has to be in the group *animal manager* and have
+*staff status* in django admin. For this, an *administrator* has to go to the `user management
+<https://anishare.leibniz-fli.de/admin/auth/user/>`_ in the admin interface by clicking "Home" -> "Authentication and
+Authorization" -> "Users". Here, they can make a *user* an *animal manager*, by setting these values (*staff*
+and group *animal manager*):
+
+.. image:: img/admin_permissions_user.png
+   :width: 75%
 
 
 Main user interface
@@ -186,7 +222,7 @@ RSS Feed
 ^^^^^^^^
 
 An RSS feed containing the latest ten animals is automatically generated and can be found at
-`http://localhost:8000/animals/feed`. Users can subscribe (Most email clients allow the subscription
+`/animals/feed`. Users can subscribe (Most email clients allow the subscription
 to RSS feeds) to this feed to stay up-to-date with the animal catalogue. By clicking on a link in
 the feed, they are directed to the claim page of the individual animal.
 
