@@ -82,7 +82,7 @@ class AnimalAdmin(admin.ModelAdmin):
     search_fields = ('amount', 'database_id', 'lab_id', 'day_of_birth',
                      'line', 'sex', 'location__name', 'new_owner', 'licence_number',
                      'mutations', 'available_from', 'available_to', 'responsible_person__name',
-                     'responsible_person__email', 'added_by')
+                     'responsible_person__email', 'added_by__email')
     autocomplete_fields = ['responsible_person']
     list_filter = ('amount', 'sex', 'responsible_person__responsible_for_lab',
                    'location', 'licence_number', 'new_owner', 'added_by')
