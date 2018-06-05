@@ -23,6 +23,7 @@ from django.template.loader import render_to_string
 #from django.urls import reverse
 from django.views import generic
 
+from .filters import AnimalFilter
 from .models import Animal, Organ
 
 @login_required
@@ -231,3 +232,8 @@ class LatestAnimalsFeed(Feed):
         What to print as item description (use default description from model).
         """
         return item.description()
+
+
+def animal_list(request):
+    f = AnimalFilter(request.GET, queryset=Animal.objects.all())
+    return render(request, 'animals/test_filter.html', {'filter': f})
