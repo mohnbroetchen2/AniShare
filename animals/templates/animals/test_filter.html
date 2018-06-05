@@ -23,11 +23,18 @@
 {% endblock %}
 
 {% block content %}
-    <form style="padding-top:5px;" action="" method="get">
+<style>
+<!-- style the filterform so it kinda fits on the screen>-->
+  #filterform label { font-size:75%;}
+  #filterform select { font-size:75%;}
+  #filterform input { font-size:75%;}
+  #filterform { padding:10px;}
+</style>
+<h1 class="text-center"> AniShare Animals</h1>
+    <form id='filterform' style="padding-top:5px;" action="" method="get">
         {{ filter.form.as_table }}
         <input type="submit" value="Filter"/>
     </form>
-<h1 class="text-center"> AniShare Animals</h1>
 	<div class="col-lg-12">
         <div class="table-responsive">
             <table id="datatable" class="table table-bordered table-hover table-striped tablesorter">
