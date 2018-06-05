@@ -6,6 +6,7 @@ from django.contrib import admin
 from django import forms
 from django.conf import settings
 from .models import Animal, Person, Lab, Location, Organ
+from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
 
 admin.site.site_header = 'AniShare admin interface'
@@ -85,6 +86,7 @@ class AnimalAdmin(admin.ModelAdmin):
                      'responsible_person__email', 'added_by__email')
     autocomplete_fields = ['responsible_person']
     list_filter = ('amount', 'sex', 'responsible_person__responsible_for_lab',
+                   ('day_of_birth', DateRangeFilter),
                    'location', 'licence_number', 'new_owner', 'added_by')
     radio_fields = {'sex':admin.HORIZONTAL}
     readonly_fields = ('creation_date', 'modification_date')
@@ -120,6 +122,7 @@ class OrganAdmin(admin.ModelAdmin):
                      'sex', 'location', 'licence_number', 'responsible_person', 'added_by')
     autocomplete_fields = ['responsible_person']
     list_filter = ('amount', 'sex', 'responsible_person__responsible_for_lab',
+                   ('day_of_birth', DateRangeFilter), ('day_of_death', DateRangeFilter),
                    'location', 'licence_number', 'added_by')
     radio_fields = {'sex':admin.HORIZONTAL}
     readonly_fields = ('added_by', 'creation_date', 'modification_date')
