@@ -36,7 +36,10 @@ class Command(BaseCommand):
                 a.database_id = str(xl_sheet.cell(row_idx, 2).value).strip()
                 a.lab_id = str(xl_sheet.cell(row_idx, 3).value).strip()
                 a.day_of_birth = xldate_as_datetime(xl_sheet.cell(row_idx, 4).value, xl.datemode)
-                age = int(xl_sheet.cell(row_idx, 5).value)
+                try:
+                    age = int(xl_sheet.cell(row_idx, 5).value)
+                except ValueError:
+                    age = 0
                 a.line = str(xl_sheet.cell(row_idx, 6).value).strip()
                 mutation_1 = str(xl_sheet.cell(row_idx, 7).value).strip()
                 grade_1 = str(xl_sheet.cell(row_idx, 8).value).strip()
