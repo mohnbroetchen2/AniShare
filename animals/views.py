@@ -23,7 +23,7 @@ from django.template.loader import render_to_string
 #from django.urls import reverse
 from django.views import generic
 
-from .filters import AnimalFilter
+from .filters import AnimalFilter, OrganFilter
 from .models import Animal, Organ
 
 @login_required
@@ -60,78 +60,78 @@ class AnimalDetailView(LoginRequiredMixin, generic.DetailView):
     model = Animal
     template_name = 'animals/animal-detail.html'
 
-class AnimalIndexView(LoginRequiredMixin, generic.ListView):
-    """
-    Index / List view for all available animals.
-    Generic ListView using the LoginRequiredMixin
-
-    :param q: query / search term to filter the results
-    :param show: limit the results to 'current', 'archive', or all animals
-    """
-    model = Animal
-    template_name = 'animals/index.html'
-    context_object_name = 'all_animals'
-    paginate_by = 100
-    def get_queryset(self):
-        """Return the latest additions to the Animals table"""
-        result = super(AnimalIndexView, self).get_queryset()
-        query = self.request.GET.get('q')
-        if query:
-            query_list = query.split()
-            result = result.filter(
-                reduce(operator.and_, (Q(comment__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(mutations__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(database_id__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(line__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(lab_id__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(location__name__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(new_owner__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(responsible_person__name__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(licence_number__icontains=q) for q in query_list))
-            )
-            return result
-        try:
-            show = self.kwargs['show']
-        except KeyError:
-            show = 'current'
-        if show == 'archive':
-            return Animal.objects.filter(available_to__lte=datetime.now().date()).order_by('-entry_date')
-        elif show == 'current':
-            return Animal.objects.filter(available_to__gte=datetime.now().date()).order_by('-entry_date')
-        return Animal.objects.order_by('-entry_date')
-
-class OrganIndexView(LoginRequiredMixin, generic.ListView):
-    """
-    Index / List view for all available Organs.
-    Generic ListView using the LoginRequiredMixin
-
-    :param q: query / search term to filter the results
-    :param show: limit the results to 'current', 'archive', or all Organs
-    """
-    model = Organ
-    template_name = 'animals/organs.html'
-    context_object_name = 'all_organs'
-    paginate_by = 100
-    def get_queryset(self):
-        """Return the latest additions to the Organs table"""
-        result = super(OrganIndexView, self).get_queryset()
-        query = self.request.GET.get('q')
-        if query:
-            query_list = query.split()
-            result = result.filter(
-                reduce(operator.and_, (Q(comment__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(mutations__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(database_id__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(line__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(lab_id__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(location__name__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(killing_person__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(animal_type__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(method_of_killing__icontains=q) for q in query_list)) |
-                reduce(operator.and_, (Q(licence_number__icontains=q) for q in query_list))
-            )
-            return result
-        return Organ.objects.order_by('-entry_date')
+#class AnimalIndexView(LoginRequiredMixin, generic.ListView):
+#    """
+#    Index / List view for all available animals.
+#    Generic ListView using the LoginRequiredMixin
+#
+#    :param q: query / search term to filter the results
+#    :param show: limit the results to 'current', 'archive', or all animals
+#    """
+#    model = Animal
+#    template_name = 'animals/index.html'
+#    context_object_name = 'all_animals'
+#    paginate_by = 100
+#    def get_queryset(self):
+#        """Return the latest additions to the Animals table"""
+#        result = super(AnimalIndexView, self).get_queryset()
+#        query = self.request.GET.get('q')
+#        if query:
+#            query_list = query.split()
+#            result = result.filter(
+#                reduce(operator.and_, (Q(comment__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(mutations__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(database_id__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(line__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(lab_id__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(location__name__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(new_owner__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(responsible_person__name__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(licence_number__icontains=q) for q in query_list))
+#            )
+#            return result
+#        try:
+#            show = self.kwargs['show']
+#        except KeyError:
+#            show = 'current'
+#        if show == 'archive':
+#            return Animal.objects.filter(available_to__lte=datetime.now().date()).order_by('-entry_date')
+#        elif show == 'current':
+#            return Animal.objects.filter(available_to__gte=datetime.now().date()).order_by('-entry_date')
+#        return Animal.objects.order_by('-entry_date')
+#
+#class OrganIndexView(LoginRequiredMixin, generic.ListView):
+#    """
+#    Index / List view for all available Organs.
+#    Generic ListView using the LoginRequiredMixin
+#
+#    :param q: query / search term to filter the results
+#    :param show: limit the results to 'current', 'archive', or all Organs
+#    """
+#    model = Organ
+#    template_name = 'animals/organs.html'
+#    context_object_name = 'all_organs'
+#    paginate_by = 100
+#    def get_queryset(self):
+#        """Return the latest additions to the Organs table"""
+#        result = super(OrganIndexView, self).get_queryset()
+#        query = self.request.GET.get('q')
+#        if query:
+#            query_list = query.split()
+#            result = result.filter(
+#                reduce(operator.and_, (Q(comment__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(mutations__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(database_id__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(line__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(lab_id__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(location__name__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(killing_person__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(animal_type__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(method_of_killing__icontains=q) for q in query_list)) |
+#                reduce(operator.and_, (Q(licence_number__icontains=q) for q in query_list))
+#            )
+#            return result
+#        return Organ.objects.order_by('-entry_date')
 
 def send_email_animal(request):
     """
@@ -237,3 +237,8 @@ class LatestAnimalsFeed(Feed):
 def animal_list(request):
     f = AnimalFilter(request.GET, queryset=Animal.objects.order_by('-entry_date'))
     return render(request, 'animals/animal-index.html', {'filter': f})
+
+@login_required
+def organ_list(request):
+    f = OrganFilter(request.GET, queryset=Organ.objects.order_by('-entry_date'))
+    return render(request, 'animals/organ-index.html', {'filter': f})

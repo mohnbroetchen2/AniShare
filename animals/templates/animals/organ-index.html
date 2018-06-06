@@ -23,8 +23,18 @@
 {% endblock %}
 
 {% block content %}
-{% if all_organs %}
+<style>
+<!-- style the filterform so it kinda fits on the screen>-->
+  #filterform label { font-size:75%;}
+  #filterform select { font-size:75%;}
+  #filterform input { font-size:75%;}
+  #filterform { padding:10px;}
+</style>
 <h1 class="text-center"> AniShare Organs</h1>
+    <form id='filterform' style="padding-top:5px;" action="" method="get">
+        {{ filter.form.as_table }}
+        <input type="submit" value="Filter"/>
+    </form>
 	<div class="col-lg-12">
         <div class="table-responsive">
             <table id="datatable" class="table table-bordered table-hover table-striped tablesorter">
@@ -50,7 +60,7 @@
                 </tr>
             </thead>
             <tbody>
-                    {% for a in all_organs %}
+                  {% for a in filter.qs %}
                     <tr {% if not a.available %}class="strikeout"{% endif %}>
                         <td>{{a.pk}}</td>
                         <td>{{a.amount}}</td>
@@ -92,7 +102,6 @@
             </table>
         </div>
     </div>
-{% endif %}
 
 {% if is_paginated %}
   <ul class="pagination">
