@@ -233,7 +233,7 @@ class LatestAnimalsFeed(Feed):
         """
         return item.description()
 
-
+@login_required
 def animal_list(request):
-    f = AnimalFilter(request.GET, queryset=Animal.objects.all())
-    return render(request, 'animals/test_filter.html', {'filter': f})
+    f = AnimalFilter(request.GET, queryset=Animal.objects.order_by('-entry_date'))
+    return render(request, 'animals/animal-index.html', {'filter': f})

@@ -22,7 +22,8 @@ from animals import urls
 import animals
 
 urlpatterns = [
-    path('', animals.views.AnimalIndexView.as_view(), name='root'),
+#    path('', animals.views.AnimalIndexView.as_view(), name='root'),
+    path('', animals.views.animal_list, name='animal-list'),
     path('animals/', include('animals.urls', namespace='animals-index')),
     path('organs/', animals.views.OrganIndexView.as_view(), name='organs'),
     path('organs/claim/<int:primary_key>', animals.views.claim_organ, name='claim_organ'),

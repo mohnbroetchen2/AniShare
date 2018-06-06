@@ -24,12 +24,11 @@ from . import views
 
 app_name = 'animals'
 urlpatterns = [
-    path('', views.AnimalIndexView.as_view(), {'show':'current'}, name='animal-list'),
-#    path('index', views.AnimalIndexView.as_view(), {'show':'current'}, name='index'),
-    path('archive', views.AnimalIndexView.as_view(), {'show':'archive'}, name='archive'),
-    path('all', views.AnimalIndexView.as_view(), {'show':'all'}, name='all'),
+#    path('', views.AnimalIndexView.as_view(), {'show':'current'}, name='animal-list'),
+    path('', views.animal_list, name='animal-list'),
+#    path('archive', views.AnimalIndexView.as_view(), {'show':'archive'}, name='archive'),
+#    path('all', views.AnimalIndexView.as_view(), {'show':'all'}, name='all'),
     path('claim/<int:primary_key>', views.claim, name='claim'),
-    path('list', views.animal_list),
     path('send_email_animal', views.send_email_animal, name='send_email_animal'),
     path('send_email_organ', views.send_email_organ, name='send_email_organ'),
     path('<int:pk>', views.AnimalDetailView.as_view(), name='animal-detail'),
