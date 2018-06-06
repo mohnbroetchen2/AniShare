@@ -1,12 +1,13 @@
 """
 Admin module
 """
+import copy
 from datetime import datetime, timedelta
 from django.contrib import admin
 from django import forms
 from django.conf import settings
+from rangefilter.filter import DateRangeFilter # , DateTimeRangeFilter
 from .models import Animal, Person, Lab, Location, Organ
-from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
 
 admin.site.site_header = 'AniShare admin interface'
@@ -67,6 +68,17 @@ def clear_claim(modeladmin, request, queryset):
     queryset.update(new_owner='')
     clear_claim.short_description = "Clear 'new_owner' from selected animals"
 
+def copy_animal(modeladmin, request, queryset):
+    """
+    Copy an instance of an animal so similar entries can be easily created.
+    """
+    for animal in queryset:
+        animal_copy = copy.copy(animal) # (2) django copy object
+        animal_copy.id = None   # (3) set 'id' to None to create new object
+        animal_copy.save()    # initial save
+
+    copy_animal.short_description = "Make a Copy of an entry"
+
 
 @admin.register(Animal)
 class AnimalAdmin(admin.ModelAdmin):
@@ -91,7 +103,7 @@ class AnimalAdmin(admin.ModelAdmin):
     radio_fields = {'sex':admin.HORIZONTAL}
     readonly_fields = ('creation_date', 'modification_date')
     form = AnimalForm
-    actions = [clear_claim,]
+    actions = [clear_claim, copy_animal]
     def age(self, obj):
         """Show the age in the admin as 'Age (w)' instead of 'age'"""
         return obj.age()
@@ -121,13 +133,14 @@ class OrganAdmin(admin.ModelAdmin):
                      'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
                      'sex', 'location', 'licence_number', 'responsible_person', 'added_by')
     autocomplete_fields = ['responsible_person']
-    list_filter = ('amount', 'sex', 'responsible_person__responsible_for_lab',
+    list_filter = ('amount', 'sex',
                    ('day_of_birth', DateRangeFilter), ('day_of_death', DateRangeFilter),
+                   'responsible_person__responsible_for_lab',
                    'location', 'licence_number', 'added_by')
     radio_fields = {'sex':admin.HORIZONTAL}
     readonly_fields = ('added_by', 'creation_date', 'modification_date')
 #    form = OrganForm
-    actions = [clear_claim,]
+    actions = [clear_claim, copy_animal]
 
     def age(self, obj):
         """Show the age in the admin as 'Age (w)' instead of 'age'"""

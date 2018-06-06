@@ -1,8 +1,11 @@
+- [X] Use datatable pagination instead of Django pagination
 - [X] add filtering/ sorting for normal table
 - [X] add license to admin filter
 - [X] admin write (age(w) instead of just age)
 - [X] create separate table for organs -> create new table (or mix both?) id, species, sex, DOB, DOD, age at DOD, line, organ type to be taken, mutations, location, method of killing, killing person
 - [X] field license missing in admin
+- [X] implement filtering / searching by day_of_birth/sex etc. in user interface
+- [X] in admin: Duplicate an entry for easier data input
 - [X] log who offered the animal
 - [X] login required
 - [X] minimum: 1w pups, 2w adults
@@ -18,9 +21,6 @@
 - [N] take back own claim
 - [N] use logged in resp person for resp person? foreignkey to users?
 - [?] send email to resp person when animal created
-- [maybe] Use datatable pagination instead of Django pagination
 - [maybe] better errormessage when animal_count > count
 - [maybe] search for age/ date_of_birth [not possible in admin]
 - [maybe] separate table for fish (6 weeks); no species/type needed???
-- [  ] in admin: Duplicate an entry for easier data input
-- [  ] implement filtering / searching by day_of_birth in user interface
