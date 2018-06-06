@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     'rangefilter',
     'animals',
 ]
@@ -176,9 +177,17 @@ LOGOUT_REDIRECT_URL = '/'
 MIN_SHARE_DURATION = 14
 MIN_SHARE_DURATION_PUPS = 7
 
+def FILTERS_VERBOSE_LOOKUPS():
+    from django_filters.conf import DEFAULTS
+
+    verbose_lookups = DEFAULTS['VERBOSE_LOOKUPS'].copy()
+    verbose_lookups.update({
+        'icontains': '',
+    })
+    return verbose_lookups
+
 try:
     from .local_settings import *
 except ImportError:
     print("Could not import local_settings!")
     pass
-

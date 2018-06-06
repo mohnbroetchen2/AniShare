@@ -22,3 +22,5 @@
 - [maybe] better errormessage when animal_count > count
 - [maybe] search for age/ date_of_birth [not possible in admin]
 - [maybe] separate table for fish (6 weeks); no species/type needed???
+- [  ] in admin: Duplicate an entry for easier data input
+- [  ] implement filtering / searching by day_of_birth in user interface

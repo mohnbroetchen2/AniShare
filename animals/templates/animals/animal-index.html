@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block extrascripts %}
@@ -6,7 +6,7 @@
   <script src="{% static '/js/jquery-2.0.3.min.js' %}"></script>
   <script src="{% static '/js/jquery.dataTables.min.js' %}"></script>
   <script src="{% static '/js/dataTables.bootstrap4.min.js' %}"></script>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="{% static '/css/dataTables.bootstrap4.min.css' %}">
   
   <script>
     $(document).ready(function() {
@@ -15,7 +15,7 @@
         "scrollX": true,
         "order": [[0, 'desc']],
         "scrollCollapse": true,
-        "paging": false,
+        "paging": true,
       });
     } );
   </script>
@@ -23,8 +23,18 @@
 {% endblock %}
 
 {% block content %}
-{% if all_animals %}
+<style>
+<!-- style the filterform so it kinda fits on the screen>-->
+  #filterform label { font-size:75%;}
+  #filterform select { font-size:75%;}
+  #filterform input { font-size:75%;}
+  #filterform { padding:10px;}
+</style>
 <h1 class="text-center"> AniShare Animals</h1>
+    <form id='filterform' style="padding-top:5px;" action="" method="get">
+        {{ filter.form.as_table }}
+        <input type="submit" value="Filter"/>
+    </form>
 	<div class="col-lg-12">
         <div class="table-responsive">
             <table id="datatable" class="table table-bordered table-hover table-striped tablesorter">
@@ -48,7 +58,7 @@
                 </tr>
             </thead>
             <tbody>
-                    {% for a in all_animals %}
+    {% for a in filter.qs %}
                     <tr {% if not a.available %}class="strikeout"{% endif %}>
                         <td><a href="/animals/{{a.pk}}">{{a.pk}}</a></td>
                         <td>{{a.amount}}</td>
@@ -84,35 +94,8 @@
                         </td>
                     </tr>
                     {% endfor %}
-            
             </tbody>
             </table>
         </div>
     </div>
-{% endif %}
-
-{% if is_paginated %}
-  <ul class="pagination">
-    {% if page_obj.has_previous %}
-      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&laquo;</span></li>
-    {% endif %}
-    {% for i in paginator.page_range %}
-      {% if page_obj.number == i %}
-        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-      {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
-      {% endif %}
-    {% endfor %}
-    {% if page_obj.has_next %}
-      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&raquo;</span></li>
-    {% endif %}
-  </ul>
-{% endif %}
-
-
-
 {% endblock %}
