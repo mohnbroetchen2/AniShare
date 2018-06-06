@@ -103,6 +103,8 @@ class AnimalAdmin(admin.ModelAdmin):
     radio_fields = {'sex':admin.HORIZONTAL}
     readonly_fields = ('creation_date', 'modification_date')
     form = AnimalForm
+    save_as = True
+    save_on_top = True
     actions = [clear_claim, copy_animal]
     def age(self, obj):
         """Show the age in the admin as 'Age (w)' instead of 'age'"""
@@ -139,6 +141,8 @@ class OrganAdmin(admin.ModelAdmin):
                    'location', 'licence_number', 'added_by')
     radio_fields = {'sex':admin.HORIZONTAL}
     readonly_fields = ('added_by', 'creation_date', 'modification_date')
+    save_as = True
+    save_on_top = True
 #    form = OrganForm
     actions = [clear_claim, copy_animal]
 

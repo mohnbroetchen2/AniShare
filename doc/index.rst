@@ -126,6 +126,21 @@ Click on ``Organs`` -> ``Add`` to add an organ.
 All fields in bold **need** to be filled in, the others are optional.
 
 
+Duplicating entries
+"""""""""""""""""""
+
+For input of multiple similar entries, it is possible to duplicate an animal or organ entry. For this, select one
+or more entries in the list (see figure below) and select "`copy animal`" from the dropdown menu and click
+"`Go`". 
+
+.. image:: img/admin_copy_animal.png
+   :width: 75%
+
+Another option is to edit an existing animal and click on "`Save as new`". This will save the
+currently edited animal as a new instance.
+
+.. image:: img/admin_save_as_new.png
+
 Main admin tasks
 ^^^^^^^^^^^^^^^^
 The admin interface allows to edit the following types of entries:
