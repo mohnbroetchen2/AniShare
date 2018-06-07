@@ -43,6 +43,7 @@
                   <th class="header"> ID <i class="icon-sort"></i></th>
                   <th class="header"> # <i class="icon-sort"></i></th>
                   <th class="header"> Type <i class="icon-sort"></i></th>
+                  <th class="header"> Organ <i class="icon-sort"></i></th>
                   <th class="header"> Sex<i class="icon-sort"></i></th>
                   <th class="header"> Date of Birth <i class="icon-sort"></i></th>
                   <th class="header"> Date of Death <i class="icon-sort"></i></th>
@@ -64,6 +65,7 @@
                     <tr {% if not a.available %}class="strikeout"{% endif %}>
                         <td>{{a.pk}}</td>
                         <td>{{a.amount}}</td>
+                        <td>{{a.organ_type}}</td>
                         <td>{{a.animal_type}}</td>
                         <td>{% if a.get_sex_display == 'female' %}
                             <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>

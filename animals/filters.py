@@ -20,6 +20,6 @@ class OrganFilter(FilterSet):
     method_of_killing = django_filters.CharFilter(lookup_expr='icontains')
     class Meta:
         model = Organ
-        fields = ['animal_type', 'sex', 'day_of_birth', 'day_of_death', 'killing_person',
+        fields = ['animal_type', 'organ_type', 'sex', 'day_of_birth', 'day_of_death', 'killing_person',
                   'method_of_killing', 'line', 'mutations',
                   'location', 'licence_number' ]
