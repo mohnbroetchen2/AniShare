@@ -137,13 +137,14 @@ or more entries in the list (see figure below) and select "`copy animal`" from t
    :width: 75%
 
 Another option is to edit an existing animal and click on "`Save as new`". This will save the
-currently edited animal as a new instance.
+currently edited animal as a new instance:
 
 .. image:: img/admin_save_as_new.png
 
-Main admin tasks
-^^^^^^^^^^^^^^^^
-The admin interface allows to edit the following types of entries:
+Main administrator tasks
+^^^^^^^^^^^^^^^^^^^^^^^^
+The administrator can edit more objects in the admin interface, namely not just animals and organs
+but also labs, locations and persons:
 
 .. image:: img/admin_overview.png
    :width: 60%
@@ -195,8 +196,9 @@ an email when the animal is being claimed.
 Make a user an animal manager
 """""""""""""""""""""""""""""
 
+The *administrator* is also responsible for user/rights management.
 In order to be able to add/edit animals, a user has to be in the group *animal manager* and have
-*staff status* in django admin. For this, an *administrator* has to go to the `user management
+*staff status* in the django admin interface. For this, an *administrator* has to go to the `user management
 <https://anishare.leibniz-fli.de/admin/auth/user/>`_ in the admin interface by clicking "Home" -> "Authentication and
 Authorization" -> "Users". Here, they can make a *user* an *animal manager*, by setting these values (*staff*
 and group *animal manager*):
@@ -257,7 +259,6 @@ After loading the data, the main admin interface should look like this:
 
 .. image:: img/admin_after_loaddata.png
 
-
 Importing existing data
 ^^^^^^^^^^^^^^^^^^^^^^^
 For import of existing data in tabular (excel) format, a management command is available at 
@@ -268,6 +269,15 @@ For import of existing data in tabular (excel) format, a management command is a
 
 .. Note:: See the file ``example_import.xls`` for an example...
 .. image:: img/import_excel_sheet.png
+
+In-DB Caching
+^^^^^^^^^^^^^
+By default, database caching is enabled in settings. To create the necessary tables, run this
+command::
+
+   python manage.py createcachetable
+
+This will create a cache table in the SQLite database, which will speed up queries.
 
 Running Tests
 ^^^^^^^^^^^^^
