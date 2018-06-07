@@ -1,3 +1,18 @@
+-   [Welcome to the documentation of anishare
+    !](#welcome-to-the-documentation-of-anishare)
+    -   [Introduction](#introduction)
+    -   [Using the software](#using-the-software)
+        -   [Main user interface](#main-user-interface)
+        -   [Main animal manager tasks](#main-animal-manager-tasks)
+        -   [Main administrator tasks](#main-administrator-tasks)
+    -   [Installation](#installation)
+        -   [Requirements](#requirements)
+        -   [First time setup](#first-time-setup)
+        -   [Importing existing data](#importing-existing-data)
+        -   [In-DB Caching](#in-db-caching)
+        -   [Running Tests](#running-tests)
+-   [API documentation](#api-documentation)
+
 Welcome to the documentation of anishare !
 ==========================================
 
