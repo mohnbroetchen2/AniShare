@@ -262,7 +262,6 @@ After loading the data, the main admin interface should look like this:
 Importing existing data
 ^^^^^^^^^^^^^^^^^^^^^^^
 For import of existing data in tabular (excel) format, a management command is available at 
-:py:mod:`animals.models`.
 :py:mod:`animals.management.commands.import_animals` ::
    
    python manage.py import_animals
