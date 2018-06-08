@@ -20,6 +20,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
+from django.views.decorators.cache import cache_page
 #from django.urls import reverse
 from django.views import generic
 
@@ -198,7 +199,6 @@ def send_email_organ(request):
 
     return HttpResponseRedirect('/organs/')
 
-
 class LatestAnimalsFeed(Feed):
     """
     RSS Feed for new animals/organs.
@@ -234,11 +234,13 @@ class LatestAnimalsFeed(Feed):
         return item.description()
 
 @login_required
+@cache_page(60*60)
 def animal_list(request):
     f = AnimalFilter(request.GET, queryset=Animal.objects.order_by('-entry_date'))
     return render(request, 'animals/animal-index.html', {'filter': f})
 
 @login_required
+@cache_page(60*60)
 def organ_list(request):
     f = OrganFilter(request.GET, queryset=Organ.objects.order_by('-entry_date'))
     return render(request, 'animals/organ-index.html', {'filter': f})

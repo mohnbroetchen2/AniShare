@@ -20,6 +20,7 @@ Including another URLconf:
 """
 
 from django.urls import path
+from django.views.decorators.cache import never_cache
 from . import views
 
 app_name = 'animals'
@@ -32,5 +33,5 @@ urlpatterns = [
     path('send_email_animal', views.send_email_animal, name='send_email_animal'),
     path('send_email_organ', views.send_email_organ, name='send_email_organ'),
     path('<int:pk>', views.AnimalDetailView.as_view(), name='animal-detail'),
-    path('feed', views.LatestAnimalsFeed(), name='feed')
+    path('feed', never_cache(views.LatestAnimalsFeed()), name='feed')
 ]
