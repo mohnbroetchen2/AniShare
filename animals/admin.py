@@ -4,7 +4,8 @@ Admin module
 import copy
 from import_export.admin import ImportExportModelAdmin
 from datetime import datetime, timedelta
-from import_export import resources
+from import_export import fields, resources
+from import_export.widgets import ForeignKeyWidget
 from django.contrib import admin
 from django import forms
 from django.conf import settings
@@ -17,12 +18,29 @@ admin.site.site_title = 'AniShare'
 admin.site.index_title = 'Welcome to AniShare'
 
 class AnimalResource(resources.ModelResource): # für den Import. Hier werden die Felder festgelegt, die importiert werden können
-
+    location = fields.Field(
+        column_name='location',
+        attribute='location',
+        widget=ForeignKeyWidget(Location, 'name'))
+    responsible_person = fields.Field(
+        column_name='responsible_person',
+        attribute='responsible_person',
+        widget=ForeignKeyWidget(Person, 'email'))
     class Meta:
         model = Animal
-        fields = ('animal_type', ' database_id', 'lab_id', 'day_of_birth',
+        fields = ('lab_id','animal_type', 'amount', 'database_id','day_of_birth', 'lab_id',
         'line','sex','location','mutations','licence_number',
         'responsible_person','available_from','available_to','comment',)
+    def get_instance(self, instance_loader, row):
+        try:
+            params = {}
+            for key in instance_loader.resource.get_import_id_fields():
+                field = instance_loader.resource.fields[key]
+                params[field.attribute] = field.clean(row)
+            return self.get_queryset().get(**params)
+        except Exception:
+            return None
+
 
 class AnimalForm(forms.ModelForm):
     """
@@ -100,11 +118,11 @@ class AnimalAdmin(ImportExportModelAdmin):
     """
     resource_class = AnimalResource
     list_display = ('amount', 'entry_date', 'day_of_birth', 'age', 'available_from',
-                    'available_to', 'line', 'sex', 'location', 'licence_number',
+                    'available_to', 'line', 'sex', 'location', 'licence_number', 'lab_id',
                     'responsible_person', 'added_by', 'new_owner')
     list_display_links = ('amount', 'entry_date', 'day_of_birth', 'age',
                           'available_from', 'available_to', 'line', 'sex',
-                          'location', 'licence_number', 'responsible_person',
+                          'location', 'licence_number', 'lab_id','responsible_person',
                           'added_by', 'new_owner')
     search_fields = ('amount', 'database_id', 'lab_id', 'day_of_birth',
                      'line', 'sex', 'location__name', 'new_owner', 'licence_number',
@@ -143,10 +161,10 @@ class OrganAdmin(admin.ModelAdmin):
     """
     list_display = ('amount', 'animal_type', 'organ_type', 'entry_date', 'day_of_birth',
                     'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
-                    'sex', 'location', 'licence_number', 'responsible_person', 'added_by')
+                    'sex', 'location','lab_id', 'licence_number', 'responsible_person', 'added_by')
     list_display_links = ('amount', 'animal_type', 'organ_type', 'entry_date', 'day_of_birth',
                           'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
-                          'sex', 'location', 'licence_number', 'responsible_person', 'added_by')
+                          'sex', 'location','lab_id', 'licence_number', 'responsible_person', 'added_by')
     search_fields = ('amount', 'animal_type', 'organ_type', 'entry_date', 'day_of_birth',
                      'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
                      'sex', 'location', 'licence_number', 'responsible_person', 'added_by')
@@ -154,7 +172,7 @@ class OrganAdmin(admin.ModelAdmin):
     list_filter = ('amount', 'sex',
                    ('day_of_birth', DateRangeFilter), ('day_of_death', DateRangeFilter),
                    'responsible_person__responsible_for_lab',
-                   'location', 'licence_number', 'added_by')
+                   'location', 'licence_number', 'added_by',)
     radio_fields = {'sex':admin.HORIZONTAL}
     readonly_fields = ('added_by', 'creation_date', 'modification_date')
     save_as = True

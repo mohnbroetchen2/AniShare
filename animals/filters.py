@@ -23,5 +23,5 @@ class OrganFilter(FilterSet):
         model = Organ
         fields = ['animal_type', 'organ_type', 'sex', 'day_of_death', 'killing_person',
                   'method_of_killing', 'line', 'mutations','responsible_person',
-                  'location', 'licence_number' ]
+                  'location', 'licence_number',]
 

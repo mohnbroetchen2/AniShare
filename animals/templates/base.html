@@ -43,11 +43,11 @@
     </div>
     <div class="navbar-collapse collapse w-110 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"> <a class="nav-item nav-link" href="/animals/feed">RSS Feed</a> </li>
-            {% if user.is_authenticated %}<li class="nav-item"> <a class="nav-item nav-link"> Logged in as: {{ user  }}   </a> </li>
-            <li class="nav-item"> <a class="nav-item nav-link" href="/accounts/logout">Logout</a> </li>{% endif %}
+            {% if user.is_authenticated %}<li class="nav-item"> <a class="nav-item nav-link" href="/animals/feed">RSS Feed</a> </li>
+            <li class="nav-item"> <a class="nav-item nav-link"> Logged in as: {{ user  }}   </a> </li>
+            <li class="nav-item"> <a class="nav-item nav-link" href="/accounts/logout">Logout</a> </li>
             <li class="nav-item"> <a class="nav-item nav-link" href="/admin/animals/animal/add">Add Animal</a> </li>
-            <li class="nav-item"> <a class="nav-item nav-link" href="/admin/animals/organ/add">Add Organ</a> </li>
+            <li class="nav-item"> <a class="nav-item nav-link" href="/admin/animals/organ/add">Add Organ</a> </li>{% endif %}
         </ul>
     </div>
 </nav>
