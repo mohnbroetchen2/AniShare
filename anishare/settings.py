@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'rangefilter',
     'animals',
     'widget_tweaks',
+    'import_export',
+   
 ]
 
 MIDDLEWARE = [
@@ -62,6 +64,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True #  It determines if the library will use database transactions on data import, just to be on the safe side.
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

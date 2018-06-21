@@ -22,6 +22,17 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+auth.json
+auth_permission.json
+backup.json
+animals.Lab.json
+animals.Person.json
+
+
+example_import_fish.xlsx
+example_import_mice.xlsx
+*.bak
+
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
