@@ -2,7 +2,9 @@
 Admin module
 """
 import copy
+from import_export.admin import ImportExportModelAdmin
 from datetime import datetime, timedelta
+from import_export import resources
 from django.contrib import admin
 from django import forms
 from django.conf import settings
@@ -13,6 +15,14 @@ from .models import Animal, Person, Lab, Location, Organ
 admin.site.site_header = 'AniShare admin interface'
 admin.site.site_title = 'AniShare'
 admin.site.index_title = 'Welcome to AniShare'
+
+class AnimalResource(resources.ModelResource): # für den Import. Hier werden die Felder festgelegt, die importiert werden können
+
+    class Meta:
+        model = Animal
+        fields = ('animal_type', ' database_id', 'lab_id', 'day_of_birth',
+        'line','sex','location','mutations','licence_number',
+        'responsible_person','available_from','available_to','comment',)
 
 class AnimalForm(forms.ModelForm):
     """
@@ -80,11 +90,15 @@ def copy_animal(modeladmin, request, queryset):
     copy_animal.short_description = "Make a Copy of an entry"
 
 
+
 @admin.register(Animal)
-class AnimalAdmin(admin.ModelAdmin):
+#class AnimalAdmin(admin.ModelAdmin):
+
+class AnimalAdmin(ImportExportModelAdmin):
     """
     ModelAdmin for Animal model
     """
+    resource_class = AnimalResource
     list_display = ('amount', 'entry_date', 'day_of_birth', 'age', 'available_from',
                     'available_to', 'line', 'sex', 'location', 'licence_number',
                     'responsible_person', 'added_by', 'new_owner')
@@ -119,6 +133,8 @@ class AnimalAdmin(admin.ModelAdmin):
             # Only set added_by during the first save.
             obj.added_by = request.user
         super().save_model(request, obj, form, change)
+
+
 
 @admin.register(Organ)
 class OrganAdmin(admin.ModelAdmin):

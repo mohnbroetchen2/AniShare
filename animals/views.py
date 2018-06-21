@@ -234,7 +234,7 @@ class LatestAnimalsFeed(Feed):
         return item.description()
 
 @login_required
-@cache_page(60*60)
+#@cache_page(60*60)
 def animal_list(request):
     #animallist = Animal.objects.filter(new_owner__exact='')
     animallist = Animal.objects.filter(available_from__lte = datetime.now().date()).filter(available_to__gte = datetime.now().date()).order_by('-entry_date')
@@ -245,7 +245,7 @@ def animal_list(request):
     return render(request, 'animals/animal-index.html', {'filter': f})
 
 @login_required
-@cache_page(60*60)
+#@cache_page(60*60)
 def organ_list(request):
     f = OrganFilter(request.GET, queryset=Organ.objects.order_by('-entry_date'))
     return render(request, 'animals/organ-index.html', {'filter': f})

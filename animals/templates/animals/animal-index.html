@@ -1,101 +1,172 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% load static %} {% load widget_tweaks %} {% block extrascripts %}
 
-{% block extrascripts %}
+<script src="{% static '/js/jquery-2.0.3.min.js' %}"></script>
+<script src="{% static '/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static '/js/dataTables.bootstrap4.min.js' %}"></script>
+<link rel="stylesheet" href="{% static '/css/dataTables.bootstrap4.min.css' %}">
 
-  <script src="{% static '/js/jquery-2.0.3.min.js' %}"></script>
-  <script src="{% static '/js/jquery.dataTables.min.js' %}"></script>
-  <script src="{% static '/js/dataTables.bootstrap4.min.js' %}"></script>
-  <link rel="stylesheet" href="{% static '/css/dataTables.bootstrap4.min.css' %}">
-  
-  <script>
-    $(document).ready(function() {
-      $('#datatable').DataTable({
-        "searching": false,
-        "scrollX": true,
-        "order": [[0, 'desc']],
-        "scrollCollapse": true,
-        "paging": true,
-      });
-    } );
-  </script>
-  
-{% endblock %}
-
-{% block content %}
+<script>
+  $(document).ready(function () {
+    $('#datatable').DataTable({
+      "searching": true,
+      "scrollX": true,
+      "order": [[0, 'desc']],
+      "scrollCollapse": true,
+      "paging": true,
+    });
+  });
+</script> {% endblock %} {% block content %}
 <style>
-<!-- style the filterform so it kinda fits on the screen>-->
-  #filterform label { font-size:75%;}
-  #filterform select { font-size:75%;}
-  #filterform input { font-size:75%;}
-  #filterform { padding:10px;}
+  < !-- style the filterform so it kinda fits on the screen>-->#filterform label {
+    font-size: 75%;
+  }
+
+  #filterform select {
+    font-size: 75%;
+  }
+
+  #filterform input {
+    font-size: 75%;
+  }
+
+  #filterform {
+    padding: 10px;
+  }
 </style>
 <h1 class="text-center"> AniShare Animals</h1>
-    <form id='filterform' style="padding-top:5px;" action="" method="get">
+<!--<form id='filterform' style="padding-top:5px;" action="" method="get">
         {{ filter.form.as_table }}
         <input type="submit" value="Filter"/>
-    </form>
-	<div class="col-lg-12">
-        <div class="table-responsive">
-            <table id="datatable" class="table table-bordered table-hover table-striped tablesorter">
-                <thead>
-                <tr>
-                  <th class="header"> ID <i class="icon-sort"></i></th>
-                  <th class="header"> # <i class="icon-sort"></i></th>
-                  <th class="header"> Type <i class="icon-sort"></i></th>
-                  <th class="header"> Sex<i class="icon-sort"></i></th>
-                  <th class="header"> Date of Birth <i class="icon-sort"></i></th>
-                  <th class="header"> Age (w) <i class="icon-sort"></i></th>
-                  <th class="header"> Available From/To <i class="icon-sort"></i></th>
-                  <th class="header"> Line <i class="icon-sort"></i></th>
-                  <th class="header"> Mutations <i class="icon-sort"></i></th>
-                  <th class="header"> Location <i class="icon-sort"></i></th>
-                  <th class="header"> License# <i class="icon-sort"></i></th>
-                  <th class="header"> ext. Info <i class="icon-sort"></i></th>
-                  <th class="header"> Resp. Person<i class="icon-sort"></i></th>
-                  <th class="header"> Added By<i class="icon-sort"></i></th>
-                  <th class="header"> New Owner <i class="icon-sort"></i></th>
-                </tr>
-            </thead>
-            <tbody>
-    {% for a in filter.qs %}
-                    <tr {% if not a.available %}class="strikeout"{% endif %}>
-                        <td><a href="/animals/{{a.pk}}">{{a.pk}}</a></td>
-                        <td>{{a.amount}}</td>
-                        <td>{{a.animal_type}}</td>
-                        <td>{% if a.get_sex_display == 'female' %}
-                            <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
-                            {% elif a.get_sex_display == 'male' %}
-                            <i class="fas fa-mars" style="color:#77F; font-size:13pt;"></i>
-                            {% else %}
-                            <i class="fas fa-question"></i>
-                            {% endif %}
-                        </td>
-                        <td>{{a.day_of_birth}}</td>
-                        <td>{{a.age}}</td>
-                        <td>{{a.available_from}}<br/>
-                            {{a.available_to}}</td>
-                        <td>{{a.line}}</td>
-                        <td>{{a.mutations}}</td>
-                        <td>{{a.location}}</td>
-                        <td>{{a.licence_number}}</td>
-                        <td>{{a.database_id}}<br/>
-                            {{a.lab_id}} </td>
-                        <td>{{a.responsible_person}}</td>
-                        <td><a href="mailto:{{a.added_by.email}}">{{a.added_by.first_name}} {{a.added_by.last_name}}</a></td>
-                        <td>
-                            {% if a.new_owner %}
-                                {{a.new_owner}}
-                            {% elif a.available %}
-                            <a href="/animals/claim/{{a.pk}}">Claim!</a>
-                            {% else %}
-                                no longer available
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-            </tbody>
-            </table>
+    </form>-->
+<form method="get">
+  <div class="well">
+    <div class="container-fluid">
+      <div class="m-sm-2">
+        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#filterBlock">Filter</button>
+      </div>
+      <div id="filterBlock" class="collapse">
+        <div class="row">
+          <div class="form-group col-sm-4 col-md-2">
+            {{ filter.form.animal_type.label_tag }} {% render_field filter.form.animal_type class="form-control" %}
+          </div>
+          <div class="form-group col-sm-4 col-md-1">
+            {{ filter.form.sex.label_tag }} {% render_field filter.form.sex class="form-control" %}
+          </div>
+          <div class="form-group col-sm-4 col-md-2">
+            {{ filter.form.line.label_tag }} {% render_field filter.form.line class="form-control" %}
+          </div>
+          <div class="form-group col-sm-4 col-md-2">
+            {{ filter.form.location.label_tag }} {% render_field filter.form.location class="form-control" %}
+          </div>
+          
+          <div class="form-group col-sm-4 col-md-2">
+            {{ filter.form.licence_number.label_tag }} {% render_field filter.form.licence_number class="form-control" %}
+          </div>
+          <div class="form-group col-sm-4 col-md-2">
+            {{ filter.form.responsible_person.label_tag }} {% render_field filter.form.responsible_person class="form-control" %}
+          </div>
+          <div>
+            <p>
+              <button type="submit" style="margin-top:42%;" class="btn">Search</button>
+            </p>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+</form>
+<div class="col-lg-12">
+  <div class="table-responsive">
+    <table id="datatable" class="table table-bordered table-hover table-striped tablesorter">
+      <thead>
+        <tr>
+          <th class="header"> ID
+            <i class="icon-sort"></i>
+          </th>
+          <th class="header"> #
+            <i class="icon-sort"></i>
+          </th>
+          <th class="header"> Type
+            <i class="icon-sort"></i>
+          </th>
+          <th class="header"> Sex
+            <i class="icon-sort"></i>
+          </th>
+          <th class="header"> Date of Birth
+            <i class="icon-sort"></i>
+          </th>
+          <th class="header"> Age (w)
+            <i class="icon-sort"></i>
+          </th>
+          <th class="header"> Available From/To
+            <i class="icon-sort"></i>
+          </th>
+          <th class="header"> Line
+            <i class="icon-sort"></i>
+          </th>
+          <th class="header"> Mutations
+            <i class="icon-sort"></i>
+          </th>
+          <th class="header"> Location
+            <i class="icon-sort"></i>
+          </th>
+          <th class="header"> License#
+            <i class="icon-sort"></i>
+          </th>
+          <th class="header"> ext. Info
+            <i class="icon-sort"></i>
+          </th>
+          <th class="header"> Resp. Person
+            <i class="icon-sort"></i>
+          </th>
+          <th class="header"> Added By
+            <i class="icon-sort"></i>
+          </th>
+          <th class="header"> New Owner
+            <i class="icon-sort"></i>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in filter.qs %}
+        <tr {% if not a.available %}class="strikeout" {% endif %}>
+          <td>
+            <a href="/animals/{{a.pk}}">{{a.pk}}</a>
+          </td>
+          <td>{{a.amount}}</td>
+          <td>{{a.animal_type}}</td>
+          <td>{% if a.get_sex_display == 'female' %}
+            <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
+            {% elif a.get_sex_display == 'male' %}
+            <i class="fas fa-mars" style="color:#77F; font-size:13pt;"></i>
+            {% else %}
+            <i class="fas fa-question"></i>
+            {% endif %}
+          </td>
+          <td>{{a.day_of_birth}}</td>
+          <td>{{a.age}}</td>
+          <td>{{a.available_from}}
+            <br/> {{a.available_to}}
+          </td>
+          <td>{{a.line}}</td>
+          <td>{{a.mutations}}</td>
+          <td>{{a.location}}</td>
+          <td>{{a.licence_number}}</td>
+          <td>{{a.database_id}}
+            <br/> {{a.lab_id}} </td>
+          <td>{{a.responsible_person}}</td>
+          <td>
+            <a href="mailto:{{a.added_by.email}}">{{a.added_by.first_name}} {{a.added_by.last_name}}</a>
+          </td>
+          <td>
+            {% if a.new_owner %} {{a.new_owner}} {% elif a.available %}
+            <a href="/animals/claim/{{a.pk}}">Claim!</a>
+            {% else %} no longer available {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
 {% endblock %}

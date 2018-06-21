@@ -8,3 +8,5 @@ pytz>=2018.4
 PyYAML>=3.12
 xlrd>=1.1.0
 django-admin-rangefilter==0.3.6
+django-widget-tweaks>=1.4.2
+django-import-export>=1.0.1

@@ -51,7 +51,7 @@ class Animal(models.Model):
         ('mouse', 'mouse'),
     ),
                                    default='mouse')
-    database_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT")
+    database_id = models.CharField(max_length=200, null=True, blank=True, help_text="ID of animal in eg. PYRAT")
     lab_id = models.CharField(max_length=200, help_text="ID of lab in eg. PYRAT")
     creation_date = models.DateTimeField(null=False, auto_now_add=True)
     modification_date = models.DateTimeField(null=False, auto_now=True)
@@ -140,7 +140,7 @@ class Organ(models.Model):
         ('spleen', 'spleen'),
         ('stomach', 'stomach'),
         ('other', 'other'),
-        ),
+        ), help_text='Organ type which is not available',
                                  )
     day_of_birth = models.DateField()
     day_of_death = models.DateField()
@@ -154,12 +154,12 @@ class Organ(models.Model):
         ('other', 'other'),
         ),)
     killing_person = models.EmailField(help_text='Email address of the person who is responsible for killing the animal')
-    database_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT")
+    database_id = models.CharField(max_length=200, null=True, blank=True, help_text="ID of animal in eg. PYRAT")
     lab_id = models.CharField(max_length=200, help_text="ID of lab in eg. PYRAT")
     entry_date = models.DateField(null=False, auto_now_add=True)
     line = models.CharField(max_length=200, help_text="genetic trait of animal")
     location = models.ForeignKey(Location, on_delete=models.CASCADE, help_text='Where is the animal housed?')
-    licence_number = models.CharField(max_length=200)
+    licence_number = models.CharField(max_length=200, blank=True)
     responsible_person = models.ForeignKey(Person, on_delete=models.CASCADE, default=0,
                                            help_text='Person who is responsible in the lab for dealing with the animals')
     mutations = models.TextField(blank=True, null=True, help_text="Describe the mutations of this line in as much detail as possible")
