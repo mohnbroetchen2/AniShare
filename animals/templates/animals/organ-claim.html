@@ -24,8 +24,8 @@ do you really want to claim an <b>organ</b> of the following animal for yourself
                   <th class="header"> Location <i class="icon-sort"></i></th>
                   <th class="header"> License# <i class="icon-sort"></i></th>
                   <th class="header"> ext. Info<i class="icon-sort"></i></th>
+                  <th class="header"> Comment <i class="icon-sort"></i></th>
                   <th class="header"> Added By <i class="icon-sort"></i></th>
-                  <th class="header"> Comments <i class="icon-sort"></i></th>
                 </tr>
             </thead>
             <tbody>
@@ -33,7 +33,7 @@ do you really want to claim an <b>organ</b> of the following animal for yourself
                         <td>{{object.pk}}</td>
                         <td>{{object.amount}}</td>
                         <td>{{object.animal_type}}</td>
-                        <td>{{object.organ_type}}</td>
+                        <td>{{object.get_organtypes}}</td>
                         <td>{% if object.get_sex_display == 'female' %}
                             <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
                             {% elif object.get_sex_display == 'male' %}
@@ -53,10 +53,11 @@ do you really want to claim an <b>organ</b> of the following animal for yourself
                         <td>{{object.licence_number}}</td>
                         <td>{{object.database_id}}<br/>
                             {{object.lab_id}} </td>
+                        <td>{{object.comments}}</td>
                         <td><a
                             href="mailto:{{object.added_by.email}}">{{object.added_by.first_name}}
                             {{object.added_by.last_name}}</a></td>
-                        <td>{{object.comments}}</td>
+
                     </tr>
             
             </tbody>

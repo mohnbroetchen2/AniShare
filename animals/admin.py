@@ -10,7 +10,7 @@ from django.contrib import admin
 from django import forms
 from django.conf import settings
 from rangefilter.filter import DateRangeFilter # , DateTimeRangeFilter
-from .models import Animal, Person, Lab, Location, Organ
+from .models import Animal, Person, Lab, Location, Organ, Change, Organtype
 
 
 admin.site.site_header = 'AniShare admin interface'
@@ -71,6 +71,25 @@ class AnimalForm(forms.ModelForm):
             raise forms.ValidationError(
                 "Minimum share duration must be {} days!".format(settings.MIN_SHARE_DURATION))
         return self.cleaned_data
+
+@admin.register(Change)
+class ChangeAdmin(admin.ModelAdmin):
+    """
+    ChangeAdmin for Change model
+    """
+    list_display = ('version', 'short_text', 'description',)
+    search_fields = ('version',)
+    ordering = ('version', )
+
+
+@admin.register(Organtype)
+class OrgantypeAdmin(admin.ModelAdmin):
+    """
+    ModelAdmin for Organ types
+    """
+    list_display = ('name',)
+    search_fields = ('name',)
+    ordering = ('name', )
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
@@ -159,15 +178,16 @@ class OrganAdmin(admin.ModelAdmin):
     """
     ModelAdmin for Organ model
     """
-    list_display = ('amount', 'animal_type', 'organ_type', 'entry_date', 'day_of_birth',
+    filter_horizontal = ('organ_type',)
+    list_display = ('amount', 'animal_type','get_organtypes', 'entry_date', 'day_of_birth',
                     'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
                     'sex', 'location','lab_id', 'licence_number', 'responsible_person', 'added_by')
-    list_display_links = ('amount', 'animal_type', 'organ_type', 'entry_date', 'day_of_birth',
+    list_display_links = ('amount', 'animal_type','get_organtypes', 'entry_date', 'day_of_birth',
                           'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
                           'sex', 'location','lab_id', 'licence_number', 'responsible_person', 'added_by')
-    search_fields = ('amount', 'animal_type', 'organ_type', 'entry_date', 'day_of_birth',
-                     'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
-                     'sex', 'location', 'licence_number', 'responsible_person', 'added_by')
+    search_fields = ('amount', 'animal_type', 'entry_date', 'day_of_birth',
+                     'day_of_death','method_of_killing', 'killing_person', 'line',
+                     'sex', 'location__name', 'licence_number', 'responsible_person__name', 'added_by__username')
     autocomplete_fields = ['responsible_person']
     list_filter = ('amount', 'sex',
                    ('day_of_birth', DateRangeFilter), ('day_of_death', DateRangeFilter),

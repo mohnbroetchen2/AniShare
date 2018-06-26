@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'animals',
     'widget_tweaks',
     'import_export',
+    'admin_reorder'
    
 ]
 
@@ -63,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'admin_reorder.middleware.ModelAdminReorder',
 ]
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True #  It determines if the library will use database transactions on data import, just to be on the safe side.
@@ -206,3 +208,17 @@ try:
 except ImportError:
     print("Could not import local_settings!")
     pass
+
+ADMIN_REORDER = (
+    # Keep original label and models
+    'sites',
+    {'app': 'animals', 'models': ('animals.Animal', 'animals.Organ','animals.Organtype', 'animals.Location', 'animals.Person', 'animals.Lab')},
+
+    # Rename app
+    {'app': 'auth', 'label': 'Authentication and Authorization'},
+    # Reorder app models
+    {'app': 'animals', 'label': 'Change History', 'models': (
+        {'model': 'animals.Change', 'label': 'Anishare change history'},
+    )},
+    
+)

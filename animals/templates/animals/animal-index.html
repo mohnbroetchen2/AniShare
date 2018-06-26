@@ -52,13 +52,16 @@
           <div class="form-group col-sm-4 col-md-1">
             {{ filter.form.sex.label_tag }} {% render_field filter.form.sex class="form-control" %}
           </div>
+          <!--div class="form-group col-sm-4 col-md-1">
+            {{ filter.form.age.label_tag }} {% render_field filter.form.age class="form-control" %}
+          </div-->
           <div class="form-group col-sm-4 col-md-2">
             {{ filter.form.line.label_tag }} {% render_field filter.form.line class="form-control" %}
           </div>
           <div class="form-group col-sm-4 col-md-2">
             {{ filter.form.location.label_tag }} {% render_field filter.form.location class="form-control" %}
           </div>
-          
+
           <div class="form-group col-sm-4 col-md-2">
             {{ filter.form.licence_number.label_tag }} {% render_field filter.form.licence_number class="form-control" %}
           </div>
@@ -113,8 +116,10 @@
           <th class="header"> License#
             <i class="icon-sort"></i>
           </th>
-          <th class="header"> ext. Info
+          <th class="header"> Lab ID
             <i class="icon-sort"></i>
+          </th>
+          <th class="header"> Comment
           </th>
           <th class="header"> Resp. Person
             <i class="icon-sort"></i>
@@ -152,8 +157,8 @@
           <td>{{a.mutations}}</td>
           <td>{{a.location}}</td>
           <td>{{a.licence_number}}</td>
-          <td>{{a.database_id}}
-            <br/> {{a.lab_id}} </td>
+          <td>{{a.lab_id}} </td>
+          <td>{{a.comment}}</td>
           <td>{{a.responsible_person}}</td>
           <td>
             <a href="mailto:{{a.added_by.email}}">{{a.added_by.first_name}} {{a.added_by.last_name}}</a>

@@ -40,6 +40,26 @@ class Location(models.Model):
     def __str__(self):
         return self.name
 
+class Change(models.Model):
+    """
+    Model for documentation all changes to anishare
+    """
+    change_type = models.CharField(max_length=100, choices=(
+        ('new', 'new'),
+        ('adaption', 'adaption'),
+        ('bugfix', 'bugfix'),
+        ('deletion', 'deletion'),
+    ), default="adaption")
+    version = models.CharField(max_length=200,)
+    short_text = models.CharField(max_length=400,)
+    description = models.TextField(blank=True, null=True,)
+    image = models.ImageField(upload_to='images/')
+    
+    def __str__(self):
+        return "{} {} {}, {} id:{} [{}]".format(
+            self.version, self.change_type, self.short_text, self.description, self.pk, self.image)
+
+
 class Animal(models.Model):
     """
     Main model containing the animals.
@@ -111,7 +131,27 @@ class Animal(models.Model):
             self.database_id, self.lab_id, self.available_from,
             self.available_to, self.location, "".join(self.mutations))
 
-
+class Organtype(models.Model):
+    """
+    Model containing the organ types
+    """
+    """ name = models.CharField(max_length=100, choices=(
+        ('bladder', 'bladder'),
+        ('bone marrow', 'bone marrow'),
+        ('brain', 'brain'),
+        ('genitals', 'genitals'),
+        ('heart', 'heart'),
+        ('intestine', 'intestine'),
+        ('kidney', 'kidney'),
+        ('liver', 'liver'),
+        ('lungs', 'lungs'),
+        ('spleen', 'spleen'),
+        ('stomach', 'stomach'),
+        ('other', 'other'),
+        ),help_text='Organ type which is not available',)"""
+    name = models.CharField(max_length=100,)
+    def __str__(self):
+        return self.name
 
 class Organ(models.Model):
     """
@@ -127,21 +167,7 @@ class Organ(models.Model):
                                    default='mouse')
     sex = models.CharField(max_length=2, choices=(('m', 'male'), ('f', 'female'), ('u', 'unknown')),
                            help_text='Select "unknown" if multiple animals.')
-    organ_type = models.CharField(max_length=100, choices=(
-        ('bladder', 'bladder'),
-        ('bone marrow', 'bone marrow'),
-        ('brain', 'brain'),
-        ('genitals', 'genitals'),
-        ('heart', 'heart'),
-        ('intestine', 'intestine'),
-        ('kidney', 'kidney'),
-        ('liver', 'liver'),
-        ('lungs', 'lungs'),
-        ('spleen', 'spleen'),
-        ('stomach', 'stomach'),
-        ('other', 'other'),
-        ), help_text='Organ type which is not available',
-                                 )
+    organ_type = models.ManyToManyField(Organtype)
     day_of_birth = models.DateField()
     day_of_death = models.DateField()
     method_of_killing = models.CharField(max_length=100, choices=(
@@ -170,6 +196,11 @@ class Organ(models.Model):
     creation_date = models.DateTimeField(null=False, auto_now_add=True)
     modification_date = models.DateTimeField(null=False, auto_now=True)
     added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, default=1)
+
+    def get_organtypes(self):
+        """Get all organ types which are not available"""
+        return ",\n".join([ot.name for ot in self.organ_type.all()])
+    get_organtypes.short_description ='ORGAN TYPE (unavailable)'
 
     def age(self):
         """

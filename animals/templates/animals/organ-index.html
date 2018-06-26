@@ -96,7 +96,8 @@
                   <th class="header"> Mutations <i class="icon-sort"></i></th>
                   <th class="header"> Location <i class="icon-sort"></i></th>
                   <th class="header"> License# <i class="icon-sort"></i></th>
-                  <th class="header"> ext. Info <i class="icon-sort"></i></th>
+                  <th class="header"> Lab ID <i class="icon-sort"></i></th>
+                  <th class="header"> Comment <i class="icon-sort"></i></th>
                   <th class="header"> Resp. Person<i class="icon-sort"></i></th>
                   <th class="header"> Added By<i class="icon-sort"></i></th>
                   <th class="header"> New Owner <i class="icon-sort"></i></th>
@@ -108,7 +109,7 @@
                         <td>{{a.pk}}</td>
                         <td>{{a.amount}}</td>
                         <td>{{a.animal_type}}</td>
-                        <td>{{a.organ_type}}</td>
+                        <td>{{a.get_organtypes}}</td>
                         <td>{% if a.get_sex_display == 'female' %}
                             <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
                             {% elif a.get_sex_display == 'male' %}
@@ -126,8 +127,8 @@
                         <td>{{a.mutations}}</td>
                         <td>{{a.location}}</td>
                         <td>{{a.licence_number}}</td>
-                        <td>{{a.database_id}}<br/>
-                            {{a.lab_id}} </td>
+                        <td>{{a.lab_id}} </td>
+                        <td>{{a.comment}}<br/>
                         <td>{{a.responsible_person}}</td>
                         <td><a href="mailto:{{a.added_by.email}}">{{a.added_by.first_name}} {{a.added_by.last_name}}</a></td>
                         <td>
