@@ -179,7 +179,7 @@ class Organ(models.Model):
         ('overdose anaesthetics', 'overdose anaesthetic'),
         ('other', 'other'),
         ),)
-    killing_person = models.EmailField(help_text='Email address of the person who is responsible for killing the animal')
+    killing_person = models.EmailField(null=True, blank=True, help_text='Email address of the person who is responsible for killing the animal')
     database_id = models.CharField(max_length=200, null=True, blank=True, help_text="ID of animal in eg. PYRAT")
     lab_id = models.CharField(max_length=200, help_text="ID of lab in eg. PYRAT")
     entry_date = models.DateField(null=False, auto_now_add=True)

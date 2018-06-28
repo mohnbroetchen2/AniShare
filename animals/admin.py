@@ -3,6 +3,7 @@ Admin module
 """
 import copy
 from import_export.admin import ImportExportModelAdmin
+from import_export.widgets import ManyToManyWidget
 from datetime import datetime, timedelta
 from import_export import fields, resources
 from import_export.widgets import ForeignKeyWidget
@@ -18,18 +19,32 @@ admin.site.site_title = 'AniShare'
 admin.site.index_title = 'Welcome to AniShare'
 
 class AnimalResource(resources.ModelResource): # für den Import. Hier werden die Felder festgelegt, die importiert werden können
+
+    animal_type = fields.Field(attribute='animal_type', column_name='Animal type') 
+    responsible_person = fields.Field(
+        column_name='Responsible',
+        attribute='responsible_person',
+        widget=ForeignKeyWidget(Person, 'name'))
+    lab_id = fields.Field(attribute='lab_id', column_name='Lab ID')
+    database_id = fields.Field(attribute='database_id', column_name='ID')
+    day_of_birth = fields.Field(attribute='day_of_birth', column_name='DOB')
+    line = fields.Field(attribute='line', column_name='Line / Strain (Name)')
+    sex = fields.Field(attribute='sex', column_name='Sex')
     location = fields.Field(
-        column_name='location',
+        column_name='Building',
         attribute='location',
         widget=ForeignKeyWidget(Location, 'name'))
-    responsible_person = fields.Field(
-        column_name='responsible_person',
-        attribute='responsible_person',
-        widget=ForeignKeyWidget(Person, 'email'))
+    mutations1 = fields.Field(attribute='mutations1',column_name='Mutation 1')
+    mutations2 = fields.Field(attribute='mutations2',column_name='Mutation 2')
+    mutations3 = fields.Field(attribute='mutations3',column_name='Mutation 3')
+    mutations4 = fields.Field(attribute='mutations4',column_name='Mutation 4')
+    licence_number = fields.Field(attribute='licence_number', column_name='License number')
+    available_to = fields.Field(attribute='available_to', column_name='Available To')
+    available_from = fields.Field(attribute='available_from', column_name='Available from')
     class Meta:
         model = Animal
-        fields = ('lab_id','animal_type', 'amount', 'database_id','day_of_birth', 'lab_id',
-        'line','sex','location','mutations','licence_number',
+        fields = ('lab_id','animal_type', 'amount', 'database_id','day_of_birth',
+        'line','sex','location','mutations1', 'mutations2','mutations3', 'mutations4','licence_number',
         'responsible_person','available_from','available_to','comment',)
     def get_instance(self, instance_loader, row):
         try:
@@ -40,6 +55,72 @@ class AnimalResource(resources.ModelResource): # für den Import. Hier werden di
             return self.get_queryset().get(**params)
         except Exception:
             return None
+    
+    def import_obj(self, instance, row, dry_run): # Damit werden die Mutationen in ein Feld zusammengefasst
+        super(AnimalResource, self).import_obj( instance, row, dry_run)
+        try:
+            instance.mutations = "%s %s %s %s" % (row['Mutation 1'], row['Mutation 2'], row['Mutation 3'], row['Mutation 4'])
+        except:  
+            try:
+                instance.mutations = "%s %s %s" % (row['Mutation 1'], row['Mutation 2'], row['Mutation 3'])
+            except:
+                try:
+                    instance.mutations = "%s %s" % (row['Mutation 1'], row['Mutation 2'])
+                except:
+                    instance.mutations = "%s" % (row['Mutation 1'])
+
+class OrganResource(resources.ModelResource): # für den Import. Hier werden die Felder festgelegt, die importiert werden können
+
+    animal_type = fields.Field(attribute='animal_type', column_name='Animal type') 
+    organ_type = fields.Field(attribute='organ_type', column_name='Organ type', widget=ManyToManyWidget(Organtype,separator=',',field='name'))
+    responsible_person = fields.Field(
+        column_name='Responsible',
+        attribute='responsible_person',
+        widget=ForeignKeyWidget(Person, 'name'))
+    lab_id = fields.Field(attribute='lab_id', column_name='Lab ID')
+    database_id = fields.Field(attribute='database_id', column_name='ID')
+    killing_person = fields.Field(attribute='killing_person', column_name='Killing person')
+    day_of_birth = fields.Field(attribute='day_of_birth', column_name='DOB')
+    day_of_death = fields.Field(attribute='day_of_death', column_name='Sacrifice date')
+    method_of_killing = fields.Field(attribute='method_of_killing', column_name='Sacrifice method')
+    line = fields.Field(attribute='line', column_name='Line / Strain (Name)')
+    sex = fields.Field(attribute='sex', column_name='Sex')
+    location = fields.Field(
+        column_name='Building',
+        attribute='location',
+        widget=ForeignKeyWidget(Location, 'name'))
+    mutations1 = fields.Field(attribute='mutations1',column_name='Mutation 1')
+    mutations2 = fields.Field(attribute='mutations2',column_name='Mutation 2')
+    mutations3 = fields.Field(attribute='mutations3',column_name='Mutation 3')
+    mutations4 = fields.Field(attribute='mutations4',column_name='Mutation 4')
+    licence_number = fields.Field(attribute='licence_number', column_name='License number')
+    class Meta:
+        model = Organ
+        fields = ('lab_id','animal_type','organ_type', 'amount', 'database_id','killing_person','day_of_birth','day_of_death','method_of_killing'
+        'line','sex','location','mutations1', 'mutations2','mutations3', 'mutations4','licence_number',
+        'responsible_person','comment',)
+    def get_instance(self, instance_loader, row):
+        try:
+            params = {}
+            for key in instance_loader.resource.get_import_id_fields():
+                field = instance_loader.resource.fields[key]
+                params[field.attribute] = field.clean(row)
+            return self.get_queryset().get(**params)
+        except Exception:
+            return None
+    
+    def import_obj(self, instance, row, dry_run): # Damit werden die Mutationen in ein Feld zusammengefasst
+        super(OrganResource, self).import_obj( instance, row, dry_run)
+        try:
+            instance.mutations = "%s %s %s %s" % (row['Mutation 1'], row['Mutation 2'], row['Mutation 3'], row['Mutation 4'])
+        except:  
+            try:
+                instance.mutations = "%s %s %s" % (row['Mutation 1'], row['Mutation 2'], row['Mutation 3'])
+            except:
+                try:
+                    instance.mutations = "%s %s" % (row['Mutation 1'], row['Mutation 2'])
+                except:
+                    instance.mutations = "%s" % (row['Mutation 1'])
 
 
 class AnimalForm(forms.ModelForm):
@@ -174,10 +255,11 @@ class AnimalAdmin(ImportExportModelAdmin):
 
 
 @admin.register(Organ)
-class OrganAdmin(admin.ModelAdmin):
+class OrganAdmin(ImportExportModelAdmin):
     """
     ModelAdmin for Organ model
     """
+    resource_class = OrganResource
     filter_horizontal = ('organ_type',)
     list_display = ('amount', 'animal_type','get_organtypes', 'entry_date', 'day_of_birth',
                     'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
