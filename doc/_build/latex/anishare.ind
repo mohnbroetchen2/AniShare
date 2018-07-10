@@ -1,0 +1,96 @@
+\begin{sphinxtheindex}
+\def\bigletter#1{{\Large\sffamily#1}\nopagebreak\vspace{1mm}}
+
+  \bigletter A
+  \item age() (animals.admin.AnimalAdmin method), \hyperpage{14}
+  \item age() (animals.admin.OrganAdmin method), \hyperpage{14}
+  \item age() (animals.models.Animal method), \hyperpage{18}
+  \item age() (animals.models.Organ method), \hyperpage{18}
+  \item Animal (class in animals.models), \hyperpage{18}
+  \item Animal.DoesNotExist, \hyperpage{18}
+  \item Animal.MultipleObjectsReturned, \hyperpage{18}
+  \item AnimalAdmin (class in animals.admin), \hyperpage{14}
+  \item AnimalDetailView (class in animals.views), \hyperpage{23}
+  \item AnimalForm (class in animals.admin), \hyperpage{14}
+  \item AnimalIndexView (class in animals.views), \hyperpage{23}
+  \item animals.admin (module), \hyperpage{14}
+  \item animals.models (module), \hyperpage{18}
+  \item animals.urls (module), \hyperpage{29}
+  \item animals.views (module), \hyperpage{23}
+  \item available() (animals.models.Animal method), \hyperpage{18}
+  \item available() (animals.models.Organ method), \hyperpage{18}
+
+  \indexspace
+  \bigletter C
+  \item claim() (in module animals.views), \hyperpage{23}
+  \item claim\_organ() (in module animals.views), \hyperpage{23}
+  \item clean() (animals.admin.AnimalForm method), \hyperpage{14}
+  \item clear\_claim() (in module animals.admin), \hyperpage{15}
+
+  \indexspace
+  \bigletter D
+  \item description() (animals.models.Animal method), \hyperpage{18}
+  \item description() (animals.models.Organ method), \hyperpage{18}
+
+  \indexspace
+  \bigletter F
+  \item form (animals.admin.AnimalAdmin attribute), \hyperpage{14}
+
+  \indexspace
+  \bigletter G
+  \item get\_absolute\_url() (animals.models.Animal method), \hyperpage{18}
+  \item get\_absolute\_url() (animals.models.Organ method), \hyperpage{18}
+  \item get\_queryset() (animals.views.AnimalIndexView method), \hyperpage{23}
+  \item get\_queryset() (animals.views.OrganIndexView method), \hyperpage{23}
+
+  \indexspace
+  \bigletter I
+  \item item\_description() (animals.views.LatestAnimalsFeed method), \hyperpage{23}
+  \item item\_title() (animals.views.LatestAnimalsFeed method), \hyperpage{23}
+  \item items() (animals.views.LatestAnimalsFeed method), \hyperpage{23}
+
+  \indexspace
+  \bigletter L
+  \item Lab (class in animals.models), \hyperpage{18}
+  \item Lab.DoesNotExist, \hyperpage{18}
+  \item Lab.MultipleObjectsReturned, \hyperpage{18}
+  \item LabAdmin (class in animals.admin), \hyperpage{14}
+  \item LatestAnimalsFeed (class in animals.views), \hyperpage{23}
+  \item Location (class in animals.models), \hyperpage{18}
+  \item Location.DoesNotExist, \hyperpage{18}
+  \item Location.MultipleObjectsReturned, \hyperpage{18}
+  \item LocationAdmin (class in animals.admin), \hyperpage{14}
+
+  \indexspace
+  \bigletter M
+  \item model (animals.views.AnimalDetailView attribute), \hyperpage{23}
+  \item model (animals.views.AnimalIndexView attribute), \hyperpage{23}
+  \item model (animals.views.OrganIndexView attribute), \hyperpage{23}
+
+  \indexspace
+  \bigletter O
+  \item Organ (class in animals.models), \hyperpage{18}
+  \item Organ.DoesNotExist, \hyperpage{18}
+  \item Organ.MultipleObjectsReturned, \hyperpage{18}
+  \item OrganAdmin (class in animals.admin), \hyperpage{14}
+  \item OrganIndexView (class in animals.views), \hyperpage{23}
+
+  \indexspace
+  \bigletter P
+  \item Person (class in animals.models), \hyperpage{18}
+  \item Person.DoesNotExist, \hyperpage{18}
+  \item Person.MultipleObjectsReturned, \hyperpage{18}
+  \item PersonAdmin (class in animals.admin), \hyperpage{14}
+
+  \indexspace
+  \bigletter R
+  \item responsible\_person() (animals.models.Lab method), \hyperpage{18}
+
+  \indexspace
+  \bigletter S
+  \item save\_model() (animals.admin.AnimalAdmin method), \hyperpage{14}
+  \item save\_model() (animals.admin.OrganAdmin method), \hyperpage{14}
+  \item send\_email\_animal() (in module animals.views), \hyperpage{24}
+  \item send\_email\_organ() (in module animals.views), \hyperpage{24}
+
+\end{sphinxtheindex}
