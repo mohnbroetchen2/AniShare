@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Welcome to the documentation of anishare ! &#8212; anishare 1.1 documentation</title>
+    <title>Welcome to the documentation of anishare ! &#8212; AniShare 1.3 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -47,6 +47,12 @@ automatic generation of email messages as well as an RSS feed for updates.</p>
 <img alt="_images/anishare_index.png" src="_images/anishare_index.png" />
 <p>At the moment, the software/database is geared towards handling of mice, however, it can be adjusted
 to handle any kind of research animal.</p>
+<p>This documentation can also be downloaded as pdf file: <a class="reference external" href="https://anishare.leibniz-fli.de/static/doc/anishare_documentation.pdf">Anishare Documentation</a></p>
+</div>
+<div class="section" id="contact">
+<h2>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h2>
+<p>Technical and application support: Fabian Monheim, <a class="reference external" href="mailto:fabian&#46;monheim&#37;&#52;&#48;leibniz-fli&#46;de">fabian<span>&#46;</span>monheim<span>&#64;</span>leibniz-fli<span>&#46;</span>de</a>, 03641-65-6872
+Content support: <a class="reference external" href="mailto:mouse&#37;&#52;&#48;leibniz-fli&#46;de">mouse<span>&#64;</span>leibniz-fli<span>&#46;</span>de</a>, <a class="reference external" href="mailto:fish&#37;&#52;&#48;leibniz-fli&#46;de">fish<span>&#64;</span>leibniz-fli<span>&#46;</span>de</a></p>
 </div>
 <div class="section" id="using-the-software">
 <h2>Using the software<a class="headerlink" href="#using-the-software" title="Permalink to this headline">¶</a></h2>
@@ -71,15 +77,17 @@ transaction. Further steps might need to be necessary such as transferring the a
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If more than one animal is available, the user can adjust the number they want to claim.
-The remaining animals will still be available for claim.</p>
+The remaining animals will still be available for claim. Because of uniqueness it’s only
+possible to offer exactly one mouse per dataset. In contrast fishes can be offer in a group.</p>
 </div>
 <img alt="_images/anishare_claim.png" src="_images/anishare_claim.png" />
 </div>
 <div class="section" id="organs">
 <h4>Organs<a class="headerlink" href="#organs" title="Permalink to this headline">¶</a></h4>
 <p>There exists an individual page for animal organ share. It is very similar to the animal page,
-however only individual organs are for offer. Also there is no availability period, but a day at
-which the animal gets sacrificed. The person responsible for killing the animal will be informed via
+however only individual organs are for offer. The entry at the column <code class="docutils literal notranslate"><span class="pre">Organ</span> <span class="pre">(used)</span></code> indicates
+all organs which can not be claimed. Also there is no availability period, but a day at
+which the animal gets sacrificed. The person responsible for sacrifice the animal will be informed via
 email if anybody claims some of the available organs. The entry will remain available to others (as
 they might want to claim other organs).</p>
 <p>Organ index view:</p>
@@ -98,29 +106,77 @@ the feed, they are directed to the claim page of the individual animal/organ.</p
 </div>
 <div class="section" id="main-animal-manager-tasks">
 <h3>Main animal manager tasks<a class="headerlink" href="#main-animal-manager-tasks" title="Permalink to this headline">¶</a></h3>
-<p>An <em>animal manager</em> can add animals and organs to the database.</p>
+<p>An <em>animal manager</em> can add animals and organs to the database on two ways. First, it is possible to
+add entrys manually. Secondly, it is possible to import an Excel sheet. At the FLI Jena there are two
+databases to manage animals. Now the databases are not connected. To transfer more than one or two datasets
+to anishare it’s recommend to use the export function of PyRAT or <a class="reference external" href="mailto:tick&#37;&#52;&#48;lab">tick<span>&#64;</span>lab</a> and the import function of anishare.
+To use the export/import process please read the topic <strong>Animals import</strong> or <strong>Organs import</strong>.</p>
 <a class="reference internal image-reference" href="_images/admin_overview_manager.png"><img alt="_images/admin_overview_manager.png" src="_images/admin_overview_manager.png" style="width: 60%;" /></a>
-<div class="section" id="id1">
-<h4>Animals<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="add-animals-manually">
+<h4>Add Animals manually<a class="headerlink" href="#add-animals-manually" title="Permalink to this headline">¶</a></h4>
 <p>Click on <code class="docutils literal notranslate"><span class="pre">Animals</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Add</span></code> to add an animal.</p>
 <a class="reference internal image-reference" href="_images/admin_add_animal.png"><img alt="_images/admin_add_animal.png" src="_images/admin_add_animal.png" style="width: 40%;" /></a>
 <p>All fields in bold <strong>need</strong> to be filled in, the others are optional.</p>
 <p>After adding several animals, the main (index) view should look like this:</p>
 <img alt="_images/admin_after_loaddata.png" src="_images/admin_after_loaddata.png" />
 </div>
-<div class="section" id="id2">
-<h4>Organs<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="animals-import">
+<h4>Animals import<a class="headerlink" href="#animals-import" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="from-pyrat">
+<h5>From PyRAT<a class="headerlink" href="#from-pyrat" title="Permalink to this headline">¶</a></h5>
+<p>First login to PyRAT and switch to the english version of PyRAT if it is no preset. Then select the animals which
+should be import to anishare. Click on <code class="docutils literal notranslate"><span class="pre">QS</span></code> (Quick Select) and activate the option <code class="docutils literal notranslate"><span class="pre">Export</span> <span class="pre">this</span> <span class="pre">list</span> <span class="pre">to</span> <span class="pre">Excel</span></code>.
+Push the button <code class="docutils literal notranslate"><span class="pre">Apply</span></code>.</p>
+<a class="reference internal image-reference" href="_images/pyrat_export.png"><img alt="_images/pyrat_export.png" src="_images/pyrat_export.png" style="width: 40%;" /></a>
+<p>Now it’s important to select all mandatory fields:
+<strong>ID, Lab ID, Sex, Line / Strine (Name), Mutations, Date of birth, Responsible, License number, Building</strong></p>
+<p>It’s possible to save the selected columns as a <code class="docutils literal notranslate"><span class="pre">Manage</span> <span class="pre">View</span></code> for reuse (fold out <code class="docutils literal notranslate"><span class="pre">Manage</span> <span class="pre">View</span></code> on the left side of the <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">name</span></code>)</p>
+<a class="reference internal image-reference" href="_images/pyrat_export_select_columns.png"><img alt="_images/pyrat_export_select_columns.png" src="_images/pyrat_export_select_columns.png" style="width: 40%;" /></a>
+<p>After downloading the file it’s nessecary to edit the file because the coloumns <strong>Animal type, Available from, Available to</strong> are missing.
+Please add the mentioned columns (wherever) and fill it out. As <strong>Animal type</strong> the two values <code class="docutils literal notranslate"><span class="pre">mouse</span></code> or <code class="docutils literal notranslate"><span class="pre">fish</span></code> are possible.
+Please use the same date format for the coloumns <strong>Available from, Available to</strong> like at the exported coloumn <strong>DOB</strong> (Deate of birth).
+To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
+<code class="docutils literal notranslate"><span class="pre">mouse</span></code> (Animal type), <code class="docutils literal notranslate"><span class="pre">Current</span> <span class="pre">Date</span></code> (Available from), <code class="docutils literal notranslate"><span class="pre">Current</span> <span class="pre">Date</span> <span class="pre">+</span> <span class="pre">14</span> <span class="pre">days</span></code> (Available to).
+Please refeer to the <a class="reference external" href="https://anishare.leibniz-fli.de/macros/">macro site</a> to downloading the macros and further informations.</p>
+<p>After adding the missing coloumns the file can be save, for example as xlsx file. Now go to the anishare admin interface to <code class="docutils literal notranslate"><span class="pre">Home</span> <span class="pre">›</span> <span class="pre">Animals</span> <span class="pre">›</span> <span class="pre">Animals</span></code>
+and click the button <code class="docutils literal notranslate"><span class="pre">IMPORT</span></code> (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
+the user if all requirements match.</p>
+</div>
+<div class="section" id="from-tick-lab">
+<h5>From <a class="reference external" href="mailto:tick&#37;&#52;&#48;lab">tick<span>&#64;</span>lab</a><a class="headerlink" href="#from-tick-lab" title="Permalink to this headline">¶</a></h5>
+</div>
+</div>
+<div class="section" id="add-organs-manually">
+<h4>Add Organs manually<a class="headerlink" href="#add-organs-manually" title="Permalink to this headline">¶</a></h4>
 <p>Click on <code class="docutils literal notranslate"><span class="pre">Organs</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Add</span></code> to add an organ.</p>
 <a class="reference internal image-reference" href="_images/admin_add_organ.png"><img alt="_images/admin_add_organ.png" src="_images/admin_add_organ.png" style="width: 40%;" /></a>
 <p>All fields in bold <strong>need</strong> to be filled in, the others are optional.</p>
 </div>
+<div class="section" id="organs-import">
+<h4>Organs import<a class="headerlink" href="#organs-import" title="Permalink to this headline">¶</a></h4>
 </div>
-<div class="section" id="main-admin-tasks">
-<h3>Main admin tasks<a class="headerlink" href="#main-admin-tasks" title="Permalink to this headline">¶</a></h3>
-<p>The admin interface allows to edit the following types of entries:</p>
+<div class="section" id="duplicating-entries">
+<h4>Duplicating entries<a class="headerlink" href="#duplicating-entries" title="Permalink to this headline">¶</a></h4>
+<p>For input of multiple similar entries, it is possible to duplicate an animal or organ entry. For this, select one
+or more entries in the list (see figure below) and select “<cite>copy animal</cite>” from the dropdown menu and click
+“<cite>Go</cite>”.</p>
+<a class="reference internal image-reference" href="_images/admin_copy_animal.png"><img alt="_images/admin_copy_animal.png" src="_images/admin_copy_animal.png" style="width: 75%;" /></a>
+<p>Another option is to edit an existing animal and click on “<cite>Save as new</cite>”. This will save the
+currently edited animal as a new instance:</p>
+<img alt="_images/admin_save_as_new.png" src="_images/admin_save_as_new.png" />
+</div>
+</div>
+<div class="section" id="main-administrator-tasks">
+<h3>Main administrator tasks<a class="headerlink" href="#main-administrator-tasks" title="Permalink to this headline">¶</a></h3>
+<p>The administrator can edit more objects in the admin interface, namely not just animals and organs
+but also labs, locations and persons:</p>
 <a class="reference internal image-reference" href="_images/admin_overview.png"><img alt="_images/admin_overview.png" src="_images/admin_overview.png" style="width: 60%;" /></a>
-<div class="section" id="id3">
-<h4>Animals<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="organs-used">
+<h4>Organs used<a class="headerlink" href="#organs-used" title="Permalink to this headline">¶</a></h4>
+<p>These organs are standard values for the field <strong>Organ used</strong>.</p>
+</div>
+<div class="section" id="id1">
+<h4>Animals<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
 <p>The main category to administer are animals to share.
 Here, several filters (such as “sex”, “location”, etc.) are available to search for any set of animals.</p>
 <img alt="_images/admin_animals.png" src="_images/admin_animals.png" />
@@ -166,11 +222,17 @@ an email when the animal is being claimed.</p>
 </div>
 <div class="section" id="make-a-user-an-animal-manager">
 <h4>Make a user an animal manager<a class="headerlink" href="#make-a-user-an-animal-manager" title="Permalink to this headline">¶</a></h4>
-<p>In order to be able to add/edit animals, a user has to be in the group <em>animal manager</em> and have
-<em>staff status</em> in django admin. For this, an <em>administrator</em> has to go to the <a class="reference external" href="https://anishare.leibniz-fli.de/admin/auth/user/">user management</a> in the admin interface by clicking “Home” -&gt; “Authentication and
+<p>The <em>administrator</em> is also responsible for user/rights management.
+In order to be able to add/edit animals, a user has to be in the group <em>animal manager</em> and have
+<em>staff status</em> in the django admin interface. For this, an <em>administrator</em> has to go to the <a class="reference external" href="https://anishare.leibniz-fli.de/admin/auth/user/">user management</a> in the admin interface by clicking “Home” -&gt; “Authentication and
 Authorization” -&gt; “Users”. Here, they can make a <em>user</em> an <em>animal manager</em>, by setting these values (<em>staff</em>
 and group <em>animal manager</em>):</p>
 <a class="reference internal image-reference" href="_images/admin_permissions_user.png"><img alt="_images/admin_permissions_user.png" src="_images/admin_permissions_user.png" style="width: 75%;" /></a>
+</div>
+<div class="section" id="anishare-change-history">
+<h4>Anishare change history<a class="headerlink" href="#anishare-change-history" title="Permalink to this headline">¶</a></h4>
+<p>New functions and bugfix at the system should be documented. So users can be informed about changes on the system.
+All changes are visible to authenticated users. Please refeer to the site <a class="reference external" href="https://anishare.leibniz-fli.de/changehistory/">AniShare Change History</a> to see all changes.</p>
 </div>
 </div>
 </div>
@@ -226,7 +288,6 @@ the respective lines. Most importantly, you should configure the following lines
 <div class="section" id="importing-existing-data">
 <h3>Importing existing data<a class="headerlink" href="#importing-existing-data" title="Permalink to this headline">¶</a></h3>
 <p>For import of existing data in tabular (excel) format, a management command is available at
-<a class="reference internal" href="modules/models.html#module-animals.models" title="animals.models"><code class="xref py py-mod docutils literal notranslate"><span class="pre">animals.models</span></code></a>.
 <code class="xref py py-mod docutils literal notranslate"><span class="pre">animals.management.commands.import_animals</span></code></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">import_animals</span>
 </pre></div>
@@ -236,6 +297,15 @@ the respective lines. Most importantly, you should configure the following lines
 <p class="last">See the file <code class="docutils literal notranslate"><span class="pre">example_import.xls</span></code> for an example…</p>
 </div>
 <img alt="_images/import_excel_sheet.png" src="_images/import_excel_sheet.png" />
+</div>
+<div class="section" id="in-db-caching">
+<h3>In-DB Caching<a class="headerlink" href="#in-db-caching" title="Permalink to this headline">¶</a></h3>
+<p>By default, database caching is enabled in settings. To create the necessary tables, run this
+command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">createcachetable</span>
+</pre></div>
+</div>
+<p>This will create a cache table in the SQLite database, which will speed up queries.</p>
 </div>
 <div class="section" id="running-tests">
 <h3>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h3>
@@ -388,6 +458,12 @@ upgrade the python in the virtualenv. Otherwise an error like the following migh
 <dd><p>alias of <a class="reference internal" href="modules/admin.html#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="animals.admin.AnimalAdmin.resource_class">
+<code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.AnimalAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="modules/admin.html#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
+</dd></dl>
+
 <dl class="method">
 <dt id="animals.admin.AnimalAdmin.save_model">
 <code class="descname">save_model</code><span class="sig-paren">(</span><em>request</em>, <em>obj</em>, <em>form</em>, <em>change</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin.save_model" title="Permalink to this definition">¶</a></dt>
@@ -412,6 +488,30 @@ association with the field named ‘__all__’.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="animals.admin.AnimalResource">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalResource</code><a class="headerlink" href="#animals.admin.AnimalResource" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="animals.admin.AnimalResource.get_instance">
+<code class="descname">get_instance</code><span class="sig-paren">(</span><em>instance_loader</em>, <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalResource.get_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls the <span class="xref std std-doc">InstanceLoader</span>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.admin.AnimalResource.import_obj">
+<code class="descname">import_obj</code><span class="sig-paren">(</span><em>instance</em>, <em>row</em>, <em>dry_run</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalResource.import_obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses every field in this Resource and calls
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">import_field()</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.admin.ChangeAdmin">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">ChangeAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.ChangeAdmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>ChangeAdmin for Change model</p>
+</dd></dl>
+
+<dl class="class">
 <dt id="animals.admin.LabAdmin">
 <em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">LabAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.LabAdmin" title="Permalink to this definition">¶</a></dt>
 <dd><p>ModelAdmin for Lab model</p>
@@ -433,12 +533,42 @@ association with the field named ‘__all__’.</p>
 <dd><p>Show the age in the admin as ‘Age (w)’ instead of ‘age’</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="animals.admin.OrganAdmin.resource_class">
+<code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.OrganAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="modules/admin.html#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
+</dd></dl>
+
 <dl class="method">
 <dt id="animals.admin.OrganAdmin.save_model">
 <code class="descname">save_model</code><span class="sig-paren">(</span><em>request</em>, <em>obj</em>, <em>form</em>, <em>change</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin.save_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a model instance save it to the database.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.admin.OrganResource">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">OrganResource</code><a class="headerlink" href="#animals.admin.OrganResource" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="animals.admin.OrganResource.get_instance">
+<code class="descname">get_instance</code><span class="sig-paren">(</span><em>instance_loader</em>, <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganResource.get_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls the <span class="xref std std-doc">InstanceLoader</span>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.admin.OrganResource.import_obj">
+<code class="descname">import_obj</code><span class="sig-paren">(</span><em>instance</em>, <em>row</em>, <em>dry_run</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganResource.import_obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses every field in this Resource and calls
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">import_field()</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.admin.OrgantypeAdmin">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">OrgantypeAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrgantypeAdmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>ModelAdmin for Organ types</p>
 </dd></dl>
 
 <dl class="class">
@@ -453,305 +583,12 @@ association with the field named ‘__all__’.</p>
 <dd><p>Convenience Function to delete a claim from several selected animals</p>
 </dd></dl>
 
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
-  2
-  3
-  4
-  5
-  6
-  7
-  8
-  9
- 10
- 11
- 12
- 13
- 14
- 15
- 16
- 17
- 18
- 19
- 20
- 21
- 22
- 23
- 24
- 25
- 26
- 27
- 28
- 29
- 30
- 31
- 32
- 33
- 34
- 35
- 36
- 37
- 38
- 39
- 40
- 41
- 42
- 43
- 44
- 45
- 46
- 47
- 48
- 49
- 50
- 51
- 52
- 53
- 54
- 55
- 56
- 57
- 58
- 59
- 60
- 61
- 62
- 63
- 64
- 65
- 66
- 67
- 68
- 69
- 70
- 71
- 72
- 73
- 74
- 75
- 76
- 77
- 78
- 79
- 80
- 81
- 82
- 83
- 84
- 85
- 86
- 87
- 88
- 89
- 90
- 91
- 92
- 93
- 94
- 95
- 96
- 97
- 98
- 99
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Admin module</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
-<span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
-<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
-<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Animal</span><span class="p">,</span> <span class="n">Person</span><span class="p">,</span> <span class="n">Lab</span><span class="p">,</span> <span class="n">Location</span><span class="p">,</span> <span class="n">Organ</span>
-<span class="kn">from</span> <span class="nn">rangefilter.filter</span> <span class="kn">import</span> <span class="n">DateRangeFilter</span><span class="p">,</span> <span class="n">DateTimeRangeFilter</span>
+<dl class="function">
+<dt id="animals.admin.copy_animal">
+<code class="descclassname">animals.admin.</code><code class="descname">copy_animal</code><span class="sig-paren">(</span><em>modeladmin</em>, <em>request</em>, <em>queryset</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.copy_animal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy an instance of an animal so similar entries can be easily created.</p>
+</dd></dl>
 
-
-<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">site_header</span> <span class="o">=</span> <span class="s1">&#39;AniShare admin interface&#39;</span>
-<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">site_title</span> <span class="o">=</span> <span class="s1">&#39;AniShare&#39;</span>
-<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">index_title</span> <span class="o">=</span> <span class="s1">&#39;Welcome to AniShare&#39;</span>
-
-<span class="k">class</span> <span class="nc">AnimalForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Form for animal editing in admin</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">Animal</span>
-        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;database_id&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations&#39;</span><span class="p">,</span> <span class="s1">&#39;comment&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">,</span> <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">available_from</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;available_from&#39;</span><span class="p">)</span>
-        <span class="n">available_to</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;available_to&#39;</span><span class="p">)</span>
-        <span class="n">day_of_birth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">)</span>
-<span class="c1">#        self.author =  request.user</span>
-        <span class="k">if</span> <span class="n">available_from</span> <span class="o">&gt;</span> <span class="n">available_to</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">forms</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;Dates are incorrect&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">day_of_birth</span> <span class="ow">and</span> <span class="p">(</span>
-                <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span> <span class="o">-</span>  <span class="n">day_of_birth</span><span class="p">)</span> <span class="o">&lt;=</span>
-                <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">MIN_SHARE_DURATION_PUPS</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="n">available_to</span> <span class="o">-</span> <span class="n">available_from</span> <span class="o">&lt;=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">MIN_SHARE_DURATION_PUPS</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="n">forms</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">(</span>
-                    <span class="s2">&quot;Minimum share duration for pups must be {} days!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">settings</span><span class="o">.</span><span class="n">MIN_SHARE_DURATION_PUPS</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="n">available_to</span> <span class="o">-</span> <span class="n">available_from</span> <span class="o">&lt;=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">MIN_SHARE_DURATION</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">forms</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">(</span>
-                <span class="s2">&quot;Minimum share duration must be {} days!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">MIN_SHARE_DURATION</span><span class="p">))</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span>
-
-<span class="nd">@admin.register</span><span class="p">(</span><span class="n">Person</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">PersonAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ModelAdmin for Person model</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_for_lab&#39;</span><span class="p">)</span>
-    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_for_lab__name&#39;</span><span class="p">)</span>
-    <span class="n">ordering</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="p">)</span>
-
-<span class="nd">@admin.register</span><span class="p">(</span><span class="n">Location</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">LocationAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ModelAdmin for Location model</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,)</span>
-    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,)</span>
-
-<span class="k">def</span> <span class="nf">clear_claim</span><span class="p">(</span><span class="n">modeladmin</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">queryset</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Convenience Function to delete a claim from several selected animals</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">queryset</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_owner</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">clear_claim</span><span class="o">.</span><span class="n">short_description</span> <span class="o">=</span> <span class="s2">&quot;Clear &#39;new_owner&#39; from selected animals&quot;</span>
-
-
-<span class="nd">@admin.register</span><span class="p">(</span><span class="n">Animal</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">AnimalAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ModelAdmin for Animal model</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;entry_date&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;available_from&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span> <span class="s1">&#39;added_by&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">)</span>
-    <span class="n">list_display_links</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;entry_date&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;added_by&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">)</span>
-    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;database_id&#39;</span><span class="p">,</span> <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;location__name&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;mutations&#39;</span><span class="p">,</span> <span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person__name&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;responsible_person__email&#39;</span><span class="p">,</span> <span class="s1">&#39;added_by__email&#39;</span><span class="p">)</span>
-    <span class="n">autocomplete_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;responsible_person&#39;</span><span class="p">]</span>
-    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person__responsible_for_lab&#39;</span><span class="p">,</span>
-                   <span class="p">(</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="n">DateRangeFilter</span><span class="p">),</span>
-                   <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">,</span> <span class="s1">&#39;added_by&#39;</span><span class="p">)</span>
-    <span class="n">radio_fields</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sex&#39;</span><span class="p">:</span><span class="n">admin</span><span class="o">.</span><span class="n">HORIZONTAL</span><span class="p">}</span>
-    <span class="n">readonly_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;creation_date&#39;</span><span class="p">,</span> <span class="s1">&#39;modification_date&#39;</span><span class="p">)</span>
-    <span class="n">form</span> <span class="o">=</span> <span class="n">AnimalForm</span>
-    <span class="n">actions</span> <span class="o">=</span> <span class="p">[</span><span class="n">clear_claim</span><span class="p">,]</span>
-    <span class="k">def</span> <span class="nf">age</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Show the age in the admin as &#39;Age (w)&#39; instead of &#39;age&#39;&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">age</span><span class="p">()</span>
-    <span class="n">age</span><span class="o">.</span><span class="n">short_description</span> <span class="o">=</span> <span class="s1">&#39;Age (w)&#39;</span>
-<span class="c1">#    def formfield_for_foreignkey(self, db_field, request, **kwargs):</span>
-<span class="c1">#        if db_field.name == &#39;author&#39;:</span>
-<span class="c1">#            kwargs[&#39;queryset&#39;] = get_user_model().objects.filter(username=request.user.username)</span>
-<span class="c1">#        return super(AnimalAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)</span>
-    <span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">pk</span><span class="p">:</span>
-            <span class="c1"># Only set added_by during the first save.</span>
-            <span class="n">obj</span><span class="o">.</span><span class="n">added_by</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">)</span>
-
-<span class="nd">@admin.register</span><span class="p">(</span><span class="n">Organ</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">OrganAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ModelAdmin for Organ model</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;organ_type&#39;</span><span class="p">,</span> <span class="s1">&#39;entry_date&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;day_of_death&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;method_of_killing&#39;</span><span class="p">,</span> <span class="s1">&#39;killing_person&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span> <span class="s1">&#39;added_by&#39;</span><span class="p">)</span>
-    <span class="n">list_display_links</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;organ_type&#39;</span><span class="p">,</span> <span class="s1">&#39;entry_date&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;day_of_death&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;method_of_killing&#39;</span><span class="p">,</span> <span class="s1">&#39;killing_person&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span> <span class="s1">&#39;added_by&#39;</span><span class="p">)</span>
-    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;organ_type&#39;</span><span class="p">,</span> <span class="s1">&#39;entry_date&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;day_of_death&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;method_of_killing&#39;</span><span class="p">,</span> <span class="s1">&#39;killing_person&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span> <span class="s1">&#39;added_by&#39;</span><span class="p">)</span>
-    <span class="n">autocomplete_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;responsible_person&#39;</span><span class="p">]</span>
-    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person__responsible_for_lab&#39;</span><span class="p">,</span>
-                   <span class="p">(</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="n">DateRangeFilter</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;day_of_death&#39;</span><span class="p">,</span> <span class="n">DateRangeFilter</span><span class="p">),</span>
-                   <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;added_by&#39;</span><span class="p">)</span>
-    <span class="n">radio_fields</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sex&#39;</span><span class="p">:</span><span class="n">admin</span><span class="o">.</span><span class="n">HORIZONTAL</span><span class="p">}</span>
-    <span class="n">readonly_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;added_by&#39;</span><span class="p">,</span> <span class="s1">&#39;creation_date&#39;</span><span class="p">,</span> <span class="s1">&#39;modification_date&#39;</span><span class="p">)</span>
-<span class="c1">#    form = OrganForm</span>
-    <span class="n">actions</span> <span class="o">=</span> <span class="p">[</span><span class="n">clear_claim</span><span class="p">,]</span>
-
-    <span class="k">def</span> <span class="nf">age</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Show the age in the admin as &#39;Age (w)&#39; instead of &#39;age&#39;&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">age</span><span class="p">()</span>
-    <span class="n">age</span><span class="o">.</span><span class="n">short_description</span> <span class="o">=</span> <span class="s1">&#39;Age (w)&#39;</span>
-
-    <span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">pk</span><span class="p">:</span>
-            <span class="c1"># Only set added_by during the first save.</span>
-            <span class="n">obj</span><span class="o">.</span><span class="n">added_by</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">)</span>
-
-<span class="nd">@admin.register</span><span class="p">(</span><span class="n">Lab</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">LabAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ModelAdmin for Lab model</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person&#39;</span><span class="p">)</span>
-    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,)</span>
-</pre></div>
-</td></tr></table></div>
 </div>
 <div class="section" id="module-animals.models">
 <span id="models"></span><h2>Models<a class="headerlink" href="#module-animals.models" title="Permalink to this headline">¶</a></h2>
@@ -784,6 +621,15 @@ the current date or the available_to date</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="animals.models.Animal.clean">
+<code class="descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook for doing any extra model-wide validation after clean() has been
+called on every field by self.clean_fields. Any ValidationError raised
+by this method will not be associated with a particular field; it will
+have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="animals.models.Animal.description">
 <code class="descname">description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.description" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return description of this model</p>
@@ -794,6 +640,22 @@ the current date or the available_to date</p>
 <code class="descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.get_absolute_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get absolute url for this model. Important to link from the admin.</p>
 </dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.Change">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Change</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Model for documentation all changes to anishare</p>
+<dl class="exception">
+<dt id="animals.models.Change.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Change.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.Change.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Change.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -874,6 +736,28 @@ Person(s) which are responsible (contact) person for this lab</p>
 <dd><p>Get absolute url for this model. Important to link from the admin.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="animals.models.Organ.get_organtypes">
+<code class="descname">get_organtypes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.get_organtypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all organ types which are used</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.Organtype">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Organtype</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organtype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Model containing the organ types</p>
+<dl class="exception">
+<dt id="animals.models.Organtype.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Organtype.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.Organtype.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Organtype.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -893,415 +777,6 @@ This person gets an email when an animal is being claimed.</p>
 
 </dd></dl>
 
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
-  2
-  3
-  4
-  5
-  6
-  7
-  8
-  9
- 10
- 11
- 12
- 13
- 14
- 15
- 16
- 17
- 18
- 19
- 20
- 21
- 22
- 23
- 24
- 25
- 26
- 27
- 28
- 29
- 30
- 31
- 32
- 33
- 34
- 35
- 36
- 37
- 38
- 39
- 40
- 41
- 42
- 43
- 44
- 45
- 46
- 47
- 48
- 49
- 50
- 51
- 52
- 53
- 54
- 55
- 56
- 57
- 58
- 59
- 60
- 61
- 62
- 63
- 64
- 65
- 66
- 67
- 68
- 69
- 70
- 71
- 72
- 73
- 74
- 75
- 76
- 77
- 78
- 79
- 80
- 81
- 82
- 83
- 84
- 85
- 86
- 87
- 88
- 89
- 90
- 91
- 92
- 93
- 94
- 95
- 96
- 97
- 98
- 99
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157
-158
-159
-160
-161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177
-178
-179
-180
-181
-182
-183
-184
-185
-186
-187
-188
-189
-190
-191
-192
-193
-194
-195
-196
-197
-198
-199
-200
-201
-202
-203
-204</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This file describes all the models in the database.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">reverse</span>
-<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
-<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
-
-<span class="k">class</span> <span class="nc">Lab</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Labs are only defined by a name and are referenced by</span>
-<span class="sd">    Person(s) which are responsible (contact) person for this lab</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39; Lab&#39;</span>
-    <span class="k">def</span> <span class="nf">responsible_person</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve only the person(s) which are responsible for this lab.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">persons</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">responsible_for_lab</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">persons</span><span class="p">)</span>
-
-<span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The responsible (contact) person for each lab.</span>
-<span class="sd">    This person gets an email when an animal is being claimed.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
-    <span class="n">email</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">EmailField</span><span class="p">()</span>
-    <span class="n">responsible_for_lab</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Lab</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">responsible_for_lab</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
-
-<span class="k">class</span> <span class="nc">Location</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Location of animals. Eg. animal house, fish facilities etc.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
-
-<span class="k">class</span> <span class="nc">Animal</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Main model containing the animals.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">amount</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveIntegerField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                         <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;How many animals? (eg. fish in tank)&quot;</span><span class="p">)</span>
-    <span class="n">animal_type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">(</span>
-        <span class="p">(</span><span class="s1">&#39;fish&#39;</span><span class="p">,</span> <span class="s1">&#39;fish&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;mouse&#39;</span><span class="p">,</span> <span class="s1">&#39;mouse&#39;</span><span class="p">),</span>
-    <span class="p">),</span>
-                                   <span class="n">default</span><span class="o">=</span><span class="s1">&#39;mouse&#39;</span><span class="p">)</span>
-    <span class="n">database_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;ID of animal in eg. PYRAT&quot;</span><span class="p">)</span>
-    <span class="n">lab_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;ID of lab in eg. PYRAT&quot;</span><span class="p">)</span>
-    <span class="n">creation_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">modification_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">auto_now</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">entry_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">day_of_birth</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">()</span>
-    <span class="n">line</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;genetic trait of animal&quot;</span><span class="p">)</span>
-    <span class="n">sex</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">((</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;male&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;unknown&#39;</span><span class="p">)),</span>
-                           <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Select &quot;unknown&quot; if multiple animals.&#39;</span><span class="p">)</span>
-    <span class="n">location</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Location</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span>
-                                 <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Where is the animal housed?&#39;</span><span class="p">)</span>
-    <span class="n">mutations</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                                 <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;Describe the mutations of this line in as much detail as possible&quot;</span><span class="p">)</span>
-    <span class="n">licence_number</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
-    <span class="n">responsible_person</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                                           <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Person who is responsible in the lab for dealing with the animals&#39;</span><span class="p">)</span>
-    <span class="n">available_from</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">()</span>
-    <span class="n">available_to</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">()</span> <span class="c1"># default=datetime.today() + timedelta(days=15))</span>
-    <span class="n">comment</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                               <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Comments, such as individual organs to be offered&#39;</span><span class="p">)</span>
-    <span class="n">new_owner</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                                 <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Person claiming this animal for themselves&#39;</span><span class="p">)</span> <span class="c1"># turn into foreignkey to auth_users?</span>
-    <span class="n">added_by</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">age</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return the age of the animal, calculated by the difference to either</span>
-<span class="sd">        the current date or the available_to date</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-<span class="c1">#        return int((self.entry_date - self.day_of_birth).days / 7)</span>
-        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">now</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_to</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">int</span><span class="p">((</span><span class="n">now</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">day_of_birth</span><span class="p">)</span><span class="o">.</span><span class="n">days</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">available_to</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">day_of_birth</span><span class="p">)</span><span class="o">.</span><span class="n">days</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">available</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns True if the animal is still available</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
-        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">available_from</span> <span class="o">&lt;=</span> <span class="n">today</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">today</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_to</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get absolute url for this model. Important to link from the admin.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;animals:claim&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;primary_key&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">})</span>
-
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;{} {} {}, {} id:{} [{}]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">amount</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sex_display</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">animal_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day_of_birth</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return description of this model</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;id:{}, lab_id:{}, available:{}-{}, location:{}, mutations:{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">database_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lab_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_from</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">available_to</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mutations</span><span class="p">))</span>
-
-
-
-<span class="k">class</span> <span class="nc">Organ</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Model containing the organs</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">amount</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveIntegerField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                         <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;How many organs?&quot;</span><span class="p">)</span>
-    <span class="n">animal_type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">(</span>
-        <span class="p">(</span><span class="s1">&#39;fish&#39;</span><span class="p">,</span> <span class="s1">&#39;fish&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;mouse&#39;</span><span class="p">,</span> <span class="s1">&#39;mouse&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;unknown&#39;</span><span class="p">,</span> <span class="s1">&#39;unknown&#39;</span><span class="p">),</span>
-        <span class="p">),</span>
-                                   <span class="n">default</span><span class="o">=</span><span class="s1">&#39;mouse&#39;</span><span class="p">)</span>
-    <span class="n">sex</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">((</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;male&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;unknown&#39;</span><span class="p">)),</span>
-                           <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Select &quot;unknown&quot; if multiple animals.&#39;</span><span class="p">)</span>
-    <span class="n">organ_type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">(</span>
-        <span class="p">(</span><span class="s1">&#39;bladder&#39;</span><span class="p">,</span> <span class="s1">&#39;bladder&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;bone marrow&#39;</span><span class="p">,</span> <span class="s1">&#39;bone marrow&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;brain&#39;</span><span class="p">,</span> <span class="s1">&#39;brain&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;genitals&#39;</span><span class="p">,</span> <span class="s1">&#39;genitals&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;heart&#39;</span><span class="p">,</span> <span class="s1">&#39;heart&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;intestine&#39;</span><span class="p">,</span> <span class="s1">&#39;intestine&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;kidney&#39;</span><span class="p">,</span> <span class="s1">&#39;kidney&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;liver&#39;</span><span class="p">,</span> <span class="s1">&#39;liver&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;lungs&#39;</span><span class="p">,</span> <span class="s1">&#39;lungs&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;spleen&#39;</span><span class="p">,</span> <span class="s1">&#39;spleen&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;stomach&#39;</span><span class="p">,</span> <span class="s1">&#39;stomach&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;other&#39;</span><span class="p">,</span> <span class="s1">&#39;other&#39;</span><span class="p">),</span>
-        <span class="p">),</span>
-                                 <span class="p">)</span>
-    <span class="n">day_of_birth</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">()</span>
-    <span class="n">day_of_death</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">()</span>
-    <span class="n">method_of_killing</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">(</span>
-        <span class="p">(</span><span class="s1">&#39;CO2&#39;</span><span class="p">,</span> <span class="s1">&#39;CO2&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;cervicale dislocation&#39;</span><span class="p">,</span> <span class="s1">&#39;cervicale dislocation&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;decapitation&#39;</span><span class="p">,</span> <span class="s1">&#39;decapitation&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;blood withdrawl&#39;</span><span class="p">,</span> <span class="s1">&#39;blood withdrawl&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;finale heart punction&#39;</span><span class="p">,</span> <span class="s1">&#39;finale heart punction&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;overdose anaesthetics&#39;</span><span class="p">,</span> <span class="s1">&#39;overdose anaesthetic&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;other&#39;</span><span class="p">,</span> <span class="s1">&#39;other&#39;</span><span class="p">),</span>
-        <span class="p">),)</span>
-    <span class="n">killing_person</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">EmailField</span><span class="p">(</span><span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Email address of the person who is responsible for killing the animal&#39;</span><span class="p">)</span>
-    <span class="n">database_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;ID of animal in eg. PYRAT&quot;</span><span class="p">)</span>
-    <span class="n">lab_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;ID of lab in eg. PYRAT&quot;</span><span class="p">)</span>
-    <span class="n">entry_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">line</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;genetic trait of animal&quot;</span><span class="p">)</span>
-    <span class="n">location</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Location</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Where is the animal housed?&#39;</span><span class="p">)</span>
-    <span class="n">licence_number</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
-    <span class="n">responsible_person</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                                           <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Person who is responsible in the lab for dealing with the animals&#39;</span><span class="p">)</span>
-    <span class="n">mutations</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;Describe the mutations of this line in as much detail as possible&quot;</span><span class="p">)</span>
-    <span class="n">comment</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                               <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Comments, such as individual organs to be offered&#39;</span><span class="p">)</span>
-<span class="c1">#    new_owner = models.CharField(max_length=200, blank=True,</span>
-<span class="c1">#                                 help_text=&#39;Person claiming this animal for themselves&#39;) # turn into foreignkey to auth_users?</span>
-    <span class="n">creation_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">modification_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">auto_now</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">added_by</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">age</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return the age of the animal, at the time of death</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">day_of_death</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">day_of_birth</span><span class="p">)</span><span class="o">.</span><span class="n">days</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">available</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns True if the animal is still available</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">day_of_death</span> <span class="o">&gt;=</span> <span class="n">today</span>
-
-    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get absolute url for this model. Important to link from the admin.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;claim_organ&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;primary_key&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">})</span>
-
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;{} {} {}, {} id:{} [{}]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">amount</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sex_display</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">animal_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day_of_birth</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return description of this model</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;id:{}, lab_id:{}, available:{}-{}, location:{}, mutations:{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">database_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lab_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day_of_birth</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">day_of_death</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mutations</span><span class="p">))</span>
-
-</pre></div>
-</td></tr></table></div>
 </div>
 <div class="section" id="module-animals.views">
 <span id="views"></span><h2>Views<a class="headerlink" href="#module-animals.views" title="Permalink to this headline">¶</a></h2>
@@ -1320,37 +795,6 @@ This is rarely used, rather use the claim page.</p>
 <dl class="attribute">
 <dt id="animals.views.AnimalDetailView.model">
 <code class="descname">model</code><a class="headerlink" href="#animals.views.AnimalDetailView.model" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="modules/models.html#animals.models.Animal" title="animals.models.Animal"><code class="xref py py-class docutils literal notranslate"><span class="pre">animals.models.Animal</span></code></a></p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="animals.views.AnimalIndexView">
-<em class="property">class </em><code class="descclassname">animals.views.</code><code class="descname">AnimalIndexView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.AnimalIndexView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Index / List view for all available animals.
-Generic ListView using the LoginRequiredMixin</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>q</strong> – query / search term to filter the results</li>
-<li><strong>show</strong> – limit the results to ‘current’, ‘archive’, or all animals</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="animals.views.AnimalIndexView.get_queryset">
-<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.AnimalIndexView.get_queryset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the latest additions to the Animals table</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="animals.views.AnimalIndexView.model">
-<code class="descname">model</code><a class="headerlink" href="#animals.views.AnimalIndexView.model" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="modules/models.html#animals.models.Animal" title="animals.models.Animal"><code class="xref py py-class docutils literal notranslate"><span class="pre">animals.models.Animal</span></code></a></p>
 </dd></dl>
 
@@ -1376,37 +820,6 @@ Generic ListView using the LoginRequiredMixin</p>
 <dt id="animals.views.LatestAnimalsFeed.items">
 <code class="descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestAnimalsFeed.items" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get latest animals as items.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="animals.views.OrganIndexView">
-<em class="property">class </em><code class="descclassname">animals.views.</code><code class="descname">OrganIndexView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.OrganIndexView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Index / List view for all available Organs.
-Generic ListView using the LoginRequiredMixin</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>q</strong> – query / search term to filter the results</li>
-<li><strong>show</strong> – limit the results to ‘current’, ‘archive’, or all Organs</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="animals.views.OrganIndexView.get_queryset">
-<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.OrganIndexView.get_queryset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the latest additions to the Organs table</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="animals.views.OrganIndexView.model">
-<code class="descname">model</code><a class="headerlink" href="#animals.views.OrganIndexView.model" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="modules/models.html#animals.models.Organ" title="animals.models.Organ"><code class="xref py py-class docutils literal notranslate"><span class="pre">animals.models.Organ</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
@@ -1485,485 +898,6 @@ or 404 if organ not found</td>
 </table>
 </dd></dl>
 
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
-  2
-  3
-  4
-  5
-  6
-  7
-  8
-  9
- 10
- 11
- 12
- 13
- 14
- 15
- 16
- 17
- 18
- 19
- 20
- 21
- 22
- 23
- 24
- 25
- 26
- 27
- 28
- 29
- 30
- 31
- 32
- 33
- 34
- 35
- 36
- 37
- 38
- 39
- 40
- 41
- 42
- 43
- 44
- 45
- 46
- 47
- 48
- 49
- 50
- 51
- 52
- 53
- 54
- 55
- 56
- 57
- 58
- 59
- 60
- 61
- 62
- 63
- 64
- 65
- 66
- 67
- 68
- 69
- 70
- 71
- 72
- 73
- 74
- 75
- 76
- 77
- 78
- 79
- 80
- 81
- 82
- 83
- 84
- 85
- 86
- 87
- 88
- 89
- 90
- 91
- 92
- 93
- 94
- 95
- 96
- 97
- 98
- 99
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157
-158
-159
-160
-161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177
-178
-179
-180
-181
-182
-183
-184
-185
-186
-187
-188
-189
-190
-191
-192
-193
-194
-195
-196
-197
-198
-199
-200
-201
-202
-203
-204
-205
-206
-207
-208
-209
-210
-211
-212
-213
-214
-215
-216
-217
-218
-219
-220
-221
-222
-223
-224
-225
-226
-227
-228
-229
-230
-231
-232
-233
-234
-235
-236
-237
-238
-239</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Django Views contains all the functions for rendering objects (HTML display).</span>
-<span class="sd">It also contains an RSS Feed generator class to create an RSS feed from newly created animals</span>
-
-<span class="sd">**Important**:</span>
-<span class="sd">    When adding new functions, use the login_required decorator</span>
-<span class="sd">    When adding new classes, use the LoginRequiredMixin</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">operator</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="nb">reduce</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
-<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">messages</span>
-<span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span>
-<span class="kn">from</span> <span class="nn">django.contrib.auth.mixins</span> <span class="kn">import</span> <span class="n">LoginRequiredMixin</span>
-<span class="kn">from</span> <span class="nn">django.contrib.syndication.views</span> <span class="kn">import</span> <span class="n">Feed</span>
-<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Q</span>
-<span class="kn">from</span> <span class="nn">django.core.mail</span> <span class="kn">import</span> <span class="n">EmailMessage</span>
-<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
-<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponseRedirect</span>
-<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">get_object_or_404</span><span class="p">,</span> <span class="n">render</span>
-<span class="kn">from</span> <span class="nn">django.template.loader</span> <span class="kn">import</span> <span class="n">render_to_string</span>
-<span class="c1">#from django.urls import reverse</span>
-<span class="kn">from</span> <span class="nn">django.views</span> <span class="kn">import</span> <span class="n">generic</span>
-
-<span class="kn">from</span> <span class="nn">.filters</span> <span class="kn">import</span> <span class="n">AnimalFilter</span>
-<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Animal</span><span class="p">,</span> <span class="n">Organ</span>
-
-<span class="nd">@login_required</span>
-<span class="k">def</span> <span class="nf">claim</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">primary_key</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    View to claim an animal.</span>
-
-<span class="sd">    :param primary_key: the id/pk of the animal to retrieve</span>
-
-<span class="sd">    :returns: rendered page with the claim form</span>
-<span class="sd">              or 404 if animal not found</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">animal</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Animal</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">primary_key</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;animals/animal-claim.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;object&#39;</span><span class="p">:</span> <span class="n">animal</span><span class="p">})</span>
-
-<span class="nd">@login_required</span>
-<span class="k">def</span> <span class="nf">claim_organ</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">primary_key</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    View to claim an organ.</span>
-
-<span class="sd">    :param primary_key: the id/pk of the organ to retrieve</span>
-
-<span class="sd">    :returns: rendered page with the claim form</span>
-<span class="sd">              or 404 if organ not found</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">organ</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Organ</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">primary_key</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;animals/organ-claim.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;object&#39;</span><span class="p">:</span> <span class="n">organ</span><span class="p">})</span>
-
-<span class="k">class</span> <span class="nc">AnimalDetailView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">generic</span><span class="o">.</span><span class="n">DetailView</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Detail view for an animal.</span>
-<span class="sd">    This is rarely used, rather use the claim page.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">Animal</span>
-    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;animals/animal-detail.html&#39;</span>
-
-<span class="k">class</span> <span class="nc">AnimalIndexView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">generic</span><span class="o">.</span><span class="n">ListView</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Index / List view for all available animals.</span>
-<span class="sd">    Generic ListView using the LoginRequiredMixin</span>
-
-<span class="sd">    :param q: query / search term to filter the results</span>
-<span class="sd">    :param show: limit the results to &#39;current&#39;, &#39;archive&#39;, or all animals</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">Animal</span>
-    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;animals/index.html&#39;</span>
-    <span class="n">context_object_name</span> <span class="o">=</span> <span class="s1">&#39;all_animals&#39;</span>
-    <span class="n">paginate_by</span> <span class="o">=</span> <span class="mi">100</span>
-    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the latest additions to the Animals table&quot;&quot;&quot;</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">AnimalIndexView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span>
-        <span class="n">query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
-            <span class="n">query_list</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">comment__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">mutations__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">database_id__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">line__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">lab_id__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">location__name__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">new_owner__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">responsible_person__name__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">licence_number__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span>
-            <span class="p">)</span>
-            <span class="k">return</span> <span class="n">result</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">show</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;show&#39;</span><span class="p">]</span>
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="n">show</span> <span class="o">=</span> <span class="s1">&#39;current&#39;</span>
-        <span class="k">if</span> <span class="n">show</span> <span class="o">==</span> <span class="s1">&#39;archive&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">available_to__lte</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">())</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-entry_date&#39;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">show</span> <span class="o">==</span> <span class="s1">&#39;current&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">available_to__gte</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">())</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-entry_date&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-entry_date&#39;</span><span class="p">)</span>
-
-<span class="k">class</span> <span class="nc">OrganIndexView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">generic</span><span class="o">.</span><span class="n">ListView</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Index / List view for all available Organs.</span>
-<span class="sd">    Generic ListView using the LoginRequiredMixin</span>
-
-<span class="sd">    :param q: query / search term to filter the results</span>
-<span class="sd">    :param show: limit the results to &#39;current&#39;, &#39;archive&#39;, or all Organs</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">Organ</span>
-    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;animals/organs.html&#39;</span>
-    <span class="n">context_object_name</span> <span class="o">=</span> <span class="s1">&#39;all_organs&#39;</span>
-    <span class="n">paginate_by</span> <span class="o">=</span> <span class="mi">100</span>
-    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the latest additions to the Organs table&quot;&quot;&quot;</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">OrganIndexView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span>
-        <span class="n">query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
-            <span class="n">query_list</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">comment__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">mutations__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">database_id__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">line__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">lab_id__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">location__name__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">killing_person__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">animal_type__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">method_of_killing__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span> <span class="o">|</span>
-                <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">licence_number__icontains</span><span class="o">=</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">query_list</span><span class="p">))</span>
-            <span class="p">)</span>
-            <span class="k">return</span> <span class="n">result</span>
-        <span class="k">return</span> <span class="n">Organ</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-entry_date&#39;</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">send_email_animal</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to send an email about an animal being claimed.</span>
-
-<span class="sd">    Needs these variables in the POST request: email, pk, count</span>
-
-<span class="sd">    :param email: email address of the request user / new owner</span>
-<span class="sd">    :param pk: primary_key of the animal(s) to be claimed</span>
-<span class="sd">    :param count: how many animals are being claimed</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">email</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]</span>
-    <span class="n">primary_key</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">]</span>
-    <span class="n">count</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
-
-    <span class="n">animal</span> <span class="o">=</span> <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">primary_key</span><span class="p">)</span>
-    <span class="n">animal</span><span class="o">.</span><span class="n">new_owner</span> <span class="o">=</span> <span class="n">email</span>
-    <span class="n">amount_difference</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">animal</span><span class="o">.</span><span class="n">amount</span><span class="p">)</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">amount_difference</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Save remainder of animals as new object</span>
-        <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span> <span class="s1">&#39;You cannot claim more animals then are available!&#39;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="n">forms</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">(</span><span class="s2">&quot;You cannot claim more animals then are available!&quot;</span><span class="p">)</span>
-    <span class="n">animal</span><span class="o">.</span><span class="n">amount</span> <span class="o">=</span> <span class="n">count</span>
-    <span class="n">animal</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>  <span class="c1"># Save the animal with the new owner</span>
-    <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span>
-                         <span class="s1">&#39;The entry {} has been claimed by {}.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">animal</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">animal</span><span class="o">.</span><span class="n">new_owner</span><span class="p">))</span>
-    <span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;User {} claimed animal {} in AniShare&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="n">primary_key</span><span class="p">)</span>
-    <span class="n">message</span> <span class="o">=</span> <span class="n">render_to_string</span><span class="p">(</span><span class="s1">&#39;email.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;email&#39;</span><span class="p">:</span> <span class="n">email</span><span class="p">,</span> <span class="s1">&#39;object&#39;</span><span class="p">:</span> <span class="n">animal</span><span class="p">,</span> <span class="s1">&#39;now&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()})</span>
-
-    <span class="n">msg</span> <span class="o">=</span> <span class="n">EmailMessage</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="p">[</span><span class="n">animal</span><span class="o">.</span><span class="n">responsible_person</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> <span class="n">email</span><span class="p">])</span>
-    <span class="n">msg</span><span class="o">.</span><span class="n">content_subtype</span> <span class="o">=</span> <span class="s2">&quot;html&quot;</span>
-    <span class="n">msg</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">amount_difference</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># If there were multiple animals, save the remainder of animals as a new object</span>
-        <span class="n">animal</span><span class="o">.</span><span class="n">pk</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="n">animal</span><span class="o">.</span><span class="n">amount</span> <span class="o">=</span> <span class="n">amount_difference</span>
-        <span class="n">animal</span><span class="o">.</span><span class="n">new_owner</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-        <span class="n">animal</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-        <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span> <span class="s1">&#39;The amount of available animals in this entry has been reduced to {}.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">animal</span><span class="o">.</span><span class="n">amount</span><span class="p">))</span>
-    <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span> <span class="s1">&#39;An Email has been sent to &lt;{}&gt;.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">animal</span><span class="o">.</span><span class="n">responsible_person</span><span class="o">.</span><span class="n">email</span><span class="p">))</span>
-
-    <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">send_email_organ</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to send an email about an animal being claimed.</span>
-
-<span class="sd">    Needs these variables in the POST request: email, pk, count</span>
-
-<span class="sd">    :param email: email address of the request user / new owner</span>
-<span class="sd">    :param pk: primary_key of the animal(s) to be claimed</span>
-<span class="sd">    :param organs_wanted: organs wanted from the given animal</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">email</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]</span>
-    <span class="n">primary_key</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">]</span>
-    <span class="n">organs_wanted</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;organs_wanted&#39;</span><span class="p">]</span>
-
-    <span class="n">organ</span> <span class="o">=</span> <span class="n">Organ</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">primary_key</span><span class="p">)</span>
-    <span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;AniShare User {} claimed organ(s) {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="n">organs_wanted</span><span class="p">)</span>
-    <span class="n">message</span> <span class="o">=</span> <span class="n">render_to_string</span><span class="p">(</span><span class="s1">&#39;email.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;email&#39;</span><span class="p">:</span> <span class="n">email</span><span class="p">,</span> <span class="s1">&#39;organs_wanted&#39;</span><span class="p">:</span><span class="n">organs_wanted</span><span class="p">,</span> <span class="s1">&#39;object&#39;</span><span class="p">:</span> <span class="n">organ</span><span class="p">,</span> <span class="s1">&#39;now&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()})</span>
-
-    <span class="n">msg</span> <span class="o">=</span> <span class="n">EmailMessage</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="p">[</span><span class="n">organ</span><span class="o">.</span><span class="n">responsible_person</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> <span class="n">email</span><span class="p">])</span>
-    <span class="n">msg</span><span class="o">.</span><span class="n">content_subtype</span> <span class="o">=</span> <span class="s2">&quot;html&quot;</span>
-    <span class="n">msg</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
-    <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span> <span class="s1">&#39;An Email has been sent to &lt;{}&gt;.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">organ</span><span class="o">.</span><span class="n">responsible_person</span><span class="o">.</span><span class="n">email</span><span class="p">))</span>
-
-    <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="s1">&#39;/organs/&#39;</span><span class="p">)</span>
-
-
-<span class="k">class</span> <span class="nc">LatestAnimalsFeed</span><span class="p">(</span><span class="n">Feed</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    RSS Feed for new animals/organs.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Anishare animal/organ feed&#39;</span>
-    <span class="n">link</span> <span class="o">=</span> <span class="s1">&#39;/animals/feed&#39;</span>
-    <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Updates on animals/organs to share.&#39;</span>
-
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="mi">401</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get latest animals as items.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
-        <span class="n">animals</span> <span class="o">=</span> <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-entry_date&#39;</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
-        <span class="n">organs</span> <span class="o">=</span> <span class="n">Organ</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-entry_date&#39;</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">chain</span><span class="p">(</span><span class="n">animals</span><span class="p">,</span> <span class="n">organs</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">item_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        What to print as item title (use default __str__ of model).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">item</span>
-
-    <span class="k">def</span> <span class="nf">item_description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        What to print as item description (use default description from model).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">item</span><span class="o">.</span><span class="n">description</span><span class="p">()</span>
-
-<span class="nd">@login_required</span>
-<span class="k">def</span> <span class="nf">animal_list</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">AnimalFilter</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">,</span> <span class="n">queryset</span><span class="o">=</span><span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-entry_date&#39;</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;animals/animal-index.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;filter&#39;</span><span class="p">:</span> <span class="n">f</span><span class="p">})</span>
-</pre></div>
-</td></tr></table></div>
 </div>
 <div class="section" id="module-animals.urls">
 <span id="urls"></span><h2>URLs<a class="headerlink" href="#module-animals.urls" title="Permalink to this headline">¶</a></h2>
@@ -1993,79 +927,6 @@ or 404 if organ not found</td>
 </ol>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;animals URL Configuration</span>
-
-<span class="sd">The `urlpatterns` list routes URLs to views. For more information please see:</span>
-<span class="sd">    https://docs.djangoproject.com/en/2.0/topics/http/urls/</span>
-
-<span class="sd">Examples:</span>
-
-<span class="sd">Function views:</span>
-<span class="sd">  1. Add an import:  from my_app import views</span>
-<span class="sd">  2. Add a URL to urlpatterns:  path(&#39;&#39;, views.home, name=&#39;home&#39;)</span>
-
-<span class="sd">Class-based views:</span>
-<span class="sd">  1. Add an import:  from other_app.views import Home</span>
-<span class="sd">  2. Add a URL to urlpatterns:  path(&#39;&#39;, Home.as_view(), name=&#39;home&#39;)</span>
-
-<span class="sd">Including another URLconf:</span>
-<span class="sd">  1. Import the include() function: from django.urls import include, path</span>
-<span class="sd">  2. Add a URL to urlpatterns:  path(&#39;blog/&#39;, include(&#39;blog.urls&#39;))</span>
-
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
-
-<span class="n">app_name</span> <span class="o">=</span> <span class="s1">&#39;animals&#39;</span>
-<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
-<span class="c1">#    path(&#39;&#39;, views.AnimalIndexView.as_view(), {&#39;show&#39;:&#39;current&#39;}, name=&#39;animal-list&#39;),</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">animal_list</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;animal-list&#39;</span><span class="p">),</span>
-<span class="c1">#    path(&#39;archive&#39;, views.AnimalIndexView.as_view(), {&#39;show&#39;:&#39;archive&#39;}, name=&#39;archive&#39;),</span>
-<span class="c1">#    path(&#39;all&#39;, views.AnimalIndexView.as_view(), {&#39;show&#39;:&#39;all&#39;}, name=&#39;all&#39;),</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;claim/&lt;int:primary_key&gt;&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">claim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;claim&#39;</span><span class="p">),</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;send_email_animal&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">send_email_animal</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;send_email_animal&#39;</span><span class="p">),</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;send_email_organ&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">send_email_organ</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;send_email_organ&#39;</span><span class="p">),</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;&lt;int:pk&gt;&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">AnimalDetailView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;animal-detail&#39;</span><span class="p">),</span>
-    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;feed&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">LatestAnimalsFeed</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;feed&#39;</span><span class="p">)</span>
-<span class="p">]</span>
-</pre></div>
-</td></tr></table></div>
 </div>
 </div>
 
@@ -2079,6 +940,7 @@ or 404 if organ not found</td>
   <ul>
 <li><a class="reference internal" href="#">Welcome to the documentation of anishare !</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#contact">Contact</a></li>
 <li><a class="reference internal" href="#using-the-software">Using the software</a><ul>
 <li><a class="reference internal" href="#main-user-interface">Main user interface</a><ul>
 <li><a class="reference internal" href="#animals">Animals</a></li>
@@ -2087,16 +949,25 @@ or 404 if organ not found</td>
 </ul>
 </li>
 <li><a class="reference internal" href="#main-animal-manager-tasks">Main animal manager tasks</a><ul>
-<li><a class="reference internal" href="#id1">Animals</a></li>
-<li><a class="reference internal" href="#id2">Organs</a></li>
+<li><a class="reference internal" href="#add-animals-manually">Add Animals manually</a></li>
+<li><a class="reference internal" href="#animals-import">Animals import</a><ul>
+<li><a class="reference internal" href="#from-pyrat">From PyRAT</a></li>
+<li><a class="reference internal" href="#from-tick-lab">From tick&#64;lab</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#main-admin-tasks">Main admin tasks</a><ul>
-<li><a class="reference internal" href="#id3">Animals</a></li>
+<li><a class="reference internal" href="#add-organs-manually">Add Organs manually</a></li>
+<li><a class="reference internal" href="#organs-import">Organs import</a></li>
+<li><a class="reference internal" href="#duplicating-entries">Duplicating entries</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#main-administrator-tasks">Main administrator tasks</a><ul>
+<li><a class="reference internal" href="#organs-used">Organs used</a></li>
+<li><a class="reference internal" href="#id1">Animals</a></li>
 <li><a class="reference internal" href="#labs">Labs</a></li>
 <li><a class="reference internal" href="#locations">Locations</a></li>
 <li><a class="reference internal" href="#persons">Persons</a></li>
 <li><a class="reference internal" href="#make-a-user-an-animal-manager">Make a user an animal manager</a></li>
+<li><a class="reference internal" href="#anishare-change-history">Anishare change history</a></li>
 </ul>
 </li>
 </ul>
@@ -2105,6 +976,7 @@ or 404 if organ not found</td>
 <li><a class="reference internal" href="#requirements">Requirements</a></li>
 <li><a class="reference internal" href="#first-time-setup">First time setup</a></li>
 <li><a class="reference internal" href="#importing-existing-data">Importing existing data</a></li>
+<li><a class="reference internal" href="#in-db-caching">In-DB Caching</a></li>
 <li><a class="reference internal" href="#running-tests">Running Tests</a><ul>
 <li><a class="reference internal" href="#upgrading-django">Upgrading django</a></li>
 <li><a class="reference internal" href="#upgrading-python">Upgrading python</a></li>
@@ -2153,7 +1025,7 @@ or 404 if organ not found</td>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2018, Holger Dinkel.
+      &copy;2018, Holger Dinkel, Fabian Monheim.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>

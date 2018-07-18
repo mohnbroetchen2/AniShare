@@ -3,7 +3,7 @@ Admin
 .. automodule:: animals.admin
     :members:
 
-.. literalinclude:: ../animals/admin.py
+.. literalinclude:: ../../animals/admin.py
    :language: python
    :linenos:
 ..  :lines: 15-28

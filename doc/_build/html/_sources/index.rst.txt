@@ -7,7 +7,7 @@ Welcome to the documentation of anishare !
 ==========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
 Introduction
@@ -29,6 +29,14 @@ automatic generation of email messages as well as an RSS feed for updates.
 
 At the moment, the software/database is geared towards handling of mice, however, it can be adjusted
 to handle any kind of research animal.
+
+This documentation can also be downloaded as pdf file: `Anishare Documentation <https://anishare.leibniz-fli.de/static/doc/anishare_documentation.pdf>`_ 
+
+Contact
+-------
+
+Technical and application support: Fabian Monheim, fabian.monheim@leibniz-fli.de, 03641-65-6872
+Content support: mouse@leibniz-fli.de, fish@leibniz-fli.de
 
 
 Using the software
@@ -60,7 +68,8 @@ transaction. Further steps might need to be necessary such as transferring the a
 (eg. PyRat).
 
 .. Note:: If more than one animal is available, the user can adjust the number they want to claim.
-          The remaining animals will still be available for claim.
+          The remaining animals will still be available for claim. Because of uniqueness it's only 
+          possible to offer exactly one mouse per dataset. In contrast fishes can be offer in a group.  
 
 .. image:: img/anishare_claim.png
 
@@ -68,8 +77,9 @@ Organs
 """"""
 
 There exists an individual page for animal organ share. It is very similar to the animal page,
-however only individual organs are for offer. Also there is no availability period, but a day at
-which the animal gets sacrificed. The person responsible for killing the animal will be informed via
+however only individual organs are for offer. The entry at the column ``Organ (used)`` indicates
+all organs which can not be claimed. Also there is no availability period, but a day at
+which the animal gets sacrificed. The person responsible for sacrifice the animal will be informed via
 email if anybody claims some of the available organs. The entry will remain available to others (as
 they might want to claim other organs).
 
@@ -96,13 +106,17 @@ the feed, they are directed to the claim page of the individual animal/organ.
 
 Main animal manager tasks
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-An *animal manager* can add animals and organs to the database.
+An *animal manager* can add animals and organs to the database on two ways. First, it is possible to
+add entrys manually. Secondly, it is possible to import an Excel sheet. At the FLI Jena there are two 
+databases to manage animals. Now the databases are not connected. To transfer more than one or two datasets
+to anishare it's recommend to use the export function of PyRAT or tick@lab and the import function of anishare.
+To use the export/import process please read the topic **Animals import** or **Organs import**.
 
 .. image:: img/admin_overview_manager.png
    :width: 60%
 
-Animals
-""""""
+Add Animals manually
+""""""""""""""""""""
 
 Click on ``Animals`` -> ``Add`` to add an animal.
 
@@ -115,8 +129,42 @@ After adding several animals, the main (index) view should look like this:
 
 .. image:: img/admin_after_loaddata.png
 
-Organs
-""""""
+Animals import
+""""""""""""""
+From PyRAT
+++++++++++
+First login to PyRAT and switch to the english version of PyRAT if it is no preset. Then select the animals which 
+should be import to anishare. Click on ``QS`` (Quick Select) and activate the option ``Export this list to Excel``.
+Push the button ``Apply``.
+
+.. image:: img/pyrat_export.png
+   :width: 40%
+
+Now it's important to select all mandatory fields:
+**ID, Lab ID, Sex, Line / Strine (Name), Mutations, Date of birth, Responsible, License number, Building** 
+
+It's possible to save the selected columns as a ``Manage View`` for reuse (fold out ``Manage View`` on the left side of the ``File name``)
+
+.. image:: img/pyrat_export_select_columns.png
+   :width: 40%
+
+After downloading the file it's nessecary to edit the file because the coloumns **Animal type, Available from, Available to** are missing.
+Please add the mentioned columns (wherever) and fill it out. As **Animal type** the two values ``mouse`` or ``fish`` are possible.
+Please use the same date format for the coloumns **Available from, Available to** like at the exported coloumn **DOB** (Deate of birth).
+To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
+``mouse`` (Animal type), ``Current Date`` (Available from), ``Current Date + 14 days`` (Available to).
+Please refeer to the `macro site <https://anishare.leibniz-fli.de/macros/>`_ to downloading the macros and further informations. 
+
+After adding the missing coloumns the file can be save, for example as xlsx file. Now go to the anishare admin interface to ``Home › Animals › Animals``
+and click the button ``IMPORT`` (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
+the user if all requirements match.  
+
+From tick@lab
++++++++++++++
+
+
+Add Organs manually
+"""""""""""""""""""
 
 Click on ``Organs`` -> ``Add`` to add an organ.
 
@@ -125,16 +173,38 @@ Click on ``Organs`` -> ``Add`` to add an organ.
 
 All fields in bold **need** to be filled in, the others are optional.
 
+Organs import
+"""""""""""""
 
-Main admin tasks
-^^^^^^^^^^^^^^^^
-The admin interface allows to edit the following types of entries:
+Duplicating entries
+"""""""""""""""""""
+
+For input of multiple similar entries, it is possible to duplicate an animal or organ entry. For this, select one
+or more entries in the list (see figure below) and select "`copy animal`" from the dropdown menu and click
+"`Go`". 
+
+.. image:: img/admin_copy_animal.png
+   :width: 75%
+
+Another option is to edit an existing animal and click on "`Save as new`". This will save the
+currently edited animal as a new instance:
+
+.. image:: img/admin_save_as_new.png
+
+Main administrator tasks
+^^^^^^^^^^^^^^^^^^^^^^^^
+The administrator can edit more objects in the admin interface, namely not just animals and organs
+but also labs, locations and persons:
 
 .. image:: img/admin_overview.png
    :width: 60%
 
+Organs used
+"""""""""""
+These organs are standard values for the field **Organ used**.
+
 Animals
-""""""
+"""""""
 
 The main category to administer are animals to share.
 Here, several filters (such as "sex", "location", etc.) are available to search for any set of animals.
@@ -180,8 +250,9 @@ an email when the animal is being claimed.
 Make a user an animal manager
 """""""""""""""""""""""""""""
 
+The *administrator* is also responsible for user/rights management.
 In order to be able to add/edit animals, a user has to be in the group *animal manager* and have
-*staff status* in django admin. For this, an *administrator* has to go to the `user management
+*staff status* in the django admin interface. For this, an *administrator* has to go to the `user management
 <https://anishare.leibniz-fli.de/admin/auth/user/>`_ in the admin interface by clicking "Home" -> "Authentication and
 Authorization" -> "Users". Here, they can make a *user* an *animal manager*, by setting these values (*staff*
 and group *animal manager*):
@@ -189,6 +260,11 @@ and group *animal manager*):
 .. image:: img/admin_permissions_user.png
    :width: 75%
 
+Anishare change history
+"""""""""""""""""""""""
+New functions and bugfix at the system should be documented. So users can be informed about changes on the system. 
+All changes are visible to authenticated users. Please refeer to the site `AniShare Change History
+<https://anishare.leibniz-fli.de/changehistory/>`_ to see all changes.
 
 Installation
 ------------
@@ -242,17 +318,24 @@ After loading the data, the main admin interface should look like this:
 
 .. image:: img/admin_after_loaddata.png
 
-
 Importing existing data
 ^^^^^^^^^^^^^^^^^^^^^^^
 For import of existing data in tabular (excel) format, a management command is available at 
-:py:mod:`animals.models`.
 :py:mod:`animals.management.commands.import_animals` ::
    
    python manage.py import_animals
 
 .. Note:: See the file ``example_import.xls`` for an example...
 .. image:: img/import_excel_sheet.png
+
+In-DB Caching
+^^^^^^^^^^^^^
+By default, database caching is enabled in settings. To create the necessary tables, run this
+command::
+
+   python manage.py createcachetable
+
+This will create a cache table in the SQLite database, which will speed up queries.
 
 Running Tests
 ^^^^^^^^^^^^^
@@ -267,7 +350,7 @@ You can invoke the django tests like so::
 
 
 Upgrading django
-"""""""""""""""
+""""""""""""""""
 To upgrade django or any other python library for anishare, go into the anishare directory, and
 activate its virtualenv::
 

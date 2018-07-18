@@ -32,7 +32,7 @@ author = 'Holger Dinkel, Fabian Monheim'
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
-release = '1.3'
+release = '1.4'
 
 
 # -- General configuration ---------------------------------------------------
@@ -142,7 +142,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'anishare.tex', 'AniShare Documentation',
-     'Holger Dinkel', 'manual'),
+     'Holger Dinkel, Fabian Monheim', 'manual'),
 ]
 
 

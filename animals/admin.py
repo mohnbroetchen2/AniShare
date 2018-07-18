@@ -72,19 +72,20 @@ class AnimalResource(resources.ModelResource): # für den Import. Hier werden di
 class OrganResource(resources.ModelResource): # für den Import. Hier werden die Felder festgelegt, die importiert werden können
 
     animal_type = fields.Field(attribute='animal_type', column_name='Animal type') 
-    organ_type = fields.Field(attribute='organ_type', column_name='Organ type', widget=ManyToManyWidget(Organtype,separator=',',field='name'))
+    organ_type = fields.Field(attribute='organ_type', column_name='Organ used', widget=ManyToManyWidget(Organtype,separator=',',field='name'))
     responsible_person = fields.Field(
         column_name='Responsible',
         attribute='responsible_person',
         widget=ForeignKeyWidget(Person, 'name'))
     lab_id = fields.Field(attribute='lab_id', column_name='Lab ID')
     database_id = fields.Field(attribute='database_id', column_name='ID')
-    killing_person = fields.Field(attribute='killing_person', column_name='Killing person')
+    killing_person = fields.Field(attribute='killing_person', column_name='Euthanasia performed by')
     day_of_birth = fields.Field(attribute='day_of_birth', column_name='DOB')
     day_of_death = fields.Field(attribute='day_of_death', column_name='Sacrifice date')
     method_of_killing = fields.Field(attribute='method_of_killing', column_name='Sacrifice method')
     line = fields.Field(attribute='line', column_name='Line / Strain (Name)')
     sex = fields.Field(attribute='sex', column_name='Sex')
+    comment = fields.Field(attribute='comment', column_name='Comment')
     location = fields.Field(
         column_name='Building',
         attribute='location',

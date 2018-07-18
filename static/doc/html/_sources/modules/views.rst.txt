@@ -3,6 +3,6 @@ Views
 .. automodule:: animals.views
     :members:
 
-.. literalinclude:: ../animals/views.py
+.. literalinclude:: ../../animals/views.py
    :language: python
    :linenos:

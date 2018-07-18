@@ -77,8 +77,9 @@ animals/lab.yaml
 animals/person.yaml
 animals/animals.yaml
 animals/auth.yaml
-
+animals/migrations
+doc/_build
 anishare/local_settings.py
 static_collected
 static/admin
-doc/_build
+
