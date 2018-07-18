@@ -27,6 +27,7 @@ app_name = 'animals'
 urlpatterns = [
 #    path('', views.AnimalIndexView.as_view(), {'show':'current'}, name='animal-list'),
     path('', views.animal_list, name='animal-list'),
+    path('', views.change_history, name='change-history'),
 #    path('archive', views.AnimalIndexView.as_view(), {'show':'archive'}, name='archive'),
 #    path('all', views.AnimalIndexView.as_view(), {'show':'all'}, name='all'),
     path('claim/<int:primary_key>', views.claim, name='claim'),

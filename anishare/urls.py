@@ -29,5 +29,7 @@ urlpatterns = [
     path('organs/claim/<int:primary_key>', animals.views.claim_organ, name='claim_organ'),
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
+    path('macros/', animals.views.macros, name='macro'),
+    path('changehistory/', animals.views.change_history, name='change'),
     path('accounts/', include('django.contrib.auth.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

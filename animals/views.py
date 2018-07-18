@@ -24,8 +24,8 @@ from django.views.decorators.cache import cache_page
 #from django.urls import reverse
 from django.views import generic
 
-from .filters import AnimalFilter, OrganFilter
-from .models import Animal, Organ
+from .filters import AnimalFilter, OrganFilter, ChangeFilter
+from .models import Animal, Organ, Change
 
 @login_required
 def claim(request, primary_key):
@@ -253,3 +253,13 @@ def organ_list(request):
     return render(request, 'animals/organ-index.html', {'filter': f})
 #today = datetime.now().date()
 #        return self.day_of_death >= today
+
+@login_required
+def change_history(request):
+    changelist = Change.objects.all()
+    f = ChangeFilter(request.GET, queryset=changelist)
+    return render(request, 'animals/change-index.html', {'filter': f})
+
+@login_required
+def macros(request):
+    return render(request, 'animals/macro-index.html')

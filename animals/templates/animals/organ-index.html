@@ -83,14 +83,14 @@
                 <thead>
                 <tr>
                   <th class="header"> ID <i class="icon-sort"></i></th>
-                  <th class="header"> # <i class="icon-sort"></i></th>
+                  <!--th class="header"> # <i class="icon-sort"></i></th-->
                   <th class="header"> Type <i class="icon-sort"></i></th>
-                  <th class="header"> Organ (unavailable)<i class="icon-sort"></i></th>
+                  <th class="header"> Organ used<i class="icon-sort"></i></th>
                   <th class="header"> Sex<i class="icon-sort"></i></th>
                   <th class="header"> Date of Birth <i class="icon-sort"></i></th>
                   <th class="header"> Date of Death <i class="icon-sort"></i></th>
-                  <th class="header"> Killing Method<i class="icon-sort"></i></th>
-                  <th class="header"> Killing Person<i class="icon-sort"></i></th>
+                  <th class="header"> Sacrifice Method <i class="icon-sort"></i></th>
+                  <th class="header"> Euthanasia performed by<i class="icon-sort"></i></th>
                   <th class="header"> Age (w) <i class="icon-sort"></i></th>
                   <th class="header"> Line <i class="icon-sort"></i></th>
                   <th class="header"> Mutations <i class="icon-sort"></i></th>
@@ -107,7 +107,7 @@
                   {% for a in filter.qs %}
                     <tr {% if not a.available %}class="strikeout"{% endif %}>
                         <td>{{a.pk}}</td>
-                        <td>{{a.amount}}</td>
+                        <!--td>{{a.amount}}</td-->
                         <td>{{a.animal_type}}</td>
                         <td>{{a.get_organtypes}}</td>
                         <td>{% if a.get_sex_display == 'female' %}

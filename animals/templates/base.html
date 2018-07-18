@@ -25,7 +25,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar navbar-default" role="navigation">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-      <a class="navbar-brand" href="#">AniShare</a>
+      <a class="navbar-brand" href="/">AniShare</a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item "> <a class="nav-item nav-link" href="/animals/">Animals</a> </li>
             <!--            <li class="nav-item"> <a class="nav-item nav-link" href="/animals/all">All Animals</a> </li>-->
@@ -43,11 +43,19 @@
     </div>
     <div class="navbar-collapse collapse w-110 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
-            {% if user.is_authenticated %}<li class="nav-item"> <a class="nav-item nav-link" href="/animals/feed">RSS Feed</a> </li>
+            {% if user.is_authenticated %}
             <li class="nav-item"> <a class="nav-item nav-link"> Logged in as: {{ user  }}   </a> </li>
-            <li class="nav-item"> <a class="nav-item nav-link" href="/accounts/logout">Logout</a> </li>
+            <li class="nav-item"> <a class="nav-item nav-link" href=""></a> </li>
+            <li class="nav-item"> <a class="nav-item nav-link" href=""></a> </li>
             <li class="nav-item"> <a class="nav-item nav-link" href="/admin/animals/animal/add">Add Animal</a> </li>
-            <li class="nav-item"> <a class="nav-item nav-link" href="/admin/animals/organ/add">Add Organ</a> </li>{% endif %}
+            <li class="nav-item"> <a class="nav-item nav-link" href="/admin/animals/organ/add">Add Organ</a> </li>
+            <li class="nav-item"> <a class="nav-item nav-link" href=""></a> </li>
+            <li class="nav-item"> <a class="nav-item nav-link" href=""></a> </li>
+            <li class="nav-item"> <a class="nav-item nav-link" href="/accounts/logout">Logout</a> </li>
+            <li class="nav-item"> <a class="nav-item nav-link" href=""></a> </li>
+            <li class="nav-item"> <a class="nav-item nav-link" href=""></a> </li>
+            <!--li class="nav-item"> <a class="nav-item nav-link" href="/animals/feed">RSS Feed</a> </li-->
+            <li class="nav-item"> <a class="nav-item nav-link" href="/static/doc/html/index.html" target="_blank">?</a> </li>{% endif %}
         </ul>
     </div>
 </nav>
@@ -66,16 +74,28 @@
 
 {% endblock %}
 
-<div class="col-xs-12" style="height:50px;"></div>
+<!--div class="col-xs-12" style="height:50px;"></div>
     <div class="row">
         <div class="col-md-3"> <a href="http://www.leibniz-fli.de"><img style="width:256px;" src="/static/FLI_Logo_engl_HZ_4c__Konvertiert_.png" alt=""></a></div>
-        <div class="col-md-2"> Beutenbergstraße 11<br>D-07745 Jena&nbsp; •&nbsp; Germany </div>
-        <div class="col-md-2"> Phone: +49 3641 65-6000<br>Fax:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +49 3641 65-6351 </div>
-        <div class="col-md-2"> E-mail: <a href="mailto:info@leibniz-fli.de">info@leibniz-fli.de</a> <br><a href="http://www.leibniz-fli.de" title="Opens external link in new window" class="external-link-new-window">www.leibniz-fli.de</a> 
+        <div class="col-md-3"> Beutenbergstraße 11<br>D-07745 Jena&nbsp; •&nbsp; Germany </div>
+        <div class="col-md-3"> Phone: +49 3641 65-6000<br>Fax:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +49 3641 65-6351 </div>
+        <div class="col-md-3"> E-mail: <a href="mailto:info@leibniz-fli.de">info@leibniz-fli.de</a> <br><a href="http://www.leibniz-fli.de" title="Opens external link in new window" class="external-link-new-window">www.leibniz-fli.de</a> 
 </br> <a href="http://www.leibniz-fli.de/de/datenschutz/">data privacy</a> </div>
-        <div class="col-md-3"> <a href="https://www.leibniz-gemeinschaft.de/en/home/" target="_blank"><img src="{% static 'Leibniz_Logo_EN_blue_black_500px.png' %}" width="110" alt=""></a> 
-        </div>
+        <div class="col-md-3"> <a href="https://www.leibniz-gemeinschaft.de/en/home/" target="_blank"><img src="{% static 'Leibniz_Logo_EN_blue_black_500px.png' %}" width="110" alt=""></a></div>
+    </div-->
+
+<div class="container" style="height:50px;"></div>
+    <div class="row">
+        <div class="col-sm"> </div>
+        <div class="col-sm"> <a href="http://www.leibniz-fli.de"><img style="width:256px;" src="/static/FLI_Logo_engl_HZ_4c__Konvertiert_.png" alt=""></a></div>
+        <div class="col-sm"> Beutenbergstraße 11<br>D-07745 Jena&nbsp; •&nbsp; Germany </div>
+        <div class="col-sm"> Phone: +49 3641 65-6000<br>Fax:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +49 3641 65-6351 </div>
+        <div class="col-sm"> E-mail: <a href="mailto:info@leibniz-fli.de">info@leibniz-fli.de</a> <br><a href="http://www.leibniz-fli.de" title="Opens external link in new window" class="external-link-new-window">www.leibniz-fli.de</a> 
+</br> <a href="http://www.leibniz-fli.de/de/datenschutz/">data privacy</a> </div>
+        <div class="col-sm"> <a href="https://www.leibniz-gemeinschaft.de/en/home/" target="_blank"><img src="{% static 'Leibniz_Logo_EN_blue_black_500px.png' %}" width="110" alt=""></a></div>
+        <div class="col-sm"> </div>
     </div>
+</div>
         
 <!-- Latest compiled and minified JavaScript 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

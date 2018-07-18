@@ -5,6 +5,8 @@ from datetime import datetime
 from django.urls import reverse
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 class Lab(models.Model):
     """
@@ -53,7 +55,7 @@ class Change(models.Model):
     version = models.CharField(max_length=200,)
     short_text = models.CharField(max_length=400,)
     description = models.TextField(blank=True, null=True,)
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(null=True, blank=True, upload_to='images/')
     
     def __str__(self):
         return "{} {} {}, {} id:{} [{}]".format(
@@ -64,15 +66,15 @@ class Animal(models.Model):
     """
     Main model containing the animals.
     """
-    amount = models.PositiveIntegerField(default=1,
-                                         help_text="How many animals? (eg. fish in tank)")
+    amount = models.PositiveIntegerField(default=1, 
+                                         help_text="How many fishs? (eg. fish in tank). If animal = mouse only one is possible")
     animal_type = models.CharField(max_length=100, choices=(
         ('fish', 'fish'),
         ('mouse', 'mouse'),
     ),
                                    default='mouse')
-    database_id = models.CharField(max_length=200, null=True, blank=True, help_text="ID of animal in eg. PYRAT")
-    lab_id = models.CharField(max_length=200, help_text="ID of lab in eg. PYRAT")
+    database_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT", default="0")
+    lab_id = models.CharField(max_length=200, null=True, blank=True, help_text="ID of lab in eg. PYRAT")
     creation_date = models.DateTimeField(null=False, auto_now_add=True)
     modification_date = models.DateTimeField(null=False, auto_now=True)
     entry_date = models.DateField(null=False, auto_now_add=True)
@@ -94,6 +96,16 @@ class Animal(models.Model):
     new_owner = models.CharField(max_length=200, blank=True,
                                  help_text='Person claiming this animal for themselves') # turn into foreignkey to auth_users?
     added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, default=1)
+
+    def validate_amount(value):
+        if (self.animal_type != 'fish' and value != 1):
+            raise ValidationError('Only one mouse is possible')
+
+    def clean(self):
+        animal_type = self.animal_type
+        amount = self.amount
+        if (animal_type != 'fish' and amount != 1):
+            raise ValidationError('Only one mouse is possible')
 
     def age(self):
         """
@@ -150,6 +162,9 @@ class Organtype(models.Model):
         ('other', 'other'),
         ),help_text='Organ type which is not available',)"""
     name = models.CharField(max_length=100,)
+    class Meta:
+        verbose_name = "Organ used"
+        verbose_name_plural = "Organs used"
     def __str__(self):
         return self.name
 
@@ -157,8 +172,8 @@ class Organ(models.Model):
     """
     Model containing the organs
     """
-    amount = models.PositiveIntegerField(default=1,
-                                         help_text="How many organs?")
+    """amount = models.PositiveIntegerField(default=1,
+                                         help_text="How many organs?")"""
     animal_type = models.CharField(max_length=100, choices=(
         ('fish', 'fish'),
         ('mouse', 'mouse'),
@@ -167,10 +182,10 @@ class Organ(models.Model):
                                    default='mouse')
     sex = models.CharField(max_length=2, choices=(('m', 'male'), ('f', 'female'), ('u', 'unknown')),
                            help_text='Select "unknown" if multiple animals.')
-    organ_type = models.ManyToManyField(Organtype)
+    organ_type = models.ManyToManyField(Organtype, related_name='Organ_used', verbose_name='Organ used')
     day_of_birth = models.DateField()
     day_of_death = models.DateField()
-    method_of_killing = models.CharField(max_length=100, choices=(
+    method_of_killing = models.CharField(verbose_name='Sacrifice method', max_length=100, choices=(
         ('CO2', 'CO2'),
         ('cervicale dislocation', 'cervicale dislocation'),
         ('decapitation', 'decapitation'),
@@ -179,9 +194,9 @@ class Organ(models.Model):
         ('overdose anaesthetics', 'overdose anaesthetic'),
         ('other', 'other'),
         ),)
-    killing_person = models.EmailField(null=True, blank=True, help_text='Email address of the person who is responsible for killing the animal')
-    database_id = models.CharField(max_length=200, null=True, blank=True, help_text="ID of animal in eg. PYRAT")
-    lab_id = models.CharField(max_length=200, help_text="ID of lab in eg. PYRAT")
+    killing_person = models.EmailField(verbose_name='Euthanasia performed by',null=True, blank=True, help_text='Email address of the person who performe euthanasia')
+    database_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT", default="0")
+    lab_id = models.CharField(max_length=200, null=True, blank=True, help_text="ID of lab in eg. PYRAT")
     entry_date = models.DateField(null=False, auto_now_add=True)
     line = models.CharField(max_length=200, help_text="genetic trait of animal")
     location = models.ForeignKey(Location, on_delete=models.CASCADE, help_text='Where is the animal housed?')
@@ -198,9 +213,9 @@ class Organ(models.Model):
     added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, default=1)
 
     def get_organtypes(self):
-        """Get all organ types which are not available"""
+        """Get all organ types which are used"""
         return ",\n".join([ot.name for ot in self.organ_type.all()])
-    get_organtypes.short_description ='ORGAN TYPE (unavailable)'
+    get_organtypes.short_description ='ORGAN TYPE (used)'
 
     def age(self):
         """
@@ -222,8 +237,8 @@ class Organ(models.Model):
         return reverse('claim_organ', kwargs={'primary_key': self.pk})
 
     def __str__(self):
-        return "{} {} {}, {} id:{} [{}]".format(
-            self.amount, self.get_sex_display(), self.animal_type, self.line, self.pk, self.day_of_birth)
+        return " {} {}, {} id:{} [{}]".format(
+            self.get_sex_display(), self.animal_type, self.line, self.pk, self.day_of_birth)
 
     def description(self):
         """

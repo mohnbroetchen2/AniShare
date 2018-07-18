@@ -1,0 +1,267 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Views &#8212; anishare 1.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-animals.views">
+<span id="views"></span><h1>Views<a class="headerlink" href="#module-animals.views" title="Permalink to this headline">¶</a></h1>
+<p>Django Views contains all the functions for rendering objects (HTML display).
+It also contains an RSS Feed generator class to create an RSS feed from newly created animals</p>
+<dl class="docutils">
+<dt><strong>Important</strong>:</dt>
+<dd>When adding new functions, use the login_required decorator
+When adding new classes, use the LoginRequiredMixin</dd>
+</dl>
+<dl class="class">
+<dt id="animals.views.AnimalDetailView">
+<em class="property">class </em><code class="descclassname">animals.views.</code><code class="descname">AnimalDetailView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.AnimalDetailView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detail view for an animal.
+This is rarely used, rather use the claim page.</p>
+<dl class="attribute">
+<dt id="animals.views.AnimalDetailView.model">
+<code class="descname">model</code><a class="headerlink" href="#animals.views.AnimalDetailView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#animals.models.Animal" title="animals.models.Animal"><code class="xref py py-class docutils literal notranslate"><span class="pre">animals.models.Animal</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.views.AnimalIndexView">
+<em class="property">class </em><code class="descclassname">animals.views.</code><code class="descname">AnimalIndexView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.AnimalIndexView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Index / List view for all available animals.
+Generic ListView using the LoginRequiredMixin</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>q</strong> – query / search term to filter the results</li>
+<li><strong>show</strong> – limit the results to ‘current’, ‘archive’, or all animals</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="animals.views.AnimalIndexView.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.AnimalIndexView.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the latest additions to the Animals table</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="animals.views.AnimalIndexView.model">
+<code class="descname">model</code><a class="headerlink" href="#animals.views.AnimalIndexView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#animals.models.Animal" title="animals.models.Animal"><code class="xref py py-class docutils literal notranslate"><span class="pre">animals.models.Animal</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.views.LatestAnimalsFeed">
+<em class="property">class </em><code class="descclassname">animals.views.</code><code class="descname">LatestAnimalsFeed</code><a class="headerlink" href="#animals.views.LatestAnimalsFeed" title="Permalink to this definition">¶</a></dt>
+<dd><p>RSS Feed for new animals/organs.</p>
+<dl class="method">
+<dt id="animals.views.LatestAnimalsFeed.item_description">
+<code class="descname">item_description</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestAnimalsFeed.item_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>What to print as item description (use default description from model).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.views.LatestAnimalsFeed.item_title">
+<code class="descname">item_title</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestAnimalsFeed.item_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>What to print as item title (use default __str__ of model).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.views.LatestAnimalsFeed.items">
+<code class="descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestAnimalsFeed.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get latest animals as items.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.views.OrganIndexView">
+<em class="property">class </em><code class="descclassname">animals.views.</code><code class="descname">OrganIndexView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.OrganIndexView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Index / List view for all available Organs.
+Generic ListView using the LoginRequiredMixin</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>q</strong> – query / search term to filter the results</li>
+<li><strong>show</strong> – limit the results to ‘current’, ‘archive’, or all Organs</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="animals.views.OrganIndexView.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.OrganIndexView.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the latest additions to the Organs table</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="animals.views.OrganIndexView.model">
+<code class="descname">model</code><a class="headerlink" href="#animals.views.OrganIndexView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#animals.models.Organ" title="animals.models.Organ"><code class="xref py py-class docutils literal notranslate"><span class="pre">animals.models.Organ</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="animals.views.claim">
+<code class="descclassname">animals.views.</code><code class="descname">claim</code><span class="sig-paren">(</span><em>request</em>, <em>primary_key</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.claim" title="Permalink to this definition">¶</a></dt>
+<dd><p>View to claim an animal.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>primary_key</strong> – the id/pk of the animal to retrieve</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">rendered page with the claim form
+or 404 if animal not found</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="animals.views.claim_organ">
+<code class="descclassname">animals.views.</code><code class="descname">claim_organ</code><span class="sig-paren">(</span><em>request</em>, <em>primary_key</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.claim_organ" title="Permalink to this definition">¶</a></dt>
+<dd><p>View to claim an organ.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>primary_key</strong> – the id/pk of the organ to retrieve</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">rendered page with the claim form
+or 404 if organ not found</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="animals.views.send_email_animal">
+<code class="descclassname">animals.views.</code><code class="descname">send_email_animal</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.send_email_animal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to send an email about an animal being claimed.</p>
+<p>Needs these variables in the POST request: email, pk, count</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>email</strong> – email address of the request user / new owner</li>
+<li><strong>pk</strong> – primary_key of the animal(s) to be claimed</li>
+<li><strong>count</strong> – how many animals are being claimed</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="animals.views.send_email_organ">
+<code class="descclassname">animals.views.</code><code class="descname">send_email_organ</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.send_email_organ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to send an email about an animal being claimed.</p>
+<p>Needs these variables in the POST request: email, pk, count</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>email</strong> – email address of the request user / new owner</li>
+<li><strong>pk</strong> – primary_key of the animal(s) to be claimed</li>
+<li><strong>organs_wanted</strong> – organs wanted from the given animal</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/views.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Holger Dinkel.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/views.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

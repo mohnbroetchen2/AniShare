@@ -26,8 +26,8 @@ django.setup()
 # -- Project information -----------------------------------------------------
 
 project = 'AniShare'
-copyright = '2018, Holger Dinkel'
-author = 'Holger Dinkel'
+copyright = '2018, Holger Dinkel, Fabian Monheim'
+author = 'Holger Dinkel, Fabian Monheim'
 
 # The short X.Y version
 version = ''

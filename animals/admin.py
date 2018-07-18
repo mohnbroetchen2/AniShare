@@ -39,7 +39,7 @@ class AnimalResource(resources.ModelResource): # für den Import. Hier werden di
     mutations3 = fields.Field(attribute='mutations3',column_name='Mutation 3')
     mutations4 = fields.Field(attribute='mutations4',column_name='Mutation 4')
     licence_number = fields.Field(attribute='licence_number', column_name='License number')
-    available_to = fields.Field(attribute='available_to', column_name='Available To')
+    available_to = fields.Field(attribute='available_to', column_name='Available to')
     available_from = fields.Field(attribute='available_from', column_name='Available from')
     class Meta:
         model = Animal
@@ -96,7 +96,7 @@ class OrganResource(resources.ModelResource): # für den Import. Hier werden die
     licence_number = fields.Field(attribute='licence_number', column_name='License number')
     class Meta:
         model = Organ
-        fields = ('lab_id','animal_type','organ_type', 'amount', 'database_id','killing_person','day_of_birth','day_of_death','method_of_killing'
+        fields = ('lab_id','animal_type','organ_type', 'database_id','killing_person','day_of_birth','day_of_death','method_of_killing'
         'line','sex','location','mutations1', 'mutations2','mutations3', 'mutations4','licence_number',
         'responsible_person','comment',)
     def get_instance(self, instance_loader, row):
@@ -261,17 +261,17 @@ class OrganAdmin(ImportExportModelAdmin):
     """
     resource_class = OrganResource
     filter_horizontal = ('organ_type',)
-    list_display = ('amount', 'animal_type','get_organtypes', 'entry_date', 'day_of_birth',
+    list_display = ('animal_type','get_organtypes', 'entry_date', 'day_of_birth',
                     'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
                     'sex', 'location','lab_id', 'licence_number', 'responsible_person', 'added_by')
-    list_display_links = ('amount', 'animal_type','get_organtypes', 'entry_date', 'day_of_birth',
+    list_display_links = ( 'animal_type','get_organtypes', 'entry_date', 'day_of_birth',
                           'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
                           'sex', 'location','lab_id', 'licence_number', 'responsible_person', 'added_by')
-    search_fields = ('amount', 'animal_type', 'entry_date', 'day_of_birth',
+    search_fields = ( 'animal_type', 'entry_date', 'day_of_birth',
                      'day_of_death','method_of_killing', 'killing_person', 'line',
                      'sex', 'location__name', 'licence_number', 'responsible_person__name', 'added_by__username')
     autocomplete_fields = ['responsible_person']
-    list_filter = ('amount', 'sex',
+    list_filter = ('sex',
                    ('day_of_birth', DateRangeFilter), ('day_of_death', DateRangeFilter),
                    'responsible_person__responsible_for_lab',
                    'location', 'licence_number', 'added_by',)

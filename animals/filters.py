@@ -3,7 +3,7 @@ Filters: using django-filters to filter querysets
 """
 import django_filters
 from django_filters import FilterSet
-from .models import Animal, Organ
+from .models import Animal, Organ, Change
 from django.db.models import F
 import django.forms
 from datetime import timedelta, tzinfo
@@ -54,3 +54,8 @@ class OrganFilter(FilterSet):
         fields = ['animal_type', 'sex', 'day_of_death', 'killing_person',
                   'method_of_killing', 'line', 'mutations','responsible_person',
                   'location', 'licence_number',]
+
+class ChangeFilter(FilterSet):
+    class Meta:
+        model = Change
+        fields = ['change_type','version',]
