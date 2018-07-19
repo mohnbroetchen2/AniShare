@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Admin &#8212; AniShare 1.3 documentation</title>
+    <title>Admin &#8212; AniShare 1.4 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -45,13 +45,13 @@
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.form">
 <code class="descname">form</code><a class="headerlink" href="#animals.admin.AnimalAdmin.form" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="../index.html#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.resource_class">
 <code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.AnimalAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="../index.html#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -126,7 +126,7 @@ association with the field named ‘__all__’.</p>
 <dl class="attribute">
 <dt id="animals.admin.OrganAdmin.resource_class">
 <code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.OrganAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="../index.html#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -480,7 +480,10 @@ association with the field named ‘__all__’.</p>
 299
 300
 301
-302</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+302
+303
+304
+305</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Admin module</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">copy</span>
@@ -523,6 +526,8 @@ association with the field named ‘__all__’.</p>
     <span class="n">licence_number</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;License number&#39;</span><span class="p">)</span>
     <span class="n">available_to</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Available to&#39;</span><span class="p">)</span>
     <span class="n">available_from</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Available from&#39;</span><span class="p">)</span>
+    <span class="n">amount</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Amount&#39;</span><span class="p">)</span>
+    <span class="n">amount</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;comment&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Comment&#39;</span><span class="p">)</span>
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">Animal</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;lab_id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;database_id&#39;</span><span class="p">,</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
@@ -554,19 +559,20 @@ association with the field named ‘__all__’.</p>
 <span class="k">class</span> <span class="nc">OrganResource</span><span class="p">(</span><span class="n">resources</span><span class="o">.</span><span class="n">ModelResource</span><span class="p">):</span> <span class="c1"># für den Import. Hier werden die Felder festgelegt, die importiert werden können</span>
 
     <span class="n">animal_type</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Animal type&#39;</span><span class="p">)</span> 
-    <span class="n">organ_type</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;organ_type&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Organ type&#39;</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">ManyToManyWidget</span><span class="p">(</span><span class="n">Organtype</span><span class="p">,</span><span class="n">separator</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">))</span>
+    <span class="n">organ_type</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;organ_type&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Organ used&#39;</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">ManyToManyWidget</span><span class="p">(</span><span class="n">Organtype</span><span class="p">,</span><span class="n">separator</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">))</span>
     <span class="n">responsible_person</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span>
         <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Responsible&#39;</span><span class="p">,</span>
         <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span>
         <span class="n">widget</span><span class="o">=</span><span class="n">ForeignKeyWidget</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">))</span>
     <span class="n">lab_id</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;lab_id&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Lab ID&#39;</span><span class="p">)</span>
     <span class="n">database_id</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;database_id&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">)</span>
-    <span class="n">killing_person</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;killing_person&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Killing person&#39;</span><span class="p">)</span>
+    <span class="n">killing_person</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;killing_person&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Euthanasia performed by&#39;</span><span class="p">)</span>
     <span class="n">day_of_birth</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;DOB&#39;</span><span class="p">)</span>
     <span class="n">day_of_death</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;day_of_death&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Sacrifice date&#39;</span><span class="p">)</span>
     <span class="n">method_of_killing</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;method_of_killing&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Sacrifice method&#39;</span><span class="p">)</span>
     <span class="n">line</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Line / Strain (Name)&#39;</span><span class="p">)</span>
     <span class="n">sex</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Sex&#39;</span><span class="p">)</span>
+    <span class="n">comment</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;comment&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Comment&#39;</span><span class="p">)</span>
     <span class="n">location</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span>
         <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Building&#39;</span><span class="p">,</span>
         <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;location&#39;</span><span class="p">,</span>

@@ -36,7 +36,7 @@ class Command(BaseCommand):
 		#a.available_from = xldate_as_datetime(xl_sheet.cell(row_idx, 0).value, xl.datemode) # angeboten am
                 a.animal_type = 'fish'
                 a.available_from = datetime.today().date()
-                a.comment = str(xl_sheet.cell(row_idx, 0).value).strip() # Geschlecht		
+                a.comment = str(xl_sheet.cell(row_idx, 0).value).strip() # Kommentar		
                 a.sex = str(xl_sheet.cell(row_idx, 1).value).strip().lower() or 'u' # Geschlecht
                 a.line = str(xl_sheet.cell(row_idx, 2).value).strip() # Zuchtlinie
                 a.lab_id = str(xl_sheet.cell(row_idx, 3).value).strip() # Käfig-ID

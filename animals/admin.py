@@ -41,6 +41,8 @@ class AnimalResource(resources.ModelResource): # für den Import. Hier werden di
     licence_number = fields.Field(attribute='licence_number', column_name='License number')
     available_to = fields.Field(attribute='available_to', column_name='Available to')
     available_from = fields.Field(attribute='available_from', column_name='Available from')
+    amount = fields.Field(attribute='amount', column_name='Amount')
+    amount = fields.Field(attribute='comment', column_name='Comment')
     class Meta:
         model = Animal
         fields = ('lab_id','animal_type', 'amount', 'database_id','day_of_birth',

@@ -16,7 +16,7 @@ Introduction
 **anishare** is a webservice for research institutes to share animals with the goal to re-use
 animals and thus minimize total animal usage.
 
-It has been developed at the `Leibniz institute for aging research <http://leibniz-fli.de>`_ in
+It has been developed at the `Leibniz institute for aging research <http://www.leibniz-fli.de>`_ in
 Jena. This django app is meant to be used by researchers who want to share research animals with
 their colleagues. The basic idea is that animals are bred for experiments; however, sometimes, not
 all parts of the animal are used or sometimes an experiment gets cancelled for whatever reason. By
@@ -36,6 +36,7 @@ Contact
 -------
 
 Technical and application support: Fabian Monheim, fabian.monheim@leibniz-fli.de, 03641-65-6872
+
 Content support: mouse@leibniz-fli.de, fish@leibniz-fli.de
 
 
@@ -109,7 +110,7 @@ Main animal manager tasks
 An *animal manager* can add animals and organs to the database on two ways. First, it is possible to
 add entrys manually. Secondly, it is possible to import an Excel sheet. At the FLI Jena there are two 
 databases to manage animals. Now the databases are not connected. To transfer more than one or two datasets
-to anishare it's recommend to use the export function of PyRAT or tick@lab and the import function of anishare.
+to anishare it's recommend to use the export function of `PyRAT` or `tick@lab` and the import function of anishare.
 To use the export/import process please read the topic **Animals import** or **Organs import**.
 
 .. image:: img/admin_overview_manager.png
@@ -159,8 +160,8 @@ After adding the missing coloumns the file can be save, for example as xlsx file
 and click the button ``IMPORT`` (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
 the user if all requirements match.  
 
-From tick@lab
-+++++++++++++
+From `tick@lab`
++++++++++++++++
 
 
 Add Organs manually
@@ -175,6 +176,15 @@ All fields in bold **need** to be filled in, the others are optional.
 
 Organs import
 """""""""""""
+
+From PyRAT
+++++++++++
+
+
+From `tick@lab`
++++++++++++++++
+
+Because we expect only a small quantity of importing organs from `tick@lab` it's only possible to add entries manually.
 
 Duplicating entries
 """""""""""""""""""
