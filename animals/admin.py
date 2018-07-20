@@ -297,6 +297,8 @@ class OrganAdmin(ImportExportModelAdmin):
         if not obj.pk:
             # Only set added_by during the first save.
             obj.added_by = request.user
+            """if (obj.killing_person == None):
+                obj.killing_person = obj.responsible_person__email"""
         super().save_model(request, obj, form, change)
 
 @admin.register(Lab)

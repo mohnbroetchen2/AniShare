@@ -7,6 +7,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 class Lab(models.Model):
     """
@@ -194,7 +196,7 @@ class Organ(models.Model):
         ('overdose anaesthetics', 'overdose anaesthetic'),
         ('other', 'other'),
         ),)
-    killing_person = models.EmailField(verbose_name='Euthanasia performed by',null=True, blank=True, help_text='Email address of the person who performe euthanasia')
+    killing_person = models.EmailField(verbose_name='Euthanasia performed by',null=True, blank=True, help_text='Email address of the person who performe euthanasia. Leave it empty if it is the address of the responsible person')
     database_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT", default="0")
     lab_id = models.CharField(max_length=200, null=True, blank=True, help_text="ID of lab in eg. PYRAT")
     entry_date = models.DateField(null=False, auto_now_add=True)
@@ -248,3 +250,8 @@ class Organ(models.Model):
             self.database_id, self.lab_id, self.day_of_birth,
             self.day_of_death, self.location, "".join(self.mutations))
 
+@receiver(post_save, sender=Organ) # check if killing_person (mail address) is given. If not save the mail address of the responsible person as killing_person 
+def update_killing_person(sender, instance, created, **kwargs):
+    if (instance.killing_person == None):
+        instance.killing_person = instance.responsible_person.email
+        instance.save()
