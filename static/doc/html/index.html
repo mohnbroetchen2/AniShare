@@ -53,14 +53,6 @@ to handle any kind of research animal.</p>
 <h2>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h2>
 <p>Technical and application support: Fabian Monheim, <a class="reference external" href="mailto:fabian&#46;monheim&#37;&#52;&#48;leibniz-fli&#46;de">fabian<span>&#46;</span>monheim<span>&#64;</span>leibniz-fli<span>&#46;</span>de</a>, 03641-65-6872</p>
 <p>Content support: <a class="reference external" href="mailto:mouse&#37;&#52;&#48;leibniz-fli&#46;de">mouse<span>&#64;</span>leibniz-fli<span>&#46;</span>de</a>, <a class="reference external" href="mailto:fish&#37;&#52;&#48;leibniz-fli&#46;de">fish<span>&#64;</span>leibniz-fli<span>&#46;</span>de</a></p>
-</div>
-<div class="section" id="using-the-software">
-<h2>Using the software<a class="headerlink" href="#using-the-software" title="Permalink to this headline">¶</a></h2>
-<img alt="_images/anishare_index_highlight.png" src="_images/anishare_index_highlight.png" />
-<p>The webservice is split in two parts: The <strong>animal input</strong> method is via the Django Admin interface (See link
-“Add Animal” top right) and is meant for <em>animal managers</em> only.
-The <strong>claim</strong> method is via the normal web interface and is meant for normal users (who need to be
-authenticated, though).</p>
 <div class="section" id="main-user-interface">
 <h3>Main user interface<a class="headerlink" href="#main-user-interface" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="animals">
@@ -144,6 +136,11 @@ the user if all requirements match.</p>
 </div>
 <div class="section" id="from-tick-lab">
 <h5>From <cite>tick&#64;lab</cite><a class="headerlink" href="#from-tick-lab" title="Permalink to this headline">¶</a></h5>
+<p>First login to <cite>Tick&#64;lab</cite> and open the population site. All visible entrys can be exported with the button <cite>Export to Excel</cite>. It isn’t yet possible to export
+only selected animals. Therefore use the filter option.</p>
+<a class="reference internal image-reference" href="_images/tickatlab_export.png"><img alt="_images/tickatlab_export.png" src="_images/tickatlab_export.png" style="width: 40%;" /></a>
+<p>To import the file it’s nessecary to do a lot of changes to the structure of the data. So please use the macro which do the changes automatic.
+Please refeer to the <a class="reference external" href="https://anishare.leibniz-fli.de/macros/">macro site</a> to downloading the macro and further informations.</p>
 </div>
 </div>
 <div class="section" id="add-organs-manually">
@@ -154,11 +151,26 @@ the user if all requirements match.</p>
 </div>
 <div class="section" id="organs-import">
 <h4>Organs import<a class="headerlink" href="#organs-import" title="Permalink to this headline">¶</a></h4>
-<div class="section" id="id1">
-<h5>From PyRAT<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h5>
-</div>
 <div class="section" id="id2">
-<h5>From <cite>tick&#64;lab</cite><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h5>
+<h5>From PyRAT<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h5>
+<p>First login to PyRAT and switch to the english version of PyRAT if it is no preset. Then select the animals which
+should be import to anishare. Click on <code class="docutils literal notranslate"><span class="pre">QS</span></code> (Quick Select) and activate the option <code class="docutils literal notranslate"><span class="pre">Export</span> <span class="pre">this</span> <span class="pre">list</span> <span class="pre">to</span> <span class="pre">Excel</span></code>.
+Push the button <code class="docutils literal notranslate"><span class="pre">Apply</span></code>.</p>
+<p>Now it’s important to select all mandatory fields:
+<strong>ID, Lab ID, Sex, Line / Strine (Name), Mutations, Date of birth, Responsible, License number, Building, Sacrifice date, Sacrifice method</strong></p>
+<a class="reference internal image-reference" href="_images/pyrat_export_organs.png"><img alt="_images/pyrat_export_organs.png" src="_images/pyrat_export_organs.png" style="width: 40%;" /></a>
+<p>It’s possible to save the selected columns as a <code class="docutils literal notranslate"><span class="pre">Manage</span> <span class="pre">View</span></code> for reuse (fold out <code class="docutils literal notranslate"><span class="pre">Manage</span> <span class="pre">View</span></code> on the left side of the <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">name</span></code>)</p>
+<p>After downloading the file it’s nessecary to edit the file because the coloumns <strong>Animal type, Available from, Available to</strong> are missing.
+Furthermore the headings and the format of the coloumn <strong>Responsible</strong> needs to be adapt.
+To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
+<code class="docutils literal notranslate"><span class="pre">mouse</span></code> (Animal type), <code class="docutils literal notranslate"><span class="pre">Current</span> <span class="pre">Date</span></code> (Available from), <code class="docutils literal notranslate"><span class="pre">Current</span> <span class="pre">Date</span> <span class="pre">+</span> <span class="pre">14</span> <span class="pre">days</span></code> (Available to).
+Please refeer to the <a class="reference external" href="https://anishare.leibniz-fli.de/macros/">macro site</a> to downloading the macros and further informations.</p>
+<p>After adding the missing coloumns the file can be save, for example as xlsx file. Now go to the anishare admin interface to <code class="docutils literal notranslate"><span class="pre">Home</span> <span class="pre">›</span> <span class="pre">Animals</span> <span class="pre">›</span> <span class="pre">Animals</span></code>
+and click the button <code class="docutils literal notranslate"><span class="pre">IMPORT</span></code> (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
+the user if all requirements match.</p>
+</div>
+<div class="section" id="id4">
+<h5>From <cite>tick&#64;lab</cite><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h5>
 <p>Because we expect only a small quantity of importing organs from <cite>tick&#64;lab</cite> it’s only possible to add entries manually.</p>
 </div>
 </div>
@@ -182,8 +194,8 @@ but also labs, locations and persons:</p>
 <h4>Organs used<a class="headerlink" href="#organs-used" title="Permalink to this headline">¶</a></h4>
 <p>These organs are standard values for the field <strong>Organ used</strong>.</p>
 </div>
-<div class="section" id="id3">
-<h4>Animals<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id5">
+<h4>Animals<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
 <p>The main category to administer are animals to share.
 Here, several filters (such as “sex”, “location”, etc.) are available to search for any set of animals.</p>
 <img alt="_images/admin_animals.png" src="_images/admin_animals.png" />
@@ -272,7 +284,7 @@ the respective lines. Most importantly, you should configure the following lines
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This will create the sqlite database <code class="docutils literal notranslate"><span class="pre">db.sqlite3</span></code> containing all the models
-(eg. tables) as defined in <a class="reference internal" href="#module-animals.models" title="animals.models"><code class="xref py py-mod docutils literal notranslate"><span class="pre">animals.models</span></code></a>.</p>
+(eg. tables) as defined in <a class="reference internal" href="modules/models.html#module-animals.models" title="animals.models"><code class="xref py py-mod docutils literal notranslate"><span class="pre">animals.models</span></code></a>.</p>
 </div>
 <p>Now create a superuser:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">createsuperuser</span>
@@ -462,13 +474,13 @@ upgrade the python in the virtualenv. Otherwise an error like the following migh
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.form">
 <code class="descname">form</code><a class="headerlink" href="#animals.admin.AnimalAdmin.form" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="modules/admin.html#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.resource_class">
 <code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.AnimalAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="modules/admin.html#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -543,7 +555,7 @@ association with the field named ‘__all__’.</p>
 <dl class="attribute">
 <dt id="animals.admin.OrganAdmin.resource_class">
 <code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.OrganAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="modules/admin.html#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -802,7 +814,7 @@ This is rarely used, rather use the claim page.</p>
 <dl class="attribute">
 <dt id="animals.views.AnimalDetailView.model">
 <code class="descname">model</code><a class="headerlink" href="#animals.views.AnimalDetailView.model" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#animals.models.Animal" title="animals.models.Animal"><code class="xref py py-class docutils literal notranslate"><span class="pre">animals.models.Animal</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="modules/models.html#animals.models.Animal" title="animals.models.Animal"><code class="xref py py-class docutils literal notranslate"><span class="pre">animals.models.Animal</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
@@ -947,8 +959,7 @@ or 404 if organ not found</td>
   <ul>
 <li><a class="reference internal" href="#">Welcome to the documentation of anishare !</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
-<li><a class="reference internal" href="#contact">Contact</a></li>
-<li><a class="reference internal" href="#using-the-software">Using the software</a><ul>
+<li><a class="reference internal" href="#contact">Contact</a><ul>
 <li><a class="reference internal" href="#main-user-interface">Main user interface</a><ul>
 <li><a class="reference internal" href="#animals">Animals</a></li>
 <li><a class="reference internal" href="#organs">Organs</a></li>
@@ -964,8 +975,8 @@ or 404 if organ not found</td>
 </li>
 <li><a class="reference internal" href="#add-organs-manually">Add Organs manually</a></li>
 <li><a class="reference internal" href="#organs-import">Organs import</a><ul>
-<li><a class="reference internal" href="#id1">From PyRAT</a></li>
-<li><a class="reference internal" href="#id2">From <cite>tick&#64;lab</cite></a></li>
+<li><a class="reference internal" href="#id2">From PyRAT</a></li>
+<li><a class="reference internal" href="#id4">From <cite>tick&#64;lab</cite></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#duplicating-entries">Duplicating entries</a></li>
@@ -973,7 +984,7 @@ or 404 if organ not found</td>
 </li>
 <li><a class="reference internal" href="#main-administrator-tasks">Main administrator tasks</a><ul>
 <li><a class="reference internal" href="#organs-used">Organs used</a></li>
-<li><a class="reference internal" href="#id3">Animals</a></li>
+<li><a class="reference internal" href="#id5">Animals</a></li>
 <li><a class="reference internal" href="#labs">Labs</a></li>
 <li><a class="reference internal" href="#locations">Locations</a></li>
 <li><a class="reference internal" href="#persons">Persons</a></li>

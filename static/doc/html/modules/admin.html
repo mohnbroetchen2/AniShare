@@ -45,13 +45,13 @@
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.form">
 <code class="descname">form</code><a class="headerlink" href="#animals.admin.AnimalAdmin.form" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="../index.html#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.resource_class">
 <code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.AnimalAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="../index.html#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -126,7 +126,7 @@ association with the field named ‘__all__’.</p>
 <dl class="attribute">
 <dt id="animals.admin.OrganAdmin.resource_class">
 <code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.OrganAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="../index.html#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -483,7 +483,12 @@ association with the field named ‘__all__’.</p>
 302
 303
 304
-305</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+305
+306
+307
+308
+309
+310</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Admin module</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">copy</span>
@@ -527,7 +532,7 @@ association with the field named ‘__all__’.</p>
     <span class="n">available_to</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Available to&#39;</span><span class="p">)</span>
     <span class="n">available_from</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Available from&#39;</span><span class="p">)</span>
     <span class="n">amount</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Amount&#39;</span><span class="p">)</span>
-    <span class="n">amount</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;comment&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Comment&#39;</span><span class="p">)</span>
+    <span class="n">comment</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;comment&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Comment&#39;</span><span class="p">)</span>
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">Animal</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;lab_id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;database_id&#39;</span><span class="p">,</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
@@ -554,7 +559,10 @@ association with the field named ‘__all__’.</p>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 2&#39;</span><span class="p">])</span>
                 <span class="k">except</span><span class="p">:</span>
-                    <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">])</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">])</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span><span class="s2">&quot;&quot;</span>
 
 <span class="k">class</span> <span class="nc">OrganResource</span><span class="p">(</span><span class="n">resources</span><span class="o">.</span><span class="n">ModelResource</span><span class="p">):</span> <span class="c1"># für den Import. Hier werden die Felder festgelegt, die importiert werden können</span>
 
@@ -779,6 +787,8 @@ association with the field named ‘__all__’.</p>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">pk</span><span class="p">:</span>
             <span class="c1"># Only set added_by during the first save.</span>
             <span class="n">obj</span><span class="o">.</span><span class="n">added_by</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+            <span class="sd">&quot;&quot;&quot;if (obj.killing_person == None):</span>
+<span class="sd">                obj.killing_person = obj.responsible_person__email&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">)</span>
 
 <span class="nd">@admin.register</span><span class="p">(</span><span class="n">Lab</span><span class="p">)</span>

@@ -56,7 +56,7 @@
 
 
 \title{AniShare Documentation}
-\date{Jul 18, 2018}
+\date{Jul 20, 2018}
 \release{1.4}
 \author{Holger Dinkel, Fabian Monheim}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -98,16 +98,6 @@ This documentation can also be downloaded as pdf file: \sphinxhref{https://anish
 Technical and application support: Fabian Monheim, \sphinxhref{mailto:fabian.monheim@leibniz-fli.de}{fabian.monheim@leibniz-fli.de}, 03641-65-6872
 
 Content support: \sphinxhref{mailto:mouse@leibniz-fli.de}{mouse@leibniz-fli.de}, \sphinxhref{mailto:fish@leibniz-fli.de}{fish@leibniz-fli.de}
-
-
-\chapter{Using the software}
-\label{\detokenize{index:using-the-software}}
-\noindent\sphinxincludegraphics{{anishare_index_highlight}.png}
-
-The webservice is split in two parts: The \sphinxstylestrong{animal input} method is via the Django Admin interface (See link
-“Add Animal” top right) and is meant for \sphinxstyleemphasis{animal managers} only.
-The \sphinxstylestrong{claim} method is via the normal web interface and is meant for normal users (who need to be
-authenticated, though).
 
 
 \section{Main user interface}
@@ -220,6 +210,14 @@ the user if all requirements match.
 
 \subsubsection{From \sphinxtitleref{tick@lab}}
 \label{\detokenize{index:from-tick-lab}}
+First login to \sphinxtitleref{Tick@lab} and open the population site. All visible entrys can be exported with the button \sphinxtitleref{Export to Excel}. It isn’t yet possible to export
+only selected animals. Therefore use the filter option.
+
+\noindent\sphinxincludegraphics[width=0.400\linewidth]{{tickatlab_export}.png}
+
+To import the file it’s nessecary to do a lot of changes to the structure of the data. So please use the macro which do the changes automatic.
+Please refeer to the \sphinxhref{https://anishare.leibniz-fli.de/macros/}{macro site} to downloading the macro and further informations.
+
 
 \subsection{Add Organs manually}
 \label{\detokenize{index:add-organs-manually}}
@@ -234,10 +232,31 @@ All fields in bold \sphinxstylestrong{need} to be filled in, the others are opti
 \label{\detokenize{index:organs-import}}
 
 \subsubsection{From PyRAT}
-\label{\detokenize{index:id1}}
+\label{\detokenize{index:id2}}
+First login to PyRAT and switch to the english version of PyRAT if it is no preset. Then select the animals which
+should be import to anishare. Click on \sphinxcode{\sphinxupquote{QS}} (Quick Select) and activate the option \sphinxcode{\sphinxupquote{Export this list to Excel}}.
+Push the button \sphinxcode{\sphinxupquote{Apply}}.
+
+Now it’s important to select all mandatory fields:
+\sphinxstylestrong{ID, Lab ID, Sex, Line / Strine (Name), Mutations, Date of birth, Responsible, License number, Building, Sacrifice date, Sacrifice method}
+
+\noindent\sphinxincludegraphics[width=0.400\linewidth]{{pyrat_export_organs}.png}
+
+It’s possible to save the selected columns as a \sphinxcode{\sphinxupquote{Manage View}} for reuse (fold out \sphinxcode{\sphinxupquote{Manage View}} on the left side of the \sphinxcode{\sphinxupquote{File name}})
+
+After downloading the file it’s nessecary to edit the file because the coloumns \sphinxstylestrong{Animal type, Available from, Available to} are missing.
+Furthermore the headings and the format of the coloumn \sphinxstylestrong{Responsible} needs to be adapt.
+To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
+\sphinxcode{\sphinxupquote{mouse}} (Animal type), \sphinxcode{\sphinxupquote{Current Date}} (Available from), \sphinxcode{\sphinxupquote{Current Date + 14 days}} (Available to).
+Please refeer to the \sphinxhref{https://anishare.leibniz-fli.de/macros/}{macro site} to downloading the macros and further informations.
+
+After adding the missing coloumns the file can be save, for example as xlsx file. Now go to the anishare admin interface to \sphinxcode{\sphinxupquote{Home › Animals › Animals}}
+and click the button \sphinxcode{\sphinxupquote{IMPORT}} (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
+the user if all requirements match.
+
 
 \subsubsection{From \sphinxtitleref{tick@lab}}
-\label{\detokenize{index:id2}}
+\label{\detokenize{index:id4}}
 Because we expect only a small quantity of importing organs from \sphinxtitleref{tick@lab} it’s only possible to add entries manually.
 
 
@@ -269,7 +288,7 @@ These organs are standard values for the field \sphinxstylestrong{Organ used}.
 
 
 \subsection{Animals}
-\label{\detokenize{index:id3}}
+\label{\detokenize{index:id5}}
 The main category to administer are animals to share.
 Here, several filters (such as “sex”, “location”, etc.) are available to search for any set of animals.
 
@@ -376,7 +395,7 @@ Then, you can run migrations:
 
 \begin{sphinxadmonition}{note}{Note:}
 This will create the sqlite database \sphinxcode{\sphinxupquote{db.sqlite3}} containing all the models
-(eg. tables) as defined in \sphinxcode{\sphinxupquote{animals.models}}.
+(eg. tables) as defined in {\hyperref[\detokenize{index:module-animals.models}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{animals.models}}}}}.
 \end{sphinxadmonition}
 
 Now create a superuser:
@@ -577,7 +596,7 @@ Show the age in the admin as ‘Age (w)’ instead of ‘age’
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{index:animals.admin.AnimalAdmin.form}}\pysigline{\sphinxbfcode{\sphinxupquote{form}}}
-alias of \sphinxcode{\sphinxupquote{AnimalForm}}
+alias of {\hyperref[\detokenize{index:animals.admin.AnimalForm}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{AnimalForm}}}}}
 
 \end{fulllineitems}
 
@@ -585,7 +604,7 @@ alias of \sphinxcode{\sphinxupquote{AnimalForm}}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{index:animals.admin.AnimalAdmin.resource_class}}\pysigline{\sphinxbfcode{\sphinxupquote{resource\_class}}}
-alias of \sphinxcode{\sphinxupquote{AnimalResource}}
+alias of {\hyperref[\detokenize{index:animals.admin.AnimalResource}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{AnimalResource}}}}}
 
 \end{fulllineitems}
 
@@ -683,7 +702,7 @@ Show the age in the admin as ‘Age (w)’ instead of ‘age’
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{index:animals.admin.OrganAdmin.resource_class}}\pysigline{\sphinxbfcode{\sphinxupquote{resource\_class}}}
-alias of \sphinxcode{\sphinxupquote{OrganResource}}
+alias of {\hyperref[\detokenize{index:animals.admin.OrganResource}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{OrganResource}}}}}
 
 \end{fulllineitems}
 
@@ -1014,7 +1033,7 @@ This is rarely used, rather use the claim page.
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{index:animals.views.AnimalDetailView.model}}\pysigline{\sphinxbfcode{\sphinxupquote{model}}}
-alias of \sphinxcode{\sphinxupquote{animals.models.Animal}}
+alias of {\hyperref[\detokenize{index:animals.models.Animal}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{animals.models.Animal}}}}}
 
 \end{fulllineitems}
 
@@ -1178,6 +1197,15 @@ Add a URL to urlpatterns:  path(‘blog/’, include(‘blog.urls’))
 \end{description}
 
 
+\renewcommand{\indexname}{Python Module Index}
+\begin{sphinxtheindex}
+\def\bigletter#1{{\Large\sffamily#1}\nopagebreak\vspace{1mm}}
+\bigletter{a}
+\item {\sphinxstyleindexentry{animals.admin}}\sphinxstyleindexpageref{index:\detokenize{module-animals.admin}}
+\item {\sphinxstyleindexentry{animals.models}}\sphinxstyleindexpageref{index:\detokenize{module-animals.models}}
+\item {\sphinxstyleindexentry{animals.urls}}\sphinxstyleindexpageref{index:\detokenize{module-animals.urls}}
+\item {\sphinxstyleindexentry{animals.views}}\sphinxstyleindexpageref{index:\detokenize{module-animals.views}}
+\end{sphinxtheindex}
 
 \renewcommand{\indexname}{Index}
 \printindex

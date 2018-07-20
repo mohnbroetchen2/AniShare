@@ -465,7 +465,14 @@ This person gets an email when an animal is being claimed.</p>
 247
 248
 249
-250</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+250
+251
+252
+253
+254
+255
+256
+257</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This file describes all the models in the database.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
@@ -474,6 +481,8 @@ This person gets an email when an animal is being claimed.</p>
 <span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
 <span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ValidationError</span>
 <span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<span class="kn">from</span> <span class="nn">django.dispatch</span> <span class="kn">import</span> <span class="n">receiver</span>
+<span class="kn">from</span> <span class="nn">django.db.models.signals</span> <span class="kn">import</span> <span class="n">post_save</span>
 
 <span class="k">class</span> <span class="nc">Lab</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -661,7 +670,7 @@ This person gets an email when an animal is being claimed.</p>
         <span class="p">(</span><span class="s1">&#39;overdose anaesthetics&#39;</span><span class="p">,</span> <span class="s1">&#39;overdose anaesthetic&#39;</span><span class="p">),</span>
         <span class="p">(</span><span class="s1">&#39;other&#39;</span><span class="p">,</span> <span class="s1">&#39;other&#39;</span><span class="p">),</span>
         <span class="p">),)</span>
-    <span class="n">killing_person</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">EmailField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Euthanasia performed by&#39;</span><span class="p">,</span><span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Email address of the person who performe euthanasia&#39;</span><span class="p">)</span>
+    <span class="n">killing_person</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">EmailField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Euthanasia performed by&#39;</span><span class="p">,</span><span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Email address of the person who performe euthanasia. Leave it empty if it is the address of the responsible person&#39;</span><span class="p">)</span>
     <span class="n">database_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;ID of animal in eg. PYRAT&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
     <span class="n">lab_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;ID of lab in eg. PYRAT&quot;</span><span class="p">)</span>
     <span class="n">entry_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -715,6 +724,11 @@ This person gets an email when an animal is being claimed.</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">database_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lab_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day_of_birth</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">day_of_death</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mutations</span><span class="p">))</span>
 
+<span class="nd">@receiver</span><span class="p">(</span><span class="n">post_save</span><span class="p">,</span> <span class="n">sender</span><span class="o">=</span><span class="n">Organ</span><span class="p">)</span> <span class="c1"># check if killing_person (mail address) is given. If not save the mail address of the responsible person as killing_person </span>
+<span class="k">def</span> <span class="nf">update_killing_person</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">created</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">killing_person</span> <span class="o">==</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="n">instance</span><span class="o">.</span><span class="n">killing_person</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">responsible_person</span><span class="o">.</span><span class="n">email</span>
+        <span class="n">instance</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
 </div>

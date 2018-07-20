@@ -1,70 +1,70 @@
-\indexentry{animals.admin (module)|hyperpage}{19}
-\indexentry{AnimalAdmin (class in animals.admin)|hyperpage}{19}
-\indexentry{age() (animals.admin.AnimalAdmin method)|hyperpage}{19}
-\indexentry{form (animals.admin.AnimalAdmin attribute)|hyperpage}{19}
-\indexentry{resource\_class (animals.admin.AnimalAdmin attribute)|hyperpage}{19}
-\indexentry{save\_model() (animals.admin.AnimalAdmin method)|hyperpage}{19}
-\indexentry{AnimalForm (class in animals.admin)|hyperpage}{19}
-\indexentry{clean() (animals.admin.AnimalForm method)|hyperpage}{19}
-\indexentry{AnimalResource (class in animals.admin)|hyperpage}{19}
-\indexentry{get\_instance() (animals.admin.AnimalResource method)|hyperpage}{19}
-\indexentry{import\_obj() (animals.admin.AnimalResource method)|hyperpage}{19}
-\indexentry{ChangeAdmin (class in animals.admin)|hyperpage}{19}
-\indexentry{LabAdmin (class in animals.admin)|hyperpage}{19}
-\indexentry{LocationAdmin (class in animals.admin)|hyperpage}{20}
-\indexentry{OrganAdmin (class in animals.admin)|hyperpage}{20}
-\indexentry{age() (animals.admin.OrganAdmin method)|hyperpage}{20}
-\indexentry{resource\_class (animals.admin.OrganAdmin attribute)|hyperpage}{20}
-\indexentry{save\_model() (animals.admin.OrganAdmin method)|hyperpage}{20}
-\indexentry{OrganResource (class in animals.admin)|hyperpage}{20}
-\indexentry{get\_instance() (animals.admin.OrganResource method)|hyperpage}{20}
-\indexentry{import\_obj() (animals.admin.OrganResource method)|hyperpage}{20}
-\indexentry{OrgantypeAdmin (class in animals.admin)|hyperpage}{20}
-\indexentry{PersonAdmin (class in animals.admin)|hyperpage}{20}
-\indexentry{clear\_claim() (in module animals.admin)|hyperpage}{20}
-\indexentry{copy\_animal() (in module animals.admin)|hyperpage}{20}
-\indexentry{animals.models (module)|hyperpage}{20}
-\indexentry{Animal (class in animals.models)|hyperpage}{20}
-\indexentry{Animal.DoesNotExist|hyperpage}{20}
-\indexentry{Animal.MultipleObjectsReturned|hyperpage}{20}
-\indexentry{age() (animals.models.Animal method)|hyperpage}{20}
-\indexentry{available() (animals.models.Animal method)|hyperpage}{20}
-\indexentry{clean() (animals.models.Animal method)|hyperpage}{20}
-\indexentry{description() (animals.models.Animal method)|hyperpage}{20}
-\indexentry{get\_absolute\_url() (animals.models.Animal method)|hyperpage}{21}
-\indexentry{Change (class in animals.models)|hyperpage}{21}
-\indexentry{Change.DoesNotExist|hyperpage}{21}
-\indexentry{Change.MultipleObjectsReturned|hyperpage}{21}
-\indexentry{Lab (class in animals.models)|hyperpage}{21}
-\indexentry{Lab.DoesNotExist|hyperpage}{21}
-\indexentry{Lab.MultipleObjectsReturned|hyperpage}{21}
-\indexentry{responsible\_person() (animals.models.Lab method)|hyperpage}{21}
-\indexentry{Location (class in animals.models)|hyperpage}{21}
-\indexentry{Location.DoesNotExist|hyperpage}{21}
-\indexentry{Location.MultipleObjectsReturned|hyperpage}{21}
-\indexentry{Organ (class in animals.models)|hyperpage}{21}
-\indexentry{Organ.DoesNotExist|hyperpage}{21}
-\indexentry{Organ.MultipleObjectsReturned|hyperpage}{21}
-\indexentry{age() (animals.models.Organ method)|hyperpage}{21}
-\indexentry{available() (animals.models.Organ method)|hyperpage}{21}
-\indexentry{description() (animals.models.Organ method)|hyperpage}{21}
-\indexentry{get\_absolute\_url() (animals.models.Organ method)|hyperpage}{21}
-\indexentry{get\_organtypes() (animals.models.Organ method)|hyperpage}{21}
-\indexentry{Organtype (class in animals.models)|hyperpage}{21}
-\indexentry{Organtype.DoesNotExist|hyperpage}{21}
-\indexentry{Organtype.MultipleObjectsReturned|hyperpage}{21}
-\indexentry{Person (class in animals.models)|hyperpage}{21}
-\indexentry{Person.DoesNotExist|hyperpage}{21}
-\indexentry{Person.MultipleObjectsReturned|hyperpage}{21}
-\indexentry{animals.views (module)|hyperpage}{22}
-\indexentry{AnimalDetailView (class in animals.views)|hyperpage}{22}
-\indexentry{model (animals.views.AnimalDetailView attribute)|hyperpage}{22}
-\indexentry{LatestAnimalsFeed (class in animals.views)|hyperpage}{22}
-\indexentry{item\_description() (animals.views.LatestAnimalsFeed method)|hyperpage}{22}
-\indexentry{item\_title() (animals.views.LatestAnimalsFeed method)|hyperpage}{22}
-\indexentry{items() (animals.views.LatestAnimalsFeed method)|hyperpage}{22}
-\indexentry{claim() (in module animals.views)|hyperpage}{22}
-\indexentry{claim\_organ() (in module animals.views)|hyperpage}{22}
-\indexentry{send\_email\_animal() (in module animals.views)|hyperpage}{22}
-\indexentry{send\_email\_organ() (in module animals.views)|hyperpage}{22}
-\indexentry{animals.urls (module)|hyperpage}{23}
+\indexentry{animals.admin (module)|hyperpage}{18}
+\indexentry{AnimalAdmin (class in animals.admin)|hyperpage}{18}
+\indexentry{age() (animals.admin.AnimalAdmin method)|hyperpage}{18}
+\indexentry{form (animals.admin.AnimalAdmin attribute)|hyperpage}{18}
+\indexentry{resource\_class (animals.admin.AnimalAdmin attribute)|hyperpage}{18}
+\indexentry{save\_model() (animals.admin.AnimalAdmin method)|hyperpage}{18}
+\indexentry{AnimalForm (class in animals.admin)|hyperpage}{18}
+\indexentry{clean() (animals.admin.AnimalForm method)|hyperpage}{18}
+\indexentry{AnimalResource (class in animals.admin)|hyperpage}{18}
+\indexentry{get\_instance() (animals.admin.AnimalResource method)|hyperpage}{18}
+\indexentry{import\_obj() (animals.admin.AnimalResource method)|hyperpage}{18}
+\indexentry{ChangeAdmin (class in animals.admin)|hyperpage}{18}
+\indexentry{LabAdmin (class in animals.admin)|hyperpage}{18}
+\indexentry{LocationAdmin (class in animals.admin)|hyperpage}{19}
+\indexentry{OrganAdmin (class in animals.admin)|hyperpage}{19}
+\indexentry{age() (animals.admin.OrganAdmin method)|hyperpage}{19}
+\indexentry{resource\_class (animals.admin.OrganAdmin attribute)|hyperpage}{19}
+\indexentry{save\_model() (animals.admin.OrganAdmin method)|hyperpage}{19}
+\indexentry{OrganResource (class in animals.admin)|hyperpage}{19}
+\indexentry{get\_instance() (animals.admin.OrganResource method)|hyperpage}{19}
+\indexentry{import\_obj() (animals.admin.OrganResource method)|hyperpage}{19}
+\indexentry{OrgantypeAdmin (class in animals.admin)|hyperpage}{19}
+\indexentry{PersonAdmin (class in animals.admin)|hyperpage}{19}
+\indexentry{clear\_claim() (in module animals.admin)|hyperpage}{19}
+\indexentry{copy\_animal() (in module animals.admin)|hyperpage}{19}
+\indexentry{animals.models (module)|hyperpage}{19}
+\indexentry{Animal (class in animals.models)|hyperpage}{19}
+\indexentry{Animal.DoesNotExist|hyperpage}{19}
+\indexentry{Animal.MultipleObjectsReturned|hyperpage}{19}
+\indexentry{age() (animals.models.Animal method)|hyperpage}{19}
+\indexentry{available() (animals.models.Animal method)|hyperpage}{19}
+\indexentry{clean() (animals.models.Animal method)|hyperpage}{19}
+\indexentry{description() (animals.models.Animal method)|hyperpage}{19}
+\indexentry{get\_absolute\_url() (animals.models.Animal method)|hyperpage}{20}
+\indexentry{Change (class in animals.models)|hyperpage}{20}
+\indexentry{Change.DoesNotExist|hyperpage}{20}
+\indexentry{Change.MultipleObjectsReturned|hyperpage}{20}
+\indexentry{Lab (class in animals.models)|hyperpage}{20}
+\indexentry{Lab.DoesNotExist|hyperpage}{20}
+\indexentry{Lab.MultipleObjectsReturned|hyperpage}{20}
+\indexentry{responsible\_person() (animals.models.Lab method)|hyperpage}{20}
+\indexentry{Location (class in animals.models)|hyperpage}{20}
+\indexentry{Location.DoesNotExist|hyperpage}{20}
+\indexentry{Location.MultipleObjectsReturned|hyperpage}{20}
+\indexentry{Organ (class in animals.models)|hyperpage}{20}
+\indexentry{Organ.DoesNotExist|hyperpage}{20}
+\indexentry{Organ.MultipleObjectsReturned|hyperpage}{20}
+\indexentry{age() (animals.models.Organ method)|hyperpage}{20}
+\indexentry{available() (animals.models.Organ method)|hyperpage}{20}
+\indexentry{description() (animals.models.Organ method)|hyperpage}{20}
+\indexentry{get\_absolute\_url() (animals.models.Organ method)|hyperpage}{20}
+\indexentry{get\_organtypes() (animals.models.Organ method)|hyperpage}{20}
+\indexentry{Organtype (class in animals.models)|hyperpage}{20}
+\indexentry{Organtype.DoesNotExist|hyperpage}{20}
+\indexentry{Organtype.MultipleObjectsReturned|hyperpage}{20}
+\indexentry{Person (class in animals.models)|hyperpage}{20}
+\indexentry{Person.DoesNotExist|hyperpage}{20}
+\indexentry{Person.MultipleObjectsReturned|hyperpage}{20}
+\indexentry{animals.views (module)|hyperpage}{21}
+\indexentry{AnimalDetailView (class in animals.views)|hyperpage}{21}
+\indexentry{model (animals.views.AnimalDetailView attribute)|hyperpage}{21}
+\indexentry{LatestAnimalsFeed (class in animals.views)|hyperpage}{21}
+\indexentry{item\_description() (animals.views.LatestAnimalsFeed method)|hyperpage}{21}
+\indexentry{item\_title() (animals.views.LatestAnimalsFeed method)|hyperpage}{21}
+\indexentry{items() (animals.views.LatestAnimalsFeed method)|hyperpage}{21}
+\indexentry{claim() (in module animals.views)|hyperpage}{21}
+\indexentry{claim\_organ() (in module animals.views)|hyperpage}{21}
+\indexentry{send\_email\_animal() (in module animals.views)|hyperpage}{21}
+\indexentry{send\_email\_organ() (in module animals.views)|hyperpage}{21}
+\indexentry{animals.urls (module)|hyperpage}{22}

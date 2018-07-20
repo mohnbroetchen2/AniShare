@@ -40,15 +40,6 @@ Technical and application support: Fabian Monheim, fabian.monheim@leibniz-fli.de
 Content support: mouse@leibniz-fli.de, fish@leibniz-fli.de
 
 
-Using the software
-------------------
-
-.. image:: img/anishare_index_highlight.png
-
-The webservice is split in two parts: The **animal input** method is via the Django Admin interface (See link
-"Add Animal" top right) and is meant for *animal managers* only. 
-The **claim** method is via the normal web interface and is meant for normal users (who need to be
-authenticated, though).
 
 Main user interface
 ^^^^^^^^^^^^^^^^^^^
@@ -162,7 +153,14 @@ the user if all requirements match.
 
 From `tick@lab`
 +++++++++++++++
+First login to `Tick@lab` and open the population site. All visible entrys can be exported with the button `Export to Excel`. It isn't yet possible to export 
+only selected animals. Therefore use the filter option.
 
+.. image:: img/tickatlab_export.png
+   :width: 40%
+
+To import the file it's nessecary to do a lot of changes to the structure of the data. So please use the macro which do the changes automatic. 
+Please refeer to the `macro site <https://anishare.leibniz-fli.de/macros/>`_ to downloading the macro and further informations. 
 
 Add Organs manually
 """""""""""""""""""
@@ -179,6 +177,27 @@ Organs import
 
 From PyRAT
 ++++++++++
+First login to PyRAT and switch to the english version of PyRAT if it is no preset. Then select the animals which 
+should be import to anishare. Click on ``QS`` (Quick Select) and activate the option ``Export this list to Excel``.
+Push the button ``Apply``.
+
+Now it's important to select all mandatory fields:
+**ID, Lab ID, Sex, Line / Strine (Name), Mutations, Date of birth, Responsible, License number, Building, Sacrifice date, Sacrifice method** 
+
+.. image:: img/pyrat_export_organs.png
+   :width: 40%
+
+It's possible to save the selected columns as a ``Manage View`` for reuse (fold out ``Manage View`` on the left side of the ``File name``)
+
+After downloading the file it's nessecary to edit the file because the coloumns **Animal type, Available from, Available to** are missing.
+Furthermore the headings and the format of the coloumn **Responsible** needs to be adapt.
+To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
+``mouse`` (Animal type), ``Current Date`` (Available from), ``Current Date + 14 days`` (Available to).
+Please refeer to the `macro site <https://anishare.leibniz-fli.de/macros/>`_ to downloading the macros and further informations. 
+
+After adding the missing coloumns the file can be save, for example as xlsx file. Now go to the anishare admin interface to ``Home › Animals › Animals``
+and click the button ``IMPORT`` (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
+the user if all requirements match.  
 
 
 From `tick@lab`
