@@ -1,0 +1,741 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>First time setup &#8212; AniShare 1.5 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <blockquote>
+<div>Installation</div></blockquote>
+<hr class="docutils" />
+<blockquote>
+<div>Requirements</div></blockquote>
+<hr class="docutils" />
+<p>We use the latest version of <a class="reference external" href="https://www.djangoproject.com">django</a>, which requires <a class="reference external" href="https://www.python.org">python3</a>.
+Install django and other dependancies (see file requirements.txt. We recommend using a virtual environment for this):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtualenv</span> <span class="o">-</span><span class="n">p</span> <span class="n">python3</span> <span class="o">.</span>
+<span class="n">source</span> <span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<div class="section" id="first-time-setup">
+<h1>First time setup<a class="headerlink" href="#first-time-setup" title="Permalink to this headline">¶</a></h1>
+<p>First, in the folder <code class="docutils literal notranslate"><span class="pre">anishare</span></code>, copy the file <code class="docutils literal notranslate"><span class="pre">local_settings.py.template</span></code>
+to <code class="docutils literal notranslate"><span class="pre">local_settings.py</span></code> and fill it in. If you want to use LDAP, comment in
+the respective lines. Most importantly, you should configure the following lines:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">EMAIL_HOST</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="p">]</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Then, you can run migrations::</dt>
+<dd><blockquote class="first">
+<div>python manage.py migrate</div></blockquote>
+<dl class="last docutils">
+<dt>note:: This will create the sqlite database <code class="docutils literal notranslate"><span class="pre">db.sqlite3</span></code> containing all the models</dt>
+<dd>(eg. tables) as defined in <a class="reference internal" href="#module-animals.models" title="animals.models"><code class="xref py py-mod docutils literal notranslate"><span class="pre">animals.models</span></code></a>.</dd>
+</dl>
+</dd>
+<dt>Now create a superuser::</dt>
+<dd>python manage.py createsuperuser</dd>
+<dt>You are now able to login to the admin interface, but first run the dev server::</dt>
+<dd>python manage.py runserver</dd>
+</dl>
+<p>This will listen on <code class="docutils literal notranslate"><span class="pre">http://localhost:8000</span></code>, so browse to the admin page
+<code class="docutils literal notranslate"><span class="pre">http://localhost:8000/admin</span></code> and you should see this after login:</p>
+<blockquote>
+<div>image:: img/admin_empty.png</div></blockquote>
+<dl class="docutils">
+<dt>You can also import a dummy set of data using the <code class="docutils literal notranslate"><span class="pre">loaddata</span></code> command::</dt>
+<dd>python manage.py loaddata initial_data.json</dd>
+</dl>
+<p>After loading the data, the main admin interface should look like this:</p>
+<blockquote>
+<div>image:: img/admin_after_loaddata.png</div></blockquote>
+</div>
+<div class="section" id="importing-existing-data">
+<h1>Importing existing data<a class="headerlink" href="#importing-existing-data" title="Permalink to this headline">¶</a></h1>
+<p>For import of existing data in tabular (excel) format, a management command is available at
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">animals.management.commands.import_animals</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  python manage.py import_animals
+
+Note:: See the file ``example_import.xls`` for an example...
+image:: img/import_excel_sheet.pn
+</pre></div>
+</div>
+</div>
+<div class="section" id="in-db-caching">
+<h1>In-DB Caching<a class="headerlink" href="#in-db-caching" title="Permalink to this headline">¶</a></h1>
+<p>By default, database caching is enabled in settings. To create the necessary tables, run this
+command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">createcachetable</span>
+</pre></div>
+</div>
+<p>This will create a cache table in the SQLite database, which will speed up queries.</p>
+</div>
+<div class="section" id="running-tests">
+<h1>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h1>
+<p>Tests reside in <code class="docutils literal notranslate"><span class="pre">animals/tests.py</span></code>.
+You can invoke the django tests like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">test</span>
+<span class="n">literalinclude</span><span class="p">::</span> <span class="o">../</span><span class="n">animals</span><span class="o">/</span><span class="n">tests</span><span class="o">.</span><span class="n">py</span>
+<span class="p">:</span><span class="n">language</span><span class="p">:</span> <span class="n">python</span>
+<span class="p">:</span><span class="n">linenos</span><span class="p">:</span>
+</pre></div>
+</div>
+<div class="section" id="upgrading-django">
+<h2>Upgrading django<a class="headerlink" href="#upgrading-django" title="Permalink to this headline">¶</a></h2>
+<p>To upgrade django or any other python library for anishare, go into the anishare directory, and
+activate its virtualenv:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">anishare</span>
+<span class="n">source</span> <span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Next, install/upgrade whatever library (here: django to the latest version)::</dt>
+<dd><blockquote class="first">
+<div>pip install –upgrade django</div></blockquote>
+<p class="last">Note:: It’s best to test the latest version in a local/development environment first!</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="upgrading-python">
+<h2>Upgrading python<a class="headerlink" href="#upgrading-python" title="Permalink to this headline">¶</a></h2>
+<p>When upgrading the python version of the host operating system, it might be necessary to also
+upgrade the python in the virtualenv. Otherwise an error like the following might occur:</p>
+<blockquote>
+<div><code class="docutils literal notranslate"><span class="pre">python:</span> <span class="pre">error</span> <span class="pre">while</span> <span class="pre">loading</span> <span class="pre">shared</span> <span class="pre">libraries:</span> <span class="pre">libpython3.4m.so.1.0:</span> <span class="pre">cannot</span> <span class="pre">open</span> <span class="pre">shared</span> <span class="pre">object</span> <span class="pre">file:</span> <span class="pre">No</span> <span class="pre">such</span> <span class="pre">file</span> <span class="pre">or</span> <span class="pre">directory</span></code></div></blockquote>
+<p>In that case, go into the anishare directory, and delete the following directories:
+- bin
+- include
+- lib
+- lib64
+Afterwards, create a new virtualenv and install the required libraries like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtualenv</span> <span class="o">-</span><span class="n">p</span> <span class="n">python3</span> <span class="o">.</span>
+<span class="n">source</span> <span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<div class="section" id="api-documentation">
+<h3>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="module-animals.admin">
+<span id="admin"></span><h4>Admin<a class="headerlink" href="#module-animals.admin" title="Permalink to this headline">¶</a></h4>
+<p>Admin module</p>
+<dl class="class">
+<dt id="animals.admin.AnimalAdmin">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>ModelAdmin for Animal model</p>
+<dl class="method">
+<dt id="animals.admin.AnimalAdmin.age">
+<code class="descname">age</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin.age" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the age in the admin as ‘Age (w)’ instead of ‘age’</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="animals.admin.AnimalAdmin.form">
+<code class="descname">form</code><a class="headerlink" href="#animals.admin.AnimalAdmin.form" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="animals.admin.AnimalAdmin.resource_class">
+<code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.AnimalAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.admin.AnimalAdmin.save_model">
+<code class="descname">save_model</code><span class="sig-paren">(</span><em>request</em>, <em>obj</em>, <em>form</em>, <em>change</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin.save_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a model instance save it to the database.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.admin.AnimalForm">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em>, <em>use_required_attribute=None</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Form for animal editing in admin</p>
+<dl class="method">
+<dt id="animals.admin.AnimalForm.clean">
+<code class="descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalForm.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook for doing any extra form-wide cleaning after Field.clean() has been
+called on every field. Any ValidationError raised by this method will
+not be associated with a particular field; it will have a special-case
+association with the field named ‘__all__’.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.admin.AnimalResource">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalResource</code><a class="headerlink" href="#animals.admin.AnimalResource" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="animals.admin.AnimalResource.get_instance">
+<code class="descname">get_instance</code><span class="sig-paren">(</span><em>instance_loader</em>, <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalResource.get_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls the <span class="xref std std-doc">InstanceLoader</span>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.admin.AnimalResource.import_obj">
+<code class="descname">import_obj</code><span class="sig-paren">(</span><em>instance</em>, <em>row</em>, <em>dry_run</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalResource.import_obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses every field in this Resource and calls
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">import_field()</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.admin.ChangeAdmin">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">ChangeAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.ChangeAdmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>ChangeAdmin for Change model</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.admin.LabAdmin">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">LabAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.LabAdmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>ModelAdmin for Lab model</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.admin.LocationAdmin">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">LocationAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.LocationAdmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>ModelAdmin for Location model</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.admin.OrganAdmin">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">OrganAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>ModelAdmin for Organ model</p>
+<dl class="method">
+<dt id="animals.admin.OrganAdmin.age">
+<code class="descname">age</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin.age" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the age in the admin as ‘Age (w)’ instead of ‘age’</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="animals.admin.OrganAdmin.resource_class">
+<code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.OrganAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.admin.OrganAdmin.save_model">
+<code class="descname">save_model</code><span class="sig-paren">(</span><em>request</em>, <em>obj</em>, <em>form</em>, <em>change</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin.save_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a model instance save it to the database.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.admin.OrganResource">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">OrganResource</code><a class="headerlink" href="#animals.admin.OrganResource" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="animals.admin.OrganResource.get_instance">
+<code class="descname">get_instance</code><span class="sig-paren">(</span><em>instance_loader</em>, <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganResource.get_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls the <span class="xref std std-doc">InstanceLoader</span>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.admin.OrganResource.import_obj">
+<code class="descname">import_obj</code><span class="sig-paren">(</span><em>instance</em>, <em>row</em>, <em>dry_run</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganResource.import_obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses every field in this Resource and calls
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">import_field()</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.admin.OrgantypeAdmin">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">OrgantypeAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrgantypeAdmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>ModelAdmin for Organ types</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.admin.PersonAdmin">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">PersonAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.PersonAdmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>ModelAdmin for Person model</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="animals.admin.clear_claim">
+<code class="descclassname">animals.admin.</code><code class="descname">clear_claim</code><span class="sig-paren">(</span><em>modeladmin</em>, <em>request</em>, <em>queryset</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.clear_claim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience Function to delete a claim from several selected animals</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="animals.admin.copy_animal">
+<code class="descclassname">animals.admin.</code><code class="descname">copy_animal</code><span class="sig-paren">(</span><em>modeladmin</em>, <em>request</em>, <em>queryset</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.copy_animal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy an instance of an animal so similar entries can be easily created.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-animals.models">
+<span id="models"></span><h4>Models<a class="headerlink" href="#module-animals.models" title="Permalink to this headline">¶</a></h4>
+<p>This file describes all the models in the database.</p>
+<dl class="class">
+<dt id="animals.models.Animal">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Animal</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main model containing the animals.</p>
+<dl class="exception">
+<dt id="animals.models.Animal.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Animal.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.Animal.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Animal.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="animals.models.Animal.age">
+<code class="descname">age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.age" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the age of the animal, calculated by the difference to either
+the current date or the available_to date</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.models.Animal.available">
+<code class="descname">available</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the animal is still available</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.models.Animal.clean">
+<code class="descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook for doing any extra model-wide validation after clean() has been
+called on every field by self.clean_fields. Any ValidationError raised
+by this method will not be associated with a particular field; it will
+have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.models.Animal.description">
+<code class="descname">description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return description of this model</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.models.Animal.get_absolute_url">
+<code class="descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.get_absolute_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get absolute url for this model. Important to link from the admin.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.Change">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Change</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Model for documentation all changes to anishare</p>
+<dl class="exception">
+<dt id="animals.models.Change.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Change.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.Change.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Change.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="animals.models.Change.get_absolute_url">
+<code class="descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Change.get_absolute_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get absolute url for this model. Important to link from the admin.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.Lab">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Lab</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Lab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Labs are only defined by a name and are referenced by
+Person(s) which are responsible (contact) person for this lab</p>
+<dl class="exception">
+<dt id="animals.models.Lab.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Lab.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.Lab.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Lab.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="animals.models.Lab.responsible_person">
+<code class="descname">responsible_person</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Lab.responsible_person" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve only the person(s) which are responsible for this lab.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.Location">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Location</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Location" title="Permalink to this definition">¶</a></dt>
+<dd><p>Location of animals. Eg. animal house, fish facilities etc.</p>
+<dl class="exception">
+<dt id="animals.models.Location.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Location.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.Location.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Location.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.Organ">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Organ</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Model containing the organs</p>
+<dl class="exception">
+<dt id="animals.models.Organ.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Organ.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.Organ.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Organ.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="animals.models.Organ.age">
+<code class="descname">age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.age" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the age of the animal, at the time of death</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.models.Organ.available">
+<code class="descname">available</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the animal is still available</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.models.Organ.description">
+<code class="descname">description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return description of this model</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.models.Organ.get_absolute_url">
+<code class="descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.get_absolute_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get absolute url for this model. Important to link from the admin.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.models.Organ.get_organtypes">
+<code class="descname">get_organtypes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.get_organtypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all organ types which are used</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.Organtype">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Organtype</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organtype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Model containing the organ types</p>
+<dl class="exception">
+<dt id="animals.models.Organtype.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Organtype.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.Organtype.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Organtype.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.Person">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Person</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Person" title="Permalink to this definition">¶</a></dt>
+<dd><p>The responsible (contact) person for each lab.
+This person gets an email when an animal is being claimed.</p>
+<dl class="exception">
+<dt id="animals.models.Person.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Person.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.Person.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Person.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-animals.views">
+<span id="views"></span><h4>Views<a class="headerlink" href="#module-animals.views" title="Permalink to this headline">¶</a></h4>
+<p>Django Views contains all the functions for rendering objects (HTML display).
+It also contains an RSS Feed generator class to create an RSS feed from newly created animals</p>
+<dl class="docutils">
+<dt><strong>Important</strong>:</dt>
+<dd>When adding new functions, use the login_required decorator
+When adding new classes, use the LoginRequiredMixin</dd>
+</dl>
+<dl class="class">
+<dt id="animals.views.AnimalDetailView">
+<em class="property">class </em><code class="descclassname">animals.views.</code><code class="descname">AnimalDetailView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.AnimalDetailView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detail view for an animal.
+This is rarely used, rather use the claim page.</p>
+<dl class="attribute">
+<dt id="animals.views.AnimalDetailView.model">
+<code class="descname">model</code><a class="headerlink" href="#animals.views.AnimalDetailView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#animals.models.Animal" title="animals.models.Animal"><code class="xref py py-class docutils literal notranslate"><span class="pre">animals.models.Animal</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.views.LatestAnimalsFeed">
+<em class="property">class </em><code class="descclassname">animals.views.</code><code class="descname">LatestAnimalsFeed</code><a class="headerlink" href="#animals.views.LatestAnimalsFeed" title="Permalink to this definition">¶</a></dt>
+<dd><p>RSS Feed for new animals/organs.</p>
+<dl class="method">
+<dt id="animals.views.LatestAnimalsFeed.item_description">
+<code class="descname">item_description</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestAnimalsFeed.item_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>What to print as item description (use default description from model).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.views.LatestAnimalsFeed.item_title">
+<code class="descname">item_title</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestAnimalsFeed.item_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>What to print as item title (use default __str__ of model).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.views.LatestAnimalsFeed.items">
+<code class="descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestAnimalsFeed.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get latest animals as items.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.views.LatestChangesFeed">
+<em class="property">class </em><code class="descclassname">animals.views.</code><code class="descname">LatestChangesFeed</code><a class="headerlink" href="#animals.views.LatestChangesFeed" title="Permalink to this definition">¶</a></dt>
+<dd><p>RSS Feed for system changes on AniShare.</p>
+<dl class="method">
+<dt id="animals.views.LatestChangesFeed.item_description">
+<code class="descname">item_description</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestChangesFeed.item_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>What to print as item description (use default description from model).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.views.LatestChangesFeed.item_title">
+<code class="descname">item_title</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestChangesFeed.item_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>What to print as item title (use default __str__ of model).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.views.LatestChangesFeed.items">
+<code class="descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestChangesFeed.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get latest changes as items.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="animals.views.claim">
+<code class="descclassname">animals.views.</code><code class="descname">claim</code><span class="sig-paren">(</span><em>request</em>, <em>primary_key</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.claim" title="Permalink to this definition">¶</a></dt>
+<dd><p>View to claim an animal.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>primary_key</strong> – the id/pk of the animal to retrieve</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">rendered page with the claim form
+or 404 if animal not found</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="animals.views.claim_organ">
+<code class="descclassname">animals.views.</code><code class="descname">claim_organ</code><span class="sig-paren">(</span><em>request</em>, <em>primary_key</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.claim_organ" title="Permalink to this definition">¶</a></dt>
+<dd><p>View to claim an organ.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>primary_key</strong> – the id/pk of the organ to retrieve</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">rendered page with the claim form
+or 404 if organ not found</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="animals.views.send_email_animal">
+<code class="descclassname">animals.views.</code><code class="descname">send_email_animal</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.send_email_animal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to send an email about an animal being claimed.</p>
+<p>Needs these variables in the POST request: email, pk, count</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>email</strong> – email address of the request user / new owner</li>
+<li><strong>pk</strong> – primary_key of the animal(s) to be claimed</li>
+<li><strong>count</strong> – how many animals are being claimed</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="animals.views.send_email_organ">
+<code class="descclassname">animals.views.</code><code class="descname">send_email_organ</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.send_email_organ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to send an email about an animal being claimed.</p>
+<p>Needs these variables in the POST request: email, pk, count</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>email</strong> – email address of the request user / new owner</li>
+<li><strong>pk</strong> – primary_key of the animal(s) to be claimed</li>
+<li><strong>organs_wanted</strong> – organs wanted from the given animal</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-animals.urls">
+<span id="urls"></span><h4>URLs<a class="headerlink" href="#module-animals.urls" title="Permalink to this headline">¶</a></h4>
+<p>animals URL Configuration</p>
+<dl class="docutils">
+<dt>The <cite>urlpatterns</cite> list routes URLs to views. For more information please see:</dt>
+<dd><a class="reference external" href="https://docs.djangoproject.com/en/2.0/topics/http/urls/">https://docs.djangoproject.com/en/2.0/topics/http/urls/</a></dd>
+</dl>
+<p>Examples:</p>
+<dl class="docutils">
+<dt>Function views:</dt>
+<dd><ol class="first last arabic simple">
+<li>Add an import:  from my_app import views</li>
+<li>Add a URL to urlpatterns:  path(‘’, views.home, name=’home’)</li>
+</ol>
+</dd>
+<dt>Class-based views:</dt>
+<dd><ol class="first last arabic simple">
+<li>Add an import:  from other_app.views import Home</li>
+<li>Add a URL to urlpatterns:  path(‘’, Home.as_view(), name=’home’)</li>
+</ol>
+</dd>
+<dt>Including another URLconf:</dt>
+<dd><ol class="first last arabic simple">
+<li>Import the include() function: from django.urls import include, path</li>
+<li>Add a URL to urlpatterns:  path(‘blog/’, include(‘blog.urls’))</li>
+</ol>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">First time setup</a></li>
+<li><a class="reference internal" href="#importing-existing-data">Importing existing data</a></li>
+<li><a class="reference internal" href="#in-db-caching">In-DB Caching</a></li>
+<li><a class="reference internal" href="#running-tests">Running Tests</a><ul>
+<li><a class="reference internal" href="#upgrading-django">Upgrading django</a></li>
+<li><a class="reference internal" href="#upgrading-python">Upgrading python</a><ul>
+<li><a class="reference internal" href="#api-documentation">API documentation</a><ul>
+<li><a class="reference internal" href="#module-animals.admin">Admin</a></li>
+<li><a class="reference internal" href="#module-animals.models">Models</a></li>
+<li><a class="reference internal" href="#module-animals.views">Views</a></li>
+<li><a class="reference internal" href="#module-animals.urls">URLs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_doc.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Holger Dinkel, Fabian Monheim.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/api_doc.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

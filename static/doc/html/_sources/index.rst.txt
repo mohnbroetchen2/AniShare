@@ -26,6 +26,7 @@ Anishare is a simple database of animals offered for reuse and a easy way to cla
 automatic generation of email messages as well as an RSS feed for updates.
 
 .. image:: img/anishare_index.png
+    :width: 99%
 
 At the moment, the software/database is geared towards handling of mice, however, it can be adjusted
 to handle any kind of research animal.
@@ -51,6 +52,7 @@ The main user-facing site is the list of animals to be shared. A user can browse
 via the headers or search for a term using the search bar.
 
 .. image:: img/anishare_index.png
+    :width: 99%
 
 If a user is interested in an animal, they should click on the button "Claim" which will bring up
 another page (see below) in which they can review their claim before finally submitting. When they
@@ -64,6 +66,7 @@ transaction. Further steps might need to be necessary such as transferring the a
           possible to offer exactly one mouse per dataset. In contrast fishes can be offer in a group.  
 
 .. image:: img/anishare_claim.png
+    :width: 99%
 
 Organs
 """"""
@@ -78,11 +81,12 @@ they might want to claim other organs).
 Organ index view:
 
 .. image:: img/organs_index.png
+    :width: 99%
 
 Organ claim view:
 
 .. image:: img/organs_claim.png
-
+    :width: 99%
 
 RSS Feed
 """"""""
@@ -93,7 +97,7 @@ to RSS feeds) to this feed to stay up-to-date with the animal catalogue. By clic
 the feed, they are directed to the claim page of the individual animal/organ.
 
 .. image:: img/anishare_rss_feed.png
-   :width: 50%
+   :width: 60%
 
 
 Main animal manager tasks
@@ -105,7 +109,7 @@ to anishare it's recommend to use the export function of `PyRAT` or `tick@lab` a
 To use the export/import process please read the topic **Animals import** or **Organs import**.
 
 .. image:: img/admin_overview_manager.png
-   :width: 60%
+   :width: 80%
 
 Add Animals manually
 """"""""""""""""""""
@@ -113,13 +117,14 @@ Add Animals manually
 Click on ``Animals`` -> ``Add`` to add an animal.
 
 .. image:: img/admin_add_animal.png
-   :width: 40%
+   :width: 60%
 
 All fields in bold **need** to be filled in, the others are optional.
 
 After adding several animals, the main (index) view should look like this:
 
 .. image:: img/admin_after_loaddata.png
+    :width: 99%
 
 Animals import
 """"""""""""""
@@ -130,7 +135,7 @@ should be import to anishare. Click on ``QS`` (Quick Select) and activate the op
 Push the button ``Apply``.
 
 .. image:: img/pyrat_export.png
-   :width: 40%
+   :width: 60%
 
 Now it's important to select all mandatory fields:
 **ID, Lab ID, Sex, Line / Strine (Name), Mutations, Date of birth, Responsible, License number, Building** 
@@ -138,7 +143,7 @@ Now it's important to select all mandatory fields:
 It's possible to save the selected columns as a ``Manage View`` for reuse (fold out ``Manage View`` on the left side of the ``File name``)
 
 .. image:: img/pyrat_export_select_columns.png
-   :width: 40%
+   :width: 60%
 
 After downloading the file it's nessecary to edit the file because the coloumns **Animal type, Available from, Available to** are missing.
 Please add the mentioned columns (wherever) and fill it out. As **Animal type** the two values ``mouse`` or ``fish`` are possible.
@@ -146,6 +151,8 @@ Please use the same date format for the coloumns **Available from, Available to*
 To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
 ``mouse`` (Animal type), ``Current Date`` (Available from), ``Current Date + 14 days`` (Available to).
 Please refeer to the `macro site <https://anishare.leibniz-fli.de/macros/>`_ to downloading the macros and further informations. 
+
+.. Note:: It's possible to add more than one entry at the field **Organ used**. Please use a comma as seperator like ``brain, bladder``.
 
 After adding the missing coloumns the file can be save, for example as xlsx file. Now go to the anishare admin interface to ``Home › Animals › Animals``
 and click the button ``IMPORT`` (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
@@ -157,7 +164,7 @@ First login to `Tick@lab` and open the population site. All visible entrys can b
 only selected animals. Therefore use the filter option.
 
 .. image:: img/tickatlab_export.png
-   :width: 40%
+   :width: 80%
 
 To import the file it's nessecary to do a lot of changes to the structure of the data. So please use the macro which do the changes automatic. 
 Please refeer to the `macro site <https://anishare.leibniz-fli.de/macros/>`_ to downloading the macro and further informations. 
@@ -168,7 +175,7 @@ Add Organs manually
 Click on ``Organs`` -> ``Add`` to add an organ.
 
 .. image:: img/admin_add_organ.png
-   :width: 40%
+   :width: 80%
 
 All fields in bold **need** to be filled in, the others are optional.
 
@@ -185,7 +192,7 @@ Now it's important to select all mandatory fields:
 **ID, Lab ID, Sex, Line / Strine (Name), Mutations, Date of birth, Responsible, License number, Building, Sacrifice date, Sacrifice method** 
 
 .. image:: img/pyrat_export_organs.png
-   :width: 40%
+   :width: 60%
 
 It's possible to save the selected columns as a ``Manage View`` for reuse (fold out ``Manage View`` on the left side of the ``File name``)
 
@@ -219,6 +226,7 @@ Another option is to edit an existing animal and click on "`Save as new`". This 
 currently edited animal as a new instance:
 
 .. image:: img/admin_save_as_new.png
+    :width: 99%
 
 Main administrator tasks
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -239,6 +247,7 @@ The main category to administer are animals to share.
 Here, several filters (such as "sex", "location", etc.) are available to search for any set of animals.
 
 .. image:: img/admin_animals.png
+    :width: 99%
 
 .. Note:: in order to remove a claim (thus making the animal available again), either click on an animal 
           and remove the email address from the field "new owner", or select one or multiple animals and 
@@ -273,7 +282,8 @@ Every animal needs to have a responsible person associated to them. This person 
 an email when the animal is being claimed.
 
 .. image:: img/admin_persons.png
-
+    :width: 99%
+    
 .. Note:: Only *administrators* are allowed to see and change Persons
 
 Make a user an animal manager
@@ -293,133 +303,11 @@ Anishare change history
 """""""""""""""""""""""
 New functions and bugfix at the system should be documented. So users can be informed about changes on the system. 
 All changes are visible to authenticated users. Please refeer to the site `AniShare Change History
-<https://anishare.leibniz-fli.de/changehistory/>`_ to see all changes.
-
-Installation
-------------
-
-Requirements
-^^^^^^^^^^^^
-
-We use the latest version of `django <https://www.djangoproject.com>`_, which requires `python3 <https://www.python.org>`_. 
-Install django and other dependancies (see file requirements.txt. We recommend using a virtual environment for this)::
-
-    virtualenv -p python3 .
-    source bin/activate
-    pip install -r requirements.txt
-
-First time setup
-^^^^^^^^^^^^^^^^
-
-First, in the folder ``anishare``, copy the file ``local_settings.py.template``
-to ``local_settings.py`` and fill it in. If you want to use LDAP, comment in
-the respective lines. Most importantly, you should configure the following lines::
-
-    EMAIL_HOST = ''
-    SECRET_KEY = ''
-    ALLOWED_HOSTS = ['127.0.0.1', ]
-
-Then, you can run migrations::
-
-    python manage.py migrate
-
-.. note:: This will create the sqlite database ``db.sqlite3`` containing all the models 
-          (eg. tables) as defined in :py:mod:`animals.models`.
-
-Now create a superuser::
-
-    python manage.py createsuperuser
-
-You are now able to login to the admin interface, but first run the dev server::
-
-    python manage.py runserver
-
-This will listen on ``http://localhost:8000``, so browse to the admin page 
-``http://localhost:8000/admin`` and you should see this after login:
-
-.. image:: img/admin_empty.png
-
-You can also import a dummy set of data using the ``loaddata`` command::
-
-   python manage.py loaddata initial_data.json
-
-After loading the data, the main admin interface should look like this:
-
-.. image:: img/admin_after_loaddata.png
-
-Importing existing data
-^^^^^^^^^^^^^^^^^^^^^^^
-For import of existing data in tabular (excel) format, a management command is available at 
-:py:mod:`animals.management.commands.import_animals` ::
-   
-   python manage.py import_animals
-
-.. Note:: See the file ``example_import.xls`` for an example...
-.. image:: img/import_excel_sheet.png
-
-In-DB Caching
-^^^^^^^^^^^^^
-By default, database caching is enabled in settings. To create the necessary tables, run this
-command::
-
-   python manage.py createcachetable
-
-This will create a cache table in the SQLite database, which will speed up queries.
-
-Running Tests
-^^^^^^^^^^^^^
-Tests reside in ``animals/tests.py``.
-You can invoke the django tests like so::
-
-    python manage.py test
-
-.. literalinclude:: ../animals/tests.py
-   :language: python
-   :linenos:
+<https://anishare.leibniz-fli.de/changehistory/>`_ to see all changes. Furthermore it's possible to subscribe to
+the `Anishare Version Feed
+<https://anishare.leibniz-fli.de/changehistory/feed>`_ to stay informed.
 
 
-Upgrading django
-""""""""""""""""
-To upgrade django or any other python library for anishare, go into the anishare directory, and
-activate its virtualenv::
-
-   cd anishare
-   source bin/activate
-
-Next, install/upgrade whatever library (here: django to the latest version)::
-
-   pip install --upgrade django
-
-.. Note:: It's best to test the latest version in a local/development environment first!
-
-Upgrading python
-""""""""""""""""
-When upgrading the python version of the host operating system, it might be necessary to also
-upgrade the python in the virtualenv. Otherwise an error like the following might occur:
-
-   ``python: error while loading shared libraries: libpython3.4m.so.1.0: cannot open shared object file: No such file or directory``
-
-In that case, go into the anishare directory, and delete the following directories:
-
-- bin
-- include
-- lib
-- lib64
-
-Afterwards, create a new virtualenv and install the required libraries like so::
-
-    virtualenv -p python3 .
-    source bin/activate
-    pip install -r requirements.txt
-
-
-API documentation
-==================
-
-.. include::   modules/admin.rst
-.. include::   modules/models.rst
-.. include::   modules/views.rst
-.. include::   modules/urls.rst
 
 .. Indices and tables
 .. ==================
