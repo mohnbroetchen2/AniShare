@@ -64,7 +64,9 @@
             <table id="datatable" class="table table-bordered table-hover table-striped tablesorter">
                 <thead>
                 <tr>
+                  <!--th class="header"> id <i class="icon-sort"></i></th-->
                   <th class="header"> Version <i class="icon-sort"></i></th>
+                  <th class="header"> Change date <i class="icon-sort"></i></th>
                   <th class="header"> Type <i class="icon-sort"></i></th>
                   <th class="header"> Short description <i class="icon-sort"></i></th>
                   <th class="header"> Long description<i class="icon-sort"></i></th>
@@ -74,7 +76,9 @@
             <tbody>
                   {% for c in filter.qs %}
                     <tr>
+                        <!--td>{{c.pk}}</td-->
                         <td>{{c.version}}</td>
+                        <td>{{entry_date}}</td>
                         <td>{{c.change_type}}</td>
                         <td>{{c.short_text}}</td>
                         <td>{{c.description}}</td>

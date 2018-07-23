@@ -95,6 +95,8 @@ Sub responsibleuser()
     Dim respUser As String
     Dim user As String
     user = ActiveCell.FormulaR1C1
-    respUser = Right(user, Len(user) - InStr(user, ",") - 1) + " " + Left(user, InStr(user, ",") - 1)
-    ActiveCell.FormulaR1C1 = respUser
+    If Len(user) <> 0 Then
+    	respUser = Right(user, Len(user) - InStr(user, ",") - 1) + " " + Left(user, InStr(user, ",") - 1)
+    	ActiveCell.FormulaR1C1 = respUser
+    End If
 End Sub

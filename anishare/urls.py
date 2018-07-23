@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.decorators.cache import never_cache
 
 from animals import urls
 import animals
@@ -31,5 +32,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('macros/', animals.views.macros, name='macro'),
     path('changehistory/', animals.views.change_history, name='change'),
+    path('changehistory/feed', never_cache(animals.views.LatestChangesFeed()), name='version-feed'),
     path('accounts/', include('django.contrib.auth.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

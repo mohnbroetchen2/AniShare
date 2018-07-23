@@ -192,10 +192,12 @@ Sub responsibleuser()
 	dispatcher = createUnoService(&quot;com.sun.star.frame.DispatchHelper&quot;)
 	
     user = thisComponent.getCurrentSelection().getString()
-    respUser = Right(user, Len(user) - InStr(user, &quot;,&quot;) - 1) + &quot; &quot; + Left(user, InStr(user, &quot;,&quot;) - 1)
-    args3(0).Value = respUser
-    dispatcher.executeDispatch(document, &quot;.uno:EnterString&quot;, &quot;&quot;, 0, args3())
-	dispatcher.executeDispatch(document, &quot;.uno:JumpToNextCell&quot;, &quot;&quot;, 0, Array())
+    if Len(user) > 0 Then
+    	respUser = Right(user, Len(user) - InStr(user, &quot;,&quot;) - 1) + &quot; &quot; + Left(user, InStr(user, &quot;,&quot;) - 1)
+    	args3(0).Value = respUser
+    	dispatcher.executeDispatch(document, &quot;.uno:EnterString&quot;, &quot;&quot;, 0, args3())
+		dispatcher.executeDispatch(document, &quot;.uno:JumpToNextCell&quot;, &quot;&quot;, 0, Array())
+    End if
 End Sub
 
 Sub addfields()

@@ -263,3 +263,36 @@ def change_history(request):
 @login_required
 def macros(request):
     return render(request, 'animals/macro-index.html')
+
+class LatestChangesFeed(Feed):
+    """
+    RSS Feed for system changes on AniShare.
+    """
+    title = 'AniShare version feed'
+    link = '/versionhistory/feed'
+    description = 'Updates on AniShare.'
+
+    def __call__(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
+        return super().__call__(request, *args, **kwargs)
+
+    def items(self):
+        """
+        Get latest changes as items.
+        """
+        changes = Change.objects.order_by('-entry_date')[:10]
+        return changes
+
+    def item_title(self, item):
+        """
+        What to print as item title (use default __str__ of model).
+        """
+        return "{}: {} [{}]".format(
+            item.version, item.short_text, item.entry_date) 
+
+    def item_description(self, item):
+        """
+        What to print as item description (use default description from model).
+        """
+        return item.description

@@ -56,8 +56,8 @@
 
 
 \title{AniShare Documentation}
-\date{Jul 20, 2018}
-\release{1.4}
+\date{Jul 23, 2018}
+\release{1.5}
 \author{Holger Dinkel, Fabian Monheim}
 \newcommand{\sphinxlogo}{\vbox{}}
 \renewcommand{\releasename}{Release}
@@ -85,7 +85,7 @@ sharing animals within the institute, less animals in total have to be sacrifice
 Anishare is a simple database of animals offered for reuse and a easy way to claim an animal with
 automatic generation of email messages as well as an RSS feed for updates.
 
-\noindent\sphinxincludegraphics{{anishare_index}.png}
+\noindent\sphinxincludegraphics[width=0.990\linewidth]{{anishare_index}.png}
 
 At the moment, the software/database is geared towards handling of mice, however, it can be adjusted
 to handle any kind of research animal.
@@ -108,7 +108,7 @@ Content support: \sphinxhref{mailto:mouse@leibniz-fli.de}{mouse@leibniz-fli.de},
 The main user-facing site is the list of animals to be shared. A user can browse this list, sort it
 via the headers or search for a term using the search bar.
 
-\noindent\sphinxincludegraphics{{anishare_index}.png}
+\noindent\sphinxincludegraphics[width=0.990\linewidth]{{anishare_index}.png}
 
 If a user is interested in an animal, they should click on the button “Claim” which will bring up
 another page (see below) in which they can review their claim before finally submitting. When they
@@ -123,7 +123,7 @@ The remaining animals will still be available for claim. Because of uniqueness i
 possible to offer exactly one mouse per dataset. In contrast fishes can be offer in a group.
 \end{sphinxadmonition}
 
-\noindent\sphinxincludegraphics{{anishare_claim}.png}
+\noindent\sphinxincludegraphics[width=0.990\linewidth]{{anishare_claim}.png}
 
 
 \subsection{Organs}
@@ -137,11 +137,11 @@ they might want to claim other organs).
 
 Organ index view:
 
-\noindent\sphinxincludegraphics{{organs_index}.png}
+\noindent\sphinxincludegraphics[width=0.990\linewidth]{{organs_index}.png}
 
 Organ claim view:
 
-\noindent\sphinxincludegraphics{{organs_claim}.png}
+\noindent\sphinxincludegraphics[width=0.990\linewidth]{{organs_claim}.png}
 
 
 \subsection{RSS Feed}
@@ -151,7 +151,7 @@ An RSS feed containing the latest ten animals and organs is automatically genera
 to RSS feeds) to this feed to stay up-to-date with the animal catalogue. By clicking on a link in
 the feed, they are directed to the claim page of the individual animal/organ.
 
-\noindent\sphinxincludegraphics[width=0.500\linewidth]{{anishare_rss_feed}.png}
+\noindent\sphinxincludegraphics[width=0.600\linewidth]{{anishare_rss_feed}.png}
 
 
 \section{Main animal manager tasks}
@@ -162,20 +162,20 @@ databases to manage animals. Now the databases are not connected. To transfer mo
 to anishare it’s recommend to use the export function of \sphinxtitleref{PyRAT} or \sphinxtitleref{tick@lab} and the import function of anishare.
 To use the export/import process please read the topic \sphinxstylestrong{Animals import} or \sphinxstylestrong{Organs import}.
 
-\noindent\sphinxincludegraphics[width=0.600\linewidth]{{admin_overview_manager}.png}
+\noindent\sphinxincludegraphics[width=0.800\linewidth]{{admin_overview_manager}.png}
 
 
 \subsection{Add Animals manually}
 \label{\detokenize{index:add-animals-manually}}
 Click on \sphinxcode{\sphinxupquote{Animals}} -\textgreater{} \sphinxcode{\sphinxupquote{Add}} to add an animal.
 
-\noindent\sphinxincludegraphics[width=0.400\linewidth]{{admin_add_animal}.png}
+\noindent\sphinxincludegraphics[width=0.600\linewidth]{{admin_add_animal}.png}
 
 All fields in bold \sphinxstylestrong{need} to be filled in, the others are optional.
 
 After adding several animals, the main (index) view should look like this:
 
-\noindent\sphinxincludegraphics{{admin_after_loaddata}.png}
+\noindent\sphinxincludegraphics[width=0.990\linewidth]{{admin_after_loaddata}.png}
 
 
 \subsection{Animals import}
@@ -187,14 +187,14 @@ First login to PyRAT and switch to the english version of PyRAT if it is no pres
 should be import to anishare. Click on \sphinxcode{\sphinxupquote{QS}} (Quick Select) and activate the option \sphinxcode{\sphinxupquote{Export this list to Excel}}.
 Push the button \sphinxcode{\sphinxupquote{Apply}}.
 
-\noindent\sphinxincludegraphics[width=0.400\linewidth]{{pyrat_export}.png}
+\noindent\sphinxincludegraphics[width=0.600\linewidth]{{pyrat_export}.png}
 
 Now it’s important to select all mandatory fields:
 \sphinxstylestrong{ID, Lab ID, Sex, Line / Strine (Name), Mutations, Date of birth, Responsible, License number, Building}
 
 It’s possible to save the selected columns as a \sphinxcode{\sphinxupquote{Manage View}} for reuse (fold out \sphinxcode{\sphinxupquote{Manage View}} on the left side of the \sphinxcode{\sphinxupquote{File name}})
 
-\noindent\sphinxincludegraphics[width=0.400\linewidth]{{pyrat_export_select_columns}.png}
+\noindent\sphinxincludegraphics[width=0.600\linewidth]{{pyrat_export_select_columns}.png}
 
 After downloading the file it’s nessecary to edit the file because the coloumns \sphinxstylestrong{Animal type, Available from, Available to} are missing.
 Please add the mentioned columns (wherever) and fill it out. As \sphinxstylestrong{Animal type} the two values \sphinxcode{\sphinxupquote{mouse}} or \sphinxcode{\sphinxupquote{fish}} are possible.
@@ -202,6 +202,10 @@ Please use the same date format for the coloumns \sphinxstylestrong{Available fr
 To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
 \sphinxcode{\sphinxupquote{mouse}} (Animal type), \sphinxcode{\sphinxupquote{Current Date}} (Available from), \sphinxcode{\sphinxupquote{Current Date + 14 days}} (Available to).
 Please refeer to the \sphinxhref{https://anishare.leibniz-fli.de/macros/}{macro site} to downloading the macros and further informations.
+
+\begin{sphinxadmonition}{note}{Note:}
+It’s possible to add more than one entry at the field \sphinxstylestrong{Organ used}. Please use a comma as seperator like \sphinxcode{\sphinxupquote{brain, bladder}}.
+\end{sphinxadmonition}
 
 After adding the missing coloumns the file can be save, for example as xlsx file. Now go to the anishare admin interface to \sphinxcode{\sphinxupquote{Home › Animals › Animals}}
 and click the button \sphinxcode{\sphinxupquote{IMPORT}} (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
@@ -213,7 +217,7 @@ the user if all requirements match.
 First login to \sphinxtitleref{Tick@lab} and open the population site. All visible entrys can be exported with the button \sphinxtitleref{Export to Excel}. It isn’t yet possible to export
 only selected animals. Therefore use the filter option.
 
-\noindent\sphinxincludegraphics[width=0.400\linewidth]{{tickatlab_export}.png}
+\noindent\sphinxincludegraphics[width=0.800\linewidth]{{tickatlab_export}.png}
 
 To import the file it’s nessecary to do a lot of changes to the structure of the data. So please use the macro which do the changes automatic.
 Please refeer to the \sphinxhref{https://anishare.leibniz-fli.de/macros/}{macro site} to downloading the macro and further informations.
@@ -223,7 +227,7 @@ Please refeer to the \sphinxhref{https://anishare.leibniz-fli.de/macros/}{macro 
 \label{\detokenize{index:add-organs-manually}}
 Click on \sphinxcode{\sphinxupquote{Organs}} -\textgreater{} \sphinxcode{\sphinxupquote{Add}} to add an organ.
 
-\noindent\sphinxincludegraphics[width=0.400\linewidth]{{admin_add_organ}.png}
+\noindent\sphinxincludegraphics[width=0.800\linewidth]{{admin_add_organ}.png}
 
 All fields in bold \sphinxstylestrong{need} to be filled in, the others are optional.
 
@@ -240,7 +244,7 @@ Push the button \sphinxcode{\sphinxupquote{Apply}}.
 Now it’s important to select all mandatory fields:
 \sphinxstylestrong{ID, Lab ID, Sex, Line / Strine (Name), Mutations, Date of birth, Responsible, License number, Building, Sacrifice date, Sacrifice method}
 
-\noindent\sphinxincludegraphics[width=0.400\linewidth]{{pyrat_export_organs}.png}
+\noindent\sphinxincludegraphics[width=0.600\linewidth]{{pyrat_export_organs}.png}
 
 It’s possible to save the selected columns as a \sphinxcode{\sphinxupquote{Manage View}} for reuse (fold out \sphinxcode{\sphinxupquote{Manage View}} on the left side of the \sphinxcode{\sphinxupquote{File name}})
 
@@ -271,7 +275,7 @@ or more entries in the list (see figure below) and select “\sphinxtitleref{cop
 Another option is to edit an existing animal and click on “\sphinxtitleref{Save as new}”. This will save the
 currently edited animal as a new instance:
 
-\noindent\sphinxincludegraphics{{admin_save_as_new}.png}
+\noindent\sphinxincludegraphics[width=0.990\linewidth]{{admin_save_as_new}.png}
 
 
 \section{Main administrator tasks}
@@ -292,7 +296,7 @@ These organs are standard values for the field \sphinxstylestrong{Organ used}.
 The main category to administer are animals to share.
 Here, several filters (such as “sex”, “location”, etc.) are available to search for any set of animals.
 
-\noindent\sphinxincludegraphics{{admin_animals}.png}
+\noindent\sphinxincludegraphics[width=0.990\linewidth]{{admin_animals}.png}
 
 \begin{sphinxadmonition}{note}{Note:}
 in order to remove a claim (thus making the animal available again), either click on an animal
@@ -333,7 +337,7 @@ Persons responsible for the animals. Could be a vet or similar.
 Every animal needs to have a responsible person associated to them. This person then gets
 an email when the animal is being claimed.
 
-\noindent\sphinxincludegraphics{{admin_persons}.png}
+\noindent\sphinxincludegraphics[width=0.990\linewidth]{{admin_persons}.png}
 
 \begin{sphinxadmonition}{note}{Note:}
 Only \sphinxstyleemphasis{administrators} are allowed to see and change Persons
@@ -354,858 +358,10 @@ and group \sphinxstyleemphasis{animal manager}):
 \subsection{Anishare change history}
 \label{\detokenize{index:anishare-change-history}}
 New functions and bugfix at the system should be documented. So users can be informed about changes on the system.
-All changes are visible to authenticated users. Please refeer to the site \sphinxhref{https://anishare.leibniz-fli.de/changehistory/}{AniShare Change History} to see all changes.
+All changes are visible to authenticated users. Please refeer to the site \sphinxhref{https://anishare.leibniz-fli.de/changehistory/}{AniShare Change History} to see all changes. Furthermore it’s possible to subscribe to
+the \sphinxhref{https://anishare.leibniz-fli.de/changehistory/feed}{Anishare Version Feed} to stay informed.
 
 
-\chapter{Installation}
-\label{\detokenize{index:installation}}
-
-\section{Requirements}
-\label{\detokenize{index:requirements}}
-We use the latest version of \sphinxhref{https://www.djangoproject.com}{django}, which requires \sphinxhref{https://www.python.org}{python3}.
-Install django and other dependancies (see file requirements.txt. We recommend using a virtual environment for this):
-
-\fvset{hllines={, ,}}%
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{virtualenv} \PYG{o}{\PYGZhy{}}\PYG{n}{p} \PYG{n}{python3} \PYG{o}{.}
-\PYG{n}{source} \PYG{n+nb}{bin}\PYG{o}{/}\PYG{n}{activate}
-\PYG{n}{pip} \PYG{n}{install} \PYG{o}{\PYGZhy{}}\PYG{n}{r} \PYG{n}{requirements}\PYG{o}{.}\PYG{n}{txt}
-\end{sphinxVerbatim}
-
-
-\section{First time setup}
-\label{\detokenize{index:first-time-setup}}
-First, in the folder \sphinxcode{\sphinxupquote{anishare}}, copy the file \sphinxcode{\sphinxupquote{local\_settings.py.template}}
-to \sphinxcode{\sphinxupquote{local\_settings.py}} and fill it in. If you want to use LDAP, comment in
-the respective lines. Most importantly, you should configure the following lines:
-
-\fvset{hllines={, ,}}%
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{EMAIL\PYGZus{}HOST} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{\PYGZsq{}}
-\PYG{n}{SECRET\PYGZus{}KEY} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{\PYGZsq{}}
-\PYG{n}{ALLOWED\PYGZus{}HOSTS} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{127.0.0.1}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{p}{]}
-\end{sphinxVerbatim}
-
-Then, you can run migrations:
-
-\fvset{hllines={, ,}}%
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{python} \PYG{n}{manage}\PYG{o}{.}\PYG{n}{py} \PYG{n}{migrate}
-\end{sphinxVerbatim}
-
-\begin{sphinxadmonition}{note}{Note:}
-This will create the sqlite database \sphinxcode{\sphinxupquote{db.sqlite3}} containing all the models
-(eg. tables) as defined in {\hyperref[\detokenize{index:module-animals.models}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{animals.models}}}}}.
-\end{sphinxadmonition}
-
-Now create a superuser:
-
-\fvset{hllines={, ,}}%
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{python} \PYG{n}{manage}\PYG{o}{.}\PYG{n}{py} \PYG{n}{createsuperuser}
-\end{sphinxVerbatim}
-
-You are now able to login to the admin interface, but first run the dev server:
-
-\fvset{hllines={, ,}}%
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{python} \PYG{n}{manage}\PYG{o}{.}\PYG{n}{py} \PYG{n}{runserver}
-\end{sphinxVerbatim}
-
-This will listen on \sphinxcode{\sphinxupquote{http://localhost:8000}}, so browse to the admin page
-\sphinxcode{\sphinxupquote{http://localhost:8000/admin}} and you should see this after login:
-
-\noindent\sphinxincludegraphics{{admin_empty}.png}
-
-You can also import a dummy set of data using the \sphinxcode{\sphinxupquote{loaddata}} command:
-
-\fvset{hllines={, ,}}%
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{python} \PYG{n}{manage}\PYG{o}{.}\PYG{n}{py} \PYG{n}{loaddata} \PYG{n}{initial\PYGZus{}data}\PYG{o}{.}\PYG{n}{json}
-\end{sphinxVerbatim}
-
-After loading the data, the main admin interface should look like this:
-
-\noindent\sphinxincludegraphics{{admin_after_loaddata}.png}
-
-
-\section{Importing existing data}
-\label{\detokenize{index:importing-existing-data}}
-For import of existing data in tabular (excel) format, a management command is available at
-\sphinxcode{\sphinxupquote{animals.management.commands.import\_animals}}
-
-\fvset{hllines={, ,}}%
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{python} \PYG{n}{manage}\PYG{o}{.}\PYG{n}{py} \PYG{n}{import\PYGZus{}animals}
-\end{sphinxVerbatim}
-
-\begin{sphinxadmonition}{note}{Note:}
-See the file \sphinxcode{\sphinxupquote{example\_import.xls}} for an example…
-\end{sphinxadmonition}
-
-\noindent\sphinxincludegraphics{{import_excel_sheet}.png}
-
-
-\section{In-DB Caching}
-\label{\detokenize{index:in-db-caching}}
-By default, database caching is enabled in settings. To create the necessary tables, run this
-command:
-
-\fvset{hllines={, ,}}%
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{python} \PYG{n}{manage}\PYG{o}{.}\PYG{n}{py} \PYG{n}{createcachetable}
-\end{sphinxVerbatim}
-
-This will create a cache table in the SQLite database, which will speed up queries.
-
-
-\section{Running Tests}
-\label{\detokenize{index:running-tests}}
-Tests reside in \sphinxcode{\sphinxupquote{animals/tests.py}}.
-You can invoke the django tests like so:
-
-\fvset{hllines={, ,}}%
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{python} \PYG{n}{manage}\PYG{o}{.}\PYG{n}{py} \PYG{n}{test}
-\end{sphinxVerbatim}
-
-\fvset{hllines={, ,}}%
-\begin{sphinxVerbatim}[commandchars=\\\{\},numbers=left,firstnumber=1,stepnumber=1]
-\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
-\PYG{l+s+sd}{Tests for Anishare website}
-\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
-\PYG{k+kn}{from} \PYG{n+nn}{django.test} \PYG{k+kn}{import} \PYG{n}{TestCase}\PYG{p}{,} \PYG{n}{Client}
-\PYG{k+kn}{from} \PYG{n+nn}{django.contrib.auth.models} \PYG{k+kn}{import} \PYG{n}{User}
-\PYG{k+kn}{from} \PYG{n+nn}{django.core.management} \PYG{k+kn}{import} \PYG{n}{call\PYGZus{}command}
-
-\PYG{k}{class} \PYG{n+nc}{GetAnimalsTest}\PYG{p}{(}\PYG{n}{TestCase}\PYG{p}{)}\PYG{p}{:}
-    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
-\PYG{l+s+sd}{    Test module to GET Animal pages}
-\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
-
-    \PYG{k}{def} \PYG{n+nf}{setUp}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)}\PYG{p}{:}
-        \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} Creating a user first and loading fixtures\PYGZdq{}\PYGZdq{}\PYGZdq{}}
-        \PYG{n}{call\PYGZus{}command}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{loaddata}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{initial\PYGZus{}data.json}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{verbosity}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Load fixtures}
-        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{user} \PYG{o}{=} \PYG{n}{User}\PYG{o}{.}\PYG{n}{objects}\PYG{o}{.}\PYG{n}{create\PYGZus{}user}\PYG{p}{(}\PYG{n}{pk}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{username}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{testuser}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{password}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{12345}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
-        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{client} \PYG{o}{=} \PYG{n}{Client}\PYG{p}{(}\PYG{p}{)}
-
-    \PYG{k}{def} \PYG{n+nf}{test\PYGZus{}get\PYGZus{}all\PYGZus{}animals}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)}\PYG{p}{:}
-        \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} try to retrieve all animals \PYGZdq{}\PYGZdq{}\PYGZdq{}}
-        \PYG{n}{response} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{client}\PYG{o}{.}\PYG{n}{get}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/animals/}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
-        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{assertEqual}\PYG{p}{(}\PYG{n}{response}\PYG{o}{.}\PYG{n}{status\PYGZus{}code}\PYG{p}{,} \PYG{l+m+mi}{302}\PYG{p}{)}
-        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{client}\PYG{o}{.}\PYG{n}{login}\PYG{p}{(}\PYG{n}{username}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{testuser}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{password}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{12345}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
-        \PYG{n}{response} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{client}\PYG{o}{.}\PYG{n}{get}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/animals/}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
-        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{assertEqual}\PYG{p}{(}\PYG{n}{response}\PYG{o}{.}\PYG{n}{status\PYGZus{}code}\PYG{p}{,} \PYG{l+m+mi}{200}\PYG{p}{)}
-
-    \PYG{k}{def} \PYG{n+nf}{test\PYGZus{}get\PYGZus{}one\PYGZus{}animal}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)}\PYG{p}{:}
-        \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} try to retrieve individual animals \PYGZdq{}\PYGZdq{}\PYGZdq{}}
-        \PYG{n}{response} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{client}\PYG{o}{.}\PYG{n}{get}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/animals/1}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
-        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{assertEqual}\PYG{p}{(}\PYG{n}{response}\PYG{o}{.}\PYG{n}{status\PYGZus{}code}\PYG{p}{,} \PYG{l+m+mi}{302}\PYG{p}{)}
-        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{client}\PYG{o}{.}\PYG{n}{login}\PYG{p}{(}\PYG{n}{username}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{testuser}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{password}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{12345}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
-        \PYG{n}{response} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{client}\PYG{o}{.}\PYG{n}{get}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/animals/1}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
-        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{assertEqual}\PYG{p}{(}\PYG{n}{response}\PYG{o}{.}\PYG{n}{status\PYGZus{}code}\PYG{p}{,} \PYG{l+m+mi}{200}\PYG{p}{)}
-
-    \PYG{k}{def} \PYG{n+nf}{test\PYGZus{}claim\PYGZus{}one\PYGZus{}animal}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)}\PYG{p}{:}
-        \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} try to claim individual animals \PYGZdq{}\PYGZdq{}\PYGZdq{}}
-        \PYG{n}{response} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{client}\PYG{o}{.}\PYG{n}{get}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/animals/claim/1}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
-        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{assertEqual}\PYG{p}{(}\PYG{n}{response}\PYG{o}{.}\PYG{n}{status\PYGZus{}code}\PYG{p}{,} \PYG{l+m+mi}{302}\PYG{p}{)}
-        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{client}\PYG{o}{.}\PYG{n}{login}\PYG{p}{(}\PYG{n}{username}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{testuser}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{password}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{12345}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
-        \PYG{n}{response} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{client}\PYG{o}{.}\PYG{n}{get}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/animals/claim/1}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
-        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{assertEqual}\PYG{p}{(}\PYG{n}{response}\PYG{o}{.}\PYG{n}{status\PYGZus{}code}\PYG{p}{,} \PYG{l+m+mi}{200}\PYG{p}{)}
-\end{sphinxVerbatim}
-
-
-\subsection{Upgrading django}
-\label{\detokenize{index:upgrading-django}}
-To upgrade django or any other python library for anishare, go into the anishare directory, and
-activate its virtualenv:
-
-\fvset{hllines={, ,}}%
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{cd} \PYG{n}{anishare}
-\PYG{n}{source} \PYG{n+nb}{bin}\PYG{o}{/}\PYG{n}{activate}
-\end{sphinxVerbatim}
-
-Next, install/upgrade whatever library (here: django to the latest version):
-
-\fvset{hllines={, ,}}%
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{pip} \PYG{n}{install} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{upgrade} \PYG{n}{django}
-\end{sphinxVerbatim}
-
-\begin{sphinxadmonition}{note}{Note:}
-It’s best to test the latest version in a local/development environment first!
-\end{sphinxadmonition}
-
-
-\subsection{Upgrading python}
-\label{\detokenize{index:upgrading-python}}
-When upgrading the python version of the host operating system, it might be necessary to also
-upgrade the python in the virtualenv. Otherwise an error like the following might occur:
-\begin{quote}
-
-\sphinxcode{\sphinxupquote{python: error while loading shared libraries: libpython3.4m.so.1.0: cannot open shared object file: No such file or directory}}
-\end{quote}
-
-In that case, go into the anishare directory, and delete the following directories:
-\begin{itemize}
-\item {} 
-bin
-
-\item {} 
-include
-
-\item {} 
-lib
-
-\item {} 
-lib64
-
-\end{itemize}
-
-Afterwards, create a new virtualenv and install the required libraries like so:
-
-\fvset{hllines={, ,}}%
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{virtualenv} \PYG{o}{\PYGZhy{}}\PYG{n}{p} \PYG{n}{python3} \PYG{o}{.}
-\PYG{n}{source} \PYG{n+nb}{bin}\PYG{o}{/}\PYG{n}{activate}
-\PYG{n}{pip} \PYG{n}{install} \PYG{o}{\PYGZhy{}}\PYG{n}{r} \PYG{n}{requirements}\PYG{o}{.}\PYG{n}{txt}
-\end{sphinxVerbatim}
-
-
-\chapter{API documentation}
-\label{\detokenize{index:api-documentation}}
-
-\section{Admin}
-\label{\detokenize{index:module-animals.admin}}\label{\detokenize{index:admin}}\index{animals.admin (module)}
-Admin module
-\index{AnimalAdmin (class in animals.admin)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.AnimalAdmin}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.admin.}}\sphinxbfcode{\sphinxupquote{AnimalAdmin}}}{\emph{model}, \emph{admin\_site}}{}
-ModelAdmin for Animal model
-\index{age() (animals.admin.AnimalAdmin method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.AnimalAdmin.age}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{age}}}{\emph{obj}}{}
-Show the age in the admin as ‘Age (w)’ instead of ‘age’
-
-\end{fulllineitems}
-
-\index{form (animals.admin.AnimalAdmin attribute)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.AnimalAdmin.form}}\pysigline{\sphinxbfcode{\sphinxupquote{form}}}
-alias of {\hyperref[\detokenize{index:animals.admin.AnimalForm}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{AnimalForm}}}}}
-
-\end{fulllineitems}
-
-\index{resource\_class (animals.admin.AnimalAdmin attribute)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.AnimalAdmin.resource_class}}\pysigline{\sphinxbfcode{\sphinxupquote{resource\_class}}}
-alias of {\hyperref[\detokenize{index:animals.admin.AnimalResource}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{AnimalResource}}}}}
-
-\end{fulllineitems}
-
-\index{save\_model() (animals.admin.AnimalAdmin method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.AnimalAdmin.save_model}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{save\_model}}}{\emph{request}, \emph{obj}, \emph{form}, \emph{change}}{}
-Given a model instance save it to the database.
-
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-\index{AnimalForm (class in animals.admin)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.AnimalForm}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.admin.}}\sphinxbfcode{\sphinxupquote{AnimalForm}}}{\emph{data=None}, \emph{files=None}, \emph{auto\_id='id\_\%s'}, \emph{prefix=None}, \emph{initial=None}, \emph{error\_class=\textless{}class 'django.forms.utils.ErrorList'\textgreater{}}, \emph{label\_suffix=None}, \emph{empty\_permitted=False}, \emph{instance=None}, \emph{use\_required\_attribute=None}}{}
-Form for animal editing in admin
-\index{clean() (animals.admin.AnimalForm method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.AnimalForm.clean}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{clean}}}{}{}
-Hook for doing any extra form-wide cleaning after Field.clean() has been
-called on every field. Any ValidationError raised by this method will
-not be associated with a particular field; it will have a special-case
-association with the field named ‘\_\_all\_\_’.
-
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-\index{AnimalResource (class in animals.admin)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.AnimalResource}}\pysigline{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.admin.}}\sphinxbfcode{\sphinxupquote{AnimalResource}}}~\index{get\_instance() (animals.admin.AnimalResource method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.AnimalResource.get_instance}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_instance}}}{\emph{instance\_loader}, \emph{row}}{}
-Calls the \DUrole{xref,std,std-doc}{InstanceLoader}.
-
-\end{fulllineitems}
-
-\index{import\_obj() (animals.admin.AnimalResource method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.AnimalResource.import_obj}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{import\_obj}}}{\emph{instance}, \emph{row}, \emph{dry\_run}}{}
-Traverses every field in this Resource and calls
-\sphinxcode{\sphinxupquote{import\_field()}}.
-
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-\index{ChangeAdmin (class in animals.admin)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.ChangeAdmin}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.admin.}}\sphinxbfcode{\sphinxupquote{ChangeAdmin}}}{\emph{model}, \emph{admin\_site}}{}
-ChangeAdmin for Change model
-
-\end{fulllineitems}
-
-\index{LabAdmin (class in animals.admin)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.LabAdmin}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.admin.}}\sphinxbfcode{\sphinxupquote{LabAdmin}}}{\emph{model}, \emph{admin\_site}}{}
-ModelAdmin for Lab model
-
-\end{fulllineitems}
-
-\index{LocationAdmin (class in animals.admin)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.LocationAdmin}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.admin.}}\sphinxbfcode{\sphinxupquote{LocationAdmin}}}{\emph{model}, \emph{admin\_site}}{}
-ModelAdmin for Location model
-
-\end{fulllineitems}
-
-\index{OrganAdmin (class in animals.admin)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.OrganAdmin}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.admin.}}\sphinxbfcode{\sphinxupquote{OrganAdmin}}}{\emph{model}, \emph{admin\_site}}{}
-ModelAdmin for Organ model
-\index{age() (animals.admin.OrganAdmin method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.OrganAdmin.age}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{age}}}{\emph{obj}}{}
-Show the age in the admin as ‘Age (w)’ instead of ‘age’
-
-\end{fulllineitems}
-
-\index{resource\_class (animals.admin.OrganAdmin attribute)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.OrganAdmin.resource_class}}\pysigline{\sphinxbfcode{\sphinxupquote{resource\_class}}}
-alias of {\hyperref[\detokenize{index:animals.admin.OrganResource}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{OrganResource}}}}}
-
-\end{fulllineitems}
-
-\index{save\_model() (animals.admin.OrganAdmin method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.OrganAdmin.save_model}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{save\_model}}}{\emph{request}, \emph{obj}, \emph{form}, \emph{change}}{}
-Given a model instance save it to the database.
-
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-\index{OrganResource (class in animals.admin)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.OrganResource}}\pysigline{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.admin.}}\sphinxbfcode{\sphinxupquote{OrganResource}}}~\index{get\_instance() (animals.admin.OrganResource method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.OrganResource.get_instance}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_instance}}}{\emph{instance\_loader}, \emph{row}}{}
-Calls the \DUrole{xref,std,std-doc}{InstanceLoader}.
-
-\end{fulllineitems}
-
-\index{import\_obj() (animals.admin.OrganResource method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.OrganResource.import_obj}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{import\_obj}}}{\emph{instance}, \emph{row}, \emph{dry\_run}}{}
-Traverses every field in this Resource and calls
-\sphinxcode{\sphinxupquote{import\_field()}}.
-
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-\index{OrgantypeAdmin (class in animals.admin)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.OrgantypeAdmin}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.admin.}}\sphinxbfcode{\sphinxupquote{OrgantypeAdmin}}}{\emph{model}, \emph{admin\_site}}{}
-ModelAdmin for Organ types
-
-\end{fulllineitems}
-
-\index{PersonAdmin (class in animals.admin)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.PersonAdmin}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.admin.}}\sphinxbfcode{\sphinxupquote{PersonAdmin}}}{\emph{model}, \emph{admin\_site}}{}
-ModelAdmin for Person model
-
-\end{fulllineitems}
-
-\index{clear\_claim() (in module animals.admin)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.clear_claim}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{animals.admin.}}\sphinxbfcode{\sphinxupquote{clear\_claim}}}{\emph{modeladmin}, \emph{request}, \emph{queryset}}{}
-Convenience Function to delete a claim from several selected animals
-
-\end{fulllineitems}
-
-\index{copy\_animal() (in module animals.admin)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.admin.copy_animal}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{animals.admin.}}\sphinxbfcode{\sphinxupquote{copy\_animal}}}{\emph{modeladmin}, \emph{request}, \emph{queryset}}{}
-Copy an instance of an animal so similar entries can be easily created.
-
-\end{fulllineitems}
-
-
-
-\section{Models}
-\label{\detokenize{index:module-animals.models}}\label{\detokenize{index:models}}\index{animals.models (module)}
-This file describes all the models in the database.
-\index{Animal (class in animals.models)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Animal}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.models.}}\sphinxbfcode{\sphinxupquote{Animal}}}{\emph{*args}, \emph{**kwargs}}{}
-Main model containing the animals.
-\index{Animal.DoesNotExist}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Animal.DoesNotExist}}\pysigline{\sphinxbfcode{\sphinxupquote{exception }}\sphinxbfcode{\sphinxupquote{DoesNotExist}}}
-\end{fulllineitems}
-
-\index{Animal.MultipleObjectsReturned}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Animal.MultipleObjectsReturned}}\pysigline{\sphinxbfcode{\sphinxupquote{exception }}\sphinxbfcode{\sphinxupquote{MultipleObjectsReturned}}}
-\end{fulllineitems}
-
-\index{age() (animals.models.Animal method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Animal.age}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{age}}}{}{}
-Return the age of the animal, calculated by the difference to either
-the current date or the available\_to date
-
-\end{fulllineitems}
-
-\index{available() (animals.models.Animal method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Animal.available}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{available}}}{}{}
-Returns True if the animal is still available
-
-\end{fulllineitems}
-
-\index{clean() (animals.models.Animal method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Animal.clean}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{clean}}}{}{}
-Hook for doing any extra model-wide validation after clean() has been
-called on every field by self.clean\_fields. Any ValidationError raised
-by this method will not be associated with a particular field; it will
-have a special-case association with the field defined by NON\_FIELD\_ERRORS.
-
-\end{fulllineitems}
-
-\index{description() (animals.models.Animal method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Animal.description}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{description}}}{}{}
-Return description of this model
-
-\end{fulllineitems}
-
-\index{get\_absolute\_url() (animals.models.Animal method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Animal.get_absolute_url}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_absolute\_url}}}{}{}
-Get absolute url for this model. Important to link from the admin.
-
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-\index{Change (class in animals.models)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Change}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.models.}}\sphinxbfcode{\sphinxupquote{Change}}}{\emph{*args}, \emph{**kwargs}}{}
-Model for documentation all changes to anishare
-\index{Change.DoesNotExist}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Change.DoesNotExist}}\pysigline{\sphinxbfcode{\sphinxupquote{exception }}\sphinxbfcode{\sphinxupquote{DoesNotExist}}}
-\end{fulllineitems}
-
-\index{Change.MultipleObjectsReturned}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Change.MultipleObjectsReturned}}\pysigline{\sphinxbfcode{\sphinxupquote{exception }}\sphinxbfcode{\sphinxupquote{MultipleObjectsReturned}}}
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-\index{Lab (class in animals.models)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Lab}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.models.}}\sphinxbfcode{\sphinxupquote{Lab}}}{\emph{*args}, \emph{**kwargs}}{}
-Labs are only defined by a name and are referenced by
-Person(s) which are responsible (contact) person for this lab
-\index{Lab.DoesNotExist}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Lab.DoesNotExist}}\pysigline{\sphinxbfcode{\sphinxupquote{exception }}\sphinxbfcode{\sphinxupquote{DoesNotExist}}}
-\end{fulllineitems}
-
-\index{Lab.MultipleObjectsReturned}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Lab.MultipleObjectsReturned}}\pysigline{\sphinxbfcode{\sphinxupquote{exception }}\sphinxbfcode{\sphinxupquote{MultipleObjectsReturned}}}
-\end{fulllineitems}
-
-\index{responsible\_person() (animals.models.Lab method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Lab.responsible_person}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{responsible\_person}}}{}{}
-Retrieve only the person(s) which are responsible for this lab.
-
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-\index{Location (class in animals.models)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Location}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.models.}}\sphinxbfcode{\sphinxupquote{Location}}}{\emph{*args}, \emph{**kwargs}}{}
-Location of animals. Eg. animal house, fish facilities etc.
-\index{Location.DoesNotExist}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Location.DoesNotExist}}\pysigline{\sphinxbfcode{\sphinxupquote{exception }}\sphinxbfcode{\sphinxupquote{DoesNotExist}}}
-\end{fulllineitems}
-
-\index{Location.MultipleObjectsReturned}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Location.MultipleObjectsReturned}}\pysigline{\sphinxbfcode{\sphinxupquote{exception }}\sphinxbfcode{\sphinxupquote{MultipleObjectsReturned}}}
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-\index{Organ (class in animals.models)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Organ}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.models.}}\sphinxbfcode{\sphinxupquote{Organ}}}{\emph{*args}, \emph{**kwargs}}{}
-Model containing the organs
-\index{Organ.DoesNotExist}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Organ.DoesNotExist}}\pysigline{\sphinxbfcode{\sphinxupquote{exception }}\sphinxbfcode{\sphinxupquote{DoesNotExist}}}
-\end{fulllineitems}
-
-\index{Organ.MultipleObjectsReturned}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Organ.MultipleObjectsReturned}}\pysigline{\sphinxbfcode{\sphinxupquote{exception }}\sphinxbfcode{\sphinxupquote{MultipleObjectsReturned}}}
-\end{fulllineitems}
-
-\index{age() (animals.models.Organ method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Organ.age}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{age}}}{}{}
-Return the age of the animal, at the time of death
-
-\end{fulllineitems}
-
-\index{available() (animals.models.Organ method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Organ.available}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{available}}}{}{}
-Returns True if the animal is still available
-
-\end{fulllineitems}
-
-\index{description() (animals.models.Organ method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Organ.description}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{description}}}{}{}
-Return description of this model
-
-\end{fulllineitems}
-
-\index{get\_absolute\_url() (animals.models.Organ method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Organ.get_absolute_url}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_absolute\_url}}}{}{}
-Get absolute url for this model. Important to link from the admin.
-
-\end{fulllineitems}
-
-\index{get\_organtypes() (animals.models.Organ method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Organ.get_organtypes}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_organtypes}}}{}{}
-Get all organ types which are used
-
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-\index{Organtype (class in animals.models)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Organtype}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.models.}}\sphinxbfcode{\sphinxupquote{Organtype}}}{\emph{*args}, \emph{**kwargs}}{}
-Model containing the organ types
-\index{Organtype.DoesNotExist}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Organtype.DoesNotExist}}\pysigline{\sphinxbfcode{\sphinxupquote{exception }}\sphinxbfcode{\sphinxupquote{DoesNotExist}}}
-\end{fulllineitems}
-
-\index{Organtype.MultipleObjectsReturned}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Organtype.MultipleObjectsReturned}}\pysigline{\sphinxbfcode{\sphinxupquote{exception }}\sphinxbfcode{\sphinxupquote{MultipleObjectsReturned}}}
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-\index{Person (class in animals.models)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Person}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.models.}}\sphinxbfcode{\sphinxupquote{Person}}}{\emph{*args}, \emph{**kwargs}}{}
-The responsible (contact) person for each lab.
-This person gets an email when an animal is being claimed.
-\index{Person.DoesNotExist}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Person.DoesNotExist}}\pysigline{\sphinxbfcode{\sphinxupquote{exception }}\sphinxbfcode{\sphinxupquote{DoesNotExist}}}
-\end{fulllineitems}
-
-\index{Person.MultipleObjectsReturned}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.models.Person.MultipleObjectsReturned}}\pysigline{\sphinxbfcode{\sphinxupquote{exception }}\sphinxbfcode{\sphinxupquote{MultipleObjectsReturned}}}
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-
-
-\section{Views}
-\label{\detokenize{index:module-animals.views}}\label{\detokenize{index:views}}\index{animals.views (module)}
-Django Views contains all the functions for rendering objects (HTML display).
-It also contains an RSS Feed generator class to create an RSS feed from newly created animals
-\begin{description}
-\item[{\sphinxstylestrong{Important}:}] \leavevmode
-When adding new functions, use the login\_required decorator
-When adding new classes, use the LoginRequiredMixin
-
-\end{description}
-\index{AnimalDetailView (class in animals.views)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.views.AnimalDetailView}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.views.}}\sphinxbfcode{\sphinxupquote{AnimalDetailView}}}{\emph{**kwargs}}{}
-Detail view for an animal.
-This is rarely used, rather use the claim page.
-\index{model (animals.views.AnimalDetailView attribute)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.views.AnimalDetailView.model}}\pysigline{\sphinxbfcode{\sphinxupquote{model}}}
-alias of {\hyperref[\detokenize{index:animals.models.Animal}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{animals.models.Animal}}}}}
-
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-\index{LatestAnimalsFeed (class in animals.views)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.views.LatestAnimalsFeed}}\pysigline{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{animals.views.}}\sphinxbfcode{\sphinxupquote{LatestAnimalsFeed}}}
-RSS Feed for new animals/organs.
-\index{item\_description() (animals.views.LatestAnimalsFeed method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.views.LatestAnimalsFeed.item_description}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{item\_description}}}{\emph{item}}{}
-What to print as item description (use default description from model).
-
-\end{fulllineitems}
-
-\index{item\_title() (animals.views.LatestAnimalsFeed method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.views.LatestAnimalsFeed.item_title}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{item\_title}}}{\emph{item}}{}
-What to print as item title (use default \_\_str\_\_ of model).
-
-\end{fulllineitems}
-
-\index{items() (animals.views.LatestAnimalsFeed method)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.views.LatestAnimalsFeed.items}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{items}}}{}{}
-Get latest animals as items.
-
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-\index{claim() (in module animals.views)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.views.claim}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{animals.views.}}\sphinxbfcode{\sphinxupquote{claim}}}{\emph{request}, \emph{primary\_key}}{}
-View to claim an animal.
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxstyleliteralstrong{\sphinxupquote{primary\_key}} \textendash{} the id/pk of the animal to retrieve
-
-\item[{Returns}] \leavevmode
-rendered page with the claim form
-or 404 if animal not found
-
-\end{description}\end{quote}
-
-\end{fulllineitems}
-
-\index{claim\_organ() (in module animals.views)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.views.claim_organ}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{animals.views.}}\sphinxbfcode{\sphinxupquote{claim\_organ}}}{\emph{request}, \emph{primary\_key}}{}
-View to claim an organ.
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxstyleliteralstrong{\sphinxupquote{primary\_key}} \textendash{} the id/pk of the organ to retrieve
-
-\item[{Returns}] \leavevmode
-rendered page with the claim form
-or 404 if organ not found
-
-\end{description}\end{quote}
-
-\end{fulllineitems}
-
-\index{send\_email\_animal() (in module animals.views)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.views.send_email_animal}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{animals.views.}}\sphinxbfcode{\sphinxupquote{send\_email\_animal}}}{\emph{request}}{}
-Function to send an email about an animal being claimed.
-
-Needs these variables in the POST request: email, pk, count
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxstyleliteralstrong{\sphinxupquote{email}} \textendash{} email address of the request user / new owner
-
-\item {} 
-\sphinxstyleliteralstrong{\sphinxupquote{pk}} \textendash{} primary\_key of the animal(s) to be claimed
-
-\item {} 
-\sphinxstyleliteralstrong{\sphinxupquote{count}} \textendash{} how many animals are being claimed
-
-\end{itemize}
-
-\end{description}\end{quote}
-
-\end{fulllineitems}
-
-\index{send\_email\_organ() (in module animals.views)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{index:animals.views.send_email_organ}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{animals.views.}}\sphinxbfcode{\sphinxupquote{send\_email\_organ}}}{\emph{request}}{}
-Function to send an email about an animal being claimed.
-
-Needs these variables in the POST request: email, pk, count
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxstyleliteralstrong{\sphinxupquote{email}} \textendash{} email address of the request user / new owner
-
-\item {} 
-\sphinxstyleliteralstrong{\sphinxupquote{pk}} \textendash{} primary\_key of the animal(s) to be claimed
-
-\item {} 
-\sphinxstyleliteralstrong{\sphinxupquote{organs\_wanted}} \textendash{} organs wanted from the given animal
-
-\end{itemize}
-
-\end{description}\end{quote}
-
-\end{fulllineitems}
-
-
-
-\section{URLs}
-\label{\detokenize{index:module-animals.urls}}\label{\detokenize{index:urls}}\index{animals.urls (module)}
-animals URL Configuration
-\begin{description}
-\item[{The \sphinxtitleref{urlpatterns} list routes URLs to views. For more information please see:}] \leavevmode
-\sphinxurl{https://docs.djangoproject.com/en/2.0/topics/http/urls/}
-
-\end{description}
-
-Examples:
-\begin{description}
-\item[{Function views:}] \leavevmode\begin{enumerate}
-\item {} 
-Add an import:  from my\_app import views
-
-\item {} 
-Add a URL to urlpatterns:  path(‘’, views.home, name=’home’)
-
-\end{enumerate}
-
-\item[{Class-based views:}] \leavevmode\begin{enumerate}
-\item {} 
-Add an import:  from other\_app.views import Home
-
-\item {} 
-Add a URL to urlpatterns:  path(‘’, Home.as\_view(), name=’home’)
-
-\end{enumerate}
-
-\item[{Including another URLconf:}] \leavevmode\begin{enumerate}
-\item {} 
-Import the include() function: from django.urls import include, path
-
-\item {} 
-Add a URL to urlpatterns:  path(‘blog/’, include(‘blog.urls’))
-
-\end{enumerate}
-
-\end{description}
-
-
-\renewcommand{\indexname}{Python Module Index}
-\begin{sphinxtheindex}
-\def\bigletter#1{{\Large\sffamily#1}\nopagebreak\vspace{1mm}}
-\bigletter{a}
-\item {\sphinxstyleindexentry{animals.admin}}\sphinxstyleindexpageref{index:\detokenize{module-animals.admin}}
-\item {\sphinxstyleindexentry{animals.models}}\sphinxstyleindexpageref{index:\detokenize{module-animals.models}}
-\item {\sphinxstyleindexentry{animals.urls}}\sphinxstyleindexpageref{index:\detokenize{module-animals.urls}}
-\item {\sphinxstyleindexentry{animals.views}}\sphinxstyleindexpageref{index:\detokenize{module-animals.views}}
-\end{sphinxtheindex}
 
 \renewcommand{\indexname}{Index}
 \printindex

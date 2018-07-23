@@ -55,13 +55,21 @@ class Change(models.Model):
         ('deletion', 'deletion'),
     ), default="adaption")
     version = models.CharField(max_length=200,)
+    entry_date = models.DateField(null=False, auto_now_add=True)
     short_text = models.CharField(max_length=400,)
     description = models.TextField(blank=True, null=True,)
     image = models.ImageField(null=True, blank=True, upload_to='images/')
     
     def __str__(self):
-        return "{} {} {}, {} id:{} [{}]".format(
-            self.version, self.change_type, self.short_text, self.description, self.pk, self.image)
+        return "{} {} {}, {} id:{} [{}]".format
+        (self.version, self.change_type, self.short_text, self.description, self.pk, self.entry_date)
+
+
+    def get_absolute_url(self):
+        """
+        Get absolute url for this model. Important to link from the admin.
+        """
+        return "/changehistory/?id=%i" % self.pk
 
 
 class Animal(models.Model):
@@ -89,8 +97,7 @@ class Animal(models.Model):
     mutations = models.TextField(blank=True, null=True,
                                  help_text="Describe the mutations of this line in as much detail as possible")
     licence_number = models.CharField(max_length=200)
-    responsible_person = models.ForeignKey(Person, on_delete=models.CASCADE, default=0,
-                                           help_text='Person who is responsible in the lab for dealing with the animals')
+    responsible_person = models.ForeignKey(Person, on_delete=models.CASCADE, help_text='Person who is responsible in the lab for dealing with the animals')
     available_from = models.DateField()
     available_to = models.DateField() # default=datetime.today() + timedelta(days=15))
     comment = models.TextField(blank=True, null=True,
