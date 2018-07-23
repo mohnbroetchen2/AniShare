@@ -40,7 +40,16 @@ Technical and application support: Fabian Monheim, fabian.monheim@leibniz-fli.de
 
 Content support: mouse@leibniz-fli.de, fish@leibniz-fli.de
 
-
+Sitemap
+^^^^^^^^^^^^^^^^^^^
+* Start: https://anishare.leibniz-fli.de
+* Animal: https://anishare.leibniz-fli.de/animals
+* Organ: https://anishare.leibniz-fli.de/organs
+* Animal and organ feed: https://anishare.leibniz-fli.de/animals/feed
+* Administration: https://anishare.leibniz-fli.de/admin
+* Macros: https://anishare.leibniz-fli.de/macros
+* Change history: https://anishare.leibniz-fli.de/changehistory
+* Change history feed: https://anishare.leibniz-fli.de/changehistory/feed
 
 Main user interface
 ^^^^^^^^^^^^^^^^^^^
@@ -283,7 +292,7 @@ an email when the animal is being claimed.
 
 .. image:: img/admin_persons.png
     :width: 99%
-    
+
 .. Note:: Only *administrators* are allowed to see and change Persons
 
 Make a user an animal manager
