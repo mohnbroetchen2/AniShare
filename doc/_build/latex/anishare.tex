@@ -100,7 +100,7 @@ Technical and application support: Fabian Monheim, \sphinxhref{mailto:fabian.mon
 Content support: \sphinxhref{mailto:mouse@leibniz-fli.de}{mouse@leibniz-fli.de}, \sphinxhref{mailto:fish@leibniz-fli.de}{fish@leibniz-fli.de}
 
 
-\section{Sitemap}
+\chapter{Sitemap}
 \label{\detokenize{index:sitemap}}\begin{itemize}
 \item {} 
 Start: \sphinxurl{https://anishare.leibniz-fli.de}
@@ -129,10 +129,10 @@ Change history feed: \sphinxurl{https://anishare.leibniz-fli.de/changehistory/fe
 \end{itemize}
 
 
-\section{Main user interface}
+\chapter{Main user interface}
 \label{\detokenize{index:main-user-interface}}
 
-\subsection{Animals}
+\section{Animals}
 \label{\detokenize{index:animals}}
 The main user-facing site is the list of animals to be shared. A user can browse this list, sort it
 via the headers or search for a term using the search bar.
@@ -155,7 +155,7 @@ possible to offer exactly one mouse per dataset. In contrast fishes can be offer
 \noindent\sphinxincludegraphics[width=0.990\linewidth]{{anishare_claim}.png}
 
 
-\subsection{Organs}
+\section{Organs}
 \label{\detokenize{index:organs}}
 There exists an individual page for animal organ share. It is very similar to the animal page,
 however only individual organs are for offer. The entry at the column \sphinxcode{\sphinxupquote{Organ (used)}} indicates
@@ -173,7 +173,7 @@ Organ claim view:
 \noindent\sphinxincludegraphics[width=0.990\linewidth]{{organs_claim}.png}
 
 
-\subsection{RSS Feed}
+\section{RSS Feed}
 \label{\detokenize{index:rss-feed}}
 An RSS feed containing the latest ten animals and organs is automatically generated and can be found at
 \sphinxtitleref{/animals/feed}. Users can subscribe (Most email clients allow the subscription
@@ -183,7 +183,7 @@ the feed, they are directed to the claim page of the individual animal/organ.
 \noindent\sphinxincludegraphics[width=0.600\linewidth]{{anishare_rss_feed}.png}
 
 
-\section{Main animal manager tasks}
+\chapter{Main animal manager tasks}
 \label{\detokenize{index:main-animal-manager-tasks}}
 An \sphinxstyleemphasis{animal manager} can add animals and organs to the database on two ways. First, it is possible to
 add entrys manually. Secondly, it is possible to import an Excel sheet. At the FLI Jena there are two
@@ -194,7 +194,7 @@ To use the export/import process please read the topic \sphinxstylestrong{Animal
 \noindent\sphinxincludegraphics[width=0.800\linewidth]{{admin_overview_manager}.png}
 
 
-\subsection{Add Animals manually}
+\section{Add Animals manually}
 \label{\detokenize{index:add-animals-manually}}
 Click on \sphinxcode{\sphinxupquote{Animals}} -\textgreater{} \sphinxcode{\sphinxupquote{Add}} to add an animal.
 
@@ -207,10 +207,10 @@ After adding several animals, the main (index) view should look like this:
 \noindent\sphinxincludegraphics[width=0.990\linewidth]{{admin_after_loaddata}.png}
 
 
-\subsection{Animals import}
+\section{Animals import}
 \label{\detokenize{index:animals-import}}
 
-\subsubsection{From PyRAT}
+\subsection{From PyRAT}
 \label{\detokenize{index:from-pyrat}}
 First login to PyRAT and switch to the english version of PyRAT if it is no preset. Then select the animals which
 should be import to anishare. Click on \sphinxcode{\sphinxupquote{QS}} (Quick Select) and activate the option \sphinxcode{\sphinxupquote{Export this list to Excel}}.
@@ -241,7 +241,7 @@ and click the button \sphinxcode{\sphinxupquote{IMPORT}} (above the filter). Sel
 the user if all requirements match.
 
 
-\subsubsection{From \sphinxtitleref{tick@lab}}
+\subsection{From \sphinxtitleref{tick@lab}}
 \label{\detokenize{index:from-tick-lab}}
 First login to \sphinxtitleref{Tick@lab} and open the population site. All visible entrys can be exported with the button \sphinxtitleref{Export to Excel}. It isn’t yet possible to export
 only selected animals. Therefore use the filter option.
@@ -252,7 +252,7 @@ To import the file it’s nessecary to do a lot of changes to the structure of t
 Please refeer to the \sphinxhref{https://anishare.leibniz-fli.de/macros/}{macro site} to downloading the macro and further informations.
 
 
-\subsection{Add Organs manually}
+\section{Add Organs manually}
 \label{\detokenize{index:add-organs-manually}}
 Click on \sphinxcode{\sphinxupquote{Organs}} -\textgreater{} \sphinxcode{\sphinxupquote{Add}} to add an organ.
 
@@ -261,10 +261,10 @@ Click on \sphinxcode{\sphinxupquote{Organs}} -\textgreater{} \sphinxcode{\sphinx
 All fields in bold \sphinxstylestrong{need} to be filled in, the others are optional.
 
 
-\subsection{Organs import}
+\section{Organs import}
 \label{\detokenize{index:organs-import}}
 
-\subsubsection{From PyRAT}
+\subsection{From PyRAT}
 \label{\detokenize{index:id2}}
 First login to PyRAT and switch to the english version of PyRAT if it is no preset. Then select the animals which
 should be import to anishare. Click on \sphinxcode{\sphinxupquote{QS}} (Quick Select) and activate the option \sphinxcode{\sphinxupquote{Export this list to Excel}}.
@@ -288,12 +288,12 @@ and click the button \sphinxcode{\sphinxupquote{IMPORT}} (above the filter). Sel
 the user if all requirements match.
 
 
-\subsubsection{From \sphinxtitleref{tick@lab}}
+\subsection{From \sphinxtitleref{tick@lab}}
 \label{\detokenize{index:id4}}
 Because we expect only a small quantity of importing organs from \sphinxtitleref{tick@lab} it’s only possible to add entries manually.
 
 
-\subsection{Duplicating entries}
+\section{Duplicating entries}
 \label{\detokenize{index:duplicating-entries}}
 For input of multiple similar entries, it is possible to duplicate an animal or organ entry. For this, select one
 or more entries in the list (see figure below) and select “\sphinxtitleref{copy animal}” from the dropdown menu and click
@@ -307,7 +307,7 @@ currently edited animal as a new instance:
 \noindent\sphinxincludegraphics[width=0.990\linewidth]{{admin_save_as_new}.png}
 
 
-\section{Main administrator tasks}
+\chapter{Main administrator tasks}
 \label{\detokenize{index:main-administrator-tasks}}
 The administrator can edit more objects in the admin interface, namely not just animals and organs
 but also labs, locations and persons:
@@ -315,12 +315,12 @@ but also labs, locations and persons:
 \noindent\sphinxincludegraphics[width=0.600\linewidth]{{admin_overview}.png}
 
 
-\subsection{Organs used}
+\section{Organs used}
 \label{\detokenize{index:organs-used}}
 These organs are standard values for the field \sphinxstylestrong{Organ used}.
 
 
-\subsection{Animals}
+\section{Animals}
 \label{\detokenize{index:id5}}
 The main category to administer are animals to share.
 Here, several filters (such as “sex”, “location”, etc.) are available to search for any set of animals.
@@ -338,7 +338,7 @@ Once created, an animal cannot be deleted, except by the administrator.
 \end{sphinxadmonition}
 
 
-\subsection{Labs}
+\section{Labs}
 \label{\detokenize{index:labs}}
 Labs are research labs/research groups and need to have at least one responsible/contact person each
 
@@ -349,7 +349,7 @@ Only \sphinxstyleemphasis{administrators} are allowed to see and change Labs
 \end{sphinxadmonition}
 
 
-\subsection{Locations}
+\section{Locations}
 \label{\detokenize{index:locations}}
 Locations are where animals are stored. Usually something like room numbers or “animal house” or “fish facility”.
 
@@ -360,7 +360,7 @@ Only \sphinxstyleemphasis{administrators} are allowed to see and change Location
 \end{sphinxadmonition}
 
 
-\subsection{Persons}
+\section{Persons}
 \label{\detokenize{index:persons}}
 Persons responsible for the animals. Could be a vet or similar.
 Every animal needs to have a responsible person associated to them. This person then gets
@@ -373,7 +373,7 @@ Only \sphinxstyleemphasis{administrators} are allowed to see and change Persons
 \end{sphinxadmonition}
 
 
-\subsection{Make a user an animal manager}
+\section{Make a user an animal manager}
 \label{\detokenize{index:make-a-user-an-animal-manager}}
 The \sphinxstyleemphasis{administrator} is also responsible for user/rights management.
 In order to be able to add/edit animals, a user has to be in the group \sphinxstyleemphasis{animal manager} and have
@@ -384,7 +384,7 @@ and group \sphinxstyleemphasis{animal manager}):
 \noindent\sphinxincludegraphics[width=0.750\linewidth]{{admin_permissions_user}.png}
 
 
-\subsection{Anishare change history}
+\section{Anishare change history}
 \label{\detokenize{index:anishare-change-history}}
 New functions and bugfix at the system should be documented. So users can be informed about changes on the system.
 All changes are visible to authenticated users. Please refeer to the site \sphinxhref{https://anishare.leibniz-fli.de/changehistory/}{AniShare Change History} to see all changes. Furthermore it’s possible to subscribe to

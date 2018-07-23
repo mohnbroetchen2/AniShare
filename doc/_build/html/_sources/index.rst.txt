@@ -41,7 +41,7 @@ Technical and application support: Fabian Monheim, fabian.monheim@leibniz-fli.de
 Content support: mouse@leibniz-fli.de, fish@leibniz-fli.de
 
 Sitemap
-^^^^^^^^^^^^^^^^^^^
+-------
 * Start: https://anishare.leibniz-fli.de
 * Animal: https://anishare.leibniz-fli.de/animals
 * Organ: https://anishare.leibniz-fli.de/organs
@@ -52,7 +52,7 @@ Sitemap
 * Change history feed: https://anishare.leibniz-fli.de/changehistory/feed
 
 Main user interface
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 Animals
 """""""
@@ -110,7 +110,7 @@ the feed, they are directed to the claim page of the individual animal/organ.
 
 
 Main animal manager tasks
-^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------
 An *animal manager* can add animals and organs to the database on two ways. First, it is possible to
 add entrys manually. Secondly, it is possible to import an Excel sheet. At the FLI Jena there are two 
 databases to manage animals. Now the databases are not connected. To transfer more than one or two datasets
@@ -238,7 +238,7 @@ currently edited animal as a new instance:
     :width: 99%
 
 Main administrator tasks
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 The administrator can edit more objects in the admin interface, namely not just animals and organs
 but also labs, locations and persons:
 
