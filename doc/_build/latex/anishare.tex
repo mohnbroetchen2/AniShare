@@ -56,7 +56,7 @@
 
 
 \title{AniShare Documentation}
-\date{Jul 23, 2018}
+\date{Jul 24, 2018}
 \release{1.5}
 \author{Holger Dinkel, Fabian Monheim}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -88,16 +88,17 @@ automatic generation of email messages as well as an RSS feed for updates.
 \noindent\sphinxincludegraphics[width=0.990\linewidth]{{anishare_index}.png}
 
 At the moment, the software/database is geared towards handling of mice, however, it can be adjusted
-to handle any kind of research animal.
+to handle any kind of research animal. AniShare is not connected to \sphinxtitleref{PyRat} or \sphinxtitleref{Tick@lab}.
+The official changes (e.g. new ownership must be applied in \sphinxtitleref{PyRat} or \sphinxtitleref{Tick@lab} separately by the responsible person, in communication with the animal care takers).
 
 This documentation can also be downloaded as pdf file: \sphinxhref{https://anishare.leibniz-fli.de/static/doc/anishare\_documentation.pdf}{Anishare Documentation}
 
 
 \chapter{Contact}
 \label{\detokenize{index:contact}}
-Technical and application support: Fabian Monheim, \sphinxhref{mailto:fabian.monheim@leibniz-fli.de}{fabian.monheim@leibniz-fli.de}, 03641-65-6872
+Technical and application support: Fabian Monheim (CF Scientific IT), \sphinxhref{mailto:fabian.monheim@leibniz-fli.de}{fabian.monheim@leibniz-fli.de}, 03641-65-6872
 
-Content support: \sphinxhref{mailto:mouse@leibniz-fli.de}{mouse@leibniz-fli.de}, \sphinxhref{mailto:fish@leibniz-fli.de}{fish@leibniz-fli.de}
+Content support: Animal Facility and Animal Welfare Officer
 
 
 \chapter{Sitemap}
@@ -125,6 +126,23 @@ Change history: \sphinxurl{https://anishare.leibniz-fli.de/changehistory}
 
 \item {} 
 Change history feed: \sphinxurl{https://anishare.leibniz-fli.de/changehistory/feed}
+
+\end{itemize}
+
+
+\chapter{User types}
+\label{\detokenize{index:user-types}}\begin{itemize}
+\item {} 
+User: every FLI employee who wants to claim an animal.
+
+\item {} 
+Manager: this person is appointed within the research group and coordinates the offering/sharing of animals.
+
+\item {} 
+Person who perform euthanasia: this person will be named in anishare by the manager (relevant only for organ sharing).
+
+\item {} 
+Superuser: this person is administrator of the database and has the full control of the function (IT, animal welfare officers, veterinarians and heads of animal facilities).
 
 \end{itemize}
 
@@ -226,11 +244,11 @@ It’s possible to save the selected columns as a \sphinxcode{\sphinxupquote{Man
 \noindent\sphinxincludegraphics[width=0.600\linewidth]{{pyrat_export_select_columns}.png}
 
 After downloading the file it’s nessecary to edit the file because the coloumns \sphinxstylestrong{Animal type, Available from, Available to} are missing.
-Please add the mentioned columns (wherever) and fill it out. As \sphinxstylestrong{Animal type} the two values \sphinxcode{\sphinxupquote{mouse}} or \sphinxcode{\sphinxupquote{fish}} are possible.
-Please use the same date format for the coloumns \sphinxstylestrong{Available from, Available to} like at the exported coloumn \sphinxstylestrong{DOB} (Deate of birth).
 To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
 \sphinxcode{\sphinxupquote{mouse}} (Animal type), \sphinxcode{\sphinxupquote{Current Date}} (Available from), \sphinxcode{\sphinxupquote{Current Date + 14 days}} (Available to).
 Please refeer to the \sphinxhref{https://anishare.leibniz-fli.de/macros/}{macro site} to downloading the macros and further informations.
+.. Please add the mentioned columns (wherever) and fill it out. As \sphinxstylestrong{Animal type} the two values \sphinxcode{\sphinxupquote{mouse}} or \sphinxcode{\sphinxupquote{fish}} are possible.
+Please use the same date format for the coloumns \sphinxstylestrong{Available from, Available to} like at the exported coloumn \sphinxstylestrong{DOB} (Deate of birth).
 
 \begin{sphinxadmonition}{note}{Note:}
 It’s possible to add more than one entry at the field \sphinxstylestrong{Organ used}. Please use a comma as seperator like \sphinxcode{\sphinxupquote{brain, bladder}}.

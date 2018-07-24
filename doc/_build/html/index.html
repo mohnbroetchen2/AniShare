@@ -46,13 +46,14 @@ sharing animals within the institute, less animals in total have to be sacrifice
 automatic generation of email messages as well as an RSS feed for updates.</p>
 <a class="reference internal image-reference" href="_images/anishare_index.png"><img alt="_images/anishare_index.png" src="_images/anishare_index.png" style="width: 99%;" /></a>
 <p>At the moment, the software/database is geared towards handling of mice, however, it can be adjusted
-to handle any kind of research animal.</p>
+to handle any kind of research animal. AniShare is not connected to <cite>PyRat</cite> or <cite>Tick&#64;lab</cite>.
+The official changes (e.g. new ownership must be applied in <cite>PyRat</cite> or <cite>Tick&#64;lab</cite> separately by the responsible person, in communication with the animal care takers).</p>
 <p>This documentation can also be downloaded as pdf file: <a class="reference external" href="https://anishare.leibniz-fli.de/static/doc/anishare_documentation.pdf">Anishare Documentation</a></p>
 </div>
 <div class="section" id="contact">
 <h2>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h2>
-<p>Technical and application support: Fabian Monheim, <a class="reference external" href="mailto:fabian&#46;monheim&#37;&#52;&#48;leibniz-fli&#46;de">fabian<span>&#46;</span>monheim<span>&#64;</span>leibniz-fli<span>&#46;</span>de</a>, 03641-65-6872</p>
-<p>Content support: <a class="reference external" href="mailto:mouse&#37;&#52;&#48;leibniz-fli&#46;de">mouse<span>&#64;</span>leibniz-fli<span>&#46;</span>de</a>, <a class="reference external" href="mailto:fish&#37;&#52;&#48;leibniz-fli&#46;de">fish<span>&#64;</span>leibniz-fli<span>&#46;</span>de</a></p>
+<p>Technical and application support: Fabian Monheim (CF Scientific IT), <a class="reference external" href="mailto:fabian&#46;monheim&#37;&#52;&#48;leibniz-fli&#46;de">fabian<span>&#46;</span>monheim<span>&#64;</span>leibniz-fli<span>&#46;</span>de</a>, 03641-65-6872</p>
+<p>Content support: Animal Facility and Animal Welfare Officer</p>
 </div>
 <div class="section" id="sitemap">
 <h2>Sitemap<a class="headerlink" href="#sitemap" title="Permalink to this headline">¶</a></h2>
@@ -65,6 +66,15 @@ to handle any kind of research animal.</p>
 <li>Macros: <a class="reference external" href="https://anishare.leibniz-fli.de/macros">https://anishare.leibniz-fli.de/macros</a></li>
 <li>Change history: <a class="reference external" href="https://anishare.leibniz-fli.de/changehistory">https://anishare.leibniz-fli.de/changehistory</a></li>
 <li>Change history feed: <a class="reference external" href="https://anishare.leibniz-fli.de/changehistory/feed">https://anishare.leibniz-fli.de/changehistory/feed</a></li>
+</ul>
+</div>
+<div class="section" id="user-types">
+<h2>User types<a class="headerlink" href="#user-types" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>User: every FLI employee who wants to claim an animal.</li>
+<li>Manager: this person is appointed within the research group and coordinates the offering/sharing of animals.</li>
+<li>Person who perform euthanasia: this person will be named in anishare by the manager (relevant only for organ sharing).</li>
+<li>Superuser: this person is administrator of the database and has the full control of the function (IT, animal welfare officers, veterinarians and heads of animal facilities).</li>
 </ul>
 </div>
 <div class="section" id="main-user-interface">
@@ -139,8 +149,6 @@ Push the button <code class="docutils literal notranslate"><span class="pre">App
 <p>It’s possible to save the selected columns as a <code class="docutils literal notranslate"><span class="pre">Manage</span> <span class="pre">View</span></code> for reuse (fold out <code class="docutils literal notranslate"><span class="pre">Manage</span> <span class="pre">View</span></code> on the left side of the <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">name</span></code>)</p>
 <a class="reference internal image-reference" href="_images/pyrat_export_select_columns.png"><img alt="_images/pyrat_export_select_columns.png" src="_images/pyrat_export_select_columns.png" style="width: 60%;" /></a>
 <p>After downloading the file it’s nessecary to edit the file because the coloumns <strong>Animal type, Available from, Available to</strong> are missing.
-Please add the mentioned columns (wherever) and fill it out. As <strong>Animal type</strong> the two values <code class="docutils literal notranslate"><span class="pre">mouse</span></code> or <code class="docutils literal notranslate"><span class="pre">fish</span></code> are possible.
-Please use the same date format for the coloumns <strong>Available from, Available to</strong> like at the exported coloumn <strong>DOB</strong> (Deate of birth).
 To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
 <code class="docutils literal notranslate"><span class="pre">mouse</span></code> (Animal type), <code class="docutils literal notranslate"><span class="pre">Current</span> <span class="pre">Date</span></code> (Available from), <code class="docutils literal notranslate"><span class="pre">Current</span> <span class="pre">Date</span> <span class="pre">+</span> <span class="pre">14</span> <span class="pre">days</span></code> (Available to).
 Please refeer to the <a class="reference external" href="https://anishare.leibniz-fli.de/macros/">macro site</a> to downloading the macros and further informations.</p>
@@ -287,6 +295,7 @@ the <a class="reference external" href="https://anishare.leibniz-fli.de/changehi
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#contact">Contact</a></li>
 <li><a class="reference internal" href="#sitemap">Sitemap</a></li>
+<li><a class="reference internal" href="#user-types">User types</a></li>
 <li><a class="reference internal" href="#main-user-interface">Main user interface</a><ul>
 <li><a class="reference internal" href="#animals">Animals</a></li>
 <li><a class="reference internal" href="#organs">Organs</a></li>

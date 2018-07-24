@@ -29,16 +29,18 @@ automatic generation of email messages as well as an RSS feed for updates.
     :width: 99%
 
 At the moment, the software/database is geared towards handling of mice, however, it can be adjusted
-to handle any kind of research animal.
+to handle any kind of research animal. AniShare is not connected to `PyRat` or `Tick@lab`. 
+The official changes (e.g. new ownership must be applied in `PyRat` or `Tick@lab` separately by the responsible person, in communication with the animal care takers).
+
 
 This documentation can also be downloaded as pdf file: `Anishare Documentation <https://anishare.leibniz-fli.de/static/doc/anishare_documentation.pdf>`_ 
 
 Contact
 -------
 
-Technical and application support: Fabian Monheim, fabian.monheim@leibniz-fli.de, 03641-65-6872
+Technical and application support: Fabian Monheim (CF Scientific IT), fabian.monheim@leibniz-fli.de, 03641-65-6872
 
-Content support: mouse@leibniz-fli.de, fish@leibniz-fli.de
+Content support: Animal Facility and Animal Welfare Officer
 
 Sitemap
 -------
@@ -50,6 +52,13 @@ Sitemap
 * Macros: https://anishare.leibniz-fli.de/macros
 * Change history: https://anishare.leibniz-fli.de/changehistory
 * Change history feed: https://anishare.leibniz-fli.de/changehistory/feed
+
+User types
+----------
+* User: every FLI employee who wants to claim an animal.
+* Manager: this person is appointed within the research group and coordinates the offering/sharing of animals. 
+* Person who perform euthanasia: this person will be named in anishare by the manager (relevant only for organ sharing).
+* Superuser: this person is administrator of the database and has the full control of the function (IT, animal welfare officers, veterinarians and heads of animal facilities).
 
 Main user interface
 -------------------
@@ -155,8 +164,6 @@ It's possible to save the selected columns as a ``Manage View`` for reuse (fold 
    :width: 60%
 
 After downloading the file it's nessecary to edit the file because the coloumns **Animal type, Available from, Available to** are missing.
-Please add the mentioned columns (wherever) and fill it out. As **Animal type** the two values ``mouse`` or ``fish`` are possible.
-Please use the same date format for the coloumns **Available from, Available to** like at the exported coloumn **DOB** (Deate of birth).
 To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
 ``mouse`` (Animal type), ``Current Date`` (Available from), ``Current Date + 14 days`` (Available to).
 Please refeer to the `macro site <https://anishare.leibniz-fli.de/macros/>`_ to downloading the macros and further informations. 
