@@ -99,7 +99,7 @@
                   <th class="header"> Lab ID <i class="icon-sort"></i></th>
                   <th class="header"> Comment <i class="icon-sort"></i></th>
                   <th class="header"> Resp. Person<i class="icon-sort"></i></th>
-                  <th class="header"> Added By<i class="icon-sort"></i></th>
+                  <!--th class="header"> Added By<i class="icon-sort"></i></th-->
                   <th class="header"> New Owner <i class="icon-sort"></i></th>
                 </tr>
             </thead>
@@ -130,7 +130,7 @@
                         <td>{{a.lab_id}} </td>
                         <td>{{a.comment}}<br/>
                         <td>{{a.responsible_person}}</td>
-                        <td><a href="mailto:{{a.added_by.email}}">{{a.added_by.first_name}} {{a.added_by.last_name}}</a></td>
+                        <!--td><a href="mailto:{{a.added_by.email}}">{{a.added_by.first_name}} {{a.added_by.last_name}}</a></td-->
                         <td>
                             {% if a.new_owner %}
                                 {{a.new_owner}}

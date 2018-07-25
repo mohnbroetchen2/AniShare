@@ -152,11 +152,7 @@ Push the button <code class="docutils literal notranslate"><span class="pre">App
 To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
 <code class="docutils literal notranslate"><span class="pre">mouse</span></code> (Animal type), <code class="docutils literal notranslate"><span class="pre">Current</span> <span class="pre">Date</span></code> (Available from), <code class="docutils literal notranslate"><span class="pre">Current</span> <span class="pre">Date</span> <span class="pre">+</span> <span class="pre">14</span> <span class="pre">days</span></code> (Available to).
 Please refeer to the <a class="reference external" href="https://anishare.leibniz-fli.de/macros/">macro site</a> to downloading the macros and further informations.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">It’s possible to add more than one entry at the field <strong>Organ used</strong>. Please use a comma as seperator like <code class="docutils literal notranslate"><span class="pre">brain,</span> <span class="pre">bladder</span></code>.</p>
-</div>
-<p>After adding the missing coloumns the file can be save, for example as xlsx file. Now go to the anishare admin interface to <code class="docutils literal notranslate"><span class="pre">Home</span> <span class="pre">›</span> <span class="pre">Animals</span> <span class="pre">›</span> <span class="pre">Animals</span></code>
+<p>After adding the missing coloumns the file can be save. Please use the .xlsx file format. Now go to the anishare admin interface to <code class="docutils literal notranslate"><span class="pre">Home</span> <span class="pre">›</span> <span class="pre">Animals</span> <span class="pre">›</span> <span class="pre">Animals</span></code>
 and click the button <code class="docutils literal notranslate"><span class="pre">IMPORT</span></code> (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
 the user if all requirements match.</p>
 </div>
@@ -167,6 +163,9 @@ only selected animals. Therefore use the filter option.</p>
 <a class="reference internal image-reference" href="_images/tickatlab_export.png"><img alt="_images/tickatlab_export.png" src="_images/tickatlab_export.png" style="width: 80%;" /></a>
 <p>To import the file it’s nessecary to do a lot of changes to the structure of the data. So please use the macro which do the changes automatic.
 Please refeer to the <a class="reference external" href="https://anishare.leibniz-fli.de/macros/">macro site</a> to downloading the macro and further informations.</p>
+<p>After running the macro the file can be save. Please use the .xlsx file format. Now go to the anishare admin interface to <code class="docutils literal notranslate"><span class="pre">Home</span> <span class="pre">›</span> <span class="pre">Animals</span> <span class="pre">›</span> <span class="pre">Animals</span></code>
+and click the button <code class="docutils literal notranslate"><span class="pre">IMPORT</span></code> (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
+the user if all requirements match.</p>
 </div>
 </div>
 <div class="section" id="add-organs-manually">
@@ -186,12 +185,21 @@ Push the button <code class="docutils literal notranslate"><span class="pre">App
 <strong>ID, Lab ID, Sex, Line / Strine (Name), Mutations, Date of birth, Responsible, License number, Building, Sacrifice date, Sacrifice method</strong></p>
 <a class="reference internal image-reference" href="_images/pyrat_export_organs.png"><img alt="_images/pyrat_export_organs.png" src="_images/pyrat_export_organs.png" style="width: 60%;" /></a>
 <p>It’s possible to save the selected columns as a <code class="docutils literal notranslate"><span class="pre">Manage</span> <span class="pre">View</span></code> for reuse (fold out <code class="docutils literal notranslate"><span class="pre">Manage</span> <span class="pre">View</span></code> on the left side of the <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">name</span></code>)</p>
-<p>After downloading the file it’s nessecary to edit the file because the coloumns <strong>Animal type, Available from, Available to</strong> are missing.
-Furthermore the headings and the format of the coloumn <strong>Responsible</strong> needs to be adapt.
-To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
-<code class="docutils literal notranslate"><span class="pre">mouse</span></code> (Animal type), <code class="docutils literal notranslate"><span class="pre">Current</span> <span class="pre">Date</span></code> (Available from), <code class="docutils literal notranslate"><span class="pre">Current</span> <span class="pre">Date</span> <span class="pre">+</span> <span class="pre">14</span> <span class="pre">days</span></code> (Available to).
+<p>After downloading the file it’s nessecary to edit the file because the coloumns <strong>Animal type, Euthanasia performed by, Comment</strong> are missing.
+Furthermore the format of the coloumn <strong>Sacrifice date</strong> needs to be adapt.
+To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the value
+<code class="docutils literal notranslate"><span class="pre">mouse</span></code> at coloumn <strong>Animal type</strong>
 Please refeer to the <a class="reference external" href="https://anishare.leibniz-fli.de/macros/">macro site</a> to downloading the macros and further informations.</p>
-<p>After adding the missing coloumns the file can be save, for example as xlsx file. Now go to the anishare admin interface to <code class="docutils literal notranslate"><span class="pre">Home</span> <span class="pre">›</span> <span class="pre">Animals</span> <span class="pre">›</span> <span class="pre">Animals</span></code>
+<p>After running the macro it’s possible to fill out the coloumn <strong>Sacrifice method</strong> with one of the following entries:
+<strong>CO2, cervicale dislocation, decapitation, blood withdrawl, finale heart punction, overdose anaesthetics, other</strong> and
+the coloumn <strong>Organ used</strong> with the following entries:
+<strong>bladder, bone marrow, brain, genitals, heart, intestine, kidney, liver, lungs, other, spleen, stomatch</strong>
+It’s also possible to add this entries after uploading the file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It’s possible to add more than one entry at the field <strong>Organ used</strong>. Please use a comma as seperator like <code class="docutils literal notranslate"><span class="pre">brain,</span> <span class="pre">bladder</span></code>.</p>
+</div>
+<p>Please save the Excel file as .xlsx file. Now go to the anishare admin interface to <code class="docutils literal notranslate"><span class="pre">Home</span> <span class="pre">›</span> <span class="pre">Animals</span> <span class="pre">›</span> <span class="pre">Animals</span></code>
 and click the button <code class="docutils literal notranslate"><span class="pre">IMPORT</span></code> (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
 the user if all requirements match.</p>
 </div>

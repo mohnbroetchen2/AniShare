@@ -56,7 +56,7 @@
 
 
 \title{AniShare Documentation}
-\date{Jul 24, 2018}
+\date{Jul 25, 2018}
 \release{1.5}
 \author{Holger Dinkel, Fabian Monheim}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -247,14 +247,8 @@ After downloading the file it’s nessecary to edit the file because the coloumn
 To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
 \sphinxcode{\sphinxupquote{mouse}} (Animal type), \sphinxcode{\sphinxupquote{Current Date}} (Available from), \sphinxcode{\sphinxupquote{Current Date + 14 days}} (Available to).
 Please refeer to the \sphinxhref{https://anishare.leibniz-fli.de/macros/}{macro site} to downloading the macros and further informations.
-.. Please add the mentioned columns (wherever) and fill it out. As \sphinxstylestrong{Animal type} the two values \sphinxcode{\sphinxupquote{mouse}} or \sphinxcode{\sphinxupquote{fish}} are possible.
-Please use the same date format for the coloumns \sphinxstylestrong{Available from, Available to} like at the exported coloumn \sphinxstylestrong{DOB} (Deate of birth).
 
-\begin{sphinxadmonition}{note}{Note:}
-It’s possible to add more than one entry at the field \sphinxstylestrong{Organ used}. Please use a comma as seperator like \sphinxcode{\sphinxupquote{brain, bladder}}.
-\end{sphinxadmonition}
-
-After adding the missing coloumns the file can be save, for example as xlsx file. Now go to the anishare admin interface to \sphinxcode{\sphinxupquote{Home › Animals › Animals}}
+After adding the missing coloumns the file can be save. Please use the .xlsx file format. Now go to the anishare admin interface to \sphinxcode{\sphinxupquote{Home › Animals › Animals}}
 and click the button \sphinxcode{\sphinxupquote{IMPORT}} (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
 the user if all requirements match.
 
@@ -268,6 +262,10 @@ only selected animals. Therefore use the filter option.
 
 To import the file it’s nessecary to do a lot of changes to the structure of the data. So please use the macro which do the changes automatic.
 Please refeer to the \sphinxhref{https://anishare.leibniz-fli.de/macros/}{macro site} to downloading the macro and further informations.
+
+After running the macro the file can be save. Please use the .xlsx file format. Now go to the anishare admin interface to \sphinxcode{\sphinxupquote{Home › Animals › Animals}}
+and click the button \sphinxcode{\sphinxupquote{IMPORT}} (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
+the user if all requirements match.
 
 
 \section{Add Organs manually}
@@ -295,13 +293,23 @@ Now it’s important to select all mandatory fields:
 
 It’s possible to save the selected columns as a \sphinxcode{\sphinxupquote{Manage View}} for reuse (fold out \sphinxcode{\sphinxupquote{Manage View}} on the left side of the \sphinxcode{\sphinxupquote{File name}})
 
-After downloading the file it’s nessecary to edit the file because the coloumns \sphinxstylestrong{Animal type, Available from, Available to} are missing.
-Furthermore the headings and the format of the coloumn \sphinxstylestrong{Responsible} needs to be adapt.
-To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
-\sphinxcode{\sphinxupquote{mouse}} (Animal type), \sphinxcode{\sphinxupquote{Current Date}} (Available from), \sphinxcode{\sphinxupquote{Current Date + 14 days}} (Available to).
+After downloading the file it’s nessecary to edit the file because the coloumns \sphinxstylestrong{Animal type, Euthanasia performed by, Comment} are missing.
+Furthermore the format of the coloumn \sphinxstylestrong{Sacrifice date} needs to be adapt.
+To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the value
+\sphinxcode{\sphinxupquote{mouse}} at coloumn \sphinxstylestrong{Animal type}
 Please refeer to the \sphinxhref{https://anishare.leibniz-fli.de/macros/}{macro site} to downloading the macros and further informations.
 
-After adding the missing coloumns the file can be save, for example as xlsx file. Now go to the anishare admin interface to \sphinxcode{\sphinxupquote{Home › Animals › Animals}}
+After running the macro it’s possible to fill out the coloumn \sphinxstylestrong{Sacrifice method} with one of the following entries:
+\sphinxstylestrong{CO2, cervicale dislocation, decapitation, blood withdrawl, finale heart punction, overdose anaesthetics, other} and
+the coloumn \sphinxstylestrong{Organ used} with the following entries:
+\sphinxstylestrong{bladder, bone marrow, brain, genitals, heart, intestine, kidney, liver, lungs, other, spleen, stomatch}
+It’s also possible to add this entries after uploading the file.
+
+\begin{sphinxadmonition}{note}{Note:}
+It’s possible to add more than one entry at the field \sphinxstylestrong{Organ used}. Please use a comma as seperator like \sphinxcode{\sphinxupquote{brain, bladder}}.
+\end{sphinxadmonition}
+
+Please save the Excel file as .xlsx file. Now go to the anishare admin interface to \sphinxcode{\sphinxupquote{Home › Animals › Animals}}
 and click the button \sphinxcode{\sphinxupquote{IMPORT}} (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
 the user if all requirements match.
 

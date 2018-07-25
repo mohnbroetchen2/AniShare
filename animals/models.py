@@ -172,7 +172,7 @@ class Organtype(models.Model):
         ),help_text='Organ type which is not available',)"""
     name = models.CharField(max_length=100,)
     class Meta:
-        verbose_name = "Organ used"
+        verbose_name = "presets for used organs"
         verbose_name_plural = "Organs used"
     def __str__(self):
         return self.name
@@ -191,10 +191,10 @@ class Organ(models.Model):
                                    default='mouse')
     sex = models.CharField(max_length=2, choices=(('m', 'male'), ('f', 'female'), ('u', 'unknown')),
                            help_text='Select "unknown" if multiple animals.')
-    organ_type = models.ManyToManyField(Organtype, related_name='Organ_used', verbose_name='Organ used')
+    organ_type = models.ManyToManyField(Organtype, related_name='Organ_used', verbose_name='presets for used organs')
     day_of_birth = models.DateField()
     day_of_death = models.DateField()
-    method_of_killing = models.CharField(verbose_name='Sacrifice method', max_length=100, choices=(
+    method_of_killing = models.CharField(null=True, blank=True,verbose_name='Sacrifice method', max_length=100, choices=(
         ('CO2', 'CO2'),
         ('cervicale dislocation', 'cervicale dislocation'),
         ('decapitation', 'decapitation'),
@@ -204,7 +204,7 @@ class Organ(models.Model):
         ('other', 'other'),
         ),)
     killing_person = models.EmailField(verbose_name='Euthanasia performed by',null=True, blank=True, help_text='Email address of the person who performe euthanasia. Leave it empty if it is the address of the responsible person')
-    database_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT", default="0")
+    database_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT")
     lab_id = models.CharField(max_length=200, null=True, blank=True, help_text="ID of lab in eg. PYRAT")
     entry_date = models.DateField(null=False, auto_now_add=True)
     line = models.CharField(max_length=200, help_text="genetic trait of animal")

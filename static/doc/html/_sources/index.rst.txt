@@ -168,9 +168,7 @@ To simplify this process there are macros for LibreOffice and MS Office. The mac
 ``mouse`` (Animal type), ``Current Date`` (Available from), ``Current Date + 14 days`` (Available to).
 Please refeer to the `macro site <https://anishare.leibniz-fli.de/macros/>`_ to downloading the macros and further informations. 
 
-.. Note:: It's possible to add more than one entry at the field **Organ used**. Please use a comma as seperator like ``brain, bladder``.
-
-After adding the missing coloumns the file can be save, for example as xlsx file. Now go to the anishare admin interface to ``Home › Animals › Animals``
+After adding the missing coloumns the file can be save. Please use the .xlsx file format. Now go to the anishare admin interface to ``Home › Animals › Animals``
 and click the button ``IMPORT`` (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
 the user if all requirements match.  
 
@@ -184,6 +182,10 @@ only selected animals. Therefore use the filter option.
 
 To import the file it's nessecary to do a lot of changes to the structure of the data. So please use the macro which do the changes automatic. 
 Please refeer to the `macro site <https://anishare.leibniz-fli.de/macros/>`_ to downloading the macro and further informations. 
+
+After running the macro the file can be save. Please use the .xlsx file format. Now go to the anishare admin interface to ``Home › Animals › Animals``
+and click the button ``IMPORT`` (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
+the user if all requirements match.  
 
 Add Organs manually
 """""""""""""""""""
@@ -212,13 +214,21 @@ Now it's important to select all mandatory fields:
 
 It's possible to save the selected columns as a ``Manage View`` for reuse (fold out ``Manage View`` on the left side of the ``File name``)
 
-After downloading the file it's nessecary to edit the file because the coloumns **Animal type, Available from, Available to** are missing.
-Furthermore the headings and the format of the coloumn **Responsible** needs to be adapt.
-To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
-``mouse`` (Animal type), ``Current Date`` (Available from), ``Current Date + 14 days`` (Available to).
+After downloading the file it's nessecary to edit the file because the coloumns **Animal type, Euthanasia performed by, Comment** are missing.
+Furthermore the format of the coloumn **Sacrifice date** needs to be adapt.
+To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the value
+``mouse`` at coloumn **Animal type**
 Please refeer to the `macro site <https://anishare.leibniz-fli.de/macros/>`_ to downloading the macros and further informations. 
 
-After adding the missing coloumns the file can be save, for example as xlsx file. Now go to the anishare admin interface to ``Home › Animals › Animals``
+After running the macro it's possible to fill out the coloumn **Sacrifice method** with one of the following entries: 
+**CO2, cervicale dislocation, decapitation, blood withdrawl, finale heart punction, overdose anaesthetics, other** and 
+the coloumn **Organ used** with the following entries:
+**bladder, bone marrow, brain, genitals, heart, intestine, kidney, liver, lungs, other, spleen, stomatch**
+It's also possible to add this entries after uploading the file.
+
+.. Note:: It's possible to add more than one entry at the field **Organ used**. Please use a comma as seperator like ``brain, bladder``.
+
+Please save the Excel file as .xlsx file. Now go to the anishare admin interface to ``Home › Animals › Animals``
 and click the button ``IMPORT`` (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
 the user if all requirements match.  
 

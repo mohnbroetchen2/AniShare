@@ -15,7 +15,7 @@
 \contentsline {section}{\numberline {6.3}Add Organs manually}{12}{section.6.3}
 \contentsline {section}{\numberline {6.4}Organs import}{13}{section.6.4}
 \contentsline {subsection}{\numberline {6.4.1}From PyRAT}{13}{subsection.6.4.1}
-\contentsline {subsection}{\numberline {6.4.2}From \sphinxtitleref {tick@lab}}{13}{subsection.6.4.2}
+\contentsline {subsection}{\numberline {6.4.2}From \sphinxtitleref {tick@lab}}{14}{subsection.6.4.2}
 \contentsline {section}{\numberline {6.5}Duplicating entries}{14}{section.6.5}
 \contentsline {chapter}{\numberline {7}Main administrator tasks}{15}{chapter.7}
 \contentsline {section}{\numberline {7.1}Organs used}{15}{section.7.1}

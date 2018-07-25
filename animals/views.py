@@ -27,6 +27,41 @@ from django.views import generic
 from .filters import AnimalFilter, OrganFilter, ChangeFilter
 from .models import Animal, Organ, Change
 
+
+class LatestAnimalsFeed(Feed):
+    """
+    RSS Feed for new animals/organs.
+    """
+    title = 'Anishare animal/organ feed'
+    link = '/animals/feed'
+    description = 'Updates on animals/organs to share.'
+
+    def __call__(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
+        return super().__call__(request, *args, **kwargs)
+
+    def items(self):
+        """
+        Get latest animals as items.
+        """
+        from itertools import chain
+        animals = Animal.objects.order_by('-entry_date')[:10]
+        organs = Organ.objects.order_by('-entry_date')[:10]
+        return chain(animals, organs)
+
+    def item_title(self, item):
+        """
+        What to print as item title (use default __str__ of model).
+        """
+        return item
+
+    def item_description(self, item):
+        """
+        What to print as item description (use default description from model).
+        """
+        return item.description()
+
 @login_required
 def claim(request, primary_key):
     """
@@ -163,14 +198,14 @@ def send_email_animal(request):
 
     msg = EmailMessage(subject, message, email, [animal.responsible_person.email, email])
     msg.content_subtype = "html"
-    msg.send()
+  #  msg.send()
     if amount_difference > 0:  # If there were multiple animals, save the remainder of animals as a new object
         animal.pk = None
         animal.amount = amount_difference
         animal.new_owner = ''
         animal.save()
         messages.add_message(request, messages.SUCCESS, 'The amount of available animals in this entry has been reduced to {}.'.format(animal.amount))
-    messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(animal.responsible_person.email))
+#    messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(animal.responsible_person.email))
 
     return HttpResponseRedirect('/')
 
@@ -194,44 +229,12 @@ def send_email_organ(request):
 
     msg = EmailMessage(subject, message, email, [organ.responsible_person.email, email])
     msg.content_subtype = "html"
-    msg.send()
-    messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(organ.responsible_person.email))
+  #  msg.send()
+  #  messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(organ.responsible_person.email))
 
     return HttpResponseRedirect('/organs/')
 
-class LatestAnimalsFeed(Feed):
-    """
-    RSS Feed for new animals/organs.
-    """
-    title = 'Anishare animal/organ feed'
-    link = '/animals/feed'
-    description = 'Updates on animals/organs to share.'
 
-    def __call__(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponse(status=401)
-        return super().__call__(request, *args, **kwargs)
-
-    def items(self):
-        """
-        Get latest animals as items.
-        """
-        from itertools import chain
-        animals = Animal.objects.order_by('-entry_date')[:10]
-        organs = Organ.objects.order_by('-entry_date')[:10]
-        return chain(animals, organs)
-
-    def item_title(self, item):
-        """
-        What to print as item title (use default __str__ of model).
-        """
-        return item
-
-    def item_description(self, item):
-        """
-        What to print as item description (use default description from model).
-        """
-        return item.description()
 
 @login_required
 #@cache_page(60*60)

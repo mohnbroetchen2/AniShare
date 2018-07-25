@@ -124,9 +124,9 @@
           <th class="header"> Resp. Person
             <i class="icon-sort"></i>
           </th>
-          <th class="header"> Added By
+          <!--th class="header"> Added By
             <i class="icon-sort"></i>
-          </th>
+          </th-->
           <th class="header"> New Owner
             <i class="icon-sort"></i>
           </th>
@@ -160,9 +160,9 @@
           <td>{{a.lab_id}} </td>
           <td>{{a.comment}}</td>
           <td>{{a.responsible_person}}</td>
-          <td>
+          <!--td>
             <a href="mailto:{{a.added_by.email}}">{{a.added_by.first_name}} {{a.added_by.last_name}}</a>
-          </td>
+          </td-->
           <td>
             {% if a.new_owner %} {{a.new_owner}} {% elif a.available %}
             <a href="/animals/claim/{{a.pk}}">Claim!</a>

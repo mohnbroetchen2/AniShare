@@ -470,7 +470,10 @@ or 404 if organ not found</td>
 295
 296
 297
-298</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+298
+299
+300
+301</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Django Views contains all the functions for rendering objects (HTML display).</span>
 <span class="sd">It also contains an RSS Feed generator class to create an RSS feed from newly created animals</span>
 
@@ -498,6 +501,41 @@ or 404 if organ not found</td>
 
 <span class="kn">from</span> <span class="nn">.filters</span> <span class="kn">import</span> <span class="n">AnimalFilter</span><span class="p">,</span> <span class="n">OrganFilter</span><span class="p">,</span> <span class="n">ChangeFilter</span>
 <span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Animal</span><span class="p">,</span> <span class="n">Organ</span><span class="p">,</span> <span class="n">Change</span>
+
+
+<span class="k">class</span> <span class="nc">LatestAnimalsFeed</span><span class="p">(</span><span class="n">Feed</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    RSS Feed for new animals/organs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Anishare animal/organ feed&#39;</span>
+    <span class="n">link</span> <span class="o">=</span> <span class="s1">&#39;/animals/feed&#39;</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Updates on animals/organs to share.&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="mi">401</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get latest animals as items.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+        <span class="n">animals</span> <span class="o">=</span> <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-entry_date&#39;</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
+        <span class="n">organs</span> <span class="o">=</span> <span class="n">Organ</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-entry_date&#39;</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">chain</span><span class="p">(</span><span class="n">animals</span><span class="p">,</span> <span class="n">organs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">item_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        What to print as item title (use default __str__ of model).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">item</span>
+
+    <span class="k">def</span> <span class="nf">item_description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        What to print as item description (use default description from model).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">item</span><span class="o">.</span><span class="n">description</span><span class="p">()</span>
 
 <span class="nd">@login_required</span>
 <span class="k">def</span> <span class="nf">claim</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">primary_key</span><span class="p">):</span>
@@ -635,14 +673,14 @@ or 404 if organ not found</td>
 
     <span class="n">msg</span> <span class="o">=</span> <span class="n">EmailMessage</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="p">[</span><span class="n">animal</span><span class="o">.</span><span class="n">responsible_person</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> <span class="n">email</span><span class="p">])</span>
     <span class="n">msg</span><span class="o">.</span><span class="n">content_subtype</span> <span class="o">=</span> <span class="s2">&quot;html&quot;</span>
-    <span class="n">msg</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
+  <span class="c1">#  msg.send()</span>
     <span class="k">if</span> <span class="n">amount_difference</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># If there were multiple animals, save the remainder of animals as a new object</span>
         <span class="n">animal</span><span class="o">.</span><span class="n">pk</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="n">animal</span><span class="o">.</span><span class="n">amount</span> <span class="o">=</span> <span class="n">amount_difference</span>
         <span class="n">animal</span><span class="o">.</span><span class="n">new_owner</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="n">animal</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span> <span class="s1">&#39;The amount of available animals in this entry has been reduced to {}.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">animal</span><span class="o">.</span><span class="n">amount</span><span class="p">))</span>
-    <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span> <span class="s1">&#39;An Email has been sent to &lt;{}&gt;.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">animal</span><span class="o">.</span><span class="n">responsible_person</span><span class="o">.</span><span class="n">email</span><span class="p">))</span>
+<span class="c1">#    messages.add_message(request, messages.SUCCESS, &#39;An Email has been sent to &lt;{}&gt;.&#39;.format(animal.responsible_person.email))</span>
 
     <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
 
@@ -666,44 +704,12 @@ or 404 if organ not found</td>
 
     <span class="n">msg</span> <span class="o">=</span> <span class="n">EmailMessage</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="p">[</span><span class="n">organ</span><span class="o">.</span><span class="n">responsible_person</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> <span class="n">email</span><span class="p">])</span>
     <span class="n">msg</span><span class="o">.</span><span class="n">content_subtype</span> <span class="o">=</span> <span class="s2">&quot;html&quot;</span>
-    <span class="n">msg</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
-    <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span> <span class="s1">&#39;An Email has been sent to &lt;{}&gt;.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">organ</span><span class="o">.</span><span class="n">responsible_person</span><span class="o">.</span><span class="n">email</span><span class="p">))</span>
+  <span class="c1">#  msg.send()</span>
+  <span class="c1">#  messages.add_message(request, messages.SUCCESS, &#39;An Email has been sent to &lt;{}&gt;.&#39;.format(organ.responsible_person.email))</span>
 
     <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="s1">&#39;/organs/&#39;</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">LatestAnimalsFeed</span><span class="p">(</span><span class="n">Feed</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    RSS Feed for new animals/organs.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Anishare animal/organ feed&#39;</span>
-    <span class="n">link</span> <span class="o">=</span> <span class="s1">&#39;/animals/feed&#39;</span>
-    <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Updates on animals/organs to share.&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="mi">401</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get latest animals as items.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
-        <span class="n">animals</span> <span class="o">=</span> <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-entry_date&#39;</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
-        <span class="n">organs</span> <span class="o">=</span> <span class="n">Organ</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-entry_date&#39;</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">chain</span><span class="p">(</span><span class="n">animals</span><span class="p">,</span> <span class="n">organs</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">item_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        What to print as item title (use default __str__ of model).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">item</span>
-
-    <span class="k">def</span> <span class="nf">item_description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        What to print as item description (use default description from model).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">item</span><span class="o">.</span><span class="n">description</span><span class="p">()</span>
 
 <span class="nd">@login_required</span>
 <span class="c1">#@cache_page(60*60)</span>

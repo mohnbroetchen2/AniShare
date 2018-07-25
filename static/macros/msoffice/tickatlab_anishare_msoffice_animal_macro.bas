@@ -9,6 +9,13 @@ Sub TickAtLabAniShare()
     Dim i As Integer
     Dim FDate As Date
     Dim TDate As Date
+    Dim notice As Boolean
+    Dim noticetext As String
+    Dim user As String
+    
+    notice = False
+    noticetext = "Please note that at least one responsible person is missing. It's a mandatory field for AniShare."
+    
     TotalCount = ActiveSheet.UsedRange.Rows.Count - 1
     thisRange = "A1:A" + CStr(TotalCount)
     Columns("A:L").Select
@@ -46,7 +53,19 @@ Sub TickAtLabAniShare()
     Range("I2").Select
     i = 1
     Do
-        responsibleuser
+        user = ActiveCell.FormulaR1C1
+        If Len(user) <> 0 Then
+            responsibleuser
+        Else
+            notice = True
+            With ActiveCell.Interior
+                .Pattern = xlSolid
+                .PatternColorIndex = xlAutomatic
+                .Color = 65535
+                .TintAndShade = 0
+                .PatternTintAndShade = 0
+            End With
+        End If
         ActiveCell.Offset(1, 0).Range("A1").Select
         i = i + 1
     Loop Until i >= TotalCount
@@ -89,14 +108,19 @@ Sub TickAtLabAniShare()
     Selection.AutoFill Destination:=ActiveCell.Range(thisRange)
     ActiveCell.Range(thisRange).Select
     ActiveCell.Offset(1, 3).Range("A1").Select
+    
+    If notice = True Then
+        MsgBox noticetext, vbOKOnly, "Responsible person is missing"
+    End If
+    
 End Sub
 
 Sub responsibleuser()
     Dim respUser As String
     Dim user As String
     user = ActiveCell.FormulaR1C1
-    If Len(user) <> 0 Then
-    	respUser = Right(user, Len(user) - InStr(user, ",") - 1) + " " + Left(user, InStr(user, ",") - 1)
-    	ActiveCell.FormulaR1C1 = respUser
-    End If
+    respUser = Right(user, Len(user) - InStr(user, ",") - 1) + " " + Left(user, InStr(user, ",") - 1)
+    ActiveCell.FormulaR1C1 = respUser
 End Sub
+
+
