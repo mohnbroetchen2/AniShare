@@ -30,7 +30,7 @@ do you really want to claim the following animal for yourself?<br/>
             </thead>
             <tbody>
                     <tr {% if not object.available %}class="strikeout"{% endif %}>
-                        <td><a href="/animals/{{object.pk}}">{{object.pk}}</a></td>
+                        <td>{{object.pk}}</td>
                         <td>{{object.amount}}</td>
                         <td>{{object.animal_type}}</td>
                         <td>{% if object.get_sex_display == 'female' %}
