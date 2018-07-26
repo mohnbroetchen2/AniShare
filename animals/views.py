@@ -219,9 +219,19 @@ def send_email_organ(request):
     :param pk: primary_key of the animal(s) to be claimed
     :param organs_wanted: organs wanted from the given animal
     """
+    primary_key = request.POST['pk']
+    
     email = request.POST['email']
     primary_key = request.POST['pk']
     organs_wanted = request.POST['organs_wanted']
+
+    organ= Organ.objects.get(pk=primary_key)
+    if not organ.comment:
+        organ.comment = request.POST['organs_wanted'] + " already claimed"
+    elif organ.comment:
+        pass 
+        organ.comment = organ.comment + "\n" + request.POST['organs_wanted'] + " already claimed"
+    organ.save() 
 
     organ = Organ.objects.get(pk=primary_key)
     subject = "AniShare User {} claimed organ(s) {}".format(email, organs_wanted)

@@ -4,6 +4,7 @@ This file describes all the models in the database.
 from datetime import datetime
 from django.urls import reverse
 from django.db import models
+from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -262,3 +263,6 @@ def update_killing_person(sender, instance, created, **kwargs):
     if (instance.killing_person == None):
         instance.killing_person = instance.responsible_person.email
         instance.save()
+
+# class ClaimOrgan(forms.Form):
+#    organUsed=forms.ModelMultipleChoiceField(queryset=Organtype.objects.all(),widget=forms.CheckboxSelectMultiple())

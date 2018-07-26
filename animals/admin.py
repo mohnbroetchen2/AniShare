@@ -223,19 +223,19 @@ class AnimalAdmin(ImportExportModelAdmin):
     ModelAdmin for Animal model
     """
     resource_class = AnimalResource
-    list_display = ('amount', 'entry_date', 'day_of_birth', 'age', 'available_from',
+    list_display = ('id','animal_type', 'amount', 'entry_date', 'day_of_birth', 'age', 'available_from',
                     'available_to', 'line', 'sex', 'location', 'licence_number', 'lab_id',
                     'responsible_person', 'added_by', 'new_owner')
-    list_display_links = ('amount', 'entry_date', 'day_of_birth', 'age',
+    list_display_links = ('id','animal_type','amount', 'entry_date', 'day_of_birth', 'age',
                           'available_from', 'available_to', 'line', 'sex',
                           'location', 'licence_number', 'lab_id','responsible_person',
                           'added_by', 'new_owner')
-    search_fields = ('amount', 'database_id', 'lab_id', 'day_of_birth',
+    search_fields = ('id','animal_type','amount', 'database_id', 'lab_id', 'day_of_birth',
                      'line', 'sex', 'location__name', 'new_owner', 'licence_number',
                      'mutations', 'available_from', 'available_to', 'responsible_person__name',
                      'responsible_person__email', 'added_by__email')
     autocomplete_fields = ['responsible_person']
-    list_filter = ('amount', 'sex', 'responsible_person__responsible_for_lab',
+    list_filter = ('amount', 'sex', 'responsible_person__responsible_for_lab','line','animal_type',
                    ('day_of_birth', DateRangeFilter),
                    'location', 'licence_number', 'new_owner', 'added_by')
     radio_fields = {'sex':admin.HORIZONTAL}
@@ -267,17 +267,17 @@ class OrganAdmin(ImportExportModelAdmin):
     """
     resource_class = OrganResource
     filter_horizontal = ('organ_type',)
-    list_display = ('animal_type','get_organtypes', 'entry_date', 'day_of_birth',
+    list_display = ('id','animal_type','get_organtypes', 'entry_date', 'day_of_birth',
                     'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
                     'sex', 'location','lab_id', 'licence_number', 'responsible_person', 'added_by')
-    list_display_links = ( 'animal_type','get_organtypes', 'entry_date', 'day_of_birth',
+    list_display_links = ('id', 'animal_type','get_organtypes', 'entry_date', 'day_of_birth',
                           'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
                           'sex', 'location','lab_id', 'licence_number', 'responsible_person', 'added_by')
-    search_fields = ( 'animal_type', 'entry_date', 'day_of_birth',
-                     'day_of_death','method_of_killing', 'killing_person', 'line',
+    search_fields = ('id', 'animal_type', 'entry_date', 'day_of_birth',
+                     'day_of_death','method_of_killing', 'killing_person', 'line','lab_id'
                      'sex', 'location__name', 'licence_number', 'responsible_person__name', 'added_by__username')
     autocomplete_fields = ['responsible_person']
-    list_filter = ('sex',
+    list_filter = ('sex','animal_type','method_of_killing','killing_person','line',
                    ('day_of_birth', DateRangeFilter), ('day_of_death', DateRangeFilter),
                    'responsible_person__responsible_for_lab',
                    'location', 'licence_number', 'added_by',)
@@ -297,8 +297,6 @@ class OrganAdmin(ImportExportModelAdmin):
         if not obj.pk:
             # Only set added_by during the first save.
             obj.added_by = request.user
-            """if (obj.killing_person == None):
-                obj.killing_person = obj.responsible_person__email"""
         super().save_model(request, obj, form, change)
 
 @admin.register(Lab)
