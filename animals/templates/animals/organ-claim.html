@@ -65,7 +65,7 @@ do you really want to claim an <b>organ</b> of the following animal for yourself
 
 <form action="/animals/send_email_organ" method="post" style="margin:auto; text-align:center;"> {% csrf_token %}
   By clicking on the button, an email will be sent from <br/>
-  <input name="email" type='text' style="width:220px;" value={{request.user.email}} readonly="readonly"> to<br/>
+  <input name="email" type='text' style="width:250px;" value={{request.user.email}} readonly="readonly"> to<br/>
   <b>{{object.killing_person}}</b> <br/>
   informing that you are interested in the following organs/parts <br/>
   <input name="organs_wanted" type="text" placeholder="enter organs you want" style="width:300px;" > 

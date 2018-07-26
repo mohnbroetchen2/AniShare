@@ -65,9 +65,9 @@ do you really want to claim the following animal for yourself?<br/>
   <input name="email" type='text' style="width:250px;" value={{request.user.email}} readonly="readonly"> to<br/>
   <b>{{object.responsible_person.name}}</b> ({{object.responsible_person.email}}), <br/>
   informing that you take responsibility for 
-  <input name="count" type="text" style="width:30px;" value="{{object.amount}}"> 
+  <input name="count" type="text" style="width:40px;" value="{{object.amount}}"> 
   {% if object.amount > 1 %}out of 
-    <input name="max_count" type="text" style="width:30px;" value="{{object.amount}}" readonly="readonly"> 
+    <input name="max_count" type="text" style="width:40px;" value="{{object.amount}}" readonly="readonly"> 
   {% endif %}
   animal{{object.amount|pluralize}}
   from entry <input name="pk" type="text" style="width:60px;" value="{{object.id}}" readonly="readonly">.<br/>
