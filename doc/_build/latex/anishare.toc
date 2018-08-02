@@ -6,7 +6,7 @@
 \contentsline {chapter}{\numberline {5}Main user interface}{5}{chapter.5}
 \contentsline {section}{\numberline {5.1}Animals}{5}{section.5.1}
 \contentsline {section}{\numberline {5.2}Organs}{6}{section.5.2}
-\contentsline {section}{\numberline {5.3}RSS Feed}{6}{section.5.3}
+\contentsline {section}{\numberline {5.3}RSS Feed}{7}{section.5.3}
 \contentsline {chapter}{\numberline {6}Main animal manager tasks}{8}{chapter.6}
 \contentsline {section}{\numberline {6.1}Add Animals manually}{8}{section.6.1}
 \contentsline {section}{\numberline {6.2}Animals import}{10}{section.6.2}

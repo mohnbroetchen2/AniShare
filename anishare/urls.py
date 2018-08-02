@@ -27,6 +27,7 @@ urlpatterns = [
     path('', animals.views.animal_list, name='animal-list'),
     path('animals/', include('animals.urls', namespace='animals-index')),
     path('organs/', animals.views.organ_list, name='organs'),
+    path('animals/claim', animals.views.AnimalClaimView, name='claim_animals'),
     path('organs/claim/<int:primary_key>', animals.views.claim_organ, name='claim_organ'),
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),

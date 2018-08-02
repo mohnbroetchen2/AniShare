@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<body>
+
+<div> Dear <b></b>, </div>
+
+<div>On {{ now }}, <b>{{ email }}</b> claimed following animals:
+{% for a in animals %}
+<dl>
+    <dt>AniShare-ID:</dt><dd> {{a.pk}}</dd>
+    <dt>animal_type:</dt><dd> {{a.animal_type }}</dd>
+    <dt>database_id:</dt><dd> {{a.database_id }}</dd>
+    <dt>lab_id:</dt><dd>{{a.lab_id }}</dd>
+    <dt>day_of_birth:</dt><dd>{{a.day_of_birth}} </dd>
+    {% if a.day_of_death %}
+    <dt>day_of_death:</dt><dd>{{a.day_of_death}} </dd>
+    <dt>killing method:</dt><dd>{{a.method_of_killing}} </dd>
+    <dt>killing person:</dt><dd>{{a.killing_person}} </dd>
+    {% endif %}
+    <dt>line:</dt><dd>{{a.line }}</dd>
+    <dt>sex:</dt><dd>{{a.get_sex_display }}</dd>
+    <dt>location:</dt><dd>{{a.location }}</dd>
+    <dt>mutations:</dt><dd>{{a.mutations}} </dd>
+    <dt>licence_number:</dt><dd>{{a.licence_number}} </dd>
+    <dt>comment:</dt><dd>{{a.comment}}</dd>
+</dl>
+{% endfor %}
+</div>
+
+
+Best,
+
+your <a href="http://anishare.leibniz-fli.de">anishare</a> admin.
+
+</body>
+</html>

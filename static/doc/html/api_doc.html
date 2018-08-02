@@ -367,6 +367,14 @@ have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
 <dd><p>Get absolute url for this model. Important to link from the admin.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="animals.models.Change.image">
+<code class="descname">image</code><a class="headerlink" href="#animals.models.Change.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>def __str__(self):
+return “{} {} {}, {} id:{} [{}]”.format
+(self.version, self.change_type, self.short_text, self.description, self.pk, self.entry_date)</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">

@@ -78,100 +78,110 @@
     </div>
   </div>
 </form>
-<div class="col-lg-12">
-  <div class="table-responsive">
-    <table id="datatable" class="table table-bordered table-hover table-striped tablesorter">
-      <thead>
-        <tr>
-          <th class="header"> ID
-            <i class="icon-sort"></i>
-          </th>
-          <th class="header"> #
-            <i class="icon-sort"></i>
-          </th>
-          <th class="header"> Type
-            <i class="icon-sort"></i>
-          </th>
-          <th class="header"> Sex
-            <i class="icon-sort"></i>
-          </th>
-          <th class="header"> Date of Birth
-            <i class="icon-sort"></i>
-          </th>
-          <th class="header"> Age (w)
-            <i class="icon-sort"></i>
-          </th>
-          <th class="header"> Available From/To
-            <i class="icon-sort"></i>
-          </th>
-          <th class="header"> Line
-            <i class="icon-sort"></i>
-          </th>
-          <th class="header"> Mutations
-            <i class="icon-sort"></i>
-          </th>
-          <th class="header"> Location
-            <i class="icon-sort"></i>
-          </th>
-          <th class="header"> License#
-            <i class="icon-sort"></i>
-          </th>
-          <th class="header"> Lab ID
-            <i class="icon-sort"></i>
-          </th>
-          <th class="header"> Comment
-          </th>
-          <th class="header"> Resp. Person
-            <i class="icon-sort"></i>
-          </th>
-          <!--th class="header"> Added By
-            <i class="icon-sort"></i>
-          </th-->
-          <th class="header"> New Owner
-            <i class="icon-sort"></i>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for a in filter.qs %}
-        <tr {% if not a.available %}class="strikeout" {% endif %}>
-          <td>
-            <a href="/animals/{{a.pk}}">{{a.pk}}</a>
-          </td>
-          <td>{{a.amount}}</td>
-          <td>{{a.animal_type}}</td>
-          <td>{% if a.get_sex_display == 'female' %}
-            <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
-            {% elif a.get_sex_display == 'male' %}
-            <i class="fas fa-mars" style="color:#77F; font-size:13pt;"></i>
-            {% else %}
-            <i class="fas fa-question"></i>
-            {% endif %}
-          </td>
-          <td>{{a.day_of_birth}}</td>
-          <td>{{a.age}}</td>
-          <td>{{a.available_from}}
-            <br/> {{a.available_to}}
-          </td>
-          <td>{{a.line}}</td>
-          <td>{{a.mutations}}</td>
-          <td>{{a.location}}</td>
-          <td>{{a.licence_number}}</td>
-          <td>{{a.lab_id}} </td>
-          <td>{{a.comment}}</td>
-          <td>{{a.responsible_person}}</td>
-          <!--td>
-            <a href="mailto:{{a.added_by.email}}">{{a.added_by.first_name}} {{a.added_by.last_name}}</a>
-          </td-->
-          <td>
-            {% if a.new_owner %} {{a.new_owner}} {% elif a.available %}
-            <a href="/animals/claim/{{a.pk}}">Claim!</a>
-            {% else %} no longer available {% endif %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+<form action="/animals/claim" method="POST"> {% csrf_token %}
+  <div class="col-lg-12">
+    <div class="table-responsive">
+      <table id="datatable" class="table table-bordered table-hover table-striped tablesorter">
+        <thead>
+          <tr>
+            <th class="header">
+            </th>
+            <th class="header"> ID
+              <i class="icon-sort"></i>
+            </th>
+            <th class="header"> #
+              <i class="icon-sort"></i>
+            </th>
+            <th class="header"> Type
+              <i class="icon-sort"></i>
+            </th>
+            <th class="header"> Sex
+              <i class="icon-sort"></i>
+            </th>
+            <th class="header"> Date of Birth
+              <i class="icon-sort"></i>
+            </th>
+            <th class="header"> Age (w)
+              <i class="icon-sort"></i>
+            </th>
+            <th class="header"> Available From/To
+              <i class="icon-sort"></i>
+            </th>
+            <th class="header"> Line
+              <i class="icon-sort"></i>
+            </th>
+            <th class="header"> Mutations
+              <i class="icon-sort"></i>
+            </th>
+            <th class="header"> Location
+              <i class="icon-sort"></i>
+            </th>
+            <th class="header"> License#
+              <i class="icon-sort"></i>
+            </th>
+            <th class="header"> Lab ID
+              <i class="icon-sort"></i>
+            </th>
+            <th class="header"> Comment
+            </th>
+            <th class="header"> Resp. Person
+              <i class="icon-sort"></i>
+            </th>
+            <!--th class="header"> Added By
+              <i class="icon-sort"></i>
+            </th-->
+            <th class="header"> New Owner
+              <i class="icon-sort"></i>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for a in filter.qs %}
+          <tr {% if not a.available %}class="strikeout" {% endif %}>
+            <td>
+              <input type="checkbox" name="selected" value="{{a.pk}}" id="select{{a.pk}}">
+            </td>
+            <td>
+              <a href="/animals/{{a.pk}}">{{a.pk}}</a>
+            </td>
+            <td>{{a.amount}}</td>
+            <td>{{a.animal_type}}</td>
+            <td>{% if a.get_sex_display == 'female' %}
+              <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
+              {% elif a.get_sex_display == 'male' %}
+              <i class="fas fa-mars" style="color:#77F; font-size:13pt;"></i>
+              {% else %}
+              <i class="fas fa-question"></i>
+              {% endif %}
+            </td>
+            <td>{{a.day_of_birth}}</td>
+            <td>{{a.age}}</td>
+            <td>{{a.available_from}}
+              <br/> {{a.available_to}}
+            </td>
+            <td>{{a.line}}</td>
+            <td>{{a.mutations}}</td>
+            <td>{{a.location}}</td>
+            <td>{{a.licence_number}}</td>
+            <td>{{a.lab_id}} </td>
+            <td>{{a.comment}}</td>
+            <td>{{a.responsible_person}}</td>
+            <!--td>
+              <a href="mailto:{{a.added_by.email}}">{{a.added_by.first_name}} {{a.added_by.last_name}}</a>
+            </td-->
+            <td>
+              {% if a.new_owner %} {{a.new_owner}} {% elif a.available %}
+              <a href="/animals/claim/{{a.pk}}">Claim!</a>
+              {% else %} no longer available {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="m-sm-2">
+        <input type="submit" name="claim" value="Claim all selected animals" class="btn btn-info"
+      </div>
+    </div>
   </div>
-</div>
+</form>
 {% endblock %}

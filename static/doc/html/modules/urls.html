@@ -94,7 +94,8 @@
 35
 36
 37
-38</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;animals URL Configuration</span>
+38
+39</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;animals URL Configuration</span>
 
 <span class="sd">The `urlpatterns` list routes URLs to views. For more information please see:</span>
 <span class="sd">    https://docs.djangoproject.com/en/2.0/topics/http/urls/</span>
@@ -128,6 +129,7 @@
 <span class="c1">#    path(&#39;all&#39;, views.AnimalIndexView.as_view(), {&#39;show&#39;:&#39;all&#39;}, name=&#39;all&#39;),</span>
     <span class="n">path</span><span class="p">(</span><span class="s1">&#39;claim/&lt;int:primary_key&gt;&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">claim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;claim&#39;</span><span class="p">),</span>
     <span class="n">path</span><span class="p">(</span><span class="s1">&#39;send_email_animal&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">send_email_animal</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;send_email_animal&#39;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;send_email_animals&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">send_email_animals</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;send_email_animals&#39;</span><span class="p">),</span>
     <span class="n">path</span><span class="p">(</span><span class="s1">&#39;send_email_organ&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">send_email_organ</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;send_email_organ&#39;</span><span class="p">),</span>
     <span class="n">path</span><span class="p">(</span><span class="s1">&#39;&lt;int:pk&gt;&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">AnimalDetailView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;animal-detail&#39;</span><span class="p">),</span>
     <span class="n">path</span><span class="p">(</span><span class="s1">&#39;feed&#39;</span><span class="p">,</span> <span class="n">never_cache</span><span class="p">(</span><span class="n">views</span><span class="o">.</span><span class="n">LatestAnimalsFeed</span><span class="p">()),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;feed&#39;</span><span class="p">)</span>

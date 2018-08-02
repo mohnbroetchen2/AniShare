@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="alert alert-info" role="alert">
+    Dear <b>{{request.user.first_name}} {{request.user.last_name}}</b>,do you really want to claim the following animals for yourself?<br/>
+  </div>
+
+    <form action="/animals/send_email_animals" method="POST" style="margin:auto; text-align: center;">{% csrf_token %}
+            <table class="table table-bordered table-hover table-striped tablesorter">
+                <thead>
+                <tr>
+                  <th class="header"> ID <i class="icon-sort"></i></th>
+                  <th class="header"> # <i class="icon-sort"></i></th>
+                  <th class="header"> Type <i class="icon-sort"></i></th>
+                  <th class="header"> Sex<i class="icon-sort"></i></th>
+                  <th class="header"> Entry Date<i class="icon-sort"></i></th>
+                  <th class="header"> Date of Birth <i class="icon-sort"></i></th>
+                  <th class="header"> Age (w) <i class="icon-sort"></i></th>
+                  <th class="header"> Available From <i class="icon-sort"></i></th>
+                  <th class="header"> Available To <i class="icon-sort"></i></th>
+                  <th class="header"> Line <i class="icon-sort"></i></th>
+                  <th class="header"> Mutations <i class="icon-sort"></i></th>
+                  <th class="header"> Location <i class="icon-sort"></i></th>
+                  <th class="header"> License# <i class="icon-sort"></i></th>
+                  <th class="header"> ext. Info<i class="icon-sort"></i></th>
+                  <th class="header"> Comments <i class="icon-sort"></i></th>
+                  <th class="header"> Resp. Person <i class="icon-sort"></i></th>
+                  <th class="header"> Added By <i class="icon-sort"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in filter.qs %}
+                    <input name="selectedAnimals" type="hidden" value="{{a.pk}}" readonly="readonly" id="select{{a.pk}}">
+                    <tr {% if not a.available %}class="strikeout"{% endif %}>
+                        <td>{{a.pk}}</td>
+                        <td>{{a.amount}}</td>
+                        <td>{{a.animal_type}}</td>
+                        <td>{% if a.get_sex_display == 'female' %}
+                            <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
+                            {% elif a.get_sex_display == 'male' %}
+                            <i class="fas fa-mars" style="color:#77F; font-size:13pt;"></i>
+                            {% else %}
+                            <i class="fas fa-question"></i>
+                            {% endif %}
+                        </td>
+                        <td>{{a.entry_date}}</td>
+                        <td>{{a.day_of_birth}}</td>
+                        <td>{{a.age}}</td>
+                        <td>{{a.available_from}}</td>
+                        <td>{{a.available_to}}</td>
+                        <td>{{a.line}}</td>
+                        <td>{{a.mutations}}</td>
+                        <td>{{a.location}}</td>
+                        <td>{{a.licence_number}}</td>
+                        <td>{{a.database_id}}<br/>
+                            {{a.lab_id}} </td>
+                        <td>{{a.comment}}</td>
+                        <td>{{a.responsible_person}}</td>
+                        <td><a href="mailto:{{a.added_by.email}}">{{a.added_by.first_name}} {{a.added_by.last_name}}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+  <input name="email" type='hidden' value={{request.user.email}} readonly="readonly"><br/>
+  <input type="submit" name='claim' value="Yes, I want to claim!" class="btn btn-info">
+</form>
+
+{% endblock %}
+
+

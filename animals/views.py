@@ -309,3 +309,47 @@ class LatestChangesFeed(Feed):
         What to print as item description (use default description from model).
         """
         return item.description
+
+def AnimalClaimView(request):
+    if request.method == "POST":
+        claimlist = request.POST.getlist("selected",None)
+        animallist = Animal.objects.filter(pk__in = claimlist)
+        f = AnimalFilter(request.GET, queryset=animallist)
+        return render(request, 'animals/animals-claim.html', {'filter': f})
+
+
+def send_email_animals(request):
+    if request.method == "POST":
+        email = request.POST['email']
+        claimlist = request.POST.getlist("selectedAnimals",None)
+        animallist = Animal.objects.filter(pk__in = claimlist)
+        last_responsible = ""
+        error = 0;
+        """
+        message = render_to_string('email_animals.html',{'email':email, 'animals':animallist, 'now': datetime.now()})
+        """
+        for sAnimal in animallist:
+            if last_responsible != sAnimal.responsible_person:
+                last_responsible = sAnimal.responsible_person
+                templist = Animal.objects.filter(pk__in = claimlist).filter(responsible_person = last_responsible)
+                for tempAnimal in templist:
+                    if tempAnimal.amount > 1:
+                        messages.add_message(request, messages.SUCCESS,'It is not possible to claim animal groups (#>1) with other entries. Please claim the fish group individually')
+                        error = 1;
+                        break
+                if error == 1:
+                    break
+                subject = "User {} claimed animal in AniShare".format(email)
+                message = render_to_string('email_animals.html',{'email':email, 'animals':templist, 'now': datetime.now()})
+                msg = EmailMessage(subject, message, email, [sAnimal.responsible_person.email, email])
+                msg.content_subtype = "html"
+                #msg.send()
+                messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(sAnimal.responsible_person.email))
+                sAnimal.new_owner = email
+                sAnimal.save()
+                messages.add_message(request, messages.SUCCESS,'The entry {} has been claimed by {}.'.format(sAnimal.pk, sAnimal.new_owner))
+            else:
+                sAnimal.new_owner = email
+                sAnimal.save()
+                messages.add_message(request, messages.SUCCESS,'The entry {} has been claimed by {}.'.format(sAnimal.pk, sAnimal.new_owner))
+    return HttpResponseRedirect('/animals')

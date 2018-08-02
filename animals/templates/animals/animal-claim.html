@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-Dear <b>{{request.user.first_name}} {{request.user.last_name}}</b>,
-
-do you really want to claim the following animal for yourself?<br/>
-
+<div class="alert alert-info" role="alert">
+    Dear <b>{{request.user.first_name}} {{request.user.last_name}}</b>, do you really want to claim the following animal for yourself?<br/>
+</div>
             <table class="table table-bordered table-hover table-striped tablesorter">
                 <thead>
                 <tr>

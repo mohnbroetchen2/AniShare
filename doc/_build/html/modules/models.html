@@ -102,6 +102,14 @@ have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
 <dd><p>Get absolute url for this model. Important to link from the admin.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="animals.models.Change.image">
+<code class="descname">image</code><a class="headerlink" href="#animals.models.Change.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>def __str__(self):
+return “{} {} {}, {} id:{} [{}]”.format
+(self.version, self.change_type, self.short_text, self.description, self.pk, self.entry_date)</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -485,12 +493,17 @@ This person gets an email when an animal is being claimed.</p>
 261
 262
 263
-264</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+264
+265
+266
+267
+268</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This file describes all the models in the database.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">reverse</span>
 <span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
 <span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
 <span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ValidationError</span>
 <span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
@@ -547,10 +560,10 @@ This person gets an email when an animal is being claimed.</p>
     <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,)</span>
     <span class="n">image</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ImageField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">upload_to</span><span class="o">=</span><span class="s1">&#39;images/&#39;</span><span class="p">)</span>
     
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;{} {} {}, {} id:{} [{}]&quot;</span><span class="o">.</span><span class="n">format</span>
-        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">change_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">short_text</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">entry_date</span><span class="p">)</span>
-
+    <span class="sd">&quot;&quot;&quot;def __str__(self):</span>
+<span class="sd">        return &quot;{} {} {}, {} id:{} [{}]&quot;.format</span>
+<span class="sd">        (self.version, self.change_type, self.short_text, self.description, self.pk, self.entry_date)</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -570,7 +583,7 @@ This person gets an email when an animal is being claimed.</p>
         <span class="p">(</span><span class="s1">&#39;mouse&#39;</span><span class="p">,</span> <span class="s1">&#39;mouse&#39;</span><span class="p">),</span>
     <span class="p">),</span>
                                    <span class="n">default</span><span class="o">=</span><span class="s1">&#39;mouse&#39;</span><span class="p">)</span>
-    <span class="n">database_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;ID of animal in eg. PYRAT&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
+    <span class="n">database_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;ID of animal in eg. PYRAT&quot;</span><span class="p">)</span>
     <span class="n">lab_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;ID of lab in eg. PYRAT&quot;</span><span class="p">)</span>
     <span class="n">creation_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">modification_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">auto_now</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -749,6 +762,9 @@ This person gets an email when an animal is being claimed.</p>
     <span class="k">if</span> <span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">killing_person</span> <span class="o">==</span> <span class="bp">None</span><span class="p">):</span>
         <span class="n">instance</span><span class="o">.</span><span class="n">killing_person</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">responsible_person</span><span class="o">.</span><span class="n">email</span>
         <span class="n">instance</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+<span class="c1"># class ClaimOrgan(forms.Form):</span>
+<span class="c1">#    organUsed=forms.ModelMultipleChoiceField(queryset=Organtype.objects.all(),widget=forms.CheckboxSelectMultiple())</span>
 </pre></div>
 </td></tr></table></div>
 </div>

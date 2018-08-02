@@ -473,7 +473,61 @@ or 404 if organ not found</td>
 298
 299
 300
-301</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Django Views contains all the functions for rendering objects (HTML display).</span>
 <span class="sd">It also contains an RSS Feed generator class to create an RSS feed from newly created animals</span>
 
@@ -694,9 +748,19 @@ or 404 if organ not found</td>
 <span class="sd">    :param pk: primary_key of the animal(s) to be claimed</span>
 <span class="sd">    :param organs_wanted: organs wanted from the given animal</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">primary_key</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">]</span>
+    
     <span class="n">email</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]</span>
     <span class="n">primary_key</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">]</span>
     <span class="n">organs_wanted</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;organs_wanted&#39;</span><span class="p">]</span>
+
+    <span class="n">organ</span><span class="o">=</span> <span class="n">Organ</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">primary_key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">organ</span><span class="o">.</span><span class="n">comment</span><span class="p">:</span>
+        <span class="n">organ</span><span class="o">.</span><span class="n">comment</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;organs_wanted&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; already claimed&quot;</span>
+    <span class="k">elif</span> <span class="n">organ</span><span class="o">.</span><span class="n">comment</span><span class="p">:</span>
+        <span class="k">pass</span> 
+        <span class="n">organ</span><span class="o">.</span><span class="n">comment</span> <span class="o">=</span> <span class="n">organ</span><span class="o">.</span><span class="n">comment</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;organs_wanted&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; already claimed&quot;</span>
+    <span class="n">organ</span><span class="o">.</span><span class="n">save</span><span class="p">()</span> 
 
     <span class="n">organ</span> <span class="o">=</span> <span class="n">Organ</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">primary_key</span><span class="p">)</span>
     <span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;AniShare User {} claimed organ(s) {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="n">organs_wanted</span><span class="p">)</span>
@@ -774,6 +838,50 @@ or 404 if organ not found</td>
 <span class="sd">        What to print as item description (use default description from model).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">item</span><span class="o">.</span><span class="n">description</span>
+
+<span class="k">def</span> <span class="nf">AnimalClaimView</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="n">claimlist</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s2">&quot;selected&quot;</span><span class="p">,</span><span class="bp">None</span><span class="p">)</span>
+        <span class="n">animallist</span> <span class="o">=</span> <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk__in</span> <span class="o">=</span> <span class="n">claimlist</span><span class="p">)</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">AnimalFilter</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">,</span> <span class="n">queryset</span><span class="o">=</span><span class="n">animallist</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;animals/animals-claim.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;filter&#39;</span><span class="p">:</span> <span class="n">f</span><span class="p">})</span>
+
+
+<span class="k">def</span> <span class="nf">send_email_animals</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="n">email</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]</span>
+        <span class="n">claimlist</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s2">&quot;selectedAnimals&quot;</span><span class="p">,</span><span class="bp">None</span><span class="p">)</span>
+        <span class="n">animallist</span> <span class="o">=</span> <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk__in</span> <span class="o">=</span> <span class="n">claimlist</span><span class="p">)</span>
+        <span class="n">last_responsible</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        message = render_to_string(&#39;email_animals.html&#39;,{&#39;email&#39;:email, &#39;animals&#39;:animallist, &#39;now&#39;: datetime.now()})</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">sAnimal</span> <span class="ow">in</span> <span class="n">animallist</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">last_responsible</span> <span class="o">!=</span> <span class="n">sAnimal</span><span class="o">.</span><span class="n">responsible_person</span><span class="p">:</span>
+                <span class="n">last_responsible</span> <span class="o">=</span> <span class="n">sAnimal</span><span class="o">.</span><span class="n">responsible_person</span>
+                <span class="n">templist</span> <span class="o">=</span> <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk__in</span> <span class="o">=</span> <span class="n">claimlist</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">responsible_person</span> <span class="o">=</span> <span class="n">last_responsible</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">tempAnimal</span> <span class="ow">in</span> <span class="n">templist</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">tempAnimal</span><span class="o">.</span><span class="n">amount</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span><span class="s1">&#39;It is not possible to claim animal groups (#&gt;1) with other entries. Please claim the fish group individually&#39;</span><span class="p">)</span>
+                        <span class="n">error</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                        <span class="k">break</span>
+                <span class="k">if</span> <span class="n">error</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;User {} claimed animal in AniShare&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="n">render_to_string</span><span class="p">(</span><span class="s1">&#39;email_animals.html&#39;</span><span class="p">,{</span><span class="s1">&#39;email&#39;</span><span class="p">:</span><span class="n">email</span><span class="p">,</span> <span class="s1">&#39;animals&#39;</span><span class="p">:</span><span class="n">templist</span><span class="p">,</span> <span class="s1">&#39;now&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()})</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">EmailMessage</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="p">[</span><span class="n">sAnimal</span><span class="o">.</span><span class="n">responsible_person</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> <span class="n">email</span><span class="p">])</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">content_subtype</span> <span class="o">=</span> <span class="s2">&quot;html&quot;</span>
+                <span class="c1">#msg.send()</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span> <span class="s1">&#39;An Email has been sent to &lt;{}&gt;.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sAnimal</span><span class="o">.</span><span class="n">responsible_person</span><span class="o">.</span><span class="n">email</span><span class="p">))</span>
+                <span class="n">sAnimal</span><span class="o">.</span><span class="n">new_owner</span> <span class="o">=</span> <span class="n">email</span>
+                <span class="n">sAnimal</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span><span class="s1">&#39;The entry {} has been claimed by {}.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sAnimal</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">sAnimal</span><span class="o">.</span><span class="n">new_owner</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sAnimal</span><span class="o">.</span><span class="n">new_owner</span> <span class="o">=</span> <span class="n">email</span>
+                <span class="n">sAnimal</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span><span class="s1">&#39;The entry {} has been claimed by {}.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sAnimal</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">sAnimal</span><span class="o">.</span><span class="n">new_owner</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="s1">&#39;/animals&#39;</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
 </div>

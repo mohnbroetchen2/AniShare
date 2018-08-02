@@ -76,10 +76,13 @@ If a user is interested in an animal, they should click on the button "Claim" wh
 another page (see below) in which they can review their claim before finally submitting. When they
 click on "Yes, I want to claim this!", then they will be entered as *new owner* of this animal and
 an email will be send to them as well as the responsible/contact person informing them about this
-transaction. Further steps might need to be necessary such as transferring the animal in the LIMS
-(eg. PyRat).
+transaction. To claim more than one animal it is possible to select the desired animals at the first coloumn.
+Please use after selection the button **Claim all selected animals**. Again a new page opens to review the selection. 
+After submitting the responsible person(s) of the animals only get one email with their claimed animals. 
+To claim an animal from a fish group (coloumn # > 1) it is nessecary to claim it individualy with the claim function of 
+the entry (last coloumn). 
 
-.. Note:: If more than one animal is available, the user can adjust the number they want to claim.
+.. Note:: If more than one animal is available (coloumn # > 1), the user can adjust the number they want to claim.
           The remaining animals will still be available for claim. Because of uniqueness it's only 
           possible to offer exactly one mouse per dataset. In contrast fishes can be offer in a group.  
 
