@@ -12,11 +12,21 @@ from django import forms
 from django.conf import settings
 from rangefilter.filter import DateRangeFilter # , DateTimeRangeFilter
 from .models import Animal, Person, Lab, Location, Organ, Change, Organtype
+from import_export.formats import base_formats
 
 
 admin.site.site_header = 'AniShare admin interface'
 admin.site.site_title = 'AniShare'
 admin.site.index_title = 'Welcome to AniShare'
+
+class SCSV(base_formats.CSV):
+
+	def get_title(self):
+		return "scsv"
+
+	def create_dataset(self, in_stream, **kwargs):
+		kwargs['delimiter'] = ';'
+		return super().create_dataset(in_stream, **kwargs)
 
 class AnimalResource(resources.ModelResource): # für den Import. Hier werden die Felder festgelegt, die importiert werden können
 
@@ -57,7 +67,9 @@ class AnimalResource(resources.ModelResource): # für den Import. Hier werden di
             return self.get_queryset().get(**params)
         except Exception:
             return None
+
     
+
     def import_obj(self, instance, row, dry_run): # Damit werden die Mutationen in ein Feld zusammengefasst
         super(AnimalResource, self).import_obj( instance, row, dry_run)
         try:
@@ -158,6 +170,7 @@ class AnimalForm(forms.ModelForm):
             raise forms.ValidationError(
                 "Minimum share duration must be {} days!".format(settings.MIN_SHARE_DURATION))
         return self.cleaned_data
+        
 
 @admin.register(Change)
 class ChangeAdmin(admin.ModelAdmin):
@@ -257,8 +270,8 @@ class AnimalAdmin(ImportExportModelAdmin):
             # Only set added_by during the first save.
             obj.added_by = request.user
         super().save_model(request, obj, form, change)
-
-
+    def get_import_formats(self):
+        return self.formats + (SCSV,)
 
 @admin.register(Organ)
 class OrganAdmin(ImportExportModelAdmin):
