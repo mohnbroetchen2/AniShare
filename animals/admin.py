@@ -271,7 +271,13 @@ class AnimalAdmin(ImportExportModelAdmin):
             obj.added_by = request.user
         super().save_model(request, obj, form, change)
     def get_import_formats(self):
-        return self.formats + (SCSV,)
+        formats = (
+                  base_formats.CSV,
+                  base_formats.XLS,
+                  base_formats.XLSX,
+                  base_formats.ODS,
+                  SCSV,)
+        return [f for f in formats if f().can_export()]
 
 @admin.register(Organ)
 class OrganAdmin(ImportExportModelAdmin):
@@ -311,6 +317,14 @@ class OrganAdmin(ImportExportModelAdmin):
             # Only set added_by during the first save.
             obj.added_by = request.user
         super().save_model(request, obj, form, change)
+    def get_import_formats(self):
+        formats = (
+                  base_formats.CSV,
+                  base_formats.XLS,
+                  base_formats.XLSX,
+                  base_formats.ODS,
+                  SCSV,)
+        return [f for f in formats if f().can_export()]
 
 @admin.register(Lab)
 class LabAdmin(admin.ModelAdmin):
