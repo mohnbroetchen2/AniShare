@@ -272,10 +272,10 @@ class AnimalAdmin(ImportExportModelAdmin):
         super().save_model(request, obj, form, change)
     def get_import_formats(self):
         formats = (
-                  base_formats.CSV,
-                  base_formats.XLS,
                   base_formats.XLSX,
+                  base_formats.XLS,
                   base_formats.ODS,
+                  base_formats.CSV,
                   SCSV,)
         return [f for f in formats if f().can_export()]
 
@@ -319,10 +319,10 @@ class OrganAdmin(ImportExportModelAdmin):
         super().save_model(request, obj, form, change)
     def get_import_formats(self):
         formats = (
-                  base_formats.CSV,
-                  base_formats.XLS,
                   base_formats.XLSX,
+                  base_formats.XLS,
                   base_formats.ODS,
+                  base_formats.CSV,
                   SCSV,)
         return [f for f in formats if f().can_export()]
 
