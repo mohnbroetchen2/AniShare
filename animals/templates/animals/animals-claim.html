@@ -4,8 +4,8 @@
 
 
 <div class="alert alert-info" role="alert">
-    Dear <b>{{request.user.first_name}} {{request.user.last_name}}</b>,do you really want to claim the following animals for yourself?<br/>
-  </div>
+    Dear <b>{{request.user.first_name}} {{request.user.last_name}}</b>, do you really want to claim the following animals for yourself?<br/>
+</div>
 
     <form action="/animals/send_email_animals" method="POST" style="margin:auto; text-align: center;">{% csrf_token %}
             <table class="table table-bordered table-hover table-striped tablesorter">

@@ -13,6 +13,7 @@ from django.utils import timezone
 
 
 class AnimalFilter(FilterSet):
+    licence_number = django_filters.CharFilter(lookup_expr='icontains')
     mutations = django_filters.CharFilter(lookup_expr='icontains')
     line = django_filters.CharFilter(lookup_expr='icontains')
     age = django_filters.NumberFilter(method='filter_age')

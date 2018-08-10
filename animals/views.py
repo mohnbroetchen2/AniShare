@@ -198,14 +198,14 @@ def send_email_animal(request):
 
     msg = EmailMessage(subject, message, email, [animal.responsible_person.email, email])
     msg.content_subtype = "html"
-  #  msg.send()
+    msg.send()
     if amount_difference > 0:  # If there were multiple animals, save the remainder of animals as a new object
         animal.pk = None
         animal.amount = amount_difference
         animal.new_owner = ''
         animal.save()
         messages.add_message(request, messages.SUCCESS, 'The amount of available animals in this entry has been reduced to {}.'.format(animal.amount))
-#    messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(animal.responsible_person.email))
+    messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(animal.responsible_person.email))
 
     return HttpResponseRedirect('/')
 
@@ -239,8 +239,8 @@ def send_email_organ(request):
 
     msg = EmailMessage(subject, message, email, [organ.responsible_person.email, email])
     msg.content_subtype = "html"
-  #  msg.send()
-  #  messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(organ.responsible_person.email))
+    msg.send()
+    messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(organ.responsible_person.email))
 
     return HttpResponseRedirect('/organs/')
 
@@ -343,7 +343,7 @@ def send_email_animals(request):
                 message = render_to_string('email_animals.html',{'email':email, 'animals':templist, 'now': datetime.now()})
                 msg = EmailMessage(subject, message, email, [sAnimal.responsible_person.email, email])
                 msg.content_subtype = "html"
-                #msg.send()
+                msg.send()
                 messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(sAnimal.responsible_person.email))
                 sAnimal.new_owner = email
                 sAnimal.save()
