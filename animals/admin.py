@@ -48,6 +48,10 @@ class AnimalResource(resources.ModelResource): # für den Import. Hier werden di
     mutations2 = fields.Field(attribute='mutations2',column_name='Mutation 2')
     mutations3 = fields.Field(attribute='mutations3',column_name='Mutation 3')
     mutations4 = fields.Field(attribute='mutations4',column_name='Mutation 4')
+    grade1 = fields.Field(attribute='grade1',column_name='Grade 1')
+    grade2 = fields.Field(attribute='grade2',column_name='Grade 2')
+    grade3 = fields.Field(attribute='grade3',column_name='Grade 3')
+    grade4 = fields.Field(attribute='grade4',column_name='Grade 4')
     licence_number = fields.Field(attribute='licence_number', column_name='License number')
     available_to = fields.Field(attribute='available_to', column_name='Available to')
     available_from = fields.Field(attribute='available_from', column_name='Available from')
@@ -56,7 +60,7 @@ class AnimalResource(resources.ModelResource): # für den Import. Hier werden di
     class Meta:
         model = Animal
         fields = ('lab_id','animal_type', 'amount', 'database_id','day_of_birth',
-        'line','sex','location','mutations1', 'mutations2','mutations3', 'mutations4','licence_number',
+        'line','sex','location','mutations1', 'mutations2','mutations3', 'mutations4','grade1', 'grade2','grade3', 'grade4','licence_number',
         'responsible_person','available_from','available_to','comment',)
     def get_instance(self, instance_loader, row):
         try:
@@ -73,16 +77,60 @@ class AnimalResource(resources.ModelResource): # für den Import. Hier werden di
     def import_obj(self, instance, row, dry_run): # Damit werden die Mutationen in ein Feld zusammengefasst
         super(AnimalResource, self).import_obj( instance, row, dry_run)
         try:
-            instance.mutations = "%s %s %s %s" % (row['Mutation 1'], row['Mutation 2'], row['Mutation 3'], row['Mutation 4'])
+            if (row['Grade 4'] != None):
+                instance.mutations = "%s %s; %s %s; %s %s; %s %s" % (row['Mutation 1'], row['Grade 1'], row['Mutation 2'], row['Grade 2'], row['Mutation 3'], row['Grade 3'], row['Mutation 4'], row['Grade 4'])
+                instance.grade1 = row['Grade 1']
+                instance.grade2 = row['Grade 2']
+                instance.grade3 = row['Grade 3']
+                instance.grade4 = row['Grade 4']
+            elif (row['Grade 3'] != None):   
+                instance.mutations = "%s %s; %s %s; %s %s" % (row['Mutation 1'], row['Grade 1'], row['Mutation 2'], row['Grade 2'], row['Mutation 3'], row['Grade 3'])
+                instance.grade1 = row['Grade 1']
+                instance.grade2 = row['Grade 2']
+                instance.grade3 = row['Grade 3']
+            elif (row['Grade 2'] != None):   
+                instance.mutations = "%s %s; %s %s" % (row['Mutation 1'], row['Grade 1'], row['Mutation 2'], row['Grade 2'])
+                instance.grade1 = row['Grade 1']
+                instance.grade2 = row['Grade 2']
+            elif (row['Grade 1'] != None): 
+                instance.mutations = "%s %s" % (row['Mutation 1'], row['Grade 1'])
+                instance.grade1 = row['Grade 1']
+            else:
+                instance.mutations = ""
         except:  
             try:
-                instance.mutations = "%s %s %s" % (row['Mutation 1'], row['Mutation 2'], row['Mutation 3'])
+                if (row['Grade 3'] != None):   
+                    instance.mutations = "%s %s; %s %s; %s %s" % (row['Mutation 1'], row['Grade 1'], row['Mutation 2'], row['Grade 2'], row['Mutation 3'], row['Grade 3'])
+                    instance.grade1 = row['Grade 1']
+                    instance.grade2 = row['Grade 2']
+                    instance.grade3 = row['Grade 3']
+                elif (row['Grade 2'] != None):   
+                    instance.mutations = "%s %s; %s %s" % (row['Mutation 1'], row['Grade 1'], row['Mutation 2'], row['Grade 2'])
+                    instance.grade1 = row['Grade 1']
+                    instance.grade2 = row['Grade 2']
+                elif (row['Grade 1'] != None): 
+                    instance.mutations = "%s %s" % (row['Mutation 1'], row['Grade 1'])
+                    instance.grade1 = row['Grade 1']
+                else:
+                    instance.mutations = ""
             except:
                 try:
-                    instance.mutations = "%s %s" % (row['Mutation 1'], row['Mutation 2'])
+                    if (row['Grade 2'] != None):   
+                        instance.mutations = "%s %s;\n %s %s" % (row['Mutation 1'], row['Grade 1'], row['Mutation 2'], row['Grade 2'])
+                        instance.grade1 = row['Grade 1']
+                        instance.grade2 = row['Grade 2']
+                    elif (row['Grade 1'] != None): 
+                        instance.mutations = "%s %s" % (row['Mutation 1'], row['Grade 1'])
+                        instance.grade1 = row['Grade 1']
+                    else:
+                        instance.mutations = ""
                 except:
                     try:
-                        instance.mutations = "%s" % (row['Mutation 1'])
+                        if (row['Grade 1'] != None): 
+                            instance.mutations = "%s %s" % (row['Mutation 1'], row['Grade 1'])
+                            instance.grade1 = row['Grade 1']
+                        else:
+                            instance.mutations = ""
                     except:
                         instance.mutations =""
 
@@ -151,7 +199,6 @@ class AnimalForm(forms.ModelForm):
                   'available_from', 'available_to', 'sex', 'database_id',
                   'lab_id', 'line', 'location', 'responsible_person',
                   'licence_number', 'mutations', 'comment', 'new_owner', )
-
     def clean(self):
         available_from = self.cleaned_data.get('available_from')
         available_to = self.cleaned_data.get('available_to')
@@ -236,19 +283,19 @@ class AnimalAdmin(ImportExportModelAdmin):
     ModelAdmin for Animal model
     """
     resource_class = AnimalResource
-    list_display = ('id','animal_type', 'amount', 'entry_date', 'day_of_birth', 'age', 'available_from',
-                    'available_to', 'line', 'sex', 'location', 'licence_number', 'lab_id',
+    list_display = ('id','animal_type', 'amount', 'entry_date', 'day_of_birth', 'age',  'available_from',
+                    'available_to', 'line','mutations', 'sex', 'location', 'licence_number', 'lab_id',
                     'responsible_person', 'added_by', 'new_owner')
     list_display_links = ('id','animal_type','amount', 'entry_date', 'day_of_birth', 'age',
-                          'available_from', 'available_to', 'line', 'sex',
+                          'available_from', 'available_to', 'line', 'mutations','sex',
                           'location', 'licence_number', 'lab_id','responsible_person',
                           'added_by', 'new_owner')
     search_fields = ('id','animal_type','amount', 'database_id', 'lab_id', 'day_of_birth',
-                     'line', 'sex', 'location__name', 'new_owner', 'licence_number',
-                     'mutations', 'available_from', 'available_to', 'responsible_person__name',
+                     'line', 'mutations', 'sex', 'location__name', 'new_owner', 'licence_number',
+                     'available_from', 'available_to', 'responsible_person__name',
                      'responsible_person__email', 'added_by__email')
     autocomplete_fields = ['responsible_person']
-    list_filter = ('amount', 'sex', 'responsible_person__responsible_for_lab','line','animal_type',
+    list_filter = ('sex', 'responsible_person__responsible_for_lab','line','animal_type',
                    ('day_of_birth', DateRangeFilter),
                    'location', 'licence_number', 'new_owner', 'added_by')
     radio_fields = {'sex':admin.HORIZONTAL}

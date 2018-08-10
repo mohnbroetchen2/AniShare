@@ -46,7 +46,7 @@
       </div>
       <div id="filterBlock" class="collapse">
         <div class="row">
-          <div class="form-group col-sm-4 col-md-2">
+          <div class="form-group col-sm-4 col-md-1">
             {{ filter.form.animal_type.label_tag }} {% render_field filter.form.animal_type class="form-control" %}
           </div>
           <div class="form-group col-sm-4 col-md-1">
@@ -59,6 +59,9 @@
             {{ filter.form.line.label_tag }} {% render_field filter.form.line class="form-control" %}
           </div>
           <div class="form-group col-sm-4 col-md-2">
+            {{ filter.form.mutations.label_tag }} {% render_field filter.form.mutations class="form-control" %}
+          </div>
+          <div class="form-group col-sm-4 col-md-1">
             {{ filter.form.location.label_tag }} {% render_field filter.form.location class="form-control" %}
           </div>
 
@@ -179,7 +182,7 @@
         </tbody>
       </table>
       <div class="m-sm-2">
-        <input type="submit" name="claim" value="Claim all selected animals" class="btn btn-info"
+        <input type="submit" name="claim" value="Claim all selected animals" class="btn btn-info">
       </div>
     </div>
   </div>

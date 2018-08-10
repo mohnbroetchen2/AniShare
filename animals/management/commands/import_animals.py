@@ -58,10 +58,10 @@ class Command(BaseCommand):
                 a.animal_type = 'mouse'
 #                a.organ_type = 'whole animal'
 
-                a.mutations =  mutation_1 + ' ' + grade_1 + '\n' + \
-                            mutation_2 + ' ' + grade_2 + '\n' + \
-                            mutation_3 + ' ' + grade_3 + '\n' + \
-                            mutation_4 + ' ' + grade_4 + '\n'
+                a.mutations =  mutation_1 + ' ' + grade_1 + ';\n' + \
+                            mutation_2 + ' ' + grade_2 + ';\n' + \
+                            mutation_3 + ' ' + grade_3 + ';\n' + \
+                            mutation_4 + ' ' + grade_4 + ';\n'
 
                 location_name = str(xl_sheet.cell(row_idx, 16).value).strip()
                 try:

@@ -96,7 +96,40 @@ class Animal(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE,
                                  help_text='Where is the animal housed?')
     mutations = models.TextField(blank=True, null=True,
-                                 help_text="Describe the mutations of this line in as much detail as possible")
+                                 help_text="Describe the mutations with the grade of this line in as much detail as possible")
+    grade = models.CharField(max_length=200, null=True, blank=True, help_text="")
+    """grade1 = models.CharField(max_length=10, null=True, choices=(
+        ('+/+', '+/+'),
+        ('+/0', '+/0'),
+        ('-/+', '-/+'),
+        ('-/-', '-/-'),
+        ('-/0', '-/0'),
+        ('0/fl', '0/fl'),
+        ('fl/+', 'fl/+'),
+        ('fl/-', 'fl/-'),
+        ('fl/fl', 'fl/fl'),
+        ('fl/tg', 'fl/tg'),
+        ('ki/+', 'ki/+'),
+        ('ki/fl', 'ki/fl'),
+        ('ki/ki', 'ki/ki'),
+        ('ko/+', 'ko/+'),
+        ('ko/0', 'ko/0'),
+        ('ko/ko', 'ko/ko'),
+        ('tg/+', 'tg/+'),
+        ('tg/?', 'tg/?'),
+        ('tg/tg', 'tg/tg'),
+        ('tki/+', 'tki/+'),
+        ('tki/tki', 'tki/tki'),
+        ('W41/+', 'W41/+'),
+        ('W41/W41', 'W41/W41'),
+        ('Wv/+', 'Wv/+'),
+        ('Wv/Wv', 'Wv/Wv'),
+        ('y/-', 'y/-'),
+        ),help_text='Grade 1',)"""
+    grade1 = models.CharField(max_length=10, null=True,help_text='Grade 1')
+    grade2 = models.CharField(max_length=10, null=True,help_text='Grade 2')
+    grade3 = models.CharField(max_length=10, null=True ,help_text='Grade 3')
+    grade4 = models.CharField(max_length=10, null=True ,help_text='Grade 4')
     licence_number = models.CharField(max_length=200)
     responsible_person = models.ForeignKey(Person, on_delete=models.CASCADE, help_text='Person who is responsible in the lab for dealing with the animals')
     available_from = models.DateField()
