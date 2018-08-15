@@ -260,7 +260,7 @@ def animal_list(request):
 @login_required
 #@cache_page(60*60)
 def organ_list(request):
-    organlist = Organ.objects.filter(day_of_death__gte = datetime.now().date()).order_by('available_to')
+    organlist = Organ.objects.filter(day_of_death__gte = datetime.now().date()).order_by('pk')
     f = OrganFilter(request.GET, queryset=organlist)
     #f = OrganFilter(request.GET, queryset=Organ.objects.order_by('-entry_date'))
     return render(request, 'animals/organ-index.html', {'filter': f})
