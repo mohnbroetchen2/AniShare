@@ -250,7 +250,7 @@ def send_email_organ(request):
 #@cache_page(60*60)
 def animal_list(request):
     #animallist = Animal.objects.filter(new_owner__exact='')
-    animallist = Animal.objects.filter(new_owner ='').filter(available_from__lte = datetime.now().date()).filter(available_to__gte = datetime.now().date()).order_by('-entry_date')
+    animallist = Animal.objects.filter(new_owner ='').filter(available_from__lte = datetime.now().date()).filter(available_to__gte = datetime.now().date()).order_by('-pk')
     #animallist = Animal.objects.filter(new_owner__exact='').filter(day_of_death >= datetime.now().date())
     #f = AnimalFilter(request.GET, queryset=Animal.objects.order_by('-entry_date'))
     #f = AnimalFilter(request.GET, queryset=Animal.objects.all().order_by('-entry_date'))
@@ -260,7 +260,7 @@ def animal_list(request):
 @login_required
 #@cache_page(60*60)
 def organ_list(request):
-    organlist = Organ.objects.filter(day_of_death__gte = datetime.now().date()).order_by('-entry_date')
+    organlist = Organ.objects.filter(day_of_death__gte = datetime.now().date()).order_by('-pk')
     f = OrganFilter(request.GET, queryset=organlist)
     #f = OrganFilter(request.GET, queryset=Organ.objects.order_by('-entry_date'))
     return render(request, 'animals/organ-index.html', {'filter': f})
