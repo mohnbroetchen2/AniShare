@@ -38,7 +38,6 @@ DEBUG = False # SECURITY WARNING: don't run with debug turned on in production!
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,7 +49,12 @@ INSTALLED_APPS = [
     'animals',
     'widget_tweaks',
     'import_export',
-    'admin_reorder'
+    'admin_reorder',
+    'admin_interface',
+    'colorfield',
+    'django.contrib.admin',
+    'django_admin_listfilter_dropdown',
+    'bootstrap_email'
    
 ]
 
@@ -114,6 +118,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'anishare.wsgi.application'
 
@@ -185,7 +190,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 MIN_SHARE_DURATION = 14
 MIN_SHARE_DURATION_PUPS = 7
-
+ENVIRONMENT_NAME = "Production server"
 
 #CACHES = {
 #    'default': {
