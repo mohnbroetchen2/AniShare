@@ -13,6 +13,7 @@ from django.conf import settings
 from rangefilter.filter import DateRangeFilter # , DateTimeRangeFilter
 from .models import Animal, Person, Lab, Location, Organ, Change, Organtype
 from import_export.formats import base_formats
+from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter
 
 
 admin.site.site_header = 'AniShare admin interface'
@@ -186,7 +187,10 @@ class OrganResource(resources.ModelResource): # für den Import. Hier werden die
                 try:
                     instance.mutations = "%s %s" % (row['Mutation 1'], row['Mutation 2'])
                 except:
-                    instance.mutations = "%s" % (row['Mutation 1'])
+                    try:
+                        instance.mutations = "%s" % (row['Mutation 1'])
+                    except:
+                        instance.mutations =""
 
 
 class AnimalForm(forms.ModelForm):
@@ -283,21 +287,21 @@ class AnimalAdmin(ImportExportModelAdmin):
     ModelAdmin for Animal model
     """
     resource_class = AnimalResource
-    list_display = ('id','animal_type', 'amount', 'entry_date', 'day_of_birth', 'age',  'available_from',
+    list_display = ('id','animal_type', 'entry_date', 'day_of_birth', 'age',  'available_from',
                     'available_to', 'line','mutations', 'sex', 'location', 'licence_number', 'lab_id',
-                    'responsible_person', 'added_by', 'new_owner')
-    list_display_links = ('id','animal_type','amount', 'entry_date', 'day_of_birth', 'age',
+                    'responsible_person', 'new_owner')
+    list_display_links = ('id','animal_type','entry_date', 'day_of_birth', 'age',
                           'available_from', 'available_to', 'line', 'mutations','sex',
                           'location', 'licence_number', 'lab_id','responsible_person',
-                          'added_by', 'new_owner')
-    search_fields = ('id','animal_type','amount', 'database_id', 'lab_id', 'day_of_birth',
+                          'new_owner')
+    search_fields = ('id','animal_type', 'database_id', 'lab_id', 'day_of_birth',
                      'line', 'mutations', 'sex', 'location__name', 'new_owner', 'licence_number',
                      'available_from', 'available_to', 'responsible_person__name',
                      'responsible_person__email', 'added_by__email')
     autocomplete_fields = ['responsible_person']
-    list_filter = ('sex', 'responsible_person__responsible_for_lab','line','animal_type',
+    list_filter = ('animal_type','sex', ('responsible_person__responsible_for_lab',RelatedDropdownFilter),('line', DropdownFilter),
                    ('day_of_birth', DateRangeFilter),
-                   'location', 'licence_number', 'new_owner', 'added_by')
+                   'location', ('licence_number', DropdownFilter), ('new_owner', DropdownFilter), 'added_by')
     radio_fields = {'sex':admin.HORIZONTAL}
     readonly_fields = ('creation_date', 'modification_date')
     form = AnimalForm
@@ -343,7 +347,7 @@ class OrganAdmin(ImportExportModelAdmin):
                      'day_of_death','method_of_killing', 'killing_person', 'line','lab_id'
                      'sex', 'location__name', 'licence_number', 'responsible_person__name', 'added_by__username')
     autocomplete_fields = ['responsible_person']
-    list_filter = ('sex','animal_type','method_of_killing','killing_person','line',
+    list_filter = (('sex', DropdownFilter),'animal_type','method_of_killing','killing_person','line',
                    ('day_of_birth', DateRangeFilter), ('day_of_death', DateRangeFilter),
                    'responsible_person__responsible_for_lab',
                    'location', 'licence_number', 'added_by',)
