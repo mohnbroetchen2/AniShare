@@ -93,6 +93,8 @@ AUTH_LDAP_USER_ATTR_MAP = {
 AUTH_LDAP_PROFILE_ATTR_MAP = {
 }
 
+ENVIRONMENT = "Production server"
+
 import logging
 logger = logging.getLogger('django_auth_ldap')
 logger.addHandler(logging.StreamHandler())
@@ -190,7 +192,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 MIN_SHARE_DURATION = 14
 MIN_SHARE_DURATION_PUPS = 7
-ENVIRONMENT_NAME = "Production server"
+
 
 #CACHES = {
 #    'default': {
@@ -216,14 +218,13 @@ except ImportError:
 
 ADMIN_REORDER = (
     # Keep original label and models
-    'sites',
+    'sites',   
     {'app': 'animals', 'models': ('animals.Animal', 'animals.Organ','animals.Organtype', 'animals.Location', 'animals.Person', 'animals.Lab')},
-
     # Rename app
     {'app': 'auth', 'label': 'Authentication and Authorization'},
     # Reorder app models
     {'app': 'animals', 'label': 'Change History', 'models': (
         {'model': 'animals.Change', 'label': 'Anishare change history'},
     )},
-    
+    'admin_interface',  
 )
