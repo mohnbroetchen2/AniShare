@@ -342,8 +342,8 @@ def send_email_animals(request):
                         break
                 if error == 1:
                     break
-                subject = "User {} claimed animal in AniShare".format(email)
-                message = render_to_string('email_animals.html',{'email':email, 'animals':templist, 'now': datetime.now()})
+                subject = "User {} claimed animals in AniShare".format(email)
+                message = render_to_string('email_animals.html',{'email':email, 'animals':templist, 'now': datetime.now(),'responsible_person':sAnimal.responsible_person.name})
                 msg = EmailMessage(subject, message, email, [sAnimal.responsible_person.email, email])
                 msg.content_subtype = "html"
                 msg.send()
