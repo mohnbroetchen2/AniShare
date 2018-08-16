@@ -202,7 +202,7 @@ class AnimalForm(forms.ModelForm):
         fields = ('amount', 'animal_type', 'day_of_birth',
                   'available_from', 'available_to', 'sex', 'database_id',
                   'lab_id', 'line', 'location', 'responsible_person',
-                  'licence_number', 'mutations', 'comment', 'new_owner', )
+                  'licence_number', 'mutations', 'comment', 'new_owner',)
     def clean(self):
         available_from = self.cleaned_data.get('available_from')
         available_to = self.cleaned_data.get('available_to')
@@ -213,11 +213,11 @@ class AnimalForm(forms.ModelForm):
         if day_of_birth and (
                 (datetime.now().date() -  day_of_birth) <=
                 timedelta(days=settings.MIN_SHARE_DURATION_PUPS)):
-            if available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION_PUPS):
+            if ((not 'new_owner' in self.changed_data) and (available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION_PUPS))):
                 raise forms.ValidationError(
                     "Minimum share duration for pups must be {} days!".format(
                         settings.MIN_SHARE_DURATION_PUPS))
-        elif available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION):
+        elif ((not 'new_owner' in self.changed_data) and (available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION))):
             raise forms.ValidationError(
                 "Minimum share duration must be {} days!".format(settings.MIN_SHARE_DURATION))
         return self.cleaned_data
