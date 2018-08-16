@@ -14,9 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
+from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
 from django.views.decorators.cache import never_cache
 
 from animals import urls
@@ -30,6 +32,7 @@ urlpatterns = [
     path('animals/claim', animals.views.AnimalClaimView, name='claim_animals'),
     path('organs/claim/<int:primary_key>', animals.views.claim_organ, name='claim_organ'),
     path('admin/doc/', include('django.contrib.admindocs.urls')),
+    #re_path(r'^jet/', jet.urls, name='jet'),  # Django JET URLS
     path('admin/', admin.site.urls),
     path('macros/', animals.views.macros, name='macro'),
     path('changehistory/', animals.views.change_history, name='change'),
