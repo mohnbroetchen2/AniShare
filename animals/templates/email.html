@@ -1,36 +1,69 @@
 <!DOCTYPE html>
+{% load bootstrap_email %}
 {% load static %}
 <html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>AniShare animal claimed</title>
+    <style media="all" type="text/css">
+        {% bootstrap_email_min %}
+    </style>
+    <style>
+        p.ex1 
+        {
+            padding-left:1em;
+        }
+    </style>
+</head>
 <body>
-
-<div> Dear <b>{{ object.responsible_person.name }}</b>, </div>
-
-<div>On {{ now }}, <b>{{ email }}</b> claimed 
-    {% if object.day_of_death %} the following organ(s):"{{ organs_wanted }}" from {% endif %} {{ object.amount }} {{ object.animal_type }} with id <b>{{ object.database_id }}</b> 
-    (AniShare-ID: {{ object.pk }}). </br>
-Further information:
-<dl>
-  <dt>database_id:</dt><dd> {{object.database_id }}</dd>
-    <dt>lab_id:</dt><dd>{{object.lab_id }}</dd>
-    <dt>day_of_birth:</dt><dd>{{object.day_of_birth}} </dd>
-    {% if object.day_of_death %}
-    <dt>day_of_death:</dt><dd>{{object.day_of_death}} </dd>
-    <dt>killing method:</dt><dd>{{object.method_of_killing}} </dd>
-    <dt>killing person:</dt><dd>{{object.killing_person}} </dd>
-    {% endif %}
-    <dt>line:</dt><dd>{{object.line }}</dd>
-    <dt>sex:</dt><dd>{{object.get_sex_display }}</dd>
-    <dt>location:</dt><dd>{{object.location }}</dd>
-    <dt>mutations:</dt><dd>{{object.mutations}} </dd>
-    <dt>licence_number:</dt><dd>{{object.licence_number}} </dd>
-    <dt>comment:</dt><dd>{{object.comment}}</dd>
-</dl>
-</div>
-
-
-Best,
-
-your <a href="http://anishare.leibniz-fli.de">anishare</a> admin.
-
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading"> Dear {{ object.responsible_person.name }},</h4>
+        <p> </p>
+        <p>{{ email }} claimed  {% if object.day_of_death %} the following organ(s):"{{ organs_wanted }}" from {% endif %} 
+            {{ object.amount }} {{ object.animal_type }} with id {{ object.database_id }} (AniShare-ID: {{ object.pk }}).
+        </p>
+    </div>
+    <div>
+        <p class="ex1">Further informations:</p>
+    </div>
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+            <td class="navbar navbar-inverse" align="center">
+                <!-- This setup makes the nav background stretch the whole width of the screen. -->
+                <table class="table table-striped" width="80%" cellspacing="1" cellpadding="3">
+                    <thead>
+                        <tr>
+                            <th scope="col">Database id</th>
+                            <th scope="col">Lab id</th>
+                            <th scope="col">Day of birth</th>
+                            <th scope="col">Sex</th>
+                            <th scope="col">Line</th>
+                            <th scope="col">Mutations</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Licence number</th>
+                            <th scope="col">comment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{object.database_id }}</td>
+                            <td>{{object.lab_id }}</td>
+                            <td>{{object.day_of_birth}}</td>
+                            <td>{{object.get_sex_display }}</td>
+                            <td>{{object.line }}</td>
+                            <td>{{object.mutations}}</td>
+                            <td>{{object.location}}</td>
+                            <td>{{object.licence_number}} </td>
+                            <td>{{object.comment}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>                  
+    </table>
+        <hr>
+        <div class="alert">
+    <p>Best, your <a href="http://anishare.leibniz-fli.de">anishare</a> admin.</p>
+    </div>
 </body>
 </html>

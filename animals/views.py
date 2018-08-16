@@ -27,6 +27,9 @@ from django.views import generic
 from .filters import AnimalFilter, OrganFilter, ChangeFilter
 from .models import Animal, Organ, Change
 
+from django.utils.html import strip_tags
+# Due to http://code.djangoproject.com/ticket/11212
+
 
 class LatestAnimalsFeed(Feed):
     """
@@ -179,6 +182,7 @@ def send_email_animal(request):
     :param pk: primary_key of the animal(s) to be claimed
     :param count: how many animals are being claimed
     """
+
     email = request.POST['email']
     primary_key = request.POST['pk']
     count = request.POST['count']
@@ -195,7 +199,7 @@ def send_email_animal(request):
                          'The entry {} has been claimed by {}.'.format(animal.pk, animal.new_owner))
     subject = "User {} claimed animal {} in AniShare".format(email, primary_key)
     message = render_to_string('email.html', {'email': email, 'object': animal, 'now': datetime.now()})
-
+    msg.mixed_subtype = 'related'
     msg = EmailMessage(subject, message, email, [animal.responsible_person.email, email])
     msg.content_subtype = "html"
     msg.send()
@@ -260,7 +264,7 @@ def animal_list(request):
 @login_required
 #@cache_page(60*60)
 def organ_list(request):
-    organlist = Organ.objects.filter(day_of_death__gte = datetime.now().date()).order_by('pk')
+    organlist = Organ.objects.filter(day_of_death__gte = datetime.now().date()).order_by('-pk')
     f = OrganFilter(request.GET, queryset=organlist)
     #f = OrganFilter(request.GET, queryset=Organ.objects.order_by('-entry_date'))
     return render(request, 'animals/organ-index.html', {'filter': f})
@@ -339,8 +343,8 @@ def send_email_animals(request):
                         break
                 if error == 1:
                     break
-                subject = "User {} claimed animal in AniShare".format(email)
-                message = render_to_string('email_animals.html',{'email':email, 'animals':templist, 'now': datetime.now()})
+                subject = "User {} claimed animals in AniShare".format(email)
+                message = render_to_string('email_animals.html',{'email':email, 'animals':templist, 'now': datetime.now(),'responsible_person':sAnimal.responsible_person.name})
                 msg = EmailMessage(subject, message, email, [sAnimal.responsible_person.email, email])
                 msg.content_subtype = "html"
                 msg.send()
