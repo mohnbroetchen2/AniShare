@@ -38,8 +38,8 @@ class LatestAnimalsFeed(Feed):
     description = 'Updates on animals/organs to share.'
 
     def __call__(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponse(status=401)
+        #if not request.user.is_authenticated:
+        #    return HttpResponse(status=401)
         return super().__call__(request, *args, **kwargs)
 
     def items(self):
@@ -47,8 +47,8 @@ class LatestAnimalsFeed(Feed):
         Get latest animals as items.
         """
         from itertools import chain
-        animals = Animal.objects.order_by('-entry_date')[:10]
-        organs = Organ.objects.order_by('-entry_date')[:10]
+        animals = Animal.objects.order_by('-pk')[:10]
+        organs = Organ.objects.order_by('-pk')[:10]
         return chain(animals, organs)
 
     def item_title(self, item):
@@ -263,7 +263,7 @@ def animal_list(request):
 @login_required
 #@cache_page(60*60)
 def organ_list(request):
-    organlist = Organ.objects.filter(day_of_death__gte = datetime.now().date()).order_by('pk')
+    organlist = Organ.objects.filter(day_of_death__gte = datetime.now().date()).order_by('day_of_death')
     f = OrganFilter(request.GET, queryset=organlist)
     #f = OrganFilter(request.GET, queryset=Organ.objects.order_by('-entry_date'))
     return render(request, 'animals/organ-index.html', {'filter': f})
@@ -289,15 +289,15 @@ class LatestChangesFeed(Feed):
     description = 'Updates on AniShare.'
 
     def __call__(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponse(status=401)
+       # if not request.user.is_authenticated:
+        #    return HttpResponse(status=401)
         return super().__call__(request, *args, **kwargs)
 
     def items(self):
         """
         Get latest changes as items.
         """
-        changes = Change.objects.order_by('-entry_date')[:10]
+        changes = Change.objects.order_by('-pk')[:10]
         return changes
 
     def item_title(self, item):
