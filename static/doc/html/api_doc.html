@@ -162,6 +162,12 @@ Afterwards, create a new virtualenv and install the required libraries like so:<
 <dd><p>alias of <a class="reference internal" href="modules/admin.html#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
 </dd></dl>
 
+<dl class="method">
+<dt id="animals.admin.AnimalAdmin.get_import_formats">
+<code class="descname">get_import_formats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin.get_import_formats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns available import formats.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.resource_class">
 <code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.AnimalAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
@@ -178,7 +184,7 @@ Afterwards, create a new virtualenv and install the required libraries like so:<
 
 <dl class="class">
 <dt id="animals.admin.AnimalForm">
-<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em>, <em>use_required_attribute=None</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalForm" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em>, <em>use_required_attribute=None</em>, <em>renderer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Form for animal editing in admin</p>
 <dl class="method">
 <dt id="animals.admin.AnimalForm.clean">
@@ -235,6 +241,12 @@ association with the field named ‘__all__’.</p>
 <dt id="animals.admin.OrganAdmin.age">
 <code class="descname">age</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin.age" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show the age in the admin as ‘Age (w)’ instead of ‘age’</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.admin.OrganAdmin.get_import_formats">
+<code class="descname">get_import_formats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin.get_import_formats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns available import formats.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -343,6 +355,39 @@ have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
 <dt id="animals.models.Animal.get_absolute_url">
 <code class="descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.get_absolute_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get absolute url for this model. Important to link from the admin.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="animals.models.Animal.grade">
+<code class="descname">grade</code><a class="headerlink" href="#animals.models.Animal.grade" title="Permalink to this definition">¶</a></dt>
+<dd><p>grade1 = models.CharField(max_length=10, null=True, choices=(
+(‘+/+’, ‘+/+’),
+(‘+/0’, ‘+/0’),
+(‘-/+’, ‘-/+’),
+(‘-/-‘, ‘-/-‘),
+(‘-/0’, ‘-/0’),
+(‘0/fl’, ‘0/fl’),
+(‘fl/+’, ‘fl/+’),
+(‘fl/-‘, ‘fl/-‘),
+(‘fl/fl’, ‘fl/fl’),
+(‘fl/tg’, ‘fl/tg’),
+(‘ki/+’, ‘ki/+’),
+(‘ki/fl’, ‘ki/fl’),
+(‘ki/ki’, ‘ki/ki’),
+(‘ko/+’, ‘ko/+’),
+(‘ko/0’, ‘ko/0’),
+(‘ko/ko’, ‘ko/ko’),
+(‘tg/+’, ‘tg/+’),
+(‘tg/?’, ‘tg/?’),
+(‘tg/tg’, ‘tg/tg’),
+(‘tki/+’, ‘tki/+’),
+(‘tki/tki’, ‘tki/tki’),
+(‘W41/+’, ‘W41/+’),
+(‘W41/W41’, ‘W41/W41’),
+(‘Wv/+’, ‘Wv/+’),
+(‘Wv/Wv’, ‘Wv/Wv’),
+(‘y/-‘, ‘y/-‘),
+),help_text=’Grade 1’,)</p>
 </dd></dl>
 
 </dd></dl>

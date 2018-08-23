@@ -80,6 +80,39 @@ have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
 <dd><p>Get absolute url for this model. Important to link from the admin.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="animals.models.Animal.grade">
+<code class="descname">grade</code><a class="headerlink" href="#animals.models.Animal.grade" title="Permalink to this definition">¶</a></dt>
+<dd><p>grade1 = models.CharField(max_length=10, null=True, choices=(
+(‘+/+’, ‘+/+’),
+(‘+/0’, ‘+/0’),
+(‘-/+’, ‘-/+’),
+(‘-/-‘, ‘-/-‘),
+(‘-/0’, ‘-/0’),
+(‘0/fl’, ‘0/fl’),
+(‘fl/+’, ‘fl/+’),
+(‘fl/-‘, ‘fl/-‘),
+(‘fl/fl’, ‘fl/fl’),
+(‘fl/tg’, ‘fl/tg’),
+(‘ki/+’, ‘ki/+’),
+(‘ki/fl’, ‘ki/fl’),
+(‘ki/ki’, ‘ki/ki’),
+(‘ko/+’, ‘ko/+’),
+(‘ko/0’, ‘ko/0’),
+(‘ko/ko’, ‘ko/ko’),
+(‘tg/+’, ‘tg/+’),
+(‘tg/?’, ‘tg/?’),
+(‘tg/tg’, ‘tg/tg’),
+(‘tki/+’, ‘tki/+’),
+(‘tki/tki’, ‘tki/tki’),
+(‘W41/+’, ‘W41/+’),
+(‘W41/W41’, ‘W41/W41’),
+(‘Wv/+’, ‘Wv/+’),
+(‘Wv/Wv’, ‘Wv/Wv’),
+(‘y/-‘, ‘y/-‘),
+),help_text=’Grade 1’,)</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -497,7 +530,40 @@ This person gets an email when an animal is being claimed.</p>
 265
 266
 267
-268</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This file describes all the models in the database.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
@@ -595,7 +661,40 @@ This person gets an email when an animal is being claimed.</p>
     <span class="n">location</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Location</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span>
                                  <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Where is the animal housed?&#39;</span><span class="p">)</span>
     <span class="n">mutations</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                                 <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;Describe the mutations of this line in as much detail as possible&quot;</span><span class="p">)</span>
+                                 <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;Describe the mutations with the grade of this line in as much detail as possible&quot;</span><span class="p">)</span>
+    <span class="n">grade</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;grade1 = models.CharField(max_length=10, null=True, choices=(</span>
+<span class="sd">        (&#39;+/+&#39;, &#39;+/+&#39;),</span>
+<span class="sd">        (&#39;+/0&#39;, &#39;+/0&#39;),</span>
+<span class="sd">        (&#39;-/+&#39;, &#39;-/+&#39;),</span>
+<span class="sd">        (&#39;-/-&#39;, &#39;-/-&#39;),</span>
+<span class="sd">        (&#39;-/0&#39;, &#39;-/0&#39;),</span>
+<span class="sd">        (&#39;0/fl&#39;, &#39;0/fl&#39;),</span>
+<span class="sd">        (&#39;fl/+&#39;, &#39;fl/+&#39;),</span>
+<span class="sd">        (&#39;fl/-&#39;, &#39;fl/-&#39;),</span>
+<span class="sd">        (&#39;fl/fl&#39;, &#39;fl/fl&#39;),</span>
+<span class="sd">        (&#39;fl/tg&#39;, &#39;fl/tg&#39;),</span>
+<span class="sd">        (&#39;ki/+&#39;, &#39;ki/+&#39;),</span>
+<span class="sd">        (&#39;ki/fl&#39;, &#39;ki/fl&#39;),</span>
+<span class="sd">        (&#39;ki/ki&#39;, &#39;ki/ki&#39;),</span>
+<span class="sd">        (&#39;ko/+&#39;, &#39;ko/+&#39;),</span>
+<span class="sd">        (&#39;ko/0&#39;, &#39;ko/0&#39;),</span>
+<span class="sd">        (&#39;ko/ko&#39;, &#39;ko/ko&#39;),</span>
+<span class="sd">        (&#39;tg/+&#39;, &#39;tg/+&#39;),</span>
+<span class="sd">        (&#39;tg/?&#39;, &#39;tg/?&#39;),</span>
+<span class="sd">        (&#39;tg/tg&#39;, &#39;tg/tg&#39;),</span>
+<span class="sd">        (&#39;tki/+&#39;, &#39;tki/+&#39;),</span>
+<span class="sd">        (&#39;tki/tki&#39;, &#39;tki/tki&#39;),</span>
+<span class="sd">        (&#39;W41/+&#39;, &#39;W41/+&#39;),</span>
+<span class="sd">        (&#39;W41/W41&#39;, &#39;W41/W41&#39;),</span>
+<span class="sd">        (&#39;Wv/+&#39;, &#39;Wv/+&#39;),</span>
+<span class="sd">        (&#39;Wv/Wv&#39;, &#39;Wv/Wv&#39;),</span>
+<span class="sd">        (&#39;y/-&#39;, &#39;y/-&#39;),</span>
+<span class="sd">        ),help_text=&#39;Grade 1&#39;,)&quot;&quot;&quot;</span>
+    <span class="n">grade1</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">)</span>
+    <span class="n">grade2</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">)</span>
+    <span class="n">grade3</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span> <span class="p">,</span><span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Grade 3&#39;</span><span class="p">)</span>
+    <span class="n">grade4</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span> <span class="p">,</span><span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Grade 4&#39;</span><span class="p">)</span>
     <span class="n">licence_number</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
     <span class="n">responsible_person</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;Person who is responsible in the lab for dealing with the animals&#39;</span><span class="p">)</span>
     <span class="n">available_from</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">()</span>

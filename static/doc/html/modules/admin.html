@@ -48,6 +48,12 @@
 <dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
 </dd></dl>
 
+<dl class="method">
+<dt id="animals.admin.AnimalAdmin.get_import_formats">
+<code class="descname">get_import_formats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin.get_import_formats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns available import formats.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.resource_class">
 <code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.AnimalAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
@@ -64,7 +70,7 @@
 
 <dl class="class">
 <dt id="animals.admin.AnimalForm">
-<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em>, <em>use_required_attribute=None</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalForm" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em>, <em>use_required_attribute=None</em>, <em>renderer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Form for animal editing in admin</p>
 <dl class="method">
 <dt id="animals.admin.AnimalForm.clean">
@@ -121,6 +127,12 @@ association with the field named ‘__all__’.</p>
 <dt id="animals.admin.OrganAdmin.age">
 <code class="descname">age</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin.age" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show the age in the admin as ‘Age (w)’ instead of ‘age’</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.admin.OrganAdmin.get_import_formats">
+<code class="descname">get_import_formats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin.get_import_formats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns available import formats.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -486,7 +498,85 @@ association with the field named ‘__all__’.</p>
 305
 306
 307
-308</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Admin module</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">copy</span>
@@ -500,11 +590,22 @@ association with the field named ‘__all__’.</p>
 <span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
 <span class="kn">from</span> <span class="nn">rangefilter.filter</span> <span class="kn">import</span> <span class="n">DateRangeFilter</span> <span class="c1"># , DateTimeRangeFilter</span>
 <span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Animal</span><span class="p">,</span> <span class="n">Person</span><span class="p">,</span> <span class="n">Lab</span><span class="p">,</span> <span class="n">Location</span><span class="p">,</span> <span class="n">Organ</span><span class="p">,</span> <span class="n">Change</span><span class="p">,</span> <span class="n">Organtype</span>
+<span class="kn">from</span> <span class="nn">import_export.formats</span> <span class="kn">import</span> <span class="n">base_formats</span>
+<span class="kn">from</span> <span class="nn">django_admin_listfilter_dropdown.filters</span> <span class="kn">import</span> <span class="n">DropdownFilter</span><span class="p">,</span> <span class="n">RelatedDropdownFilter</span>
 
 
 <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">site_header</span> <span class="o">=</span> <span class="s1">&#39;AniShare admin interface&#39;</span>
 <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">site_title</span> <span class="o">=</span> <span class="s1">&#39;AniShare&#39;</span>
 <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">index_title</span> <span class="o">=</span> <span class="s1">&#39;Welcome to AniShare&#39;</span>
+
+<span class="k">class</span> <span class="nc">SCSV</span><span class="p">(</span><span class="n">base_formats</span><span class="o">.</span><span class="n">CSV</span><span class="p">):</span>
+
+	<span class="k">def</span> <span class="nf">get_title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="s2">&quot;scsv&quot;</span>
+
+	<span class="k">def</span> <span class="nf">create_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_stream</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+		<span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;delimiter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;;&#39;</span>
+		<span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">in_stream</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">AnimalResource</span><span class="p">(</span><span class="n">resources</span><span class="o">.</span><span class="n">ModelResource</span><span class="p">):</span> <span class="c1"># für den Import. Hier werden die Felder festgelegt, die importiert werden können</span>
 
@@ -526,6 +627,10 @@ association with the field named ‘__all__’.</p>
     <span class="n">mutations2</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;mutations2&#39;</span><span class="p">,</span><span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Mutation 2&#39;</span><span class="p">)</span>
     <span class="n">mutations3</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;mutations3&#39;</span><span class="p">,</span><span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Mutation 3&#39;</span><span class="p">)</span>
     <span class="n">mutations4</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;mutations4&#39;</span><span class="p">,</span><span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Mutation 4&#39;</span><span class="p">)</span>
+    <span class="n">grade1</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;grade1&#39;</span><span class="p">,</span><span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">)</span>
+    <span class="n">grade2</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;grade2&#39;</span><span class="p">,</span><span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">)</span>
+    <span class="n">grade3</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;grade3&#39;</span><span class="p">,</span><span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Grade 3&#39;</span><span class="p">)</span>
+    <span class="n">grade4</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;grade4&#39;</span><span class="p">,</span><span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Grade 4&#39;</span><span class="p">)</span>
     <span class="n">licence_number</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;License number&#39;</span><span class="p">)</span>
     <span class="n">available_to</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Available to&#39;</span><span class="p">)</span>
     <span class="n">available_from</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Available from&#39;</span><span class="p">)</span>
@@ -534,7 +639,7 @@ association with the field named ‘__all__’.</p>
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">Animal</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;lab_id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;database_id&#39;</span><span class="p">,</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;line&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span><span class="s1">&#39;location&#39;</span><span class="p">,</span><span class="s1">&#39;mutations1&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations2&#39;</span><span class="p">,</span><span class="s1">&#39;mutations3&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations4&#39;</span><span class="p">,</span><span class="s1">&#39;licence_number&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;line&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span><span class="s1">&#39;location&#39;</span><span class="p">,</span><span class="s1">&#39;mutations1&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations2&#39;</span><span class="p">,</span><span class="s1">&#39;mutations3&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations4&#39;</span><span class="p">,</span><span class="s1">&#39;grade1&#39;</span><span class="p">,</span> <span class="s1">&#39;grade2&#39;</span><span class="p">,</span><span class="s1">&#39;grade3&#39;</span><span class="p">,</span> <span class="s1">&#39;grade4&#39;</span><span class="p">,</span><span class="s1">&#39;licence_number&#39;</span><span class="p">,</span>
         <span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span><span class="s1">&#39;available_from&#39;</span><span class="p">,</span><span class="s1">&#39;available_to&#39;</span><span class="p">,</span><span class="s1">&#39;comment&#39;</span><span class="p">,)</span>
     <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_loader</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -545,20 +650,66 @@ association with the field named ‘__all__’.</p>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">None</span>
+
     
+
     <span class="k">def</span> <span class="nf">import_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">dry_run</span><span class="p">):</span> <span class="c1"># Damit werden die Mutationen in ein Feld zusammengefasst</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">AnimalResource</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">import_obj</span><span class="p">(</span> <span class="n">instance</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">dry_run</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 2&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 3&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 4&#39;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 4&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">):</span>
+                <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">; </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">; </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">; </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 2&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 3&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 3&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 4&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 4&#39;</span><span class="p">])</span>
+                <span class="n">instance</span><span class="o">.</span><span class="n">grade1</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">]</span>
+                <span class="n">instance</span><span class="o">.</span><span class="n">grade2</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">]</span>
+                <span class="n">instance</span><span class="o">.</span><span class="n">grade3</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 3&#39;</span><span class="p">]</span>
+                <span class="n">instance</span><span class="o">.</span><span class="n">grade4</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 4&#39;</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 3&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">):</span>   
+                <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">; </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">; </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 2&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 3&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 3&#39;</span><span class="p">])</span>
+                <span class="n">instance</span><span class="o">.</span><span class="n">grade1</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">]</span>
+                <span class="n">instance</span><span class="o">.</span><span class="n">grade2</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">]</span>
+                <span class="n">instance</span><span class="o">.</span><span class="n">grade3</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 3&#39;</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">):</span>   
+                <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">; </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 2&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">])</span>
+                <span class="n">instance</span><span class="o">.</span><span class="n">grade1</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">]</span>
+                <span class="n">instance</span><span class="o">.</span><span class="n">grade2</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">):</span> 
+                <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">])</span>
+                <span class="n">instance</span><span class="o">.</span><span class="n">grade1</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">except</span><span class="p">:</span>  
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 2&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 3&#39;</span><span class="p">])</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 3&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">):</span>   
+                    <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">; </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">; </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 2&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 3&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 3&#39;</span><span class="p">])</span>
+                    <span class="n">instance</span><span class="o">.</span><span class="n">grade1</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">]</span>
+                    <span class="n">instance</span><span class="o">.</span><span class="n">grade2</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">]</span>
+                    <span class="n">instance</span><span class="o">.</span><span class="n">grade3</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 3&#39;</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">):</span>   
+                    <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">; </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 2&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">])</span>
+                    <span class="n">instance</span><span class="o">.</span><span class="n">grade1</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">]</span>
+                    <span class="n">instance</span><span class="o">.</span><span class="n">grade2</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">):</span> 
+                    <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">])</span>
+                    <span class="n">instance</span><span class="o">.</span><span class="n">grade1</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
             <span class="k">except</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 2&#39;</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">):</span>   
+                        <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">;</span><span class="se">\n</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 2&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">])</span>
+                        <span class="n">instance</span><span class="o">.</span><span class="n">grade1</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">]</span>
+                        <span class="n">instance</span><span class="o">.</span><span class="n">grade2</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">):</span> 
+                        <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">])</span>
+                        <span class="n">instance</span><span class="o">.</span><span class="n">grade1</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
                 <span class="k">except</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">])</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">):</span> 
+                            <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">])</span>
+                            <span class="n">instance</span><span class="o">.</span><span class="n">grade1</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">]</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
                     <span class="k">except</span><span class="p">:</span>
                         <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span><span class="s2">&quot;&quot;</span>
 
@@ -614,7 +765,10 @@ association with the field named ‘__all__’.</p>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 2&#39;</span><span class="p">])</span>
                 <span class="k">except</span><span class="p">:</span>
-                    <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">])</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Mutation 1&#39;</span><span class="p">])</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span><span class="s2">&quot;&quot;</span>
 
 
 <span class="k">class</span> <span class="nc">AnimalForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
@@ -626,8 +780,7 @@ association with the field named ‘__all__’.</p>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;database_id&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations&#39;</span><span class="p">,</span> <span class="s1">&#39;comment&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">,</span> <span class="p">)</span>
-
+                  <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations&#39;</span><span class="p">,</span> <span class="s1">&#39;comment&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">,)</span>
     <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">available_from</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;available_from&#39;</span><span class="p">)</span>
         <span class="n">available_to</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;available_to&#39;</span><span class="p">)</span>
@@ -638,14 +791,15 @@ association with the field named ‘__all__’.</p>
         <span class="k">if</span> <span class="n">day_of_birth</span> <span class="ow">and</span> <span class="p">(</span>
                 <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span> <span class="o">-</span>  <span class="n">day_of_birth</span><span class="p">)</span> <span class="o">&lt;=</span>
                 <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">MIN_SHARE_DURATION_PUPS</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="n">available_to</span> <span class="o">-</span> <span class="n">available_from</span> <span class="o">&lt;=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">MIN_SHARE_DURATION_PUPS</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">((</span><span class="ow">not</span> <span class="s1">&#39;new_owner&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">changed_data</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">available_to</span> <span class="o">-</span> <span class="n">available_from</span> <span class="o">&lt;=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">MIN_SHARE_DURATION_PUPS</span><span class="p">))):</span>
                 <span class="k">raise</span> <span class="n">forms</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">(</span>
                     <span class="s2">&quot;Minimum share duration for pups must be {} days!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">settings</span><span class="o">.</span><span class="n">MIN_SHARE_DURATION_PUPS</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="n">available_to</span> <span class="o">-</span> <span class="n">available_from</span> <span class="o">&lt;=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">MIN_SHARE_DURATION</span><span class="p">):</span>
+        <span class="k">elif</span> <span class="p">((</span><span class="ow">not</span> <span class="s1">&#39;new_owner&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">changed_data</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">available_to</span> <span class="o">-</span> <span class="n">available_from</span> <span class="o">&lt;=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">MIN_SHARE_DURATION</span><span class="p">))):</span>
             <span class="k">raise</span> <span class="n">forms</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">(</span>
                 <span class="s2">&quot;Minimum share duration must be {} days!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">MIN_SHARE_DURATION</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span>
+        
 
 <span class="nd">@admin.register</span><span class="p">(</span><span class="n">Change</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">ChangeAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
@@ -711,21 +865,21 @@ association with the field named ‘__all__’.</p>
 <span class="sd">    ModelAdmin for Animal model</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">resource_class</span> <span class="o">=</span> <span class="n">AnimalResource</span>
-    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;entry_date&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;available_from&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span> <span class="s1">&#39;added_by&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">)</span>
-    <span class="n">list_display_links</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;entry_date&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span>
+    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;entry_date&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span>  <span class="s1">&#39;available_from&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span><span class="s1">&#39;mutations&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">)</span>
+    <span class="n">list_display_links</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span><span class="s1">&#39;entry_date&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span>
                           <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span><span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;added_by&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">)</span>
-    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;database_id&#39;</span><span class="p">,</span> <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;location__name&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;mutations&#39;</span><span class="p">,</span> <span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person__name&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;new_owner&#39;</span><span class="p">)</span>
+    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;database_id&#39;</span><span class="p">,</span> <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;location__name&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person__name&#39;</span><span class="p">,</span>
                      <span class="s1">&#39;responsible_person__email&#39;</span><span class="p">,</span> <span class="s1">&#39;added_by__email&#39;</span><span class="p">)</span>
     <span class="n">autocomplete_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;responsible_person&#39;</span><span class="p">]</span>
-    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person__responsible_for_lab&#39;</span><span class="p">,</span><span class="s1">&#39;line&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span>
+    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;responsible_person__responsible_for_lab&#39;</span><span class="p">,</span><span class="n">RelatedDropdownFilter</span><span class="p">),(</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="n">DropdownFilter</span><span class="p">),</span>
                    <span class="p">(</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="n">DateRangeFilter</span><span class="p">),</span>
-                   <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">,</span> <span class="s1">&#39;added_by&#39;</span><span class="p">)</span>
+                   <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="n">DropdownFilter</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;new_owner&#39;</span><span class="p">,</span> <span class="n">DropdownFilter</span><span class="p">),</span> <span class="s1">&#39;added_by&#39;</span><span class="p">)</span>
     <span class="n">radio_fields</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sex&#39;</span><span class="p">:</span><span class="n">admin</span><span class="o">.</span><span class="n">HORIZONTAL</span><span class="p">}</span>
     <span class="n">readonly_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;creation_date&#39;</span><span class="p">,</span> <span class="s1">&#39;modification_date&#39;</span><span class="p">)</span>
     <span class="n">form</span> <span class="o">=</span> <span class="n">AnimalForm</span>
@@ -745,8 +899,14 @@ association with the field named ‘__all__’.</p>
             <span class="c1"># Only set added_by during the first save.</span>
             <span class="n">obj</span><span class="o">.</span><span class="n">added_by</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">)</span>
-
-
+    <span class="k">def</span> <span class="nf">get_import_formats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">formats</span> <span class="o">=</span> <span class="p">(</span>
+                  <span class="n">base_formats</span><span class="o">.</span><span class="n">XLSX</span><span class="p">,</span>
+                  <span class="n">base_formats</span><span class="o">.</span><span class="n">XLS</span><span class="p">,</span>
+                  <span class="n">base_formats</span><span class="o">.</span><span class="n">ODS</span><span class="p">,</span>
+                  <span class="n">base_formats</span><span class="o">.</span><span class="n">CSV</span><span class="p">,</span>
+                  <span class="n">SCSV</span><span class="p">,)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">formats</span> <span class="k">if</span> <span class="n">f</span><span class="p">()</span><span class="o">.</span><span class="n">can_export</span><span class="p">()]</span>
 
 <span class="nd">@admin.register</span><span class="p">(</span><span class="n">Organ</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">OrganAdmin</span><span class="p">(</span><span class="n">ImportExportModelAdmin</span><span class="p">):</span>
@@ -765,7 +925,7 @@ association with the field named ‘__all__’.</p>
                      <span class="s1">&#39;day_of_death&#39;</span><span class="p">,</span><span class="s1">&#39;method_of_killing&#39;</span><span class="p">,</span> <span class="s1">&#39;killing_person&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span><span class="s1">&#39;lab_id&#39;</span>
                      <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;location__name&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person__name&#39;</span><span class="p">,</span> <span class="s1">&#39;added_by__username&#39;</span><span class="p">)</span>
     <span class="n">autocomplete_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;responsible_person&#39;</span><span class="p">]</span>
-    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span><span class="s1">&#39;method_of_killing&#39;</span><span class="p">,</span><span class="s1">&#39;killing_person&#39;</span><span class="p">,</span><span class="s1">&#39;line&#39;</span><span class="p">,</span>
+    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="n">DropdownFilter</span><span class="p">),</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span><span class="s1">&#39;method_of_killing&#39;</span><span class="p">,</span><span class="s1">&#39;killing_person&#39;</span><span class="p">,</span><span class="s1">&#39;line&#39;</span><span class="p">,</span>
                    <span class="p">(</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="n">DateRangeFilter</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;day_of_death&#39;</span><span class="p">,</span> <span class="n">DateRangeFilter</span><span class="p">),</span>
                    <span class="s1">&#39;responsible_person__responsible_for_lab&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;added_by&#39;</span><span class="p">,)</span>
@@ -786,6 +946,14 @@ association with the field named ‘__all__’.</p>
             <span class="c1"># Only set added_by during the first save.</span>
             <span class="n">obj</span><span class="o">.</span><span class="n">added_by</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_import_formats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">formats</span> <span class="o">=</span> <span class="p">(</span>
+                  <span class="n">base_formats</span><span class="o">.</span><span class="n">XLSX</span><span class="p">,</span>
+                  <span class="n">base_formats</span><span class="o">.</span><span class="n">XLS</span><span class="p">,</span>
+                  <span class="n">base_formats</span><span class="o">.</span><span class="n">ODS</span><span class="p">,</span>
+                  <span class="n">base_formats</span><span class="o">.</span><span class="n">CSV</span><span class="p">,</span>
+                  <span class="n">SCSV</span><span class="p">,)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">formats</span> <span class="k">if</span> <span class="n">f</span><span class="p">()</span><span class="o">.</span><span class="n">can_export</span><span class="p">()]</span>
 
 <span class="nd">@admin.register</span><span class="p">(</span><span class="n">Lab</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">LabAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>

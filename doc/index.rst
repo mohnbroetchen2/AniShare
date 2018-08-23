@@ -151,7 +151,7 @@ Animals import
 """"""""""""""
 From PyRAT
 ++++++++++
-First login to PyRAT and switch to the english version of PyRAT if it is no preset. Then select the animals which 
+First login to PyRAT and **switch to the english version** of PyRAT if it is no preset. Then select the animals which 
 should be import to anishare. Click on ``QS`` (Quick Select) and activate the option ``Export this list to Excel``.
 Push the button ``Apply``.
 
