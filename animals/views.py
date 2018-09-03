@@ -8,6 +8,7 @@ It also contains an RSS Feed generator class to create an RSS feed from newly cr
 """
 import operator
 from functools import reduce
+from django.conf import settings
 from datetime import datetime
 from django import forms
 from django.contrib import messages
@@ -24,10 +25,10 @@ from django.views.decorators.cache import cache_page
 #from django.urls import reverse
 from django.views import generic
 
-from .filters import AnimalFilter, OrganFilter, ChangeFilter
-from .models import Animal, Organ, Change
+from .filters import AnimalFilter, OrganFilter, ChangeFilter, PersonFilter, FishFilter
+from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab
 from django.core.mail import EmailMultiAlternatives, send_mail
-
+from django.utils.html import strip_tags
 
 class LatestAnimalsFeed(Feed):
     """
@@ -180,6 +181,7 @@ def send_email_animal(request):
     :param pk: primary_key of the animal(s) to be claimed
     :param count: how many animals are being claimed
     """
+
     email = request.POST['email']
     primary_key = request.POST['pk']
     count = request.POST['count']
@@ -196,7 +198,10 @@ def send_email_animal(request):
                          'The entry {} has been claimed by {}.'.format(animal.pk, animal.new_owner))
     subject = "User {} claimed animal {} in AniShare".format(email, primary_key)
     message = render_to_string('email.html', {'email': email, 'object': animal, 'now': datetime.now()})
-    send_mail(subject, message, email, [animal.responsible_person.email, email],html_message=message)
+    if animal.responsible_person2 is None:
+        send_mail(subject, message, email, [animal.responsible_person.email, email],html_message=message)
+    else:
+        send_mail(subject, message, email, [animal.responsible_person.email, animal.responsible_person2.email, email],html_message=message)
     #msg = EmailMultiAlternatives(subject, message, email, [animal.responsible_person.email, email],html_message=message)
     #msg.attach_alternative(message, "text/html")
     #msg.content_subtype = "html"
@@ -208,7 +213,10 @@ def send_email_animal(request):
         animal.new_owner = ''
         animal.save()
         messages.add_message(request, messages.SUCCESS, 'The amount of available animals in this entry has been reduced to {}.'.format(animal.amount))
-    messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(animal.responsible_person.email))
+    if animal.responsible_person2 is not None:
+        messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}> and <{}>.'.format(animal.responsible_person.email, animal.responsible_person2.email))
+    else:
+        messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(animal.responsible_person.email))
 
     return HttpResponseRedirect('/')
 
@@ -239,11 +247,16 @@ def send_email_organ(request):
     organ = Organ.objects.get(pk=primary_key)
     subject = "AniShare User {} claimed organ(s) {}".format(email, organs_wanted)
     message = render_to_string('email.html', {'email': email, 'organs_wanted':organs_wanted, 'object': organ, 'now': datetime.now()})
-
-    msg = EmailMessage(subject, message, email, [organ.responsible_person.email, email])
+    if animal.responsible_person2 is None:
+        msg = EmailMessage(subject, message, email, [organ.responsible_person.email, email])
+    else:
+        msg = EmailMessage(subject, message, email, [organ.responsible_person.email,organ.responsible_person2.email, email])
     msg.content_subtype = "html"
     msg.send()
-    messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(organ.responsible_person.email))
+    if animal.responsible_person2 is None:
+        messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(organ.responsible_person.email))
+    else:
+        messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}> and <{}>.'.format(organ.responsible_person.email,organ.responsible_person2.email))
 
     return HttpResponseRedirect('/organs/')
 
@@ -269,6 +282,81 @@ def organ_list(request):
     return render(request, 'animals/organ-index.html', {'filter': f})
 #today = datetime.now().date()
 #        return self.day_of_death >= today
+
+@login_required
+#@cache_page(60*60)
+def tickatlabpersonlist(request):
+    personlist = FishPeople.objects.using('fishdb').all().order_by('lastname')
+    f = PersonFilter(request.GET, queryset=personlist)
+    return render(request, 'animals/fishpeople.html', {'filter': f})
+
+@login_required
+def tickatlabfishlist(request):
+    fishlist = Fish.objects.using('fishdb').all().order_by('id')
+    f = FishFilter(request.GET, queryset=fishlist)
+    return render(request, 'animals/fishfromtickatlab.html', {'filter': f})
+
+@login_required
+def importfish_view(request):
+    if request.method == "POST":
+        importlist = request.POST.getlist("selected",None)
+        fishlist = Fish.objects.using('fishdb').filter(id__in = importlist).order_by('id')
+        f = FishFilter(request.GET, queryset=fishlist)
+        return render(request, 'animals/import-fish.html', {'filter': f})
+
+def importfishtoanishare(request):
+    if request.method == "POST":
+        fishidlist = request.POST.getlist("id",None)
+        availablefromlist = request.POST.getlist("availablefrom",None)
+        availabletolist = request.POST.getlist("availableto",None)
+        fishlist = Fish.objects.using('fishdb').filter(id__in = fishidlist)
+        i=0
+        for dataset in fishlist:
+            new_fish = Animal()
+            new_fish.animal_type    = "fish"
+            new_fish.lab_id         = dataset.animalnumber
+            new_fish.database_id    = dataset.id
+            new_fish.amount         = dataset.quantity
+            new_fish.available_from = availablefromlist[i]
+            new_fish.available_to   = availabletolist[i]
+            new_fish.licence_number = dataset.license
+            new_fish.day_of_birth   = dataset.dob
+            try:
+                new_fish.location       = Location.objects.get(name=dataset.location)
+            except:
+                new_location = Location()
+                new_location.name = dataset.location
+                new_location.save()
+                new_fish.location       = Location.objects.get(name=dataset.location)
+            #new_fish.mutations      = dataset.strain
+            new_fish.line           = dataset.strain  
+            try:        
+                new_fish.responsible_person = Person.objects.get(name=dataset.responsible)
+            except:
+                new_person = Person()
+                new_person.name = dataset.responsible
+                new_person.email = dataset.responsible_email
+                new_person.responsible_for_lab = Lab.objects.get(name="False")
+                new_person.save()
+                new_fish.responsible_person = Person.objects.get(name=dataset.responsible)
+                ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
+                send_mail("AniShare neue Person", 'Neue Person in AniShare {}'.format(new_person.name), ADMIN_EMAIL, [ADMIN_EMAIL])
+            new_fish.added_by       = request.user
+            if (dataset.sex == 1):
+                new_fish.sex = 'm'
+            elif (dataset.sex == 2):
+                new_fish.sex = 'f'
+            elif (dataset.sex == 0):
+                new_fish.sex = 'u'
+            try:
+                new_fish.save()
+                messages.add_message(request, messages.SUCCESS,'The fish {} has been imported.'.format(dataset.animalnumber))
+            except Exception:
+                messages.add_message(request, messages.ERROR,'Becaus of an error the fish {} has NOT been imported. The AniShare admin is informed about the error'.format(dataset.animalnumber))
+                send_mail("AniShare Importfehler", 'Fehler beim Fishimport von Fish  {} mit Fehler {} '.format(dataset.animalnumber, Exception), request.user.email, [ADMIN_EMAIL])
+            i = i + 1
+    return HttpResponseRedirect('/admin/animals/animal/')
+
 
 @login_required
 def change_history(request):
@@ -327,14 +415,16 @@ def send_email_animals(request):
         claimlist = request.POST.getlist("selectedAnimals",None)
         animallist = Animal.objects.filter(pk__in = claimlist)
         last_responsible = ""
+        last_responsible2 = None
         error = 0;
         """
         message = render_to_string('email_animals.html',{'email':email, 'animals':animallist, 'now': datetime.now()})
         """
         for sAnimal in animallist:
-            if last_responsible != sAnimal.responsible_person:
+            if last_responsible != sAnimal.responsible_person or last_responsible2 != sAnimal.responsible_person2:
                 last_responsible = sAnimal.responsible_person
-                templist = Animal.objects.filter(pk__in = claimlist).filter(responsible_person = last_responsible)
+                last_responsible2 = sAnimal.responsible_person2
+                templist = Animal.objects.filter(pk__in = claimlist).filter(responsible_person = last_responsible).filter(responsible_person2 = last_responsible2)
                 for tempAnimal in templist:
                     if tempAnimal.amount > 1:
                         messages.add_message(request, messages.SUCCESS,'It is not possible to claim animal groups (#>1) with other entries. Please claim the fish group individually')
@@ -343,11 +433,20 @@ def send_email_animals(request):
                 if error == 1:
                     break
                 subject = "User {} claimed animals in AniShare".format(email)
-                message = render_to_string('email_animals.html',{'email':email, 'animals':templist, 'now': datetime.now(),'responsible_person':sAnimal.responsible_person.name})
-                msg = EmailMessage(subject, message, email, [sAnimal.responsible_person.email, email])
+                if last_responsible2 is None:
+                    message = render_to_string('email_animals.html',{'email':email, 'animals':templist, 'now': datetime.now(),'responsible_person':sAnimal.responsible_person.name, 'responsible_person2':None})
+                else:
+                    message = render_to_string('email_animals.html',{'email':email, 'animals':templist, 'now': datetime.now(),'responsible_person':sAnimal.responsible_person.name, 'responsible_person2':sAnimal.responsible_person2.name})
+                if last_responsible2 is None:
+                    msg = EmailMessage(subject, message, email, [sAnimal.responsible_person.email, email])
+                else:
+                    msg = EmailMessage(subject, message, email, [sAnimal.responsible_person.email, sAnimal.responsible_person2.email, email])
                 msg.content_subtype = "html"
                 msg.send()
-                messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(sAnimal.responsible_person.email))
+                if last_responsible2 is None:
+                    messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(sAnimal.responsible_person.email))
+                else:
+                    messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}> and <{}>.'.format(sAnimal.responsible_person.email, sAnimal.responsible_person2.email))
                 sAnimal.new_owner = email
                 sAnimal.save()
                 messages.add_message(request, messages.SUCCESS,'The entry {} has been claimed by {}.'.format(sAnimal.pk, sAnimal.new_owner))

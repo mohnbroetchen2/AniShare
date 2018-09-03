@@ -3,7 +3,7 @@ Filters: using django-filters to filter querysets
 """
 import django_filters
 from django_filters import FilterSet
-from .models import Animal, Organ, Change
+from .models import Animal, Organ, Change, FishPeople, Fish
 from django.db.models import F
 import django.forms
 from datetime import timedelta, tzinfo
@@ -16,10 +16,11 @@ class AnimalFilter(FilterSet):
     licence_number = django_filters.CharFilter(lookup_expr='icontains')
     mutations = django_filters.CharFilter(lookup_expr='icontains')
     line = django_filters.CharFilter(lookup_expr='icontains')
+    genetic_background  = django_filters.CharFilter(lookup_expr='icontains')
     age = django_filters.NumberFilter(method='filter_age')
     class Meta:
         model = Animal
-        fields = ['animal_type', 'age', 'sex', 'line', 'location','licence_number',
+        fields = ['animal_type', 'age', 'sex', 'line', 'location','licence_number', 'genetic_background',
                   'responsible_person']
     def filter_age(self, queryset, name, value):
         if value:
@@ -50,13 +51,24 @@ class OrganFilter(FilterSet):
     line = django_filters.CharFilter(lookup_expr='icontains')
     killing_person = django_filters.CharFilter(lookup_expr='icontains')
     method_of_killing = django_filters.CharFilter(lookup_expr='icontains')
+    genetic_background  = django_filters.CharFilter(lookup_expr='icontains')
     class Meta:
         model = Organ
         fields = ['animal_type', 'sex', 'day_of_death', 'killing_person',
-                  'method_of_killing', 'line', 'mutations','responsible_person',
+                  'method_of_killing', 'line', 'mutations','genetic_background','responsible_person',
                   'location', 'licence_number',]
 
 class ChangeFilter(FilterSet):
     class Meta:
         model = Change
         fields = ['id','change_type','version',]
+
+class PersonFilter(FilterSet):
+    class Meta:
+        model = FishPeople
+        fields = ['id','firstname','lastname','login',]
+
+class FishFilter(FilterSet):
+    class Meta:
+        model = Fish
+        fields = ['sex','strain','responsible','license','location',]

@@ -90,6 +90,7 @@ class Animal(models.Model):
     modification_date = models.DateTimeField(null=False, auto_now=True)
     entry_date = models.DateField(null=False, auto_now_add=True)
     day_of_birth = models.DateField()
+    genetic_background = models.CharField(max_length=200,blank=True, null=True)
     line = models.CharField(max_length=200, help_text="genetic trait of animal")
     sex = models.CharField(max_length=2, choices=(('m', 'male'), ('f', 'female'), ('u', 'unknown')),
                            help_text='Select "unknown" if multiple animals.')
@@ -130,8 +131,11 @@ class Animal(models.Model):
     grade2 = models.CharField(max_length=10, null=True,help_text='Grade 2')
     grade3 = models.CharField(max_length=10, null=True ,help_text='Grade 3')
     grade4 = models.CharField(max_length=10, null=True ,help_text='Grade 4')
-    licence_number = models.CharField(max_length=200)
-    responsible_person = models.ForeignKey(Person, on_delete=models.CASCADE, help_text='Person who is responsible in the lab for dealing with the animals')
+    licence_number = models.CharField(max_length=200, verbose_name='License number')
+    responsible_person = models.ForeignKey(Person, related_name='rperson', on_delete=models.CASCADE, help_text='Person who is responsible in the lab for dealing with the animals')
+    responsible_person2 = models.ForeignKey(Person, related_name='rperson2', null=True, blank=True, on_delete=models.CASCADE, 
+                                            help_text='Second person who is responsible in the lab for dealing with the animals', verbose_name = "Second responsible person")
+    #responsible_person = models.ManyToManyField(Person, related_name='Responsible_person', help_text='Person who is responsible in the lab for dealing with the animals')
     available_from = models.DateField()
     available_to = models.DateField() # default=datetime.today() + timedelta(days=15))
     comment = models.TextField(blank=True, null=True,
@@ -149,6 +153,18 @@ class Animal(models.Model):
         amount = self.amount
         if (animal_type != 'fish' and amount != 1):
             raise ValidationError('Only one mouse is possible')
+
+    def background(self):
+        if self.genetic_background is None:
+            return ("")
+        else:
+            return(self.genetic_background)
+
+    def responsible_persons(self):
+        if str(self.responsible_person2) != "None":
+            return (str(self.responsible_person) + str(" ") +str(self.responsible_person2))
+        return (self.responsible_person)
+
 
     def age(self):
         """
@@ -211,6 +227,46 @@ class Organtype(models.Model):
     def __str__(self):
         return self.name
 
+class FishPeople(models.Model):
+    id = models.IntegerField(db_column='ID', primary_key=True)
+    login = models.CharField(db_column='LOGIN', max_length=255, help_text="ID of animal in eg. PYRAT")
+    firstname = models.CharField(db_column='FIRSTNAME', max_length=255, help_text="ID of animal in eg. PYRAT")
+    lastname = models.CharField(db_column='LASTNAME', max_length=255, help_text="ID of animal in eg. PYRAT")
+
+    class Meta:
+        managed = False
+        db_table = 'vPerson'
+
+class Fish(models.Model):
+    id = models.IntegerField(db_column='ID', primary_key=True)
+    animalnumber = models.CharField(db_column='ANIMALNUMBER', max_length=255, help_text="Anima-ID")
+    identifier1 = models.CharField(db_column='IDENTIFIER1', max_length=255)
+    identifier2 = models.CharField(db_column='IDENTIFIER2', max_length=255)
+    identifier3 = models.CharField(db_column='IDENTIFIER3', max_length=255)
+    identifier4 = models.CharField(db_column='IDENTIFIER4', max_length=255)
+    sex = models.IntegerField(db_column='SEX')
+    quantity = models.IntegerField(db_column='QUANTITY')
+    dob = models.DateField(db_column='DOB')
+    notes = models.CharField(db_column='NOTES', max_length=4000)
+    responsible = models.CharField(db_column='RESPONSIBLE', max_length=512)
+    responsible_email = models.CharField(db_column='RESPONSIBLE_EMAIL', max_length=512)
+    location = models.CharField(db_column='LOCATION', max_length=4000)
+    license = models.CharField(db_column='LICENSE', max_length=255)
+    strain = models.CharField(db_column='STRAIN', max_length=255)
+
+    def age(self):
+        """
+        Return the age of the animal, calculated by the difference to either
+        the current date or the available_to date
+        """
+        now = datetime.today().date()
+        return int((now - self.dob).days / 7)
+
+    class Meta:
+        managed = False
+        db_table = 'FISHS_ALIVE'
+
+
 class Organ(models.Model):
     """
     Model containing the organs
@@ -242,10 +298,13 @@ class Organ(models.Model):
     lab_id = models.CharField(max_length=200, null=True, blank=True, help_text="ID of lab in eg. PYRAT")
     entry_date = models.DateField(null=False, auto_now_add=True)
     line = models.CharField(max_length=200, help_text="genetic trait of animal")
+    genetic_background = models.CharField(max_length=200, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, help_text='Where is the animal housed?')
-    licence_number = models.CharField(max_length=200, blank=True)
-    responsible_person = models.ForeignKey(Person, on_delete=models.CASCADE, default=0,
+    licence_number = models.CharField(max_length=200, blank=True, verbose_name='License number')
+    responsible_person = models.ForeignKey(Person, related_name='rperson_organ', on_delete=models.CASCADE, default=0,
                                            help_text='Person who is responsible in the lab for dealing with the animals')
+    responsible_person2 = models.ForeignKey(Person,  related_name='rperson2_organ', null=True, blank=True, on_delete=models.CASCADE, 
+                                            help_text='Second person who is responsible in the lab for dealing with the animals', verbose_name = "Second responsible person")
     mutations = models.TextField(blank=True, null=True, help_text="Describe the mutations of this line in as much detail as possible")
     comment = models.TextField(blank=True, null=True,
                                help_text='Comments, such as individual organs to be offered')
@@ -259,6 +318,17 @@ class Organ(models.Model):
         """Get all organ types which are used"""
         return ",\n".join([ot.name for ot in self.organ_type.all()])
     get_organtypes.short_description ='ORGAN TYPE (used)'
+
+    def background(self):
+        if self.genetic_background is None:
+            return ("")
+        else:
+            return(self.genetic_background)
+
+    def responsible_persons(self):
+        if str(self.responsible_person2) != "None":
+            return (str(self.responsible_person) + str(" ") +str(self.responsible_person2))
+        return (self.responsible_person)
 
     def age(self):
         """

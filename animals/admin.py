@@ -2,7 +2,7 @@
 Admin module
 """
 import copy
-from import_export.admin import ImportExportModelAdmin
+from import_export.admin import ImportExportModelAdmin, ImportMixin, ExportMixin
 from import_export.widgets import ManyToManyWidget
 from datetime import datetime, timedelta
 from import_export import fields, resources
@@ -36,9 +36,14 @@ class AnimalResource(resources.ModelResource): # für den Import. Hier werden di
         column_name='Responsible',
         attribute='responsible_person',
         widget=ForeignKeyWidget(Person, 'name'))
+    responsible_person2 = fields.Field(
+        column_name='Responsible2',
+        attribute='responsible_person2',
+        widget=ForeignKeyWidget(Person, 'name'))
     lab_id = fields.Field(attribute='lab_id', column_name='Lab ID')
     database_id = fields.Field(attribute='database_id', column_name='ID')
     day_of_birth = fields.Field(attribute='day_of_birth', column_name='DOB')
+    genetic_background = fields.Field(attribute='genetic_background', column_name='Background')
     line = fields.Field(attribute='line', column_name='Line / Strain (Name)')
     sex = fields.Field(attribute='sex', column_name='Sex')
     location = fields.Field(
@@ -61,6 +66,9 @@ class AnimalResource(resources.ModelResource): # für den Import. Hier werden di
     class Meta:
         model = Animal
         fields = ('lab_id','animal_type', 'amount', 'database_id','day_of_birth',
+        'line','sex','location','mutations1', 'mutations2','mutations3', 'mutations4','grade1', 'grade2','grade3', 'grade4','licence_number',
+        'responsible_person','responsible_person2','available_from','available_to','comment','genetic_background',)
+        export_order = ('lab_id','animal_type', 'amount', 'database_id','day_of_birth',
         'line','sex','location','mutations1', 'mutations2','mutations3', 'mutations4','grade1', 'grade2','grade3', 'grade4','licence_number',
         'responsible_person','available_from','available_to','comment',)
     def get_instance(self, instance_loader, row):
@@ -143,7 +151,12 @@ class OrganResource(resources.ModelResource): # für den Import. Hier werden die
         column_name='Responsible',
         attribute='responsible_person',
         widget=ForeignKeyWidget(Person, 'name'))
+    responsible_person2 = fields.Field(
+        column_name='Responsible2',
+        attribute='responsible_person2',
+        widget=ForeignKeyWidget(Person, 'name'))
     lab_id = fields.Field(attribute='lab_id', column_name='Lab ID')
+    genetic_background = fields.Field(attribute='genetic_background', column_name='Background')
     database_id = fields.Field(attribute='database_id', column_name='ID')
     killing_person = fields.Field(attribute='killing_person', column_name='Euthanasia performed by')
     day_of_birth = fields.Field(attribute='day_of_birth', column_name='DOB')
@@ -165,7 +178,7 @@ class OrganResource(resources.ModelResource): # für den Import. Hier werden die
         model = Organ
         fields = ('lab_id','animal_type','organ_type', 'database_id','killing_person','day_of_birth','day_of_death','method_of_killing'
         'line','sex','location','mutations1', 'mutations2','mutations3', 'mutations4','licence_number',
-        'responsible_person','comment',)
+        'responsible_person','responsible_person2','comment',)
     def get_instance(self, instance_loader, row):
         try:
             params = {}
@@ -201,26 +214,29 @@ class AnimalForm(forms.ModelForm):
         model = Animal
         fields = ('amount', 'animal_type', 'day_of_birth',
                   'available_from', 'available_to', 'sex', 'database_id',
-                  'lab_id', 'line', 'location', 'responsible_person',
-                  'licence_number', 'mutations', 'comment', 'new_owner',)
+                  'lab_id', 'line', 'location', 'responsible_person', 'responsible_person2',
+                  'licence_number', 'genetic_background','mutations', 'comment', 'new_owner',)
     def clean(self):
         available_from = self.cleaned_data.get('available_from')
         available_to = self.cleaned_data.get('available_to')
         day_of_birth = self.cleaned_data.get('day_of_birth')
 #        self.author =  request.user
-        if available_from > available_to:
-            raise forms.ValidationError("Dates are incorrect")
-        if day_of_birth and (
-                (datetime.now().date() -  day_of_birth) <=
-                timedelta(days=settings.MIN_SHARE_DURATION_PUPS)):
-            if ((not 'new_owner' in self.changed_data) and (available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION_PUPS))):
+        try:
+            if available_from > available_to:
+                raise forms.ValidationError("Dates are incorrect")
+            if day_of_birth and (
+                    (datetime.now().date() -  day_of_birth) <=
+                    timedelta(days=settings.MIN_SHARE_DURATION_PUPS)):
+                if ((not 'new_owner' in self.changed_data) and (available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION_PUPS))):
+                    raise forms.ValidationError(
+                        "Minimum share duration for pups must be {} days!".format(
+                            settings.MIN_SHARE_DURATION_PUPS))
+            elif ((not 'new_owner' in self.changed_data) and (available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION))):
                 raise forms.ValidationError(
-                    "Minimum share duration for pups must be {} days!".format(
-                        settings.MIN_SHARE_DURATION_PUPS))
-        elif ((not 'new_owner' in self.changed_data) and (available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION))):
-            raise forms.ValidationError(
-                "Minimum share duration must be {} days!".format(settings.MIN_SHARE_DURATION))
-        return self.cleaned_data
+                    "Minimum share duration must be {} days!".format(settings.MIN_SHARE_DURATION))
+            return self.cleaned_data
+        except:
+            raise forms.ValidationError("Dates are incorrect. Please use the calendar function")
         
 
 @admin.register(Change)
@@ -278,28 +294,27 @@ def copy_animal(modeladmin, request, queryset):
     copy_animal.short_description = "Make a Copy of an entry"
 
 
-
 @admin.register(Animal)
 #class AnimalAdmin(admin.ModelAdmin):
 
-class AnimalAdmin(ImportExportModelAdmin):
+class AnimalAdmin(ImportMixin, admin.ModelAdmin):
     """
     ModelAdmin for Animal model
     """
     resource_class = AnimalResource
-    list_display = ('id','animal_type', 'entry_date', 'day_of_birth', 'age',  'available_from',
-                    'available_to', 'line','mutations', 'sex', 'location', 'licence_number', 'lab_id',
-                    'responsible_person', 'new_owner')
-    list_display_links = ('id','animal_type','entry_date', 'day_of_birth', 'age',
-                          'available_from', 'available_to', 'line', 'mutations','sex',
-                          'location', 'licence_number', 'lab_id','responsible_person',
+    list_display = ('id','animal_type', 'sex', 'entry_date', 'day_of_birth', 'age',  'available_from',
+                    'available_to', 'line', 'mutations', 'genetic_background', 'location', 'licence_number', 'lab_id',
+                    'responsible_persons', 'new_owner')
+    list_display_links = ('id','animal_type','sex','entry_date', 'day_of_birth', 'age',
+                          'available_from', 'available_to', 'line', 'mutations', 'genetic_background',
+                          'location', 'licence_number', 'lab_id','responsible_persons',
                           'new_owner')
-    search_fields = ('id','animal_type', 'database_id', 'lab_id', 'day_of_birth',
-                     'line', 'mutations', 'sex', 'location__name', 'new_owner', 'licence_number',
+    search_fields = ('id','animal_type', 'sex', 'database_id', 'lab_id', 'day_of_birth',
+                     'line', 'mutations', 'genetic_background', 'location__name', 'new_owner', 'licence_number',
                      'available_from', 'available_to', 'responsible_person__name',
                      'responsible_person__email', 'added_by__email')
-    autocomplete_fields = ['responsible_person']
-    list_filter = ('animal_type','sex', ('responsible_person__responsible_for_lab',RelatedDropdownFilter),('line', DropdownFilter),
+    autocomplete_fields = ['responsible_person','responsible_person2']
+    list_filter = ('animal_type','sex', ('responsible_person__responsible_for_lab',RelatedDropdownFilter),('line', DropdownFilter),('genetic_background', DropdownFilter),
                    ('day_of_birth', DateRangeFilter),
                    'location', ('licence_number', DropdownFilter), ('new_owner', DropdownFilter), 'added_by')
     radio_fields = {'sex':admin.HORIZONTAL}
@@ -331,23 +346,24 @@ class AnimalAdmin(ImportExportModelAdmin):
         return [f for f in formats if f().can_export()]
 
 @admin.register(Organ)
-class OrganAdmin(ImportExportModelAdmin):
+#class OrganAdmin(ImportExportModelAdmin):
+class OrganAdmin(ImportMixin, admin.ModelAdmin):
     """
     ModelAdmin for Organ model
     """
     resource_class = OrganResource
     filter_horizontal = ('organ_type',)
     list_display = ('id','animal_type','get_organtypes', 'entry_date', 'day_of_birth',
-                    'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
-                    'sex', 'location','lab_id', 'licence_number', 'responsible_person', 'added_by')
+                    'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line','genetic_background',
+                    'sex', 'location','lab_id', 'licence_number', 'responsible_persons', 'added_by')
     list_display_links = ('id', 'animal_type','get_organtypes', 'entry_date', 'day_of_birth',
                           'day_of_death', 'age', 'method_of_killing', 'killing_person', 'line',
-                          'sex', 'location','lab_id', 'licence_number', 'responsible_person', 'added_by')
+                          'sex', 'location','lab_id', 'licence_number', 'responsible_persons', 'added_by')
     search_fields = ('id', 'animal_type', 'entry_date', 'day_of_birth',
-                     'day_of_death','method_of_killing', 'killing_person', 'line','lab_id'
+                     'day_of_death','method_of_killing', 'killing_person', 'line','genetic_background','lab_id'
                      'sex', 'location__name', 'licence_number', 'responsible_person__name', 'added_by__username')
     autocomplete_fields = ['responsible_person']
-    list_filter = (('sex', DropdownFilter),'animal_type','method_of_killing','killing_person','line',
+    list_filter = (('sex', DropdownFilter),'animal_type','method_of_killing','killing_person','line','genetic_background',
                    ('day_of_birth', DateRangeFilter), ('day_of_death', DateRangeFilter),
                    'responsible_person__responsible_for_lab',
                    'location', 'licence_number', 'added_by',)
@@ -369,8 +385,7 @@ class OrganAdmin(ImportExportModelAdmin):
             obj.added_by = request.user
         super().save_model(request, obj, form, change)
     def get_import_formats(self):
-        formats = (
-                  base_formats.XLSX,
+        formats = (base_formats.XLSX,
                   base_formats.XLS,
                   base_formats.ODS,
                   base_formats.CSV,

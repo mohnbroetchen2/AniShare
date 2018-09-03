@@ -14,3 +14,4 @@ django-modeladmin-reorder>=0.1.0
 django-bootstrap-email>=0.0.1
 django-admin-list-filter-dropdown>=1.0.1
 django-admin-interface>=0.6.3
+cx_Oracle >= 7.0.0

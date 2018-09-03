@@ -27,7 +27,7 @@ SECRET_KEY = ''
 ALLOWED_HOSTS = [ ]
 STATIC_URL = ''
 DEBUG = False # SECURITY WARNING: don't run with debug turned on in production!
-
+ADMIN_EMAIL = 'fabian.monheim@leibniz-fli.de'
 
 
 # Quick-start development settings - unsuitable for production

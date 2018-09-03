@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="alert alert-success" role="alert">
-        <h4 class="alert-heading"> Dear {{ object.responsible_person.name }},</h4>
+        <h4 class="alert-heading"> Dear {{ object.responsible_person.name }}{% if object.responsible_person2 is not None %} and {{ object.responsible_person2.name }}{% endif %},</h4>
         <p> </p>
         <p>{{ email }} claimed  {% if object.day_of_death %} the following organ(s):"{{ organs_wanted }}" from {% endif %} 
             {{ object.amount }} {{ object.animal_type }} with id {{ object.database_id }} (AniShare-ID: {{ object.pk }}).
@@ -40,7 +40,8 @@
                             <th scope="col">Line</th>
                             <th scope="col">Mutations</th>
                             <th scope="col">Location</th>
-                            <th scope="col">Licence number</th>
+                            <th scope="col">License</th>
+                            <th scope="col">Genetic Background</th>
                             <th scope="col">comment</th>
                         </tr>
                     </thead>
@@ -53,7 +54,8 @@
                             <td>{{object.line }}</td>
                             <td>{{object.mutations}}</td>
                             <td>{{object.location}}</td>
-                            <td>{{object.licence_number}} </td>
+                            <td>{{object.licence_number}}</td>
+                            <td>{{object.background}}</td>
                             <td>{{object.comment}}</td>
                         </tr>
                     </tbody>

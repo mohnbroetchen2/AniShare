@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="alert alert-success" role="alert">
-        <h4 class="alert-heading"> Dear {{responsible_person}},</h4>
+        <h4 class="alert-heading"> Dear {{responsible_person}}{% if responsible_person2 is not None %} and {{responsible_person2}}{% endif %},</h4>
         <p> </p>
         <p>{{ email }} claimed following animals: </p>
     </div>
@@ -36,7 +36,8 @@
                             <th scope="col">Line</th>
                             <th scope="col">Mutations</th>
                             <th scope="col">Location</th>
-                            <th scope="col">Licence number</th>
+                            <th scope="col">License</th>
+                            <th scope="col">Genetic Background</th>
                             <th scope="col">comment</th>
                         </tr>
                     </thead>
@@ -51,7 +52,8 @@
                             <td>{{a.line }}</td>
                             <td>{{a.mutations}}</td>
                             <td>{{a.location}}</td>
-                            <td>{{a.licence_number}} </td>
+                            <td>{{a.licence_number}}</td>
+                            <td>{{a.background}}</td>
                             <td>{{a.comment}}</td>
                         </tr>
                         {% endfor %}
