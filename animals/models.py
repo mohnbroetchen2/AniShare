@@ -227,15 +227,24 @@ class Organtype(models.Model):
     def __str__(self):
         return self.name
 
-class FishPeople(models.Model):
-    id = models.IntegerField(db_column='ID', primary_key=True)
-    login = models.CharField(db_column='LOGIN', max_length=255, help_text="ID of animal in eg. PYRAT")
-    firstname = models.CharField(db_column='FIRSTNAME', max_length=255, help_text="ID of animal in eg. PYRAT")
-    lastname = models.CharField(db_column='LASTNAME', max_length=255, help_text="ID of animal in eg. PYRAT")
+class FishTeam(models.Model):
+    teamid = models.IntegerField(db_column='TEAMID',)
+    userid = models.IntegerField(db_column='USERID',)
 
     class Meta:
         managed = False
-        db_table = 'vPerson'
+        db_table = 'VTEAM'
+
+class FishPeople(models.Model):
+    id = models.IntegerField(db_column='ID', primary_key=True)
+    login = models.CharField(db_column='LOGIN', max_length=255)
+    firstname = models.CharField(db_column='FIRSTNAME', max_length=255)
+    lastname = models.CharField(db_column='LASTNAME', max_length=255)
+    mainteamid = models.IntegerField(db_column='MAINTEAMID')
+
+    class Meta:
+        managed = False
+        db_table = 'VPERSON'
 
 class Fish(models.Model):
     id = models.IntegerField(db_column='ID', primary_key=True)
@@ -253,6 +262,8 @@ class Fish(models.Model):
     location = models.CharField(db_column='LOCATION', max_length=4000)
     license = models.CharField(db_column='LICENSE', max_length=255)
     strain = models.CharField(db_column='STRAIN', max_length=255)
+    teamid = models.CharField(db_column='TEAMID', max_length=255)
+    teamname = models.CharField(db_column='TEAMNAME', max_length=255)
 
     def age(self):
         """

@@ -26,7 +26,7 @@ from django.views.decorators.cache import cache_page
 from django.views import generic
 
 from .filters import AnimalFilter, OrganFilter, ChangeFilter, PersonFilter, FishFilter
-from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab
+from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab, FishPeople, FishTeam
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.utils.html import strip_tags
 
@@ -292,9 +292,21 @@ def tickatlabpersonlist(request):
 
 @login_required
 def tickatlabfishlist(request):
-    fishlist = Fish.objects.using('fishdb').all().order_by('id')
-    f = FishFilter(request.GET, queryset=fishlist)
-    return render(request, 'animals/fishfromtickatlab.html', {'filter': f})
+    try:
+        fishuser = FishPeople.objects.using('fishdb').get(login=request.user.username)
+        fishteams = FishTeam.objects.using('fishdb').all().filter(userid=fishuser.id)
+        fishteamsid = []
+        i=0
+        fishteamsid.insert(i,fishuser.mainteamid)
+        i=1
+        for t in fishteams:
+            fishteamsid.insert(i,t.teamid)
+            i=i+1
+        fishlist = Fish.objects.using('fishdb').all().filter(teamid__in=fishteamsid).order_by('id')
+        f = FishFilter(request.GET, queryset=fishlist)
+        return render(request, 'animals/fishfromtickatlab.html', {'filter': f})
+    except:
+        return render(request, 'animals/fishfromtickatlab.html')
 
 @login_required
 def importfish_view(request):
