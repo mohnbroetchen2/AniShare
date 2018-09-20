@@ -224,9 +224,10 @@ class AnimalForm(forms.ModelForm):
         try:
             if available_from > available_to:
                 raise forms.ValidationError("Dates are incorrect")
+                return
             if day_of_birth and (
                     (datetime.now().date() -  day_of_birth) <=
-                    timedelta(days=settings.MIN_SHARE_DURATION_PUPS)):
+                    timedelta(days=settings.MAX_AGE_PUPS)):
                 if ((not 'new_owner' in self.changed_data) and (available_to - available_from <= timedelta(days=settings.MIN_SHARE_DURATION_PUPS))):
                     raise forms.ValidationError(
                         "Minimum share duration for pups must be {} days!".format(

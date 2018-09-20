@@ -85,6 +85,7 @@ class Animal(models.Model):
     ),
                                    default='mouse')
     database_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT")
+    fish_id = models.CharField(max_length=200, null=True, blank=True, help_text="DB ID of fish in eg. tickatlab")
     lab_id = models.CharField(max_length=200, null=True, blank=True, help_text="ID of lab in eg. PYRAT")
     creation_date = models.DateTimeField(null=False, auto_now_add=True)
     modification_date = models.DateTimeField(null=False, auto_now=True)
@@ -253,7 +254,9 @@ class Fish(models.Model):
     identifier2 = models.CharField(db_column='IDENTIFIER2', max_length=255)
     identifier3 = models.CharField(db_column='IDENTIFIER3', max_length=255)
     identifier4 = models.CharField(db_column='IDENTIFIER4', max_length=255)
-    sex = models.IntegerField(db_column='SEX')
+    #sex = models.IntegerField(db_column='SEX')
+    sex = models.CharField(db_column='SEX', max_length=2, choices=(('1', 'male'), ('2', 'female'), ('0', 'unknown')),
+                           help_text='Select "unknown" if multiple animals.')
     quantity = models.IntegerField(db_column='QUANTITY')
     dob = models.DateField(db_column='DOB')
     notes = models.CharField(db_column='NOTES', max_length=4000)
@@ -264,6 +267,13 @@ class Fish(models.Model):
     strain = models.CharField(db_column='STRAIN', max_length=255)
     teamid = models.CharField(db_column='TEAMID', max_length=255)
     teamname = models.CharField(db_column='TEAMNAME', max_length=255)
+
+    def concatidentifier(self):
+        if (self.identifier1 != ""):
+            return(self.animalnumber+"//"+self.identifier1)
+            #return(self.animalnumber)
+        else:
+            return(self.animalnumber)
 
     def age(self):
         """
@@ -277,6 +287,14 @@ class Fish(models.Model):
         managed = False
         db_table = 'FISHS_ALIVE'
 
+class FishMutation(models.Model):
+    id          = models.IntegerField(db_column='ID', primary_key=True)
+    description = models.CharField(db_column='DESCRIPTION', max_length=255)
+    genotype    = models.CharField(db_column='GENOTYPE', max_length=255)
+    referenceid = models.CharField(db_column='REFERENCEID', max_length=255)
+    class Meta:
+        managed = False
+        db_table = 'VGENETICMODIFICATIONASSIGNMENT'
 
 class Organ(models.Model):
     """

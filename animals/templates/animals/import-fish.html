@@ -22,13 +22,14 @@
                   <th class="header"> License <i class="icon-sort"></i></th>
                   <th class="header"> Comments <i class="icon-sort"></i></th>
                   <th class="header"> Resp. Person <i class="icon-sort"></i></th>
+                  <th class="header"> Second Resp. Person <i class="icon-sort"> <button type="button" class="btn btn-success btn-sm">Copy</button></i></th>
                 </tr>
             </thead>
             <tbody>
                 {% for f in filter.qs %}
                         <input name="id" type="hidden" value="{{f.id}}" readonly="readonly" id="select{{f.id}}">
                     <tr>
-                        <td>{{f.animalnumber}}</a></td>
+                        <td>{{f.concatidentifier}}</a></td>
                         <td>{{f.quantity}}</td>
                         <td><input class="from" name="availablefrom"  type="date" id="from{{a.id}}" min=""></td> 
                         <td><input class="to" name="availableto" type="date" id="to{{a.id}}" min=""></td>
@@ -47,6 +48,11 @@
                         <td>{{f.license}}</td>
                         <td>{{f.notes}}</td>
                         <td>{{f.responsible}}</td>
+                        <td>
+                            <select name="responsible_person2" required="" id="responsible_person{{a.id}}" class="form-control" id="sel1"><option></option>
+                            {% for p in persons %}<option>{{p.name}}</option>{% endfor %}
+                            </select>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

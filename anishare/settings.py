@@ -35,6 +35,7 @@ ADMIN_EMAIL = 'fabian.monheim@leibniz-fli.de'
 
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -182,8 +183,8 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 MIN_SHARE_DURATION = 14
-MIN_SHARE_DURATION_PUPS = 7
-
+MIN_SHARE_DURATION_PUPS = 6
+MAX_AGE_PUPS = 22
 
 #CACHES = {
 #    'default': {

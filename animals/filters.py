@@ -69,6 +69,10 @@ class PersonFilter(FilterSet):
         fields = ['id','firstname','lastname','login',]
 
 class FishFilter(FilterSet):
+    location = django_filters.CharFilter(lookup_expr='icontains')
+    license = django_filters.CharFilter(lookup_expr='icontains')
+    responsible = django_filters.CharFilter(lookup_expr='icontains')
+    strain = django_filters.CharFilter(lookup_expr='icontains')
     class Meta:
         model = Fish
         fields = ['sex','strain','responsible','license','location',]

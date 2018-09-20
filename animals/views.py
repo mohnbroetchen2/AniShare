@@ -7,6 +7,7 @@ It also contains an RSS Feed generator class to create an RSS feed from newly cr
     When adding new classes, use the LoginRequiredMixin
 """
 import operator
+import logging
 from functools import reduce
 from django.conf import settings
 from datetime import datetime
@@ -26,9 +27,12 @@ from django.views.decorators.cache import cache_page
 from django.views import generic
 
 from .filters import AnimalFilter, OrganFilter, ChangeFilter, PersonFilter, FishFilter
-from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab, FishPeople, FishTeam
+from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab, FishPeople, FishTeam, FishMutation
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.utils.html import strip_tags
+
+logger = logging.getLogger('mylogger')
+
 
 class LatestAnimalsFeed(Feed):
     """
@@ -196,6 +200,7 @@ def send_email_animal(request):
     animal.save()  # Save the animal with the new owner
     messages.add_message(request, messages.SUCCESS,
                          'The entry {} has been claimed by {}.'.format(animal.pk, animal.new_owner))
+    logger.info('{} The entry {} has been claimed by {}.'.format(datetime.now(),animal.pk, animal.new_owner))
     subject = "User {} claimed animal {} in AniShare".format(email, primary_key)
     message = render_to_string('email.html', {'email': email, 'object': animal, 'now': datetime.now()})
     if animal.responsible_person2 is None:
@@ -240,24 +245,24 @@ def send_email_organ(request):
     if not organ.comment:
         organ.comment = request.POST['organs_wanted'] + " already claimed"
     elif organ.comment:
-        pass 
         organ.comment = organ.comment + "\n" + request.POST['organs_wanted'] + " already claimed"
+        pass 
     organ.save() 
 
     organ = Organ.objects.get(pk=primary_key)
     subject = "AniShare User {} claimed organ(s) {}".format(email, organs_wanted)
     message = render_to_string('email.html', {'email': email, 'organs_wanted':organs_wanted, 'object': organ, 'now': datetime.now()})
-    if animal.responsible_person2 is None:
+    if organ.responsible_person2 is None:
         msg = EmailMessage(subject, message, email, [organ.responsible_person.email, email])
     else:
         msg = EmailMessage(subject, message, email, [organ.responsible_person.email,organ.responsible_person2.email, email])
     msg.content_subtype = "html"
     msg.send()
-    if animal.responsible_person2 is None:
+    if organ.responsible_person2 is None:
         messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(organ.responsible_person.email))
     else:
         messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}> and <{}>.'.format(organ.responsible_person.email,organ.responsible_person2.email))
-
+    logger.info('{} AniShare User {} claimed organ(s) {} from entry {}'.format(datetime.now(), email, organs_wanted,primary_key))
     return HttpResponseRedirect('/organs/')
 
 
@@ -292,6 +297,7 @@ def tickatlabpersonlist(request):
 
 @login_required
 def tickatlabfishlist(request):
+    
     try:
         fishuser = FishPeople.objects.using('fishdb').get(login=request.user.username)
         fishteams = FishTeam.objects.using('fishdb').all().filter(userid=fishuser.id)
@@ -314,7 +320,8 @@ def importfish_view(request):
         importlist = request.POST.getlist("selected",None)
         fishlist = Fish.objects.using('fishdb').filter(id__in = importlist).order_by('id')
         f = FishFilter(request.GET, queryset=fishlist)
-        return render(request, 'animals/import-fish.html', {'filter': f})
+        persons = Person.objects.all().order_by('name')
+        return render(request, 'animals/import-fish.html', {'filter': f, 'persons':persons})
 
 def importfishtoanishare(request):
     if request.method == "POST":
@@ -324,15 +331,30 @@ def importfishtoanishare(request):
         fishlist = Fish.objects.using('fishdb').filter(id__in = fishidlist)
         i=0
         for dataset in fishlist:
+            try:
+                fish_already_imported = Animal.objects.get(fish_id=dataset.id)
+                messages.add_message(request, messages.ERROR,'The fish with the ID {} is already imported. A new import is not possible'.format(dataset.animalnumber))
+                continue
+            except Animal.DoesNotExist:
+                i=i
             new_fish = Animal()
             new_fish.animal_type    = "fish"
-            new_fish.lab_id         = dataset.animalnumber
-            new_fish.database_id    = dataset.id
+            new_fish.fish_id        = dataset.id
+            if (dataset.identifier1 != ""):
+                new_fish.database_id = dataset.animalnumber+"//"+dataset.identifier1
+            else:
+                new_fish.database_id = dataset.animalnumber
+            #new_fish.lab_id         = dataset.animalnumber
             new_fish.amount         = dataset.quantity
             new_fish.available_from = availablefromlist[i]
             new_fish.available_to   = availabletolist[i]
             new_fish.licence_number = dataset.license
             new_fish.day_of_birth   = dataset.dob
+            
+            fishmutations           = FishMutation.objects.using('fishdb').filter(referenceid = dataset.id)
+            new_fish.mutations = ''
+            for m in fishmutations:
+                new_fish.mutations  = new_fish.mutations + m.description + ' ' + m.genotype + '; '
             try:
                 new_fish.location       = Location.objects.get(name=dataset.location)
             except:
@@ -462,8 +484,10 @@ def send_email_animals(request):
                 sAnimal.new_owner = email
                 sAnimal.save()
                 messages.add_message(request, messages.SUCCESS,'The entry {} has been claimed by {}.'.format(sAnimal.pk, sAnimal.new_owner))
+                logger.info('{} The entry {} has been claimed by {}.'.format(datetime.now(), sAnimal.pk, sAnimal.new_owner))
             else:
                 sAnimal.new_owner = email
                 sAnimal.save()
                 messages.add_message(request, messages.SUCCESS,'The entry {} has been claimed by {}.'.format(sAnimal.pk, sAnimal.new_owner))
+                logger.info('{} The entry {} has been claimed by {}.'.format(datetime.now(), sAnimal.pk, sAnimal.new_owner))
     return HttpResponseRedirect('/animals')
