@@ -31,9 +31,9 @@ urlpatterns = [
     path('organs/', animals.views.organ_list, name='organs'),
     path('animals/claim', animals.views.AnimalClaimView, name='claim_animals'),
     #path('animals/fishpeople', animals.views.tickatlabpersonlist, name='view_tickatlabperson'),
-    #path('animals/fishfromtickatlab', animals.views.tickatlabfishlist, name='view_tickatlabfish'),
-    #path('animals/importfish', animals.views.importfish_view, name='importfish'),
-    #path('animals/importfishtoanishare', animals.views.importfishtoanishare, name='importfishtoanishare'),
+    path('animals/fishfromtickatlab', animals.views.tickatlabfishlist, name='view_tickatlabfish'),
+    path('animals/importfish', animals.views.importfish_view, name='importfish'),
+    path('animals/importfishtoanishare', animals.views.importfishtoanishare, name='importfishtoanishare'),
     path('organs/claim/<int:primary_key>', animals.views.claim_organ, name='claim_organ'),
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     #re_path(r'^jet/', jet.urls, name='jet'),  # Django JET URLS
