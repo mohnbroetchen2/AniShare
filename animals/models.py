@@ -85,7 +85,8 @@ class Animal(models.Model):
     ),
                                    default='mouse')
     database_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT")
-    fish_id = models.CharField(max_length=200, null=True, blank=True, help_text="DB ID of fish in eg. tickatlab")
+    fish_id = models.CharField(max_length=200, null=True, blank=True, help_text="DB ID of fish in tickatlab")
+    mouse_id = models.CharField(max_length=200, null=True, blank=True, help_text="DB ID of mouse in PyRat")
     lab_id = models.CharField(max_length=200, null=True, blank=True, help_text="ID of lab in eg. PYRAT")
     creation_date = models.DateTimeField(null=False, auto_now_add=True)
     modification_date = models.DateTimeField(null=False, auto_now=True)
@@ -165,7 +166,6 @@ class Animal(models.Model):
         if str(self.responsible_person2) != "None":
             return (str(self.responsible_person) + str(" ") +str(self.responsible_person2))
         return (self.responsible_person)
-
 
     def age(self):
         """
@@ -286,6 +286,44 @@ class Fish(models.Model):
     class Meta:
         managed = False
         db_table = 'FISHS_ALIVE'
+
+class Mouse(models.Model):
+    id      = models.IntegerField(db_column='animalid', primary_key=True)
+    eartag  = models.CharField(db_column='eartag', max_length=255)
+    sex = models.CharField(db_column='sex', max_length=2, choices=(('m', 'male'), ('f', 'female'), ('u', 'unknown')),
+                           help_text='Select "unknown" if multiple animals.')
+    dob = models.DateField(db_column='dateborn')
+    #notes = models.CharField(db_column='NOTES', max_length=4000)
+    responsible = models.CharField(db_column='fullname', max_length=512)
+    #responsible_firstname = models.CharField(db_column='firstname', max_length=512)
+    #responsible_lastname = models.CharField(db_column='lastname', max_length=512)
+    responsible_email = models.CharField(db_column='email', max_length=512)
+    location = models.CharField(db_column='building', max_length=4000)
+    licence = models.CharField(db_column='licence', max_length=255)
+    strain = models.CharField(db_column='strain', max_length=255)
+    labid = models.CharField(db_column='labid', max_length=255)
+    genetic_bg = models.CharField(db_column='genetic_bg', max_length=255)
+
+    def age(self):
+        """
+        Return the age of the animal, calculated by the difference to either
+        the current date or the available_to date
+        """
+        now = datetime.today().date()
+        return int((now - self.dob).days / 7)
+
+    class Meta:
+        managed = False
+        db_table = 'v_animal'
+
+class MouseMutation(models.Model):
+    animalid          = models.IntegerField(db_column='animalid',  primary_key=True)
+    mutation_name     = models.CharField(db_column='mutation_name', max_length=255)
+    grade_name        = models.CharField(db_column='grade_name', max_length=255)
+    class Meta:
+        managed = False
+        db_table = 'v_mutation'
+
 
 class FishMutation(models.Model):
     id          = models.IntegerField(db_column='ID', primary_key=True)

@@ -3,7 +3,7 @@ Filters: using django-filters to filter querysets
 """
 import django_filters
 from django_filters import FilterSet
-from .models import Animal, Organ, Change, FishPeople, Fish
+from .models import Animal, Organ, Change, FishPeople, Fish, Mouse
 from django.db.models import F
 import django.forms
 from datetime import timedelta, tzinfo
@@ -45,6 +45,7 @@ class AnimalFilter(FilterSet):
             queryset = queryset.annotate(thisage=(ExtractDay(F('available_to')) - ExtractDay(F('day_of_birth'))  )).filter(thisage=value)   
             """
         return queryset
+    
 
 class OrganFilter(FilterSet):
     mutations = django_filters.CharFilter(lookup_expr='icontains')
@@ -76,3 +77,13 @@ class FishFilter(FilterSet):
     class Meta:
         model = Fish
         fields = ['sex','strain','responsible','license','location',]
+
+class MouseFilter(FilterSet):
+    location = django_filters.CharFilter(lookup_expr='icontains')
+    licence = django_filters.CharFilter(lookup_expr='icontains')
+    responsible = django_filters.CharFilter(lookup_expr='icontains')
+    strain = django_filters.CharFilter(lookup_expr='icontains')
+    class Meta:
+        model = Mouse
+        fields = ['sex','strain','responsible','licence','location',]
+

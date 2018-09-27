@@ -3,24 +3,24 @@
 {% block content %}
 
 <div class="alert alert-info" role="alert">
-    Dear <b>{{request.user.first_name}} {{request.user.last_name}}</b>, do you really want to offer the following fish?<br/>
+    Dear <b>{{request.user.first_name}} {{request.user.last_name}}</b>, do you really want to offer the following mice?<br/>
 </div>
 
-<form action="/animals/importfishtoanishare" method="post" style="margin:auto; text-align:center;"> {% csrf_token %}
+<form action="/animals/importmicetoanishare" method="post" style="margin:auto; text-align:center;"> {% csrf_token %}
             <table class="table table-bordered table-hover table-striped tablesorter">
                 <thead>
                 <tr>
                   <th class="header"> Animal-ID<i class="icon-sort"></i></th>
-                  <th class="header"> # <i class="icon-sort"></i></th>
+                  <th class="header"> Lab ID <i class="icon-sort"></i></th>
                   <th class="header"> Available from <i class="icon-sort"></i></th>
                   <th class="header"> Available to <i class="icon-sort"></i></th>
                   <th class="header"> Sex<i class="icon-sort"></i></th>
                   <th class="header"> Age<i class="icon-sort"></i></th>
                   <th class="header"> Date of Birth <i class="icon-sort"></i></th>
-                  <th class="header"> Line <i class="icon-sort"></i></th>
+                  <th class="header"> Strain <i class="icon-sort"></i></th>
+                  <th class="header"> Genetic Background <i class="icon-sort"></i></th>
                   <th class="header"> Location <i class="icon-sort"></i></th>
-                  <th class="header"> License <i class="icon-sort"></i></th>
-                  <th class="header"> Comments <i class="icon-sort"></i></th>
+                  <th class="header"> Licence <i class="icon-sort"></i></th>
                   <th class="header"> Resp. Person <i class="icon-sort"></i></th>
                   <th class="header"> Second Resp. Person <i class="icon-sort"> <button type="button" class="btn btn-success btn-sm">Copy</button></i></th>
                 </tr>
@@ -29,13 +29,13 @@
                 {% for f in filter.qs %}
                         <input name="id" type="hidden" value="{{f.id}}" readonly="readonly" id="select{{f.id}}">
                     <tr>
-                        <td>{{f.concatidentifier}}</a></td>
-                        <td>{{f.quantity}}</td>
+                        <td>{{f.eartag}}</a></td>
+                        <td>{{f.labid}}</td>
                         <td><input class="from" name="availablefrom"  type="date" id="from{{a.id}}" min=""></td> 
                         <td><input class="to" name="availableto" type="date" id="to{{a.id}}" min=""></td>
-                        <td>{% if f.sex == 2 %}
+                        <td>{% if f.sex == 'f'%}
                             <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
-                            {% elif f.sex == 1 %}
+                            {% elif f.sex == 'm' %}
                             <i class="fas fa-mars" style="color:#77F; font-size:13pt;"></i>
                             {% else %}
                             <i class="fas fa-question"></i>
@@ -44,9 +44,9 @@
                         <td>{{f.age}}</td>
                         <td>{{f.dob}}</td>
                         <td>{{f.strain}}</td>
+                        <td>{{f.genetic_bg}}</td>
                         <td>{{f.location}}</td>
-                        <td>{{f.license}}</td>
-                        <td>{{f.notes}}</td>
+                        <td>{{f.licence}}</td>
                         <td>{{f.responsible}}</td>
                         <td>
                             <select name="responsible_person2" id="responsible_person2{{a.id}}" class="form-control"><option></option>
@@ -57,7 +57,7 @@
                 {% endfor %}
             </tbody>
             </table>
-        <input type="submit" name='claim' value="Yes, I want to offer these fish!">
+        <input type="submit" name='claim' value="Yes, I want to offer these mice!">
 </form>
 
 <script type="text/javascript">

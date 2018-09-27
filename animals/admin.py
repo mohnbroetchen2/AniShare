@@ -224,7 +224,6 @@ class AnimalForm(forms.ModelForm):
         try:
             if available_from > available_to:
                 raise forms.ValidationError("Dates are incorrect")
-                return
             if day_of_birth and (
                     (datetime.now().date() -  day_of_birth) <=
                     timedelta(days=settings.MAX_AGE_PUPS)):
