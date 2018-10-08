@@ -338,7 +338,8 @@ def importmicetoanishare(request):
             new_mouse.available_to   = availabletolist[i]
             new_mouse.licence_number = dataset.licence
             new_mouse.day_of_birth   = dataset.dob
-            new_mouse.responsible_person2 = Person.objects.get(name=responsible_person2[i])
+            if responsible_person2[i]!="":
+                new_mouse.responsible_person2 = Person.objects.get(name=responsible_person2[i])
             mousemutations           = MouseMutation.objects.using('mousedb').filter(animalid = dataset.id)
             new_mouse.mutations = ''
             for m in mousemutations:
@@ -430,7 +431,8 @@ def importfishtoanishare(request):
             new_fish.available_to   = availabletolist[i]
             new_fish.licence_number = dataset.license
             new_fish.day_of_birth   = dataset.dob
-            new_fish.responsible_person2 = Person.objects.get(name=responsible2[i])
+            if responsible2[i]!="":
+                new_fish.responsible_person2 = Person.objects.get(name=responsible2[i])
             
             fishmutations           = FishMutation.objects.using('fishdb').filter(referenceid = dataset.id)
             new_fish.mutations = ''
