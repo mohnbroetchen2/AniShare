@@ -431,8 +431,8 @@ def importfishtoanishare(request):
             new_fish.available_to   = availabletolist[i]
             new_fish.licence_number = dataset.license
             new_fish.day_of_birth   = dataset.dob
-            if responsible2[i]!="":
-                new_fish.responsible_person2 = Person.objects.get(name=responsible2[i])
+            if responsible_person2[i]!="":
+                new_fish.responsible_person2 = Person.objects.get(name=responsible_person2[i])
             
             fishmutations           = FishMutation.objects.using('fishdb').filter(referenceid = dataset.id)
             new_fish.mutations = ''
