@@ -81,16 +81,16 @@ list = undefined;
 index = undefined;
 var d1 = new Date();
 var y1= d1.getFullYear();
-var m1 = d1.getMonth()+1;
+var m1 = d1.getMonth();
 var dt1 = d1.getDate();
 var todate=new Date(y1,m1,dt1+14);
 var y2=todate.getFullYear();
-var m2=todate.getMonth();
+var m2=todate.getMonth()+1;
 var dt2=todate.getDate();
 if(m2<10)
     m2="0"+m2;
 if(dt2<10)
-dt2 = "0"+dt2;
+    dt2 = "0"+dt2;
 var dto = y2+"-"+m2+"-"+dt2;
 list = document.getElementsByClassName('to');
 for (index = 0; index < list.length; ++index) {

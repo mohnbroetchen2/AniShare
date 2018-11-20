@@ -287,6 +287,19 @@ class Fish(models.Model):
         managed = False
         db_table = 'FISHS_ALIVE'
 
+class PyratUser(models.Model):
+    id = models.IntegerField(db_column='USERID', primary_key=True)
+    username = models.CharField(db_column='USERNAME', max_length=255)
+    firstname = models.CharField(db_column='FIRSTNAME', max_length=255)
+    lastname = models.CharField(db_column='LASTNAME', max_length=255)
+    usernum = models.CharField(db_column='USERNUM', max_length=255)
+    locallevel = models.IntegerField(db_column='locallevel',)
+
+    class Meta:
+        managed = False
+        db_table = 'v_user'
+
+
 class Mouse(models.Model):
     id      = models.IntegerField(db_column='animalid', primary_key=True)
     eartag  = models.CharField(db_column='eartag', max_length=255)
@@ -303,6 +316,8 @@ class Mouse(models.Model):
     strain = models.CharField(db_column='strain', max_length=255)
     labid = models.CharField(db_column='labid', max_length=255)
     genetic_bg = models.CharField(db_column='genetic_bg', max_length=255)
+    owner_id = models.IntegerField(db_column='owner_id',)
+    owner = models.CharField(db_column='owner', max_length=255)
 
     def age(self):
         """
@@ -323,6 +338,20 @@ class MouseMutation(models.Model):
     class Meta:
         managed = False
         db_table = 'v_mutation'
+
+
+
+class PyratUserPermission(models.Model):
+    id = models.IntegerField(db_column='id', primary_key=True)
+    userid = models.IntegerField(db_column='userid')
+    aliasid = models.IntegerField(db_column='aliasid')
+    uid = models.IntegerField(db_column='uid',)
+    usernum = models.CharField(db_column='usernum', max_length=255)
+
+    class Meta:
+        managed = False
+        db_table = 'v_permission'
+
 
 
 class FishMutation(models.Model):

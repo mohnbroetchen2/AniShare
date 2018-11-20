@@ -83,7 +83,8 @@ class MouseFilter(FilterSet):
     licence = django_filters.CharFilter(lookup_expr='icontains')
     responsible = django_filters.CharFilter(lookup_expr='icontains')
     strain = django_filters.CharFilter(lookup_expr='icontains')
+    owner = django_filters.CharFilter(lookup_expr='icontains')
     class Meta:
         model = Mouse
-        fields = ['sex','strain','responsible','licence','location',]
+        fields = ['sex','strain','responsible','licence','location','owner']
 

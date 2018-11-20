@@ -27,7 +27,8 @@ from django.views.decorators.cache import cache_page
 from django.views import generic
 
 from .filters import AnimalFilter, OrganFilter, ChangeFilter, PersonFilter, FishFilter, MouseFilter
-from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab, FishPeople, FishTeam, FishMutation, Mouse, MouseMutation
+from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab, FishPeople, FishTeam, FishMutation
+from .models import Mouse, MouseMutation, PyratUser, PyratUserPermission
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.utils.html import strip_tags
 
@@ -295,9 +296,64 @@ def tickatlabpersonlist(request):
     f = PersonFilter(request.GET, queryset=personlist)
     return render(request, 'animals/fishpeople.html', {'filter': f})
 
+
 @login_required
 def pyratmouselist(request):
-    mouselist = Mouse.objects.using('mousedb').all().order_by('eartag')
+    pyratuser = PyratUser.objects.using('mousedb').get(username=request.user.username)
+    if (pyratuser.locallevel == 3 or pyratuser.locallevel == 4):
+        try:
+            owner = request.GET['owner']
+            responsible1 = request.GET['responsible']
+        except:
+            owner=''
+            responsible1=''
+        if (owner =='' and responsible1==''):
+            mouselist = Mouse.objects.using('mousedb').all().filter(owner_id__in=[]).order_by('eartag') 
+            messages.add_message(request, messages.INFO,'Please search for an owner or a responsible person of the mice you like to share')
+        else:
+            mouselist = Mouse.objects.using('mousedb').all().order_by('eartag') 
+        f = MouseFilter(request.GET, queryset=mouselist)
+        return render(request, 'animals/micefrompyrat.html', {'showgroups': True, 'filter': f})
+    mouseownerid = []
+    mouselist = None
+    if (pyratuser.usernum is not None and pyratuser.usernum != ''):
+        mouseownerid.insert(i,pyratuser.id)
+    permission= PyratUserPermission.objects.using('mousedb').all().filter(userid=pyratuser.id)
+    if (permission is not None and permission !=''):       
+        i = 0
+        for p in permission:
+            mouseownerid.insert(i,p.uid)
+    mouselist = Mouse.objects.using('mousedb').all().filter(owner_id__in=mouseownerid).order_by('eartag')    
+    f = MouseFilter(request.GET, queryset=mouselist)
+    return render(request, 'animals/micefrompyrat.html', {'filter': f})
+
+@login_required
+def pyratmouselistuser(request, username):
+    pyratuser = PyratUser.objects.using('mousedb').get(username=username)
+    if (pyratuser.locallevel == 3 or pyratuser.locallevel == 4):
+        try:
+            owner = request.GET['owner']
+            responsible1 = request.GET['responsible']
+        except:
+            owner=''
+            responsible1=''
+        if (owner =='' and responsible1==''):
+            mouselist = Mouse.objects.using('mousedb').all().filter(owner_id__in=[]).order_by('eartag') 
+            messages.add_message(request, messages.INFO,'Please search for an owner or a responsible person of the mice you like to share')
+        else:
+            mouselist = Mouse.objects.using('mousedb').all().order_by('eartag') 
+        f = MouseFilter(request.GET, queryset=mouselist)
+        return render(request, 'animals/micefrompyrat.html', {'showgroups': True, 'filter': f})
+    mouseownerid = []
+    mouselist = None
+    if (pyratuser.usernum is not None and pyratuser.usernum != ''):
+        mouseownerid.insert(i,pyratuser.id)
+    permission= PyratUserPermission.objects.using('mousedb').all().filter(userid=pyratuser.id)
+    if (permission is not None and permission !=''):       
+        i = 0
+        for p in permission:
+            mouseownerid.insert(i,p.uid)
+    mouselist = Mouse.objects.using('mousedb').all().filter(owner_id__in=mouseownerid).order_by('eartag')    
     f = MouseFilter(request.GET, queryset=mouselist)
     return render(request, 'animals/micefrompyrat.html', {'filter': f})
 

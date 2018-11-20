@@ -33,6 +33,7 @@ urlpatterns = [
     #path('animals/fishpeople', animals.views.tickatlabpersonlist, name='view_tickatlabperson'),
     path('animals/fishfromtickatlab', animals.views.tickatlabfishlist, name='view_tickatlabfish'),
     path('animals/micefrompyrat', animals.views.pyratmouselist, name='view_pyratmice'),
+    path('animals/micefrompyrat/<username>', animals.views.pyratmouselistuser, name='view_pyratmiceuser'),
     path('animals/importmicetoanishare', animals.views.importmicetoanishare, name='importmicetoanishare'),
     path('animals/importmice', animals.views.importmice_view, name='importmice'),
     path('animals/importfish', animals.views.importfish_view, name='importfish'),
