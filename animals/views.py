@@ -26,9 +26,9 @@ from django.views.decorators.cache import cache_page
 #from django.urls import reverse
 from django.views import generic
 
-from .filters import AnimalFilter, OrganFilter, ChangeFilter, PersonFilter, FishFilter, MouseFilter
+from .filters import AnimalFilter, OrganFilter, ChangeFilter, PersonFilter, FishFilter, MouseFilter, PupFilter
 from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab, FishPeople, FishTeam, FishMutation
-from .models import Mouse, MouseMutation, PyratUser, PyratUserPermission
+from .models import Mouse, MouseMutation, PyratUser, PyratUserPermission, Pup
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.utils.html import strip_tags
 
@@ -298,8 +298,45 @@ def tickatlabpersonlist(request):
 
 
 @login_required
+def pyratpuplist(request):
+    pyratuser = PyratUser.objects.using('mousedb').get(username=request.user.username)
+    if (pyratuser.locallevel == 11):
+        messages.add_message(request, messages.INFO,'You do not have the right to connect to the PyRAT Database')
+        return render(request, 'animals/pupfrompyrat.html')
+    if (pyratuser.locallevel == 3 or pyratuser.locallevel == 4):
+        try:
+            owner = request.GET['owner']
+            responsible1 = request.GET['responsible']
+        except:
+            owner=''
+            responsible1=''
+        if (owner =='' and responsible1==''):
+            puplist = Pup.objects.using('mousedb').all().filter(owner_id__in=[]).order_by('eartag') 
+            messages.add_message(request, messages.INFO,'Please search for an owner or a responsible person of the pup you like to share')
+        else:
+            puplist = Pup.objects.using('mousedb').all().order_by('eartag') 
+        f = PupFilter(request.GET, queryset=puplist)
+        return render(request, 'animals/pupfrompyrat.html', {'showgroups': True, 'filter': f})
+    pupownerid = []
+    pupelist = None
+    if (pyratuser.usernum is not None and pyratuser.usernum != ''):
+        pupownerid.insert(i,pyratuser.id)
+    permission= PyratUserPermission.objects.using('mousedb').all().filter(userid=pyratuser.id)
+    if (permission is not None and permission !=''):       
+        i = 0
+        for p in permission:
+            pupownerid.insert(i,p.uid)
+    puplist = Pup.objects.using('mousedb').all().filter(owner_id__in=pupownerid).order_by('eartag')    
+    f = PupFilter(request.GET, queryset=puplist)
+    return render(request, 'animals/pupfrompyrat.html', {'filter': f})
+
+
+@login_required
 def pyratmouselist(request):
     pyratuser = PyratUser.objects.using('mousedb').get(username=request.user.username)
+    if (pyratuser.locallevel == 11):
+        messages.add_message(request, messages.INFO,'You do not have the right to connect to the PyRAT Database')
+        return render(request, 'animals/micefrompyrat.html')
     if (pyratuser.locallevel == 3 or pyratuser.locallevel == 4):
         try:
             owner = request.GET['owner']
@@ -365,6 +402,79 @@ def importmice_view(request):
         f = MouseFilter(request.GET, queryset=mouselist)
         persons = Person.objects.all().order_by('name')
         return render(request, 'animals/import-mice.html', {'filter': f, 'persons':persons})
+
+@login_required
+def importpup_view(request):
+    if request.method == "POST":
+        importlist = request.POST.getlist("selected",None)
+        puplist = Pup.objects.using('mousedb').filter(id__in = importlist).order_by('id')
+        f = PupFilter(request.GET, queryset=puplist)
+        persons = Person.objects.all().order_by('name')
+        return render(request, 'animals/import-pup.html', {'filter': f, 'persons':persons})
+
+@login_required
+def importpuptoanishare(request):
+
+    if request.method == "POST":
+        pupidlist = request.POST.getlist("id",None)
+        availablefromlist = request.POST.getlist("availablefrom",None)
+        availabletolist = request.POST.getlist("availableto",None)
+        responsible_person2 = request.POST.getlist("responsible_person2",None)
+        puplist = Pup.objects.using('mousedb').filter(id__in = pupidlist)
+        i=0
+        for dataset in puplist:
+            try:
+                mouse_already_imported = Animal.objects.get(mouse_id=dataset.id)
+                messages.add_message(request, messages.ERROR,'The mouse with the ID {} is already imported. A new import is not possible'.format(dataset.eartag))
+                continue
+            except Animal.DoesNotExist:
+                i=i
+            new_mouse = Animal()
+            new_mouse.animal_type    = "mouse"
+            new_mouse.mouse_id       = dataset.id
+            new_mouse.database_id    = dataset.eartag
+            new_mouse.lab_id         = dataset.labid
+            new_mouse.amount         = 1
+            new_mouse.genetic_background  = dataset.genetic_bg
+            new_mouse.available_from = availablefromlist[i]
+            new_mouse.available_to   = availabletolist[i]
+            new_mouse.licence_number = dataset.licence
+            new_mouse.day_of_birth   = dataset.dob
+            if responsible_person2[i]!="":
+                new_mouse.responsible_person2 = Person.objects.get(name=responsible_person2[i])
+            mousemutations           = MouseMutation.objects.using('mousedb').filter(animalid = dataset.id)
+            new_mouse.mutations = ''
+            for m in mousemutations:
+                new_mouse.mutations  = new_mouse.mutations + m.mutation_name + ' ' + m.grade_name + '; '
+            try:
+                new_mouse.location       = Location.objects.get(name=dataset.location)
+            except:
+                new_location = Location()
+                new_location.name = dataset.location
+                new_location.save()
+                new_mouse.location       = Location.objects.get(name=dataset.location)
+            new_mouse.line           = dataset.strain  
+            try:        
+                new_mouse.responsible_person = Person.objects.get(name=dataset.responsible)
+            except:
+                new_person = Person()
+                new_person.name = dataset.responsible
+                new_person.email = dataset.responsible_email
+                new_person.responsible_for_lab = Lab.objects.get(name="False")
+                new_person.save()
+                new_mouse.responsible_person = Person.objects.get(name=dataset.responsible)
+                ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
+                send_mail("AniShare neue Person", 'Neue Person in AniShare {}'.format(new_person.name), ADMIN_EMAIL, [ADMIN_EMAIL])
+            new_mouse.added_by       = request.user
+            new_mouse.sex = dataset.sex
+            try:
+                new_mouse.save()
+                messages.add_message(request, messages.SUCCESS,'The mouse {} has been imported.'.format(dataset.eartag))
+            except Exception:
+                messages.add_message(request, messages.ERROR,'Becaus of an error the mouse {} has NOT been imported. The AniShare admin is informed about the error'.format(dataset.eartag))
+                send_mail("AniShare Importfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} '.format(dataset.eartag, Exception), request.user.email, [ADMIN_EMAIL])
+            i = i + 1
+    return HttpResponseRedirect('/admin/animals/animal/')
 
 @login_required
 def importmicetoanishare(request):

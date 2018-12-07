@@ -1,27 +1,28 @@
 \select@language {english}
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
 \contentsline {chapter}{\numberline {2}Contact}{2}{chapter.2}
-\contentsline {chapter}{\numberline {3}Sitemap}{3}{chapter.3}
-\contentsline {chapter}{\numberline {4}User types}{4}{chapter.4}
-\contentsline {chapter}{\numberline {5}Main user interface}{5}{chapter.5}
-\contentsline {section}{\numberline {5.1}Animals}{5}{section.5.1}
-\contentsline {section}{\numberline {5.2}Organs}{6}{section.5.2}
-\contentsline {section}{\numberline {5.3}RSS Feed}{7}{section.5.3}
-\contentsline {chapter}{\numberline {6}Main animal manager tasks}{8}{chapter.6}
-\contentsline {section}{\numberline {6.1}Add Animals manually}{8}{section.6.1}
-\contentsline {section}{\numberline {6.2}Animals import}{10}{section.6.2}
-\contentsline {subsection}{\numberline {6.2.1}From PyRAT}{10}{subsection.6.2.1}
-\contentsline {subsection}{\numberline {6.2.2}From \sphinxtitleref {tick@lab}}{11}{subsection.6.2.2}
-\contentsline {section}{\numberline {6.3}Add Organs manually}{12}{section.6.3}
-\contentsline {section}{\numberline {6.4}Organs import}{13}{section.6.4}
-\contentsline {subsection}{\numberline {6.4.1}From PyRAT}{13}{subsection.6.4.1}
-\contentsline {subsection}{\numberline {6.4.2}From \sphinxtitleref {tick@lab}}{14}{subsection.6.4.2}
-\contentsline {section}{\numberline {6.5}Duplicating entries}{14}{section.6.5}
-\contentsline {chapter}{\numberline {7}Main administrator tasks}{15}{chapter.7}
-\contentsline {section}{\numberline {7.1}Organs used}{15}{section.7.1}
-\contentsline {section}{\numberline {7.2}Animals}{15}{section.7.2}
-\contentsline {section}{\numberline {7.3}Labs}{16}{section.7.3}
-\contentsline {section}{\numberline {7.4}Locations}{17}{section.7.4}
-\contentsline {section}{\numberline {7.5}Persons}{17}{section.7.5}
-\contentsline {section}{\numberline {7.6}Make a user an animal manager}{18}{section.7.6}
-\contentsline {section}{\numberline {7.7}Anishare change history}{18}{section.7.7}
+\contentsline {chapter}{\numberline {3}Licence}{3}{chapter.3}
+\contentsline {chapter}{\numberline {4}Sitemap}{4}{chapter.4}
+\contentsline {chapter}{\numberline {5}User types}{5}{chapter.5}
+\contentsline {chapter}{\numberline {6}Main user interface}{6}{chapter.6}
+\contentsline {section}{\numberline {6.1}Animals}{6}{section.6.1}
+\contentsline {section}{\numberline {6.2}Organs}{7}{section.6.2}
+\contentsline {section}{\numberline {6.3}RSS Feed}{8}{section.6.3}
+\contentsline {chapter}{\numberline {7}Main animal manager tasks}{9}{chapter.7}
+\contentsline {section}{\numberline {7.1}Add Animals manually}{9}{section.7.1}
+\contentsline {section}{\numberline {7.2}Animals import}{11}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}From PyRAT}{11}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}From \sphinxtitleref {tick@lab}}{12}{subsection.7.2.2}
+\contentsline {section}{\numberline {7.3}Add Organs manually}{13}{section.7.3}
+\contentsline {section}{\numberline {7.4}Organs import}{14}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}From PyRAT}{14}{subsection.7.4.1}
+\contentsline {subsection}{\numberline {7.4.2}From \sphinxtitleref {tick@lab}}{15}{subsection.7.4.2}
+\contentsline {section}{\numberline {7.5}Duplicating entries}{15}{section.7.5}
+\contentsline {chapter}{\numberline {8}Main administrator tasks}{16}{chapter.8}
+\contentsline {section}{\numberline {8.1}Organs used}{16}{section.8.1}
+\contentsline {section}{\numberline {8.2}Animals}{16}{section.8.2}
+\contentsline {section}{\numberline {8.3}Labs}{17}{section.8.3}
+\contentsline {section}{\numberline {8.4}Locations}{18}{section.8.4}
+\contentsline {section}{\numberline {8.5}Persons}{18}{section.8.5}
+\contentsline {section}{\numberline {8.6}Make a user an animal manager}{19}{section.8.6}
+\contentsline {section}{\numberline {8.7}Anishare change history}{19}{section.8.7}

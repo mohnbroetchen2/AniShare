@@ -22,14 +22,14 @@
                   <th class="header"> Location <i class="icon-sort"></i></th>
                   <th class="header"> Licence <i class="icon-sort"></i></th>
                   <th class="header"> Resp. Person <i class="icon-sort"></i></th>
-                  <th class="header"> Second Resp. Person <i class="icon-sort"> <button type="button" class="btn btn-success btn-sm">Copy</button></i></th>
+                  <th class="header"> Second Resp. Person <i class="icon-sort"> <!--button type="button" class="btn btn-success btn-sm">Copy</button--></i></th>
                 </tr>
             </thead>
             <tbody>
                 {% for f in filter.qs %}
                         <input name="id" type="hidden" value="{{f.id}}" readonly="readonly" id="select{{f.id}}">
                     <tr>
-                        <td>{{f.eartag}}</a></td>
+                        <td>{{f.eartag}}</td>
                         <td>{{f.labid}}</td>
                         <td><input class="from" name="availablefrom"  type="date" id="from{{a.id}}" min=""></td> 
                         <td><input class="to" name="availableto" type="date" id="to{{a.id}}" min=""></td>

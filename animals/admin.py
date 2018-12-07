@@ -85,6 +85,23 @@ class AnimalResource(resources.ModelResource): # für den Import. Hier werden di
 
     def import_obj(self, instance, row, dry_run): # Damit werden die Mutationen in ein Feld zusammengefasst
         super(AnimalResource, self).import_obj( instance, row, dry_run)
+        
+        """try:
+            responsible = ""
+            responsible = row['Responsible']   
+            if (responsible !=""):
+                rperson = Person.objects.get(responsible)
+                if rperson == None:
+                    new_person = Person()
+                    new_person.name = dataset.responsible
+                    new_person.email = "@leibniz-fli.de"
+                    new_person.responsible_for_lab = Lab.objects.get(name="False")
+                    new_person.save()
+                    ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
+                    send_mail("AniShare neue Person", 'Neue Person in AniShare {}'.format(new_person.name), ADMIN_EMAIL, [ADMIN_EMAIL])
+        except: 
+            messages.add_message(request, messages.ERROR,'Responsible person is unknown. Please check if there is a coloumn with the header Responsible')
+         """   
         try:
             if (row['Grade 4'] != None):
                 instance.mutations = "%s %s; %s %s; %s %s; %s %s" % (row['Mutation 1'], row['Grade 1'], row['Mutation 2'], row['Grade 2'], row['Mutation 3'], row['Grade 3'], row['Mutation 4'], row['Grade 4'])

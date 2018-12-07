@@ -331,6 +331,35 @@ class Mouse(models.Model):
         managed = False
         db_table = 'v_animal'
 
+
+class Pup(models.Model):
+    id      = models.IntegerField(db_column='id', primary_key=True)
+    eartag  = models.CharField(db_column='eartag', max_length=255)
+    sex = models.CharField(db_column='sex', max_length=2, choices=(('m', 'male'), ('f', 'female'), ('?', 'unknown')),
+                           help_text='Select "unknown" if multiple animals.')
+    dob = models.DateField(db_column='dateborn')
+    responsible = models.CharField(db_column='fullname', max_length=512)
+    responsible_email = models.CharField(db_column='email', max_length=512)
+    location = models.CharField(db_column='building', max_length=4000)
+    licence = models.CharField(db_column='licence', max_length=255)
+    strain = models.CharField(db_column='strain', max_length=255)
+    labid = models.CharField(db_column='labid', max_length=255)
+    genetic_bg = models.CharField(db_column='genetic_bg', max_length=255)
+    owner_id = models.IntegerField(db_column='owner_id',)
+    owner = models.CharField(db_column='owner', max_length=255)
+
+    def age(self):
+        """
+        Return the age of the animal, calculated by the difference to either
+        the current date or the available_to date
+        """
+        now = datetime.today().date()
+        return int((now - self.dob).days / 7)
+
+    class Meta:
+        managed = False
+        db_table = 'v_pup'
+
 class MouseMutation(models.Model):
     animalid          = models.IntegerField(db_column='animalid',  primary_key=True)
     mutation_name     = models.CharField(db_column='mutation_name', max_length=255)

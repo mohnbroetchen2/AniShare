@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>First time setup &#8212; AniShare 1.5 documentation</title>
+    <title>First time setup &#8212; AniShare 1.6 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -58,7 +58,7 @@ the respective lines. Most importantly, you should configure the following lines
 <div>python manage.py migrate</div></blockquote>
 <dl class="last docutils">
 <dt>note:: This will create the sqlite database <code class="docutils literal notranslate"><span class="pre">db.sqlite3</span></code> containing all the models</dt>
-<dd>(eg. tables) as defined in <a class="reference internal" href="modules/models.html#module-animals.models" title="animals.models"><code class="xref py py-mod docutils literal notranslate"><span class="pre">animals.models</span></code></a>.</dd>
+<dd>(eg. tables) as defined in <a class="reference internal" href="#module-animals.models" title="animals.models"><code class="xref py py-mod docutils literal notranslate"><span class="pre">animals.models</span></code></a>.</dd>
 </dl>
 </dd>
 <dt>Now create a superuser::</dt>
@@ -159,7 +159,7 @@ Afterwards, create a new virtualenv and install the required libraries like so:<
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.form">
 <code class="descname">form</code><a class="headerlink" href="#animals.admin.AnimalAdmin.form" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="modules/admin.html#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -171,7 +171,7 @@ Afterwards, create a new virtualenv and install the required libraries like so:<
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.resource_class">
 <code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.AnimalAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="modules/admin.html#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -252,7 +252,7 @@ association with the field named ‘__all__’.</p>
 <dl class="attribute">
 <dt id="animals.admin.OrganAdmin.resource_class">
 <code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.OrganAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="modules/admin.html#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -423,6 +423,73 @@ return “{} {} {}, {} id:{} [{}]”.format
 </dd></dl>
 
 <dl class="class">
+<dt id="animals.models.Fish">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Fish</code><span class="sig-paren">(</span><em>id</em>, <em>animalnumber</em>, <em>identifier1</em>, <em>identifier2</em>, <em>identifier3</em>, <em>identifier4</em>, <em>sex</em>, <em>quantity</em>, <em>dob</em>, <em>notes</em>, <em>responsible</em>, <em>responsible_email</em>, <em>location</em>, <em>license</em>, <em>strain</em>, <em>teamid</em>, <em>teamname</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Fish" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="animals.models.Fish.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Fish.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.Fish.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Fish.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="animals.models.Fish.age">
+<code class="descname">age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Fish.age" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the age of the animal, calculated by the difference to either
+the current date or the available_to date</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.FishMutation">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">FishMutation</code><span class="sig-paren">(</span><em>id</em>, <em>description</em>, <em>genotype</em>, <em>referenceid</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.FishMutation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="animals.models.FishMutation.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.FishMutation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.FishMutation.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.FishMutation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.FishPeople">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">FishPeople</code><span class="sig-paren">(</span><em>id</em>, <em>login</em>, <em>firstname</em>, <em>lastname</em>, <em>mainteamid</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.FishPeople" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="animals.models.FishPeople.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.FishPeople.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.FishPeople.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.FishPeople.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.FishTeam">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">FishTeam</code><span class="sig-paren">(</span><em>id</em>, <em>teamid</em>, <em>userid</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.FishTeam" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="animals.models.FishTeam.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.FishTeam.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.FishTeam.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.FishTeam.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="animals.models.Lab">
 <em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Lab</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Lab" title="Permalink to this definition">¶</a></dt>
 <dd><p>Labs are only defined by a name and are referenced by
@@ -457,6 +524,43 @@ Person(s) which are responsible (contact) person for this lab</p>
 <dl class="exception">
 <dt id="animals.models.Location.MultipleObjectsReturned">
 <em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Location.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.Mouse">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Mouse</code><span class="sig-paren">(</span><em>id</em>, <em>eartag</em>, <em>sex</em>, <em>dob</em>, <em>responsible</em>, <em>responsible_email</em>, <em>location</em>, <em>licence</em>, <em>strain</em>, <em>labid</em>, <em>genetic_bg</em>, <em>owner_id</em>, <em>owner</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Mouse" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="animals.models.Mouse.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Mouse.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.Mouse.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Mouse.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="animals.models.Mouse.age">
+<code class="descname">age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Mouse.age" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the age of the animal, calculated by the difference to either
+the current date or the available_to date</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.MouseMutation">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">MouseMutation</code><span class="sig-paren">(</span><em>animalid</em>, <em>mutation_name</em>, <em>grade_name</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.MouseMutation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="animals.models.MouseMutation.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.MouseMutation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.MouseMutation.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.MouseMutation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -540,6 +644,58 @@ This person gets an email when an animal is being claimed.</p>
 
 </dd></dl>
 
+<dl class="class">
+<dt id="animals.models.Pup">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Pup</code><span class="sig-paren">(</span><em>id</em>, <em>eartag</em>, <em>sex</em>, <em>dob</em>, <em>responsible</em>, <em>responsible_email</em>, <em>location</em>, <em>licence</em>, <em>strain</em>, <em>labid</em>, <em>genetic_bg</em>, <em>owner_id</em>, <em>owner</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Pup" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="animals.models.Pup.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Pup.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.Pup.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Pup.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="animals.models.Pup.age">
+<code class="descname">age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Pup.age" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the age of the animal, calculated by the difference to either
+the current date or the available_to date</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.PyratUser">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">PyratUser</code><span class="sig-paren">(</span><em>id</em>, <em>username</em>, <em>firstname</em>, <em>lastname</em>, <em>usernum</em>, <em>locallevel</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.PyratUser" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="animals.models.PyratUser.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.PyratUser.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.PyratUser.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.PyratUser.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.PyratUserPermission">
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">PyratUserPermission</code><span class="sig-paren">(</span><em>id</em>, <em>userid</em>, <em>aliasid</em>, <em>uid</em>, <em>usernum</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.PyratUserPermission" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="animals.models.PyratUserPermission.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.PyratUserPermission.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.PyratUserPermission.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.PyratUserPermission.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-animals.views">
 <span id="views"></span><h4>Views<a class="headerlink" href="#module-animals.views" title="Permalink to this headline">¶</a></h4>
@@ -558,7 +714,7 @@ This is rarely used, rather use the claim page.</p>
 <dl class="attribute">
 <dt id="animals.views.AnimalDetailView.model">
 <code class="descname">model</code><a class="headerlink" href="#animals.views.AnimalDetailView.model" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="modules/models.html#animals.models.Animal" title="animals.models.Animal"><code class="xref py py-class docutils literal notranslate"><span class="pre">animals.models.Animal</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#animals.models.Animal" title="animals.models.Animal"><code class="xref py py-class docutils literal notranslate"><span class="pre">animals.models.Animal</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
