@@ -9,7 +9,7 @@ PyYAML>=3.12
 xlrd>=1.1.0
 django-admin-rangefilter==0.3.6
 django-widget-tweaks>=1.4.2
-django-import-export>=1.0.1
+django-import-export>=1.1.0
 django-modeladmin-reorder>=0.1.0
 django-bootstrap-email>=0.0.1
 django-admin-list-filter-dropdown>=1.0.1

@@ -2,7 +2,7 @@
 Admin module
 """
 import copy
-from import_export.admin import ImportExportModelAdmin, ImportMixin, ExportMixin
+from import_export.admin import ImportExportModelAdmin, ImportMixin, ExportMixin, ImportExportActionModelAdmin
 from import_export.widgets import ManyToManyWidget
 from datetime import datetime, timedelta
 from import_export import fields, resources
@@ -68,8 +68,8 @@ class AnimalResource(resources.ModelResource): # für den Import. Hier werden di
         fields = ('lab_id','animal_type', 'amount', 'database_id','day_of_birth',
         'line','sex','location','mutations1', 'mutations2','mutations3', 'mutations4','grade1', 'grade2','grade3', 'grade4','licence_number',
         'responsible_person','responsible_person2','available_from','available_to','comment','genetic_background',)
-        export_order = ('lab_id','animal_type', 'amount', 'database_id','day_of_birth',
-        'line','sex','location','mutations1', 'mutations2','mutations3', 'mutations4','grade1', 'grade2','grade3', 'grade4','licence_number',
+        export_order = ('animal_type', 'amount', 'lab_id','database_id','sex','day_of_birth',
+        'line','location','mutations1','grade1', 'grade2','grade3', 'grade4','licence_number',
         'responsible_person','available_from','available_to','comment',)
     def get_instance(self, instance_loader, row):
         try:
@@ -79,9 +79,7 @@ class AnimalResource(resources.ModelResource): # für den Import. Hier werden di
                 params[field.attribute] = field.clean(row)
             return self.get_queryset().get(**params)
         except Exception:
-            return None
-
-    
+            return None 
 
     def import_obj(self, instance, row, dry_run): # Damit werden die Mutationen in ein Feld zusammengefasst
         super(AnimalResource, self).import_obj( instance, row, dry_run)
@@ -159,6 +157,46 @@ class AnimalResource(resources.ModelResource): # für den Import. Hier werden di
                             instance.mutations = ""
                     except:
                         instance.mutations =""
+
+class AnimalExportResource(resources.ModelResource): # für den Import. Hier werden die Felder festgelegt, die importiert werden können
+
+    animal_type = fields.Field(attribute='animal_type', column_name='Animal type') 
+    responsible_person = fields.Field(
+        column_name='Responsible',
+        attribute='responsible_person',
+        widget=ForeignKeyWidget(Person, 'name'))
+    responsible_person2 = fields.Field(
+        column_name='Responsible2',
+        attribute='responsible_person2',
+        widget=ForeignKeyWidget(Person, 'name'))
+    lab_id = fields.Field(attribute='lab_id', column_name='Lab ID')
+    database_id = fields.Field(attribute='database_id', column_name='ID')
+    day_of_birth = fields.Field(attribute='day_of_birth', column_name='DOB')
+    genetic_background = fields.Field(attribute='genetic_background', column_name='Background')
+    line = fields.Field(attribute='line', column_name='Line / Strain (Name)')
+    sex = fields.Field(attribute='sex', column_name='Sex')
+    location = fields.Field(
+        column_name='Building',
+        attribute='location',
+        widget=ForeignKeyWidget(Location, 'name'))
+    grade1 = fields.Field(attribute='grade1',column_name='Grade 1')
+    grade2 = fields.Field(attribute='grade2',column_name='Grade 2')
+    grade3 = fields.Field(attribute='grade3',column_name='Grade 3')
+    grade4 = fields.Field(attribute='grade4',column_name='Grade 4')
+    licence_number = fields.Field(attribute='licence_number', column_name='License number')
+    available_to = fields.Field(attribute='available_to', column_name='Available to')
+    available_from = fields.Field(attribute='available_from', column_name='Available from')
+    amount = fields.Field(attribute='amount', column_name='Amount')
+    comment = fields.Field(attribute='comment', column_name='Comment')
+    class Meta:
+        model = Animal
+        fields = ('lab_id','animal_type', 'amount', 'database_id','day_of_birth',
+        'line','sex','location','mutations','grade1', 'grade2','grade3', 'grade4','licence_number',
+        'responsible_person','responsible_person2','available_from','available_to','comment','genetic_background','creation_date','new_owner')
+        export_order = ('animal_type', 'amount', 'lab_id','database_id','sex','day_of_birth',
+        'line','location','mutations','genetic_background','grade1', 'grade2','grade3', 'grade4','licence_number',
+        'responsible_person','responsible_person2','available_from','available_to','comment','new_owner','creation_date',)
+    
 
 class OrganResource(resources.ModelResource): # für den Import. Hier werden die Felder festgelegt, die importiert werden können
 
@@ -312,24 +350,24 @@ def copy_animal(modeladmin, request, queryset):
 
 
 @admin.register(Animal)
-#class AnimalAdmin(admin.ModelAdmin):
 
-class AnimalAdmin(ImportMixin, admin.ModelAdmin):
+class AnimalAdmin(ImportExportActionModelAdmin):
+#class AnimalAdmin(ImportMixin, admin.ModelAdmin):
     """
     ModelAdmin for Animal model
     """
     resource_class = AnimalResource
-    list_display = ('id','animal_type', 'sex', 'entry_date', 'day_of_birth', 'age',  'available_from',
-                    'available_to', 'line', 'mutations', 'genetic_background', 'location', 'licence_number', 'lab_id',
+    list_display = ('id','animal_type','database_id', 'lab_id','sex', 'entry_date', 'day_of_birth', 'age',  'available_from',
+                    'available_to', 'line', 'mutations', 'location', 'licence_number',
                     'responsible_persons', 'new_owner')
     list_display_links = ('id','animal_type','sex','entry_date', 'day_of_birth', 'age',
-                          'available_from', 'available_to', 'line', 'mutations', 'genetic_background',
+                          'available_from', 'available_to', 'line', 'mutations', 'database_id',
                           'location', 'licence_number', 'lab_id','responsible_persons',
                           'new_owner')
     search_fields = ('id','animal_type', 'sex', 'database_id', 'lab_id', 'day_of_birth',
                      'line', 'mutations', 'genetic_background', 'location__name', 'new_owner', 'licence_number',
                      'available_from', 'available_to', 'responsible_person__name',
-                     'responsible_person__email', 'added_by__email')
+                     'responsible_person__email', 'added_by__email',)
     autocomplete_fields = ['responsible_person','responsible_person2']
     list_filter = ('animal_type','sex', ('responsible_person__responsible_for_lab',RelatedDropdownFilter),('line', DropdownFilter),('genetic_background', DropdownFilter),
                    ('day_of_birth', DateRangeFilter),
@@ -361,10 +399,12 @@ class AnimalAdmin(ImportMixin, admin.ModelAdmin):
                   base_formats.CSV,
                   SCSV,)
         return [f for f in formats if f().can_export()]
+    def get_export_resource_class(self):
+        return AnimalExportResource
 
 @admin.register(Organ)
-#class OrganAdmin(ImportExportModelAdmin):
-class OrganAdmin(ImportMixin, admin.ModelAdmin):
+class OrganAdmin(ImportExportModelAdmin):
+#class OrganAdmin(ImportMixin, admin.ModelAdmin):
     """
     ModelAdmin for Organ model
     """

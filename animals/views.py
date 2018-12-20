@@ -429,49 +429,59 @@ def importpuptoanishare(request):
                 continue
             except Animal.DoesNotExist:
                 i=i
-            new_mouse = Animal()
-            new_mouse.animal_type    = "mouse"
-            new_mouse.mouse_id       = dataset.id
-            new_mouse.database_id    = dataset.eartag
-            new_mouse.lab_id         = dataset.labid
-            new_mouse.amount         = 1
-            new_mouse.genetic_background  = dataset.genetic_bg
-            new_mouse.available_from = availablefromlist[i]
-            new_mouse.available_to   = availabletolist[i]
-            new_mouse.licence_number = dataset.licence
-            new_mouse.day_of_birth   = dataset.dob
+            new_pup = Animal()
+            new_pup.animal_type    = "pup"
+            new_pup.mouse_id       = dataset.id
+            if dataset.eartag:
+                new_pup.database_id    = dataset.eartag
+            else:
+                new_pup.database_id   = dataset.id
+            new_pup.lab_id         = dataset.labid
+            new_pup.amount         = 1
+            new_pup.genetic_background  = dataset.genetic_bg
+            new_pup.available_from = availablefromlist[i]
+            new_pup.available_to   = availabletolist[i]
+            new_pup.licence_number = dataset.licence
+            new_pup.day_of_birth   = dataset.dob
             if responsible_person2[i]!="":
-                new_mouse.responsible_person2 = Person.objects.get(name=responsible_person2[i])
-            mousemutations           = MouseMutation.objects.using('mousedb').filter(animalid = dataset.id)
-            new_mouse.mutations = ''
+                new_pup.responsible_person2 = Person.objects.get(name=responsible_person2[i])
+            mousemutations           = MouseMutation.objects.using('mousedb').filter(pupid = dataset.id)
+            new_pup.mutations = ''
             for m in mousemutations:
-                new_mouse.mutations  = new_mouse.mutations + m.mutation_name + ' ' + m.grade_name + '; '
+                if m.grade_name:
+                    new_pup.mutations  = new_pup.mutations + m.mutation_name + ' ' + m.grade_name + '; '
+                else:
+                    new_pup.mutations  = new_pup.mutations + m.mutation_name + ' ' + 'N.V.; '
             try:
-                new_mouse.location       = Location.objects.get(name=dataset.location)
+                new_pup.location       = Location.objects.get(name=dataset.location)
             except:
                 new_location = Location()
                 new_location.name = dataset.location
                 new_location.save()
-                new_mouse.location       = Location.objects.get(name=dataset.location)
-            new_mouse.line           = dataset.strain  
+                new_pup.location       = Location.objects.get(name=dataset.location)
+            new_pup.line           = dataset.strain  
             try:        
-                new_mouse.responsible_person = Person.objects.get(name=dataset.responsible)
+                new_pup.responsible_person = Person.objects.get(name=dataset.responsible)
             except:
                 new_person = Person()
                 new_person.name = dataset.responsible
                 new_person.email = dataset.responsible_email
                 new_person.responsible_for_lab = Lab.objects.get(name="False")
                 new_person.save()
-                new_mouse.responsible_person = Person.objects.get(name=dataset.responsible)
+                new_pup.responsible_person = Person.objects.get(name=dataset.responsible)
                 ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
                 send_mail("AniShare neue Person", 'Neue Person in AniShare {}'.format(new_person.name), ADMIN_EMAIL, [ADMIN_EMAIL])
-            new_mouse.added_by       = request.user
-            new_mouse.sex = dataset.sex
+            new_pup.added_by       = request.user
+            if dataset.sex == '?':
+                new_pup.sex = 'u'
+            else:
+                new_pup.sex = dataset.sex
             try:
-                new_mouse.save()
+                new_pup.save()
                 messages.add_message(request, messages.SUCCESS,'The mouse {} has been imported.'.format(dataset.eartag))
             except Exception:
                 messages.add_message(request, messages.ERROR,'Becaus of an error the mouse {} has NOT been imported. The AniShare admin is informed about the error'.format(dataset.eartag))
+                ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
                 send_mail("AniShare Importfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} '.format(dataset.eartag, Exception), request.user.email, [ADMIN_EMAIL])
             i = i + 1
     return HttpResponseRedirect('/admin/animals/animal/')

@@ -4,7 +4,7 @@
 <script src="{% static '/js/jquery.dataTables.min.js' %}"></script>
 <script src="{% static '/js/dataTables.bootstrap4.min.js' %}"></script>
 <link rel="stylesheet" href="{% static '/css/dataTables.bootstrap4.min.css' %}">
-
+<!-- https://datatables.net/reference/option/pageLength -->
 <script>
   $(document).ready(function () {
     $('#datatable').DataTable({
@@ -13,6 +13,7 @@
       "order": [[0, 'desc']],
       "scrollCollapse": true,
       "paging": true,
+      "pageLength": 100, 
     });
   });
 </script> {% endblock %} {% block content %}

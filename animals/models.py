@@ -82,6 +82,7 @@ class Animal(models.Model):
     animal_type = models.CharField(max_length=100, choices=(
         ('fish', 'fish'),
         ('mouse', 'mouse'),
+        ('pup', 'pup'),
     ),
                                    default='mouse')
     database_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT")
@@ -361,13 +362,15 @@ class Pup(models.Model):
         db_table = 'v_pup'
 
 class MouseMutation(models.Model):
-    animalid          = models.IntegerField(db_column='animalid',  primary_key=True)
-    mutation_name     = models.CharField(db_column='mutation_name', max_length=255)
-    grade_name        = models.CharField(db_column='grade_name', max_length=255)
     class Meta:
         managed = False
         db_table = 'v_mutation'
-
+        unique_together = (('animalid', 'pupid'),)
+    animalid          = models.IntegerField(db_column='animalid',primary_key=True)
+    pupid             = models.IntegerField(db_column='pupid')
+    mutation_name     = models.CharField(db_column='mutation_name', max_length=255)
+    grade_name        = models.CharField(db_column='grade_name', max_length=255)
+    
 
 
 class PyratUserPermission(models.Model):
