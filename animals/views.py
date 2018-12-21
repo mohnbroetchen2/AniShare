@@ -441,7 +441,11 @@ def importpuptoanishare(request):
             new_pup.genetic_background  = dataset.genetic_bg
             new_pup.available_from = availablefromlist[i]
             new_pup.available_to   = availabletolist[i]
-            new_pup.licence_number = dataset.licence
+            if dataset.licence:
+                new_pup.licence_number = dataset.licence
+            else:
+                new_pup.licence_number =''
+            #new_pup.licence_number = dataset.licence
             new_pup.day_of_birth   = dataset.dob
             if responsible_person2[i]!="":
                 new_pup.responsible_person2 = Person.objects.get(name=responsible_person2[i])
