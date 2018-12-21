@@ -53,6 +53,9 @@ Sitemap
 * Start: https://anishare.leibniz-fli.de
 * Animal: https://anishare.leibniz-fli.de/animals
 * Organ: https://anishare.leibniz-fli.de/organs
+* Add mice directly from PyRAT: https://anishare.leibniz-fli.de/animals/micefrompyrat
+* Add pup directly from PyRAT: https://anishare.leibniz-fli.de/animals/pupfrompyrat
+* Add fish directly from tick@lab: https://anishare.leibniz-fli.de/animals/fishfromtickatlab
 * Animal and organ feed: https://anishare.leibniz-fli.de/animals/feed
 * Administration: https://anishare.leibniz-fli.de/admin
 * Macros: https://anishare.leibniz-fli.de/macros
@@ -155,8 +158,28 @@ After adding several animals, the main (index) view should look like this:
 
 Animals import
 """"""""""""""
+There are two ways to import informations of animals. First you can use AniShare to import the details directly. The second way is to export the
+informations using an excel file and then to import the file to anishare. Both ways will be explained below.
+
 From PyRAT
 ++++++++++
+In most cases it is the easiest way to use the website `Add Mice <https://anishare.leibniz-fli.de/animals/micefrompyrat/>`_ or for pups 
+`Add Pup <https://anishare.leibniz-fli.de/animals/pupfrompyrat>`_. The user has the same rights as in PyRAT. It means the user has access to all animals
+as in PyRAT and the user must have a PyRAT account. If the user in PyRAT has the role ``Animal facility staff`` or ``Administrator`` the user will only
+see the data after searching (filter) an owner or a responsible person of the animals.  
+
+.. image:: img/mice_from_pyrat.png
+   :width: 60%
+
+To import the animals please select / activate the animals (rows) and push the button ``Import mouse/mice to AniShare``. You find the button on the left
+side below the table. Now it's possible to change the default offering period (mouse = 14 days, pup = 7 days) and to add a second responsible person.
+The second responsible person gets a mail too if the animals was claimed. After checking the informations the import runs after pushing the button 
+``Yes, I want to offer these mice!``. After import you switch automatically to the administration area of AniShare und you can see the imported animals
+if the import successful. If an import failed you see an error message and the AniShare admin gets a mail about it. One last hint: It's only possible to
+import an animal once only.
+
+In some cases it can be useful to import the animal informations via an excel file. How to do it:
+
 First login to PyRAT and **switch to the english version** of PyRAT if it is no preset. Then select the animals which 
 should be import to anishare. Click on ``QS`` (Quick Select) and activate the option ``Export this list to Excel``.
 Push the button ``Apply``.
@@ -183,6 +206,22 @@ the user if all requirements match.
 
 From `tick@lab`
 +++++++++++++++
+
+In most cases it is the easiest way to use the website `Add Fish <https://anishare.leibniz-fli.de/animals/fishfromtickatlab/>`_. The user has the same rights as in PyRAT. It means the user has access to all animals
+as in tick@lab and the user must have a tick@lab account. 
+
+.. image:: img/fish_from_tickatlab.png
+   :width: 60%
+
+To import the animals please select / activate the animals (rows) and push the button ``Import Fishs to AniShare``. You find the button on the left
+side below the table. Now it's possible to change the default offering period (14 days) and to add a second responsible person.
+The second responsible person gets a mail too if the animals was claimed. After checking the informations the import runs after pushing the button 
+``Yes, I want to offer these fishes!``. After import you switch automatically to the administration area of AniShare und you can see the imported animals
+if the import successful. If an import failed you see an error message and the AniShare admin gets a mail about it. One last hint: It's only possible to
+import an animal once only.
+
+In some cases it can be useful to import the animal informations via an excel file. How to do it:
+
 First login to `Tick@lab` and open the population site. All visible entrys can be exported with the button `Export to Excel`. It isn't yet possible to export 
 only selected animals. Therefore use the filter option.
 

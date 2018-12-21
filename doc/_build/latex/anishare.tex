@@ -56,7 +56,7 @@
 
 
 \title{AniShare Documentation}
-\date{Dec 07, 2018}
+\date{Dec 21, 2018}
 \release{1.6}
 \author{Holger Dinkel, Fabian Monheim}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -118,6 +118,15 @@ Animal: \sphinxurl{https://anishare.leibniz-fli.de/animals}
 
 \item {} 
 Organ: \sphinxurl{https://anishare.leibniz-fli.de/organs}
+
+\item {} 
+Add mice directly from PyRAT: \sphinxurl{https://anishare.leibniz-fli.de/animals/micefrompyrat}
+
+\item {} 
+Add pup directly from PyRAT: \sphinxurl{https://anishare.leibniz-fli.de/animals/pupfrompyrat}
+
+\item {} 
+Add fish directly from \sphinxhref{mailto:tick@lab}{tick@lab}: \sphinxurl{https://anishare.leibniz-fli.de/animals/fishfromtickatlab}
 
 \item {} 
 Animal and organ feed: \sphinxurl{https://anishare.leibniz-fli.de/animals/feed}
@@ -237,9 +246,28 @@ After adding several animals, the main (index) view should look like this:
 
 \section{Animals import}
 \label{\detokenize{index:animals-import}}
+There are two ways to import informations of animals. First you can use AniShare to import the details directly. The second way is to export the
+informations using an excel file and then to import the file to anishare. Both ways will be explained below.
+
 
 \subsection{From PyRAT}
 \label{\detokenize{index:from-pyrat}}
+In most cases it is the easiest way to use the website \sphinxhref{https://anishare.leibniz-fli.de/animals/micefrompyrat/}{Add Mice} or for pups
+\sphinxhref{https://anishare.leibniz-fli.de/animals/pupfrompyrat}{Add Pup}. The user has the same rights as in PyRAT. It means the user has access to all animals
+as in PyRAT and the user must have a PyRAT account. If the user in PyRAT has the role \sphinxcode{\sphinxupquote{Animal facility staff}} or \sphinxcode{\sphinxupquote{Administrator}} the user will only
+see the data after searching (filter) an owner or a responsible person of the animals.
+
+\noindent\sphinxincludegraphics[width=0.600\linewidth]{{mice_from_pyrat}.png}
+
+To import the animals please select / activate the animals (rows) and push the button \sphinxcode{\sphinxupquote{Import mouse/mice to AniShare}}. You find the button on the left
+side below the table. Now it’s possible to change the default offering period (mouse = 14 days, pup = 7 days) and to add a second responsible person.
+The second responsible person gets a mail too if the animals was claimed. After checking the informations the import runs after pushing the button
+\sphinxcode{\sphinxupquote{Yes, I want to offer these mice!}}. After import you switch automatically to the administration area of AniShare und you can see the imported animals
+if the import successful. If an import failed you see an error message and the AniShare admin gets a mail about it. One last hint: It’s only possible to
+import an animal once only.
+
+In some cases it can be useful to import the animal informations via an excel file. How to do it:
+
 First login to PyRAT and \sphinxstylestrong{switch to the english version} of PyRAT if it is no preset. Then select the animals which
 should be import to anishare. Click on \sphinxcode{\sphinxupquote{QS}} (Quick Select) and activate the option \sphinxcode{\sphinxupquote{Export this list to Excel}}.
 Push the button \sphinxcode{\sphinxupquote{Apply}}.
@@ -265,6 +293,20 @@ the user if all requirements match.
 
 \subsection{From \sphinxtitleref{tick@lab}}
 \label{\detokenize{index:from-tick-lab}}
+In most cases it is the easiest way to use the website \sphinxhref{https://anishare.leibniz-fli.de/animals/fishfromtickatlab/}{Add Fish}. The user has the same rights as in PyRAT. It means the user has access to all animals
+as in \sphinxhref{mailto:tick@lab}{tick@lab} and the user must have a \sphinxhref{mailto:tick@lab}{tick@lab} account.
+
+\noindent\sphinxincludegraphics[width=0.600\linewidth]{{fish_from_tickatlab}.png}
+
+To import the animals please select / activate the animals (rows) and push the button \sphinxcode{\sphinxupquote{Import Fishs to AniShare}}. You find the button on the left
+side below the table. Now it’s possible to change the default offering period (14 days) and to add a second responsible person.
+The second responsible person gets a mail too if the animals was claimed. After checking the informations the import runs after pushing the button
+\sphinxcode{\sphinxupquote{Yes, I want to offer these fishes!}}. After import you switch automatically to the administration area of AniShare und you can see the imported animals
+if the import successful. If an import failed you see an error message and the AniShare admin gets a mail about it. One last hint: It’s only possible to
+import an animal once only.
+
+In some cases it can be useful to import the animal informations via an excel file. How to do it:
+
 First login to \sphinxtitleref{Tick@lab} and open the population site. All visible entrys can be exported with the button \sphinxtitleref{Export to Excel}. It isn’t yet possible to export
 only selected animals. Therefore use the filter option.
 

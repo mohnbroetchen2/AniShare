@@ -148,7 +148,7 @@ Afterwards, create a new virtualenv and install the required libraries like so:<
 <p>Admin module</p>
 <dl class="class">
 <dt id="animals.admin.AnimalAdmin">
-<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalAdmin</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin" title="Permalink to this definition">¶</a></dt>
 <dd><p>ModelAdmin for Animal model</p>
 <dl class="method">
 <dt id="animals.admin.AnimalAdmin.age">
@@ -160,6 +160,12 @@ Afterwards, create a new virtualenv and install the required libraries like so:<
 <dt id="animals.admin.AnimalAdmin.form">
 <code class="descname">form</code><a class="headerlink" href="#animals.admin.AnimalAdmin.form" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.admin.AnimalAdmin.get_export_resource_class">
+<code class="descname">get_export_resource_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin.get_export_resource_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns ResourceClass to use for export.</p>
 </dd></dl>
 
 <dl class="method">
@@ -181,6 +187,11 @@ Afterwards, create a new virtualenv and install the required libraries like so:<
 </dd></dl>
 
 </dd></dl>
+
+<dl class="class">
+<dt id="animals.admin.AnimalExportResource">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalExportResource</code><a class="headerlink" href="#animals.admin.AnimalExportResource" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="class">
 <dt id="animals.admin.AnimalForm">
@@ -552,7 +563,7 @@ the current date or the available_to date</p>
 
 <dl class="class">
 <dt id="animals.models.MouseMutation">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">MouseMutation</code><span class="sig-paren">(</span><em>animalid</em>, <em>mutation_name</em>, <em>grade_name</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.MouseMutation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">MouseMutation</code><span class="sig-paren">(</span><em>animalid</em>, <em>pupid</em>, <em>mutation_name</em>, <em>grade_name</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.MouseMutation" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.MouseMutation.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.MouseMutation.DoesNotExist" title="Permalink to this definition">¶</a></dt>

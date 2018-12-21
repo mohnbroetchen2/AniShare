@@ -424,14 +424,14 @@ def importpuptoanishare(request):
         i=0
         for dataset in puplist:
             try:
-                mouse_already_imported = Animal.objects.get(mouse_id=dataset.id)
-                messages.add_message(request, messages.ERROR,'The mouse with the ID {} is already imported. A new import is not possible'.format(dataset.eartag))
+                mouse_already_imported = Animal.objects.get(pup_id=dataset.id)
+                messages.add_message(request, messages.ERROR,'The pup with the ID {} is already imported. A new import is not possible'.format(dataset.eartag))
                 continue
             except Animal.DoesNotExist:
                 i=i
             new_pup = Animal()
             new_pup.animal_type    = "pup"
-            new_pup.mouse_id       = dataset.id
+            new_pup.pup_id       = dataset.id
             if dataset.eartag:
                 new_pup.database_id    = dataset.eartag
             else:
@@ -478,11 +478,11 @@ def importpuptoanishare(request):
                 new_pup.sex = dataset.sex
             try:
                 new_pup.save()
-                messages.add_message(request, messages.SUCCESS,'The mouse {} has been imported.'.format(dataset.eartag))
+                messages.add_message(request, messages.SUCCESS,'The pup {} has been imported.'.format(dataset.eartag))
             except Exception:
-                messages.add_message(request, messages.ERROR,'Becaus of an error the mouse {} has NOT been imported. The AniShare admin is informed about the error'.format(dataset.eartag))
+                messages.add_message(request, messages.ERROR,'Becaus of an error the pup {} has NOT been imported. The AniShare admin is informed about the error'.format(dataset.eartag))
                 ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-                send_mail("AniShare Importfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} '.format(dataset.eartag, Exception), request.user.email, [ADMIN_EMAIL])
+                send_mail("AniShare Importfehler", 'Fehler beim Pupimport von Pup {} mit Fehler {} '.format(dataset.eartag, Exception), request.user.email, [ADMIN_EMAIL])
             i = i + 1
     return HttpResponseRedirect('/admin/animals/animal/')
 

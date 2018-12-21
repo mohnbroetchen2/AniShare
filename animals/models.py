@@ -88,6 +88,7 @@ class Animal(models.Model):
     database_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT")
     fish_id = models.CharField(max_length=200, null=True, blank=True, help_text="DB ID of fish in tickatlab")
     mouse_id = models.CharField(max_length=200, null=True, blank=True, help_text="DB ID of mouse in PyRat")
+    pup_id = models.CharField(max_length=200, null=True, blank=True, help_text="DB ID of pup in PyRat")
     lab_id = models.CharField(max_length=200, null=True, blank=True, help_text="ID of lab in eg. PYRAT")
     creation_date = models.DateTimeField(null=False, auto_now_add=True)
     modification_date = models.DateTimeField(null=False, auto_now=True)
