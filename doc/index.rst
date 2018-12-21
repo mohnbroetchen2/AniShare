@@ -169,7 +169,7 @@ as in PyRAT and the user must have a PyRAT account. If the user in PyRAT has the
 see the data after searching (filter) an owner or a responsible person of the animals.  
 
 .. image:: img/mice_from_pyrat.png
-   :width: 60%
+   :width: 90%
 
 To import the animals please select / activate the animals (rows) and push the button ``Import mouse/mice to AniShare``. You find the button on the left
 side below the table. Now it's possible to change the default offering period (mouse = 14 days, pup = 7 days) and to add a second responsible person.
@@ -211,7 +211,7 @@ In most cases it is the easiest way to use the website `Add Fish <https://anisha
 as in tick@lab and the user must have a tick@lab account. 
 
 .. image:: img/fish_from_tickatlab.png
-   :width: 60%
+   :width: 90%
 
 To import the animals please select / activate the animals (rows) and push the button ``Import Fishs to AniShare``. You find the button on the left
 side below the table. Now it's possible to change the default offering period (14 days) and to add a second responsible person.
