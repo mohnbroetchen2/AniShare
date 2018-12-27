@@ -271,7 +271,6 @@ def send_email_organ(request):
 @login_required
 #@cache_page(60*60)
 def animal_list(request):
-    #animallist = Animal.objects.filter(new_owner__exact='')
     animallist = Animal.objects.filter(new_owner ='').filter(available_from__lte = datetime.now().date()).filter(available_to__gte = datetime.now().date()).order_by('available_to')
     #animallist = Animal.objects.filter(new_owner__exact='').filter(day_of_death >= datetime.now().date())
     #f = AnimalFilter(request.GET, queryset=Animal.objects.order_by('-entry_date'))
