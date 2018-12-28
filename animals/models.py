@@ -168,7 +168,8 @@ class Animal(models.Model):
         if str(self.responsible_person2) != "None":
             return (str(self.responsible_person) + str(" ") +str(self.responsible_person2))
         return (self.responsible_person)
-
+        
+    @property
     def age(self):
         """
         Return the age of the animal, calculated by the difference to either

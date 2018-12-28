@@ -10,41 +10,28 @@ from datetime import timedelta, tzinfo
 import time
 from django.db.models.functions import ExtractDay, ExtractMonth, ExtractYear
 from django.utils import timezone
+from datetime import datetime
 
+def action1(query, value):
+    return query.extra(where=['thisage= %s'], params=[value])
 
 class AnimalFilter(FilterSet):
     licence_number = django_filters.CharFilter(lookup_expr='icontains')
     mutations = django_filters.CharFilter(lookup_expr='icontains')
     line = django_filters.CharFilter(lookup_expr='icontains')
     genetic_background  = django_filters.CharFilter(lookup_expr='icontains')
-    age = django_filters.NumberFilter(method='filter_age')
+    age = django_filters.NumberFilter(method='filter_age', label='Age')
     class Meta:
         model = Animal
         fields = ['animal_type', 'age', 'sex', 'line', 'location','licence_number', 'genetic_background',
-                  'responsible_person']
+                  'responsible_person','day_of_birth']
     def filter_age(self, queryset, name, value):
         if value:
-            day1 = timezone.now().day
-            month1 = timezone.now().month
-            year1 = timezone.now().year
-            secs1 = time.mktime((year1, month1, day1, 0, 0, 0, 0, 0, 0))
-            """
-            day2 = int(ExtractDay(F('day_of_birth')))
-            month2 = int(ExtractMonth(F('day_of_birth')))
-            year2 = int(ExtractYear(F('day_of_birth')))
-            
-            secs2 = time.mktime((year2, month2, day2, 0, 0, 0, 0, 0, 0))
-            diff = secs2 - secs1
-            weeks = diff / 604800
-            """
-            queryset = queryset.annotate(thisage=( F('amount')+ time.mktime((2018, 8, 12, 0, 0, 0, 0, 0, 0)) - time.mktime((year1, month1, day1, 0, 0, 0, 0, 0, 0)) )/604800).filter(thisage=value)   
-            """
-            queryset = queryset.annotate(thisage=( time.mktime((2018, 8, 12, 0, 0, 0, 0, 0, 0)) - time.mktime((year1, month1, day1, 0, 0, 0, 0, 0, 0)) )/604800).filter(thisage=timedelta(seconds=value))
-            queryset = queryset.annotate(thisage=(F('available_to') - F('day_of_birth'))/7).filter(thisage=timedelta(seconds=value))
-            queryset = queryset.annotate(thisage= diff / 604800).filter(thisage=value)
-            queryset = queryset.annotate(thisage=(ExtractDay(F('available_to')) - ExtractDay(F('day_of_birth'))  )).filter(thisage=value)   
-            """
-        return queryset
+            maxdelta = int(value)* 7
+            mindelta = (int(value) * 7) + 6
+            maxdate = datetime.today().date() - timedelta(days = maxdelta)
+            mindate = datetime.today().date() - timedelta(days = mindelta)
+        return queryset.filter(day_of_birth__range=[mindate,maxdate])
     
 
 class OrganFilter(FilterSet):
