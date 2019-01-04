@@ -349,7 +349,7 @@ def pyratmouselist(request):
         else:
             mouselist = Mouse.objects.using('mousedb').all().order_by('eartag') 
         f = MouseFilter(request.GET, queryset=mouselist)
-        return render(request, 'animals/micefrompyrat.html', {'showgroups': True, 'filter': f})
+        return render(request, 'animals/micefrompyrat.html', {'showgroups': True, 'filter': f,})
     mouseownerid = []
     mouselist = None
     if (pyratuser.usernum is not None and pyratuser.usernum != ''):
@@ -359,9 +359,11 @@ def pyratmouselist(request):
         i = 0
         for p in permission:
             mouseownerid.insert(i,p.uid)
-    mouselist = Mouse.objects.using('mousedb').all().filter(owner_id__in=mouseownerid).order_by('eartag')    
+    mouselist = Mouse.objects.using('mousedb').all().filter(owner_id__in=mouseownerid).order_by('eartag') 
+    mutationlist = MouseMutation.objects.using('mousedb').all()  
+    # .filter(animalid__in = mouselist.id) 
     f = MouseFilter(request.GET, queryset=mouselist)
-    return render(request, 'animals/micefrompyrat.html', {'filter': f})
+    return render(request, 'animals/micefrompyrat.html', {'filter': f, 'mutation': mutationlist})
 
 @login_required
 def pyratmouselistuser(request, username):
@@ -481,7 +483,10 @@ def importpuptoanishare(request):
                 new_pup.sex = dataset.sex
             try:
                 new_pup.save()
-                messages.add_message(request, messages.SUCCESS,'The pup {} has been imported.'.format(dataset.eartag))
+                if dataset.eartag:
+                    messages.add_message(request, messages.SUCCESS,'The pup {} has been imported.'.format(dataset.eartag))
+                else:
+                    messages.add_message(request, messages.SUCCESS,'The pup {} has been imported.'.format(dataset.id))
             except Exception:
                 messages.add_message(request, messages.ERROR,'Becaus of an error the pup {} has NOT been imported. The AniShare admin is informed about the error'.format(dataset.eartag))
                 ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)

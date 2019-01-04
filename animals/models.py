@@ -301,6 +301,18 @@ class PyratUser(models.Model):
         managed = False
         db_table = 'v_user'
 
+class MouseMutation(models.Model):
+    class Meta:
+        managed = False
+        db_table = 'v_mutation'
+        unique_together = (('animalid', 'pupid'),)
+    animalid          = models.IntegerField(db_column='animalid',primary_key=True)
+    pupid             = models.IntegerField(db_column='pupid')
+    mutation_name     = models.CharField(db_column='mutation_name', max_length=255)
+    grade_name        = models.CharField(db_column='grade_name', max_length=255)
+    
+
+
 
 class Mouse(models.Model):
     id      = models.IntegerField(db_column='animalid', primary_key=True)
@@ -320,6 +332,7 @@ class Mouse(models.Model):
     genetic_bg = models.CharField(db_column='genetic_bg', max_length=255)
     owner_id = models.IntegerField(db_column='owner_id',)
     owner = models.CharField(db_column='owner', max_length=255)
+    mutation = models.CharField(db_column='mutation', max_length=512)
 
     def age(self):
         """
@@ -349,6 +362,7 @@ class Pup(models.Model):
     genetic_bg = models.CharField(db_column='genetic_bg', max_length=255)
     owner_id = models.IntegerField(db_column='owner_id',)
     owner = models.CharField(db_column='owner', max_length=255)
+    mutation = models.CharField(db_column='mutation', max_length=512)
 
     def age(self):
         """
@@ -361,17 +375,6 @@ class Pup(models.Model):
     class Meta:
         managed = False
         db_table = 'v_pup'
-
-class MouseMutation(models.Model):
-    class Meta:
-        managed = False
-        db_table = 'v_mutation'
-        unique_together = (('animalid', 'pupid'),)
-    animalid          = models.IntegerField(db_column='animalid',primary_key=True)
-    pupid             = models.IntegerField(db_column='pupid')
-    mutation_name     = models.CharField(db_column='mutation_name', max_length=255)
-    grade_name        = models.CharField(db_column='grade_name', max_length=255)
-    
 
 
 class PyratUserPermission(models.Model):

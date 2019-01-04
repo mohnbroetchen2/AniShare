@@ -18,12 +18,12 @@
                   <th class="header"> Age<i class="icon-sort"></i></th>
                   <th class="header"> Date of Birth <i class="icon-sort"></i></th>
                   <th class="header"> Strain <i class="icon-sort"></i></th>
-                  <th class="header"> Genetic Background <i class="icon-sort"></i></th>
+                  <th class="header"> Mutation <i class="icon-sort"></i></th>
                   <th class="header"> Location <i class="icon-sort"></i></th>
                   <th class="header"> Licence <i class="icon-sort"></i></th>
                   <th class="header"> Owner <i class="icon-sort"></i></th>
                   <th class="header"> Resp. Person <i class="icon-sort"></i></th>
-                  <th class="header"> Second Resp. Person <i class="icon-sort"> <!--button type="button" class="btn btn-success btn-sm">Copy</button--></i></th>
+                  <th class="header"> Second Resp. Person <i class="icon-sort"> <button type="button" onclick="copyResponsible()" class="btn btn-success btn-sm">Copy</button></i></th>
                 </tr>
             </thead>
             <tbody>
@@ -45,13 +45,13 @@
                         <td>{{f.age}}</td>
                         <td>{{f.dob}}</td>
                         <td>{{f.strain}}</td>
-                        <td>{{f.genetic_bg}}</td>
+                        <td>{{f.mutation}}</td>
                         <td>{{f.location}}</td>
                         <td>{{f.licence}}</td>
                         <td>{{f.owner}}</td>
                         <td>{{f.responsible}}</td>
                         <td>
-                            <select name="responsible_person2" id="responsible_person2{{a.id}}" class="form-control"><option></option>
+                            <select name="responsible_person2" id="responsible_person2{{f.id}}" class="form-control select-responsible2"><option></option>
                             {% for p in persons %}<option>{{p.name}}</option>{% endfor %}
                             </select>
                         </td>
@@ -61,6 +61,25 @@
             </table>
         <input type="submit" name='claim' value="Yes, I want to offer these pup(s)!">
 </form>
+
+<script>
+    function copyResponsible() {
+        responsible2fields = document.getElementsByClassName('select-responsible2');
+        for (index = 0; index < responsible2fields.length; ++index) 
+        {
+            if (index == 0)
+            {
+                responsible2value =  responsible2fields[index].options[responsible2fields[index].selectedIndex].value;
+                responsible2text =  responsible2fields[index].options[responsible2fields[index].selectedIndex].text;
+            }
+            else
+            {
+                responsible2fields[index].options[responsible2fields[index].selectedIndex].value = responsible2value;
+                responsible2fields[index].options[responsible2fields[index].selectedIndex].text = responsible2text;
+            }
+        }
+    }
+</script>
 
 <script type="text/javascript">
 var d1 = new Date();
