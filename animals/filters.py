@@ -3,7 +3,7 @@ Filters: using django-filters to filter querysets
 """
 import django_filters
 from django_filters import FilterSet
-from .models import Animal, Organ, Change, FishPeople, Fish, Mouse
+from .models import Animal, Organ, Change, FishPeople, Fish, Mouse, Pup
 from django.db.models import F
 import django.forms
 from datetime import timedelta, tzinfo
@@ -82,5 +82,5 @@ class PupFilter(FilterSet):
     responsible = django_filters.CharFilter(lookup_expr='icontains')
     owner = django_filters.CharFilter(lookup_expr='icontains')
     class Meta:
-        model = Mouse
+        model = Pup
         fields = ['sex','strain','responsible','licence','location','owner']
