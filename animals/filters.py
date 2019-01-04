@@ -83,4 +83,4 @@ class PupFilter(FilterSet):
     owner = django_filters.CharFilter(lookup_expr='icontains')
     class Meta:
         model = Mouse
-        fields = ['labid','sex','strain','responsible','licence','location','owner']
+        fields = ['sex','strain','responsible','licence','location','owner']
