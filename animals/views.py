@@ -332,7 +332,7 @@ def pyratpuplist(request):
 
 @login_required
 def pyratmouselist(request):
-    pyratuser = PyratUser.objects.using('mousedb').get(username='request.user.username')
+    pyratuser = PyratUser.objects.using('mousedb').get(username=request.user.username)
     if (pyratuser.locallevel == 11):
         messages.add_message(request, messages.INFO,'You do not have the right to connect to the PyRAT Database')
         return render(request, 'animals/micefrompyrat.html')
