@@ -332,7 +332,7 @@ def pyratpuplist(request):
 
 @login_required
 def pyratmouselist(request):
-    pyratuser = PyratUser.objects.using('mousedb').get(username=request.user.username)
+    pyratuser = PyratUser.objects.using('mousedb').get(username='request.user.username')
     if (pyratuser.locallevel == 11):
         messages.add_message(request, messages.INFO,'You do not have the right to connect to the PyRAT Database')
         return render(request, 'animals/micefrompyrat.html')
@@ -352,11 +352,11 @@ def pyratmouselist(request):
         return render(request, 'animals/micefrompyrat.html', {'showgroups': True, 'filter': f,})
     mouseownerid = []
     mouselist = None
+    i = 0
     if (pyratuser.usernum is not None and pyratuser.usernum != ''):
         mouseownerid.insert(i,pyratuser.id)
     permission= PyratUserPermission.objects.using('mousedb').all().filter(userid=pyratuser.id)
     if (permission is not None and permission !=''):       
-        i = 0
         for p in permission:
             mouseownerid.insert(i,p.uid)
     mouselist = Mouse.objects.using('mousedb').all().filter(owner_id__in=mouseownerid).order_by('eartag') 
