@@ -318,11 +318,11 @@ def pyratpuplist(request):
         return render(request, 'animals/pupfrompyrat.html', {'showgroups': True, 'filter': f})
     pupownerid = []
     pupelist = None
+    i = 0
     if (pyratuser.usernum is not None and pyratuser.usernum != ''):
         pupownerid.insert(i,pyratuser.id)
     permission= PyratUserPermission.objects.using('mousedb').all().filter(userid=pyratuser.id)
     if (permission is not None and permission !=''):       
-        i = 0
         for p in permission:
             pupownerid.insert(i,p.uid)
     puplist = Pup.objects.using('mousedb').all().filter(owner_id__in=pupownerid).order_by('eartag')    
