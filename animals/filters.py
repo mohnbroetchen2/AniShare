@@ -24,7 +24,7 @@ class AnimalFilter(FilterSet):
     class Meta:
         model = Animal
         fields = ['animal_type', 'age', 'sex', 'line', 'location','licence_number', 'genetic_background',
-                  'responsible_person','day_of_birth']
+                  'responsible_person','day_of_birth','fish_specie']
     def filter_age(self, queryset, name, value):
         if value:
             maxdelta = int(value)* 7
@@ -44,7 +44,7 @@ class OrganFilter(FilterSet):
         model = Organ
         fields = ['animal_type', 'sex', 'day_of_death', 'killing_person',
                   'method_of_killing', 'line', 'mutations','genetic_background','responsible_person',
-                  'location', 'licence_number',]
+                  'location', 'licence_number']
 
 class ChangeFilter(FilterSet):
     class Meta:
@@ -61,9 +61,10 @@ class FishFilter(FilterSet):
     license = django_filters.CharFilter(lookup_expr='icontains')
     responsible = django_filters.CharFilter(lookup_expr='icontains')
     strain = django_filters.CharFilter(lookup_expr='icontains')
+    mutation = django_filters.CharFilter(lookup_expr='icontains')
     class Meta:
         model = Fish
-        fields = ['sex','strain','responsible','license','location',]
+        fields = ['specie','sex','strain','responsible','license','location','mutation',]
 
 class MouseFilter(FilterSet):
     location = django_filters.CharFilter(lookup_expr='icontains')
@@ -71,9 +72,10 @@ class MouseFilter(FilterSet):
     responsible = django_filters.CharFilter(lookup_expr='icontains')
     strain = django_filters.CharFilter(lookup_expr='icontains')
     owner = django_filters.CharFilter(lookup_expr='icontains')
+    mutation = django_filters.CharFilter(lookup_expr='icontains')
     class Meta:
         model = Mouse
-        fields = ['sex','strain','responsible','licence','location','owner']
+        fields = ['sex','strain','responsible','licence','location','owner', 'mutation']
 
 class PupFilter(FilterSet):
     strain = django_filters.CharFilter(lookup_expr='icontains')
@@ -81,6 +83,7 @@ class PupFilter(FilterSet):
     licence = django_filters.CharFilter(lookup_expr='icontains')
     responsible = django_filters.CharFilter(lookup_expr='icontains')
     owner = django_filters.CharFilter(lookup_expr='icontains')
+    mutation = django_filters.CharFilter(lookup_expr='icontains')
     class Meta:
         model = Pup
-        fields = ['sex','strain','responsible','licence','location','owner']
+        fields = ['sex','strain','responsible','licence','location','owner','mutation']

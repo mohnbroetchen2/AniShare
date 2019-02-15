@@ -48,15 +48,18 @@
       <div id="filterBlock" class="collapse">
         <div class="row">
           <div class="form-group col-sm-4 col-md-1">
+            {{ filter.form.specie.label_tag }} {% render_field filter.form.specie class="form-control" %}
+          </div>
+          <div class="form-group col-sm-4 col-md-1">
             {{ filter.form.sex.label_tag }} {% render_field filter.form.sex class="form-control" %}
           </div>
-          <!--div class="form-group col-sm-4 col-md-1">
-            {{ filter.form.age.label_tag }} {% render_field filter.form.age class="form-control" %}
-          </div-->
           <div class="form-group col-sm-4 col-md-2">
             {{ filter.form.strain.label_tag }} {% render_field filter.form.strain class="form-control" %}
           </div>
           <div class="form-group col-sm-4 col-md-2">
+              {{ filter.form.mutation.label_tag }} {% render_field filter.form.mutation class="form-control" %}
+            </div>
+          <div class="form-group col-sm-4 col-md-1">
             {{ filter.form.location.label_tag }} {% render_field filter.form.location class="form-control" %}
           </div>
 
@@ -92,6 +95,12 @@
             <th class="header"> Amount
               <i class="icon-sort"></i>
             </th>
+            <th class="header"> Specie
+              <i class="icon-sort"></i>
+            </th>
+            <th class="header"> Tag
+              <i class="icon-sort"></i>
+            </th>
             <th class="header"> Sex
               <i class="icon-sort"></i>
             </th>
@@ -101,7 +110,10 @@
             <th class="header"> Date of Birth
               <i class="icon-sort"></i>
             </th>
-            <th class="header"> Line
+            <th class="header"> Strain
+              <i class="icon-sort"></i>
+            </th>
+            <th class="header"> Mutation
               <i class="icon-sort"></i>
             </th>
             <th class="header"> Location
@@ -123,6 +135,15 @@
             </td>
             <td>{{f.concatidentifier}}</td>
             <td>{{f.quantity}}</td>
+            <td>
+              {% if f.specie == 40291147 %}
+                <span>Noto</span>
+              {% elif f.specie == 40291120 %}
+                <span>Zebra</span>
+              {% else %}
+              {% endif %}
+            </td>
+            <td>{{f.tag}}</td>
             <td>{% if f.sex == 2 %}
               <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
               {% elif f.sex == 1 %}
@@ -134,6 +155,7 @@
             <td>{{f.age}}</td>
             <td>{{f.dob}}</td>
             <td>{{f.strain}}</td>
+            <td>{{f.mutation}}</td>
             <td>{{f.location}}</td>
             <td>{{f.license}}</td>
             <td>{{f.responsible}} ({{f.teamname}})</td>

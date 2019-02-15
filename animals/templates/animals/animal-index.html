@@ -51,6 +51,9 @@
             {{ filter.form.animal_type.label_tag }} {% render_field filter.form.animal_type class="form-control" %}
           </div>
           <div class="form-group col-sm-4 col-md-1">
+            {{ filter.form.fish_specie.label_tag }} {% render_field filter.form.fish_specie class="form-control" %}
+          </div>
+          <div class="form-group col-sm-4 col-md-1">
             {{ filter.form.sex.label_tag }} {% render_field filter.form.sex class="form-control" %}
           </div>
           <div class="form-group col-sm-4 col-md-1">
@@ -152,7 +155,8 @@
               <a href="/animals/{{a.pk}}">{{a.pk}}</a>
             </td>
             <td>{{a.amount}}</td>
-            <td>{{a.animal_type}}</td>
+            <td>{{a.animal_type}}{% if a.fish_specie%}{% if a.fish_specie == 'n' %}
+              <span>Notho</span> {% elif a.fish_specie == 'z' %} <span>Zebra</span>{% endif %}{% endif %}</td>
             <td>{% if a.get_sex_display == 'female' %}
               <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
               {% elif a.get_sex_display == 'male' %}

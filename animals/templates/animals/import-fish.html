@@ -12,15 +12,17 @@
                 <tr>
                   <th class="header"> Animal-ID<i class="icon-sort"></i></th>
                   <th class="header"> # <i class="icon-sort"></i></th>
+                  <th class="header"> Specie <i class="icon-sort"></i></th>
                   <th class="header"> Available from <i class="icon-sort"></i></th>
                   <th class="header"> Available to <i class="icon-sort"></i></th>
+                  <th class="header"> Tag <i class="icon-sort"></i></th>
                   <th class="header"> Sex<i class="icon-sort"></i></th>
                   <th class="header"> Age<i class="icon-sort"></i></th>
                   <th class="header"> Date of Birth <i class="icon-sort"></i></th>
-                  <th class="header"> Line <i class="icon-sort"></i></th>
+                  <th class="header"> Strain <i class="icon-sort"></i></th>
+                  <th class="header"> Mutation <i class="icon-sort"></i></th>
                   <th class="header"> Location <i class="icon-sort"></i></th>
                   <th class="header"> License <i class="icon-sort"></i></th>
-                  <th class="header"> Comments <i class="icon-sort"></i></th>
                   <th class="header"> Resp. Person <i class="icon-sort"></i></th>
                   <th class="header"> Second Resp. Person <i class="icon-sort"> <button type="button" onclick="copyResponsible()" class="btn btn-success btn-sm">Copy</button></i></th>
                 </tr>
@@ -31,8 +33,17 @@
                     <tr>
                         <td>{{f.concatidentifier}}</a></td>
                         <td>{{f.quantity}}</td>
+                        <td>
+                            {% if f.specie == 40291147 %}
+                                <span>Noto</span>
+                            {% elif f.specie == 40291120 %}
+                                <span>Zebra</span>
+                            {% else %}
+                            {% endif %}
+                        </td>
                         <td><input class="from" name="availablefrom"  type="date" id="from{{a.id}}" min=""></td> 
                         <td><input class="to" name="availableto" type="date" id="to{{a.id}}" min=""></td>
+                        <td>{{f.tag}}</td>
                         <td>{% if f.sex == 2 %}
                             <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
                             {% elif f.sex == 1 %}
@@ -44,9 +55,9 @@
                         <td>{{f.age}}</td>
                         <td>{{f.dob}}</td>
                         <td>{{f.strain}}</td>
+                        <td>{{f.mutation}}</td>
                         <td>{{f.location}}</td>
                         <td>{{f.license}}</td>
-                        <td>{{f.notes}}</td>
                         <td>{{f.responsible}}</td>
                         <td>
                             <select name="responsible_person2" id="responsible_person2{{f.id}}" class="form-control select-responsible2"><option></option>

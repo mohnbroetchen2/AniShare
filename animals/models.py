@@ -80,9 +80,9 @@ class Animal(models.Model):
     amount = models.PositiveIntegerField(default=1, 
                                          help_text="How many fishs? (eg. fish in tank). If animal = mouse only one is possible")
     animal_type = models.CharField(max_length=100, choices=(
-        ('fish', 'fish'),
-        ('mouse', 'mouse'),
-        ('pup', 'pup'),
+        ('fish', 'Fish'),
+        ('mouse', 'Mouse'),
+        ('pup', 'Pup'),
     ),
                                    default='mouse')
     database_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT")
@@ -94,6 +94,7 @@ class Animal(models.Model):
     modification_date = models.DateTimeField(null=False, auto_now=True)
     entry_date = models.DateField(null=False, auto_now_add=True)
     day_of_birth = models.DateField()
+    fish_specie = models.CharField(max_length=20, null=True, blank=True, choices=(('n', 'Nothobranchius'), ('z', 'Zebrafish')),) 
     genetic_background = models.CharField(max_length=200,blank=True, null=True)
     line = models.CharField(max_length=200, help_text="genetic trait of animal")
     sex = models.CharField(max_length=2, choices=(('m', 'male'), ('f', 'female'), ('u', 'unknown')),
@@ -269,6 +270,10 @@ class Fish(models.Model):
     strain = models.CharField(db_column='STRAIN', max_length=255)
     teamid = models.CharField(db_column='TEAMID', max_length=255)
     teamname = models.CharField(db_column='TEAMNAME', max_length=255)
+    mutation = models.CharField(db_column='MUTATION', max_length=511)
+    tag = models.CharField(db_column='TAGS', max_length=1000)
+    specie = models.IntegerField(db_column='SPECIESID', choices=(('40291147', 'Nothobranchius'), ('40291120', 'Zebrafish')),
+                           help_text='Fish specie')
 
     def concatidentifier(self):
         if (self.identifier1 != ""):

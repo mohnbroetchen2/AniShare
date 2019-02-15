@@ -275,6 +275,7 @@ def animal_list(request):
     #animallist = Animal.objects.filter(new_owner__exact='').filter(day_of_death >= datetime.now().date())
     #f = AnimalFilter(request.GET, queryset=Animal.objects.order_by('-entry_date'))
     #f = AnimalFilter(request.GET, queryset=Animal.objects.all().order_by('-entry_date'))
+
     f = AnimalFilter(request.GET, queryset=animallist)
     return render(request, 'animals/animal-index.html', {'filter': f})
 
@@ -615,6 +616,10 @@ def importfishtoanishare(request):
             new_fish.available_to   = availabletolist[i]
             new_fish.licence_number = dataset.license
             new_fish.day_of_birth   = dataset.dob
+            if dataset.specie == 40291147:
+                new_fish.fish_specie = 'n'
+            elif dataset.specie == 40291120:
+                new_fish.fish_specie = 'z'
             if responsible_person2[i]!="":
                 new_fish.responsible_person2 = Person.objects.get(name=responsible_person2[i])
             

@@ -267,7 +267,7 @@ class AnimalForm(forms.ModelForm):
     """
     class Meta:
         model = Animal
-        fields = ('amount', 'animal_type', 'day_of_birth',
+        fields = ('amount', 'animal_type', 'fish_specie','day_of_birth',
                   'available_from', 'available_to', 'sex', 'database_id',
                   'lab_id', 'line', 'location', 'responsible_person', 'responsible_person2',
                   'licence_number', 'genetic_background','mutations', 'comment', 'new_owner',)
@@ -364,12 +364,12 @@ class AnimalAdmin(ImportExportActionModelAdmin):
                           'available_from', 'available_to', 'line', 'mutations', 'database_id',
                           'location', 'licence_number', 'lab_id','responsible_persons',
                           'new_owner')
-    search_fields = ('id','animal_type', 'sex', 'database_id', 'lab_id', 'day_of_birth',
+    search_fields = ('id','animal_type', 'fish_specie', 'sex', 'database_id', 'lab_id', 'day_of_birth',
                      'line', 'mutations', 'genetic_background', 'location__name', 'new_owner', 'licence_number',
                      'available_from', 'available_to', 'responsible_person__name',
                      'responsible_person__email', 'added_by__email',)
     autocomplete_fields = ['responsible_person','responsible_person2']
-    list_filter = ('animal_type','sex', ('responsible_person__responsible_for_lab',RelatedDropdownFilter),('line', DropdownFilter),('genetic_background', DropdownFilter),
+    list_filter = ('animal_type','fish_specie','sex', ('responsible_person__responsible_for_lab',RelatedDropdownFilter),('line', DropdownFilter),('genetic_background', DropdownFilter),
                    ('day_of_birth', DateRangeFilter),
                    'location', ('licence_number', DropdownFilter), ('new_owner', DropdownFilter), 'added_by')
     radio_fields = {'sex':admin.HORIZONTAL}
