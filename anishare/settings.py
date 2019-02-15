@@ -27,7 +27,7 @@ SECRET_KEY = ''
 ALLOWED_HOSTS = [ ]
 STATIC_URL = ''
 DEBUG = False # SECURITY WARNING: don't run with debug turned on in production!
-ADMIN_EMAIL = 'fabian.monheim@leibniz-fli.de'
+ADMIN_EMAIL = ''
 
 
 # Quick-start development settings - unsuitable for production
@@ -45,13 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_filters',
+    'django_filters',  # https://github.com/carltongibson/django-filter
     'rangefilter',
     'animals',
     'widget_tweaks',
     'import_export',
     'admin_reorder',
-    'admin_interface',
+    'admin_interface',  # https://github.com/fabiocaccamo/django-admin-interface
     'colorfield',
     'django.contrib.admin',
     'django_admin_listfilter_dropdown',

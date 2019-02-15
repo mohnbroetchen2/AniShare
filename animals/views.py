@@ -609,13 +609,14 @@ def importfishtoanishare(request):
             if (dataset.identifier1 != ""):
                 new_fish.database_id = dataset.animalnumber+"//"+dataset.identifier1
             else:
-                new_fish.database_id = dataset.animalnumber
-            #new_fish.lab_id         = dataset.animalnumber
+                new_fish.database_id    = dataset.animalnumber
+            new_fish.lab_id         = new_fish.database_id
             new_fish.amount         = dataset.quantity
             new_fish.available_from = availablefromlist[i]
             new_fish.available_to   = availabletolist[i]
             new_fish.licence_number = dataset.license
             new_fish.day_of_birth   = dataset.dob
+            new_fish.comment        = dataset.tag
             if dataset.specie == 40291147:
                 new_fish.fish_specie = 'n'
             elif dataset.specie == 40291120:

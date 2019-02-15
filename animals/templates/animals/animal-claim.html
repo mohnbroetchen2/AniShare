@@ -50,8 +50,9 @@
                         <td>{{object.location}}</td>
                         <td>{{object.licence_number}}</td>
                         <td>{{object.background}}</td>
-                        <td>{{object.database_id}}<br/>
-                            {{object.lab_id}} </td>
+                        <td>{% if object.database_id == object.lab_id %} {{object.database_id}}
+                            {% else %}
+                            {{object.database_id}} {% if object.lab_id %}<br/> {{object.lab_id}}{% endif %}{% endif %} </td>
                         <td>{{object.comment}}</td>
                         <td>{{object.responsible_persons}}</td>
                         <td><a href="mailto:{{object.added_by.email}}">{{object.added_by.first_name}} {{object.added_by.last_name}}</a></td>
