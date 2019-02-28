@@ -550,11 +550,14 @@ class WIncident(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'w_incident'
+        db_table = 'v_incident'
 
 class WIncidentAnimals(models.Model):
-    animalid = models.ForeignKey('Animal', models.DO_NOTHING, db_column='animalid', blank=True, null=True)
-    incidentid = models.ForeignKey('WIncident', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
+    id = models.IntegerField(db_column='id', primary_key=True)
+    #animalid = models.ForeignKey('Mouse', models.DO_NOTHING, db_column='animalid', blank=True, null=True)
+    #incidentid = models.ForeignKey('WIncident', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
+    animalid = models.IntegerField(blank=False, null=False)
+    incidentid = models.IntegerField(blank=False, null=False)
 
     class Meta:
         managed = False

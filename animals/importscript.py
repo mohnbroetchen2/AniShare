@@ -1,15 +1,10 @@
-from django_extensions.management.jobs import DailyJob
-
-
-class Job(DailyJob):
-    help = "Django Daily Cleanup Job"
-
-    def execute(self):
+def runimport():
         from django.core import management
-        from ...models import WIncident, WIncidentAnimals, Animal, Mouse, MouseMutation, Location, Person, Lab
+        from .models import WIncident, WIncidentAnimals, Animal, Mouse, MouseMutation, Location, Person, Lab
         from django.contrib.auth.models import User
         from django.core.mail import EmailMultiAlternatives, send_mail
         from datetime import datetime, timedelta
+
 
         incidentlist = WIncident.objects.using('mousedb_test').all().filter(status=2)
         for incident in incidentlist:

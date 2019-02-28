@@ -29,6 +29,7 @@ from django.views import generic
 from .filters import AnimalFilter, OrganFilter, ChangeFilter, PersonFilter, FishFilter, MouseFilter, PupFilter
 from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab, FishPeople, FishTeam, FishMutation
 from .models import Mouse, MouseMutation, PyratUser, PyratUserPermission, Pup
+from .importscript import runimport
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.utils.html import strip_tags
 
@@ -271,6 +272,7 @@ def send_email_organ(request):
 @login_required
 #@cache_page(60*60)
 def animal_list(request):
+    #runimport()
     animallist = Animal.objects.filter(new_owner ='').filter(available_from__lte = datetime.now().date()).filter(available_to__gte = datetime.now().date()).order_by('available_to')
     #animallist = Animal.objects.filter(new_owner__exact='').filter(day_of_death >= datetime.now().date())
     #f = AnimalFilter(request.GET, queryset=Animal.objects.order_by('-entry_date'))
