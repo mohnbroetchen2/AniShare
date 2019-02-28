@@ -73,9 +73,10 @@ class MouseFilter(FilterSet):
     strain = django_filters.CharFilter(lookup_expr='icontains')
     owner = django_filters.CharFilter(lookup_expr='icontains')
     mutation = django_filters.CharFilter(lookup_expr='icontains')
+    project = django_filters.CharFilter(lookup_expr='icontains')
     class Meta:
         model = Mouse
-        fields = ['sex','strain','responsible','licence','location','owner', 'mutation']
+        fields = ['sex','strain','responsible','licence','location','owner', 'mutation', 'project']
 
 class PupFilter(FilterSet):
     strain = django_filters.CharFilter(lookup_expr='icontains')
@@ -84,6 +85,7 @@ class PupFilter(FilterSet):
     responsible = django_filters.CharFilter(lookup_expr='icontains')
     owner = django_filters.CharFilter(lookup_expr='icontains')
     mutation = django_filters.CharFilter(lookup_expr='icontains')
+    project = django_filters.CharFilter(lookup_expr='icontains')
     class Meta:
         model = Pup
-        fields = ['sex','strain','responsible','licence','location','owner','mutation']
+        fields = ['sex','strain','responsible','licence','location','owner','mutation','project']

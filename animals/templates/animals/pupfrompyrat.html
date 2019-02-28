@@ -65,9 +65,11 @@
           <div class="form-group col-sm-4 col-md-1">
             {{ filter.form.location.label_tag }} {% render_field filter.form.location class="form-control" %}
           </div>
-
           <div class="form-group col-sm-4 col-md-1">
             {{ filter.form.licence.label_tag }} {% render_field filter.form.licence class="form-control" %}
+          </div>
+          <div class="form-group col-sm-4 col-md-1">
+            {{ filter.form.project.label_tag }} {% render_field filter.form.project class="form-control" %}
           </div>
           <div class="form-group col-sm-4 col-md-2">
             {{ filter.form.responsible.label_tag }} {% render_field filter.form.responsible class="form-control" %}
@@ -118,6 +120,9 @@
             <th class="header"> Licence
               <i class="icon-sort"></i>
             </th>
+            <th class="header"> Project
+              <i class="icon-sort"></i>
+            </th>
             <th class="header"> Resp. Person
               <i class="icon-sort"></i>
             </th>
@@ -148,6 +153,7 @@
             <td>{{f.mutation}}</td>
             <td>{{f.location}}</td>
             <td>{{f.licence}}</td>
+            <td>{{f.project}}</td>
             <td>{{f.responsible}}</td>
             <td>{{f.owner}}</td>
           </tr>

@@ -617,10 +617,10 @@ def importfishtoanishare(request):
             new_fish.licence_number = dataset.license
             new_fish.day_of_birth   = dataset.dob
             new_fish.comment        = dataset.tag
-            if dataset.specie == 40291147:
+            if dataset.specie == 40291147:   # It is a Notobranchius
                 new_fish.fish_specie = 'n'
             elif dataset.specie == 40291120:
-                new_fish.fish_specie = 'z'
+                new_fish.fish_specie = 'z' # It is a Zebra fish
             if responsible_person2[i]!="":
                 new_fish.responsible_person2 = Person.objects.get(name=responsible_person2[i])
             
@@ -716,7 +716,7 @@ def AnimalClaimView(request):
         return render(request, 'animals/animals-claim.html', {'filter': f})
 
 
-def send_email_animals(request):
+def send_email_animals(request):  # send a mail to the responsible persons of the claimed animals and go back to the overview site
     if request.method == "POST":
         email = request.POST['email']
         claimlist = request.POST.getlist("selectedAnimals",None)
@@ -724,10 +724,10 @@ def send_email_animals(request):
         last_responsible = ""
         last_responsible2 = None
         error = 0;
-        """
-        message = render_to_string('email_animals.html',{'email':email, 'animals':animallist, 'now': datetime.now()})
-        """
-        for sAnimal in animallist:
+
+        for sAnimal in animallist: 
+            # the loop collects in an improvable way all animals from one responsible person and send it to the person.
+            # Then the loop collects all animals from the next responsible person 
             if last_responsible != sAnimal.responsible_person or last_responsible2 != sAnimal.responsible_person2:
                 last_responsible = sAnimal.responsible_person
                 last_responsible2 = sAnimal.responsible_person2
@@ -740,13 +740,13 @@ def send_email_animals(request):
                 if error == 1:
                     break
                 subject = "User {} claimed animals in AniShare".format(email)
-                if last_responsible2 is None:
+                if last_responsible2 is None: # render the mail without second responsible person
                     message = render_to_string('email_animals.html',{'email':email, 'animals':templist, 'now': datetime.now(),'responsible_person':sAnimal.responsible_person.name, 'responsible_person2':None})
-                else:
+                else: # render the mail with the second responsible person
                     message = render_to_string('email_animals.html',{'email':email, 'animals':templist, 'now': datetime.now(),'responsible_person':sAnimal.responsible_person.name, 'responsible_person2':sAnimal.responsible_person2.name})
-                if last_responsible2 is None:
+                if last_responsible2 is None: # send mail only to the first responsible person
                     msg = EmailMessage(subject, message, email, [sAnimal.responsible_person.email, email])
-                else:
+                else: # send mail to the first and second responsible person
                     msg = EmailMessage(subject, message, email, [sAnimal.responsible_person.email, sAnimal.responsible_person2.email, email])
                 msg.content_subtype = "html"
                 msg.send()
@@ -754,7 +754,7 @@ def send_email_animals(request):
                     messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(sAnimal.responsible_person.email))
                 else:
                     messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}> and <{}>.'.format(sAnimal.responsible_person.email, sAnimal.responsible_person2.email))
-                sAnimal.new_owner = email
+                sAnimal.new_owner = email # save the new owner = mail address of the claiming user
                 sAnimal.save()
                 messages.add_message(request, messages.SUCCESS,'The entry {} has been claimed by {}.'.format(sAnimal.pk, sAnimal.new_owner))
                 logger.info('{} The entry {} has been claimed by {}.'.format(datetime.now(), sAnimal.pk, sAnimal.new_owner))

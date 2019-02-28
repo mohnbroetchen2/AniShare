@@ -55,8 +55,8 @@ INSTALLED_APPS = [
     'colorfield',
     'django.contrib.admin',
     'django_admin_listfilter_dropdown',
-    'bootstrap_email'
-   
+    'bootstrap_email',
+    'django_extensions' # for jobs scheduling
 ]
 
 MIDDLEWARE = [
