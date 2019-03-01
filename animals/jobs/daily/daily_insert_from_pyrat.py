@@ -2,14 +2,15 @@ from django_extensions.management.jobs import DailyJob
 
 
 class Job(DailyJob):
-    help = "Django Daily Cleanup Job"
+    help = ""
 
     def execute(self):
         from django.core import management
-        from ...models import WIncident, WIncidentAnimals, Animal, Mouse, MouseMutation, Location, Person, Lab
+        from ...models import WIncident, WIncidentAnimals, Animal, Mouse, MouseMutation, Location, Person, Lab, WIncidentcomment
         from django.contrib.auth.models import User
         from django.core.mail import EmailMultiAlternatives, send_mail
         from datetime import datetime, timedelta
+        from django.conf import settings
 
         incidentlist = WIncident.objects.using('mousedb_test').all().filter(status=2)
         for incident in incidentlist:
@@ -60,11 +61,17 @@ class Job(DailyJob):
                         new_mouse.save()
                     except Exception: 
                         error = 1
+                        ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
                         send_mail("AniShare Importscriptfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} '.format(dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
                 except Exception: 
                     error = 1
+                    ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
                     send_mail("AniShare Importscriptfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} '.format(dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])   
             if error == 0:
-                incident.status = 1
+                incident.status = 5
                 incident.save()
+                new_comment = WIncidentcomment()
+                new_comment.incidentid = incident
+                new_comment.comment = 'AniShare: Request status changed to Added to Anishare'
+                new_comment.save()
         management.call_command("clearsessions")

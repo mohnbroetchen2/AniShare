@@ -567,10 +567,11 @@ class WIncidentAnimals(models.Model):
 class WIncidentcomment(models.Model):
     incidentid = models.ForeignKey('WIncident', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
     comment = models.TextField()
-    commentdate = models.DateTimeField()
+    commentdate = models.DateTimeField(null=False, auto_now_add=True)
 
     class Meta:
         managed = False
+        default_manager_name = 'mousedb_test'
         db_table = 'w_incidentcomment'
 
 
