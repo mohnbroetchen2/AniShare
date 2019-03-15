@@ -1,11 +1,11 @@
-Django>=2.0.4
+Django>=2.0.11
 django-auth-ldap>=1.5.0
 django-filter>=2.1
 pyasn1>=0.4.2
 pyasn1-modules>=0.2.1
 python-ldap>=3.0.0
 pytz>=2018.4
-PyYAML>=3.12
+PyYAML>=4.2b1
 xlrd>=1.1.0
 django-admin-rangefilter==0.3.6
 django-widget-tweaks>=1.4.2
