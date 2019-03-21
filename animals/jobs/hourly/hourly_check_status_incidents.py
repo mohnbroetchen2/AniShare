@@ -1,4 +1,4 @@
-from django_extensions.management.jobs import DailyJob
+from django_extensions.management.jobs import HourlyJob
 
 
 class Job(HourlyJob):
