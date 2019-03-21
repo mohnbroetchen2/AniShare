@@ -303,8 +303,11 @@ def tickatlabpersonlist(request):
 def pyratpuplist(request):
     pyratuser = PyratUser.objects.using('mousedb').get(username=request.user.username)
     if (pyratuser.locallevel == 11):
-        messages.add_message(request, messages.INFO,'You do not have the right to connect to the PyRAT Database')
-        return render(request, 'animals/pupfrompyrat.html')
+        #messages.add_message(request, messages.INFO,'You do not have the right to connect to the PyRAT Database')
+        fullname = pyratuser.firstname + ' '  + pyratuser.lastname
+        puplist = Pup.objects.using('mousedb').all().filter(responsible=fullname).order_by('eartag') 
+        f = PupFilter(request.GET, queryset=puplist)
+        return render(request, 'animals/pupfrompyrat.html', {'showgroups': True, 'filter': f})
     if (pyratuser.locallevel == 3 or pyratuser.locallevel == 4):
         try:
             owner = request.GET['owner']
@@ -337,8 +340,11 @@ def pyratpuplist(request):
 def pyratmouselist(request):
     pyratuser = PyratUser.objects.using('mousedb').get(username=request.user.username)
     if (pyratuser.locallevel == 11):
-        messages.add_message(request, messages.INFO,'You do not have the right to connect to the PyRAT Database')
-        return render(request, 'animals/micefrompyrat.html')
+        #messages.add_message(request, messages.INFO,'You do not have the right to connect to the PyRAT Database')
+        fullname = pyratuser.firstname + ' '  + pyratuser.lastname
+        mouselist = Mouse.objects.using('mousedb').all().filter(responsible=fullname).order_by('eartag') 
+        f = MouseFilter(request.GET, queryset=mouselist)
+        return render(request, 'animals/micefrompyrat.html', {'showgroups': True, 'filter': f,})
     if (pyratuser.locallevel == 3 or pyratuser.locallevel == 4):
         try:
             owner = request.GET['owner']
