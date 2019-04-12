@@ -571,7 +571,7 @@ class WIncidentcomment(models.Model):
 
     class Meta:
         managed = False
-        default_manager_name = 'mousedb'
+        #default_manager_name = 'mousedb'
         db_table = 'w_incidentcomment'
 
 
