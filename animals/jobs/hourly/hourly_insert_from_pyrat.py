@@ -85,5 +85,5 @@ class Job(HourlyJob):
         except Exception: 
             management.call_command("clearsessions")
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-            send_mail("AniShare Importscriptfehler1", 'Fehler {} '.format(Exception.message), ADMIN_EMAIL, [ADMIN_EMAIL])
+            send_mail("AniShare Importscriptfehler hourly_insert_from_pyrat.py", 'Fehler {} '.format(Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
         management.call_command("clearsessions")
