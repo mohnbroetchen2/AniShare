@@ -11,6 +11,9 @@ class Job(HourlyJob):
         from django.core.mail import EmailMultiAlternatives, send_mail
         from datetime import datetime, timedelta
         from django.conf import settings
+        import logging
+
+        logger = logging.getLogger('myscriptlogger')
 
         try:
 
@@ -82,5 +85,5 @@ class Job(HourlyJob):
         except Exception: 
             management.call_command("clearsessions")
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-            send_mail("AniShare Importscriptfehler", 'Fehler {} '.format(Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
+            send_mail("AniShare Importscriptfehler1", 'Fehler {} '.format(Exception.message), ADMIN_EMAIL, [ADMIN_EMAIL])
         management.call_command("clearsessions")

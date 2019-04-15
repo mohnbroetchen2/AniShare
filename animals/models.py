@@ -510,20 +510,20 @@ def update_killing_person(sender, instance, created, **kwargs):
 #    organUsed=forms.ModelMultipleChoiceField(queryset=Organtype.objects.all(),widget=forms.CheckboxSelectMultiple())
 
 class WIncident(models.Model):
-    incidentid = models.AutoField(primary_key=True)
-    incidentclass =  models.IntegerField(blank=True, null=True)
+    incidentid = models.AutoField(db_column='incidentid', primary_key=True)
+    incidentclass =  models.IntegerField(db_column='incidentclass', blank=True, null=True)
     #incidentclass = models.ForeignKey('WIncidentclass', models.DO_NOTHING, db_column='incidentclass', blank=True, null=True)
-    initiator = models.ForeignKey('PyratUser', models.DO_NOTHING, blank=True, null=True)
-    owner = models.ForeignKey('PyratUser', models.DO_NOTHING, blank=True, null=True, related_name='ownerpyrat')
-    responsible = models.ForeignKey('PyratUser', models.DO_NOTHING, blank=True, null=True, related_name='responsiblepyrat')
-    incidentdescription = models.TextField()
-    opendate = models.DateTimeField()
-    closedate = models.DateTimeField(blank=True, null=True)
-    priority = models.IntegerField(blank=True, null=True)
+    initiator = models.ForeignKey('PyratUser', models.DO_NOTHING, blank=True, null=True,db_column='initiator_id')
+    owner = models.ForeignKey('PyratUser', models.DO_NOTHING, blank=True, null=True, related_name='ownerpyrat', db_column='owner_id')
+    responsible= models.ForeignKey('PyratUser', models.DO_NOTHING, blank=True, null=True, related_name='responsiblepyrat', db_column='responsible_id')
+    incidentdescription = models.TextField(db_column='incidentdescription')
+    opendate = models.DateTimeField(db_column='opendate')
+    closedate = models.DateTimeField(blank=True, null=True, db_column='closedate')
+    priority = models.IntegerField(blank=True, null=True, db_column='priority')
     #priority = models.ForeignKey('WIncidentpriorities', models.DO_NOTHING, db_column='priority')
-    status = models.IntegerField(blank=True, null=True) 
+    status = models.IntegerField(blank=True, null=True, db_column='status') 
     #status = models.ForeignKey('WIncidentstatus', models.DO_NOTHING, db_column='status')
-    duedate = models.DateTimeField(blank=True, null=True)
+    duedate = models.DateTimeField(blank=True, null=True, db_column='duedate')
     """
     wr_building = models.ForeignKey('LocationBuildings', models.DO_NOTHING, blank=True, null=True)
     wr_area = models.ForeignKey('LocationAreas', models.DO_NOTHING, blank=True, null=True)
@@ -531,7 +531,7 @@ class WIncident(models.Model):
     wr_rack = models.ForeignKey('Rack', models.DO_NOTHING, blank=True, null=True)
     behavior = models.ForeignKey('WIncidentBehavior', models.DO_NOTHING, blank=True, null=True)
     """
-    approved = models.IntegerField()
+    approved = models.IntegerField(db_column='approved')
     """
     strain = models.ForeignKey('Strain', models.DO_NOTHING, blank=True, null=True)
     procedure = models.ForeignKey('Procedures', models.DO_NOTHING, blank=True, null=True)
@@ -545,8 +545,8 @@ class WIncident(models.Model):
     new_owner = models.ForeignKey('Localuser', models.DO_NOTHING, blank=True, null=True)
     new_responsible = models.ForeignKey('Localuser', models.DO_NOTHING, blank=True, null=True)
     """
-    change_responsible = models.IntegerField(blank=True, null=True)
-    generation = models.CharField(max_length=10, blank=True, null=True)
+    change_responsible = models.IntegerField(blank=True, null=True,db_column='change_responsible')
+    generation = models.CharField(max_length=10, blank=True, null=True,db_column='generation')
 
     class Meta:
         managed = False
