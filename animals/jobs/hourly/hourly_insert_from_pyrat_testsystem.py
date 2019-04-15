@@ -14,10 +14,10 @@ class Job(HourlyJob):
 
         try:
 
-            incidentlist = WIncident.objects.using('mousedb').all().filter(status=2)
+            incidentlist = WIncident.objects.using('mousedb_test').all().filter(status=2)
             for incident in incidentlist:
                 error = 0
-                animallist = WIncidentAnimals.objects.using('mousedb').filter(incidentid = incident.incidentid)
+                animallist = WIncidentAnimals.objects.using('mousedb_test').filter(incidentid = incident.incidentid)
                 for pyratmouse in animallist:
                     try:
                         if Animal.objects.filter(mouse_id=pyratmouse.animalid).exists():
@@ -25,7 +25,7 @@ class Job(HourlyJob):
                             continue
                         new_mouse = Animal()
                         new_mouse.animal_type    = "mouse"
-                        dataset = Mouse.objects.using('mousedb').get(id=pyratmouse.animalid)
+                        dataset = Mouse.objects.using('mousedb_test').get(id=pyratmouse.animalid)
                         new_mouse.mouse_id       = dataset.id
                         new_mouse.database_id    = dataset.eartag
                         new_mouse.lab_id         = dataset.labid
@@ -35,7 +35,7 @@ class Job(HourlyJob):
                         new_mouse.available_to   = datetime.today().date() + timedelta(days=14)
                         new_mouse.licence_number = dataset.licence
                         new_mouse.day_of_birth   = dataset.dob
-                        mousemutations           = MouseMutation.objects.using('mousedb').filter(animalid = dataset.id)
+                        mousemutations           = MouseMutation.objects.using('mousedb_test').filter(animalid = dataset.id)
                         new_mouse.mutations = ''
                         for m in mousemutations:
                             new_mouse.mutations  = new_mouse.mutations + m.mutation_name + ' ' + m.grade_name + '; '
