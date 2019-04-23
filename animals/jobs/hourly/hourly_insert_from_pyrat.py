@@ -107,7 +107,7 @@ class Job(HourlyJob):
                             new_location = Location()
                             new_location.name = dataset.location
                             new_location.save()
-                            new_mouse.location       = Location.objects.get(name=dataset.location)
+                            new_pup.location       = Location.objects.get(name=dataset.location)
                         new_pup.line           = dataset.strain  
                         try:        
                             new_pup.responsible_person = Person.objects.get(name=dataset.responsible)
@@ -124,15 +124,15 @@ class Job(HourlyJob):
                         new_pup.sex = dataset.sex
                         try:
                             new_pup.save()
-                            logger.debug('{}: Pup with id {} has been imported by Script.'.format(datetime.now(), new_mouse.database_id))
+                            logger.debug('{}: Pup with id {} has been imported by Script.'.format(datetime.now(), new_pup.database_id))
                         except Exception: 
                             error = 1
                             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-                            send_mail("AniShare Importscriptfehler {}", 'Fehler beim Pupimport von Pup{} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
+                            send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
                     except Exception: 
                         error = 1
                         ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-                        send_mail("AniShare Importscriptfehler {}", 'Fehler beim Pupimport von Pup {} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])   
+                        send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])   
                             
                 if error == 0:
                     incident.status = 5
@@ -145,5 +145,5 @@ class Job(HourlyJob):
         except Exception: 
             management.call_command("clearsessions")
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-            send_mail("AniShare Importscriptfehler hourly_insert_from_pyrat.py {}", 'Fehler {} '.format(mousedb, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
+            send_mail("AniShare Importscriptfehler hourly_insert_from_pyrat.py", '{}: Fehler {} '.format(mousedb, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
         management.call_command("clearsessions")

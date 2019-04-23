@@ -124,7 +124,7 @@ class Job(DailyJob):
                         new_pup.sex = dataset.sex
                         try:
                             new_pup.save()
-                            logger.debug('{}: Pup with id {} has been imported by Script.'.format(datetime.now(), new_mouse.database_id))
+                            logger.debug('{}: Pup with id {} has been imported by Script.'.format(datetime.now(), new_pup.database_id))
                         except Exception: 
                             error = 1
                             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
