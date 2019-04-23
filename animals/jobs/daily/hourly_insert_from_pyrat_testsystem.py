@@ -1,7 +1,7 @@
-from django_extensions.management.jobs import DailyJob
+from django_extensions.management.jobs import HourlyJob
 
 
-class Job(DailyJob):
+class Job(HourlyJob):
     help = ""
 
     def execute(self):
@@ -20,7 +20,7 @@ class Job(DailyJob):
             incidentlist = WIncident.objects.using(mousedb).all().filter(status=2)
             for incident in incidentlist:
                 error = 0
-                pup   = 0
+                # Import mice #
                 animallist = WIncidentAnimals.objects.using(mousedb).filter(incidentid = incident.incidentid)
                 for pyratmouse in animallist:
                     try:
@@ -76,6 +76,7 @@ class Job(DailyJob):
                         ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
                         send_mail("AniShare Importscriptfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} '.format(dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])   
                 
+                # Import pups #
                 puplist = WIncidentPups.objects.using(mousedb).filter(incidentid = incident.incidentid)
                 for pyratpup in puplist:
                     try:
@@ -85,7 +86,7 @@ class Job(DailyJob):
                         new_pup = Animal()
                         new_pup.animal_type    = "pup"
                         dataset = Pup.objects.using(mousedb).get(id=pyratpup.pupid)
-                        new_pup.mouse_id       = dataset.id
+                        new_pup.pup_id       = dataset.id
                         new_pup.database_id    = dataset.eartag
                         new_pup.lab_id         = dataset.labid
                         new_pup.amount         = 1
