@@ -128,11 +128,11 @@ class Job(DailyJob):
                         except Exception: 
                             error = 1
                             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-                            send_mail("AniShare Importscriptfehler {}", 'Fehler beim Pupimport von Pup{} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
+                            send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
                     except Exception: 
                         error = 1
                         ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-                        send_mail("AniShare Importscriptfehler {}", 'Fehler beim Pupimport von Pup {} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])   
+                        send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])   
                             
                 if error == 0:
                     incident.status = 5
@@ -145,5 +145,5 @@ class Job(DailyJob):
         except Exception: 
             management.call_command("clearsessions")
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-            send_mail("AniShare Importscriptfehler hourly_insert_from_pyrat.py {}", 'Fehler {} '.format(mousedb, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
+            send_mail("AniShare Importscriptfehler hourly_insert_from_pyrat.py", '{}: Fehler {} '.format(mousedb, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
         management.call_command("clearsessions")
