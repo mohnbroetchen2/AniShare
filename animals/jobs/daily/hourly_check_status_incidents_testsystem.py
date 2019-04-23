@@ -10,15 +10,18 @@ class Job(HourlyJob):
         from django.core.mail import EmailMultiAlternatives, send_mail
         from datetime import datetime, timedelta
         from django.conf import settings
+        import logging
 
+        mousedb = 'mousedb_test'
+        logger = logging.getLogger('myscriptlogger')
         try:
             today = datetime.now().date()
-            incidentlist = WIncident.objects.using('mousedb_test').all().filter(status=5)
+            incidentlist = WIncident.objects.using(mousedb).all().filter(status=5)
             for incident in incidentlist:
                 skip = 0
                 error = 0
                 i = 0
-                animallist = WIncidentAnimals.objects.using('mousedb_test').filter(incidentid = incident.incidentid)
+                animallist = WIncidentAnimals.objects.using(mousedb).filter(incidentid = incident.incidentid)
                 count_animals = animallist.count()
                 for pyratmouse in animallist:
                     i = i + 1
@@ -43,5 +46,5 @@ class Job(HourlyJob):
         except Exception: 
             management.call_command("clearsessions")
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-            send_mail("AniShare Importscriptfehler", 'Fehler {} '.format(Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
+            send_mail("AniShare Importscriptfehler hourly_check_status_incidents.py", 'Fehler {} '.format(Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
         management.call_command("clearsessions")

@@ -563,6 +563,15 @@ class WIncidentAnimals(models.Model):
         managed = False
         db_table = 'w_incident_animals'
 
+class WIncidentPups(models.Model):
+    id = models.IntegerField(db_column='id', primary_key=True)
+    pupid = models.IntegerField(blank=False, null=False)
+    incidentid = models.IntegerField(blank=False, null=False)
+
+    class Meta:
+        managed = False
+        db_table = 'w_incident_pups'
+
 
 class WIncidentcomment(models.Model):
     incidentid = models.ForeignKey('WIncident', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
