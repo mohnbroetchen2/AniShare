@@ -107,7 +107,7 @@ class Job(DailyJob):
                             new_location = Location()
                             new_location.name = dataset.location
                             new_location.save()
-                            new_mouse.location       = Location.objects.get(name=dataset.location)
+                            new_pup.location       = Location.objects.get(name=dataset.location)
                         new_pup.line           = dataset.strain  
                         try:        
                             new_pup.responsible_person = Person.objects.get(name=dataset.responsible)
