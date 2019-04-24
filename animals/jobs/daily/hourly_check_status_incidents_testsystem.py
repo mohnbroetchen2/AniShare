@@ -12,7 +12,7 @@ class Job(DailyJob):
         from django.conf import settings
         import logging
 
-        mousedb = 'mousedb'
+        mousedb = 'mousedb_test'
         logger = logging.getLogger('myscriptlogger')
         try:
             today = datetime.now().date()
