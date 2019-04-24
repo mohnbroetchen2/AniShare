@@ -26,6 +26,7 @@ class Job(DailyJob):
                 count_mice = animallist.count()
                 count_pups = puplist.count()
                 count_animals = count_mice + count_pups
+                logger.debug('{}: count_animals {}'.format(datetime.now(), count_animals))
                 for pyratmouse in animallist:
                     i = i + 1
                     try:
@@ -55,7 +56,7 @@ class Job(DailyJob):
                             skip = 1
                             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
                             send_mail("AniShare Check Status Error", 'Fehler {} bei der Statusüberprüfung des Auftrags {} (Pup)'.format( Exception, incident.incidentid), ADMIN_EMAIL, [ADMIN_EMAIL])
-
+                logger.debug('{}:skip {}, i {}, count_animals {}'.format(datetime.now(), skip,i, count_animals))
                 if (skip == 0 and i == count_animals):
                     incident.status = 1
                     incident.save()
