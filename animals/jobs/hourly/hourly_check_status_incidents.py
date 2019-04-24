@@ -32,7 +32,7 @@ class Job(HourlyJob):
                         animouse = Animal.objects.get(mouse_id=pyratmouse.animalid)
                         if (animouse.new_owner):
                             continue
-                        if (animouse.available_to >= today:
+                        if (animouse.available_to >= today):
                             skip = 1
                             break
                     except Exception: 
@@ -47,7 +47,7 @@ class Job(HourlyJob):
                         anipup = Animal.objects.get(pup_id=pyratpup.pupid)
                         if (anipup.new_owner):
                             continue
-                        if (anipup.available_to >= today:
+                        if (anipup.available_to >= today):
                             skip = 1
                             break
                     except Exception: 
