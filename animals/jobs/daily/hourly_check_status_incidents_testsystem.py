@@ -47,7 +47,7 @@ class Job(DailyJob):
                         anipup = Animal.objects.get(pup_id=pyratpup.pupid)
                         if (anipup.new_owner):
                             continue
-                        if (anipup.available_to >= today:
+                        if (anipup.available_to >= today):
                             skip = 1
                             break
                     except Exception: 
