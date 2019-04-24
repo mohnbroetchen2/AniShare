@@ -41,7 +41,7 @@ class Job(DailyJob):
                             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
                             send_mail("AniShare Check Status Error", 'Fehler {} bei der Statusüberprüfung des Auftrags {} (Maus)'.format( Exception, incident.incidentid), ADMIN_EMAIL, [ADMIN_EMAIL])
                 
-                for pyratpup in puplist
+                for pyratpup in puplist:
                     i = i + 1
                     try:
                         anipup = Animal.objects.get(pup_id=pyratpup.pupid)
