@@ -26,7 +26,7 @@ class Job(DailyJob):
                 count_mice = animallist.count()
                 count_pups = puplist.count()
                 count_animals = count_mice + count_pups
-                logger.debug('{}: count_animals {}'.format(datetime.now(), count_animals))
+                #logger.debug('{}: count_animals {}'.format(datetime.now(), count_animals))
                 for pyratmouse in animallist:
                     i = i + 1
                     try:

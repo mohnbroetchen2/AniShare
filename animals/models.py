@@ -10,6 +10,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from simple_history.models import HistoricalRecords
 
 class Lab(models.Model):
     """
@@ -148,6 +149,7 @@ class Animal(models.Model):
     new_owner = models.CharField(max_length=200, blank=True,
                                  help_text='Person claiming this animal for themselves') # turn into foreignkey to auth_users?
     added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, default=1)
+    history = HistoricalRecords()
 
     def validate_amount(value):
         if (self.animal_type != 'fish' and value != 1):
@@ -301,6 +303,7 @@ class PyratUser(models.Model):
     lastname = models.CharField(db_column='LASTNAME', max_length=255)
     usernum = models.CharField(db_column='USERNUM', max_length=255)
     locallevel = models.IntegerField(db_column='locallevel',)
+    email = models.CharField(db_column='EMAIL', max_length=255)
 
     class Meta:
         managed = False

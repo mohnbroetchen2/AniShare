@@ -2,6 +2,7 @@
 Admin module
 """
 import copy
+from django.contrib.auth.models import AbstractUser
 from import_export.admin import ImportExportModelAdmin, ImportMixin, ExportMixin, ImportExportActionModelAdmin
 from import_export.widgets import ManyToManyWidget
 from datetime import datetime, timedelta
@@ -14,6 +15,7 @@ from rangefilter.filter import DateRangeFilter # , DateTimeRangeFilter
 from .models import Animal, Person, Lab, Location, Organ, Change, Organtype
 from import_export.formats import base_formats
 from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter
+from simple_history.admin import SimpleHistoryAdmin
 
 
 admin.site.site_header = 'AniShare admin interface'
@@ -456,3 +458,4 @@ class LabAdmin(admin.ModelAdmin):
     """
     list_display = ('name', 'responsible_person')
     search_fields = ('name',)
+

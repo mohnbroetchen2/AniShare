@@ -56,7 +56,8 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django_admin_listfilter_dropdown',
     'bootstrap_email',
-    'django_extensions' # for jobs scheduling
+    'django_extensions', # for jobs scheduling
+    'simple_history',
 ]
 
 MIDDLEWARE = [
@@ -70,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'admin_reorder.middleware.ModelAdminReorder',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True #  It determines if the library will use database transactions on data import, just to be on the safe side.
