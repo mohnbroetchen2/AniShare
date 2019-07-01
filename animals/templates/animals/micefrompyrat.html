@@ -39,132 +39,20 @@
         {{ filter.form.as_table }}
         <input type="submit" value="Filter"/>
     </form>-->
-<form method="get">
-  <div class="well">
-    <div class="container-fluid">
-      <div class="m-sm-2">
-        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#filterBlock">Filter</button>
-      </div>
-      <div id="filterBlock" class="collapse">
-        <div class="row">
-          <div class="form-group col-sm-4 col-md-1">
-            {{ filter.form.sex.label_tag }} {% render_field filter.form.sex class="form-control" %}
-          </div>
-          <!--div class="form-group col-sm-4 col-md-1">
-            {{ filter.form.age.label_tag }} {% render_field filter.form.age class="form-control" %}
-          </div-->
-          <div class="form-group col-sm-4 col-md-2">
-            {{ filter.form.strain.label_tag }} {% render_field filter.form.strain class="form-control" %}
-          </div>
-          <div class="form-group col-sm-4 col-md-2">
-              {{ filter.form.mutation.label_tag }} {% render_field filter.form.mutation class="form-control" %}
-          </div>
-          <div class="form-group col-sm-4 col-md-1">
-            {{ filter.form.location.label_tag }} {% render_field filter.form.location class="form-control" %}
-          </div>
-
-          <div class="form-group col-sm-4 col-md-1">
-            {{ filter.form.licence.label_tag }} {% render_field filter.form.licence class="form-control" %}
-          </div>
-          <div class="form-group col-sm-4 col-md-2">
-            {{ filter.form.project.label_tag }} {% render_field filter.form.project class="form-control" %}
-          </div>
-          <div class="form-group col-sm-4 col-md-2">
-            {{ filter.form.responsible.label_tag }} {% render_field filter.form.responsible class="form-control" %}
-          </div>
-          <div class="form-group col-sm-4 col-md-2">
-            {{ filter.form.owner.label_tag }} {% render_field filter.form.owner class="form-control" %}
-          </div>
-          <div>
-            <p>
-              <button type="submit" style="margin-top:42%;" class="btn">Search</button>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="col-lg-12">    
+<h5>Dear AniShare user, because of a new configuration of the PyRAT Databse the import using this site is temporarly not available. 
+  We expect the import is online again on Wednesday (3.7.) after lunch. You have still the posibility to import mice using the excel files 
+  <a href="https://anishare.leibniz-fli.de/admin/animals/animal/import/">https://anishare.leibniz-fli.de/admin/animals/animal/import/</a> or 
+  if you like to offer only a few mice you can add it manually <a href="https://anishare.leibniz-fli.de/admin/animals/animal/add/">https://anishare.leibniz-fli.de/admin/animals/animal/add/</a>
+  Also I can help you to offer mice. Please contact me (Fabian Monheim fabian.monheim@leibniz-fli.de, 6872) if I can help.
+</h5>
+<h5 class="text-center">-----------------------------------------------------------------------------------------------------------------------------------------------------------------------</h5>
+<h5>Liebe AniShare Nutzer, da gerade Anpassungen an der PyRAT Datenbank erfolgen, ist der Import über diese Seite zur Zeit nicht möglich. 
+    Wir gehen davon aus, dass diese Seite ab Mittwochmittag wieder zur Verfügung steht. Alternativ gibt es die Möglichkeit den Import mit den Exceltabellen
+    durchzuführen <a href="https://anishare.leibniz-fli.de/admin/animals/animal/import/">https://anishare.leibniz-fli.de/admin/animals/animal/import/</a> oder
+    wenn es nur ein paar wenige Mäuse sind, können diese manuell über 
+    <a href="https://anishare.leibniz-fli.de/admin/animals/animal/add/">https://anishare.leibniz-fli.de/admin/animals/animal/add/</a> eingetragen werden.
+    Außerdem stehe ich gerne zur Verfügung, um beim Import zu helfen. Bitte nehmt dafür mit mir Kontakt auf (Fabian Monheim fabian.monheim@leibniz-fli.de, 6872). 
+  </h5>
   </div>
-</form>
-<form action="/animals/importmice" method="POST"> {% csrf_token %}
-  <div class="col-lg-12">
-    <div class="table-responsive">
-      <table id="datatable" class="table table-bordered table-hover table-striped tablesorter">
-        <thead> 
-          <tr>
-            <th class="header">
-            </th>
-            <th class="header"> Animal-ID
-              <i class="icon-sort"></i>
-            </th>
-            <th class="header"> Lab ID
-              <i class="icon-sort"></i>
-            </th>
-            <th class="header"> Sex
-              <i class="icon-sort"></i>
-            </th>
-            <th class="header"> Age
-              <i class="icon-sort"></i>
-            </th>
-            <th class="header"> Date of Birth
-              <i class="icon-sort"></i>
-            </th>
-            <th class="header"> Strain
-              <i class="icon-sort"></i>
-            </th>
-            <th class="header"> Mutation
-              <i class="icon-sort"></i>
-            </th>
-            <th class="header"> Location
-              <i class="icon-sort"></i>
-            </th>
-            <th class="header"> Licence
-              <i class="icon-sort"></i>
-            </th>
-            <th class="header"> Project
-              <i class="icon-sort"></i>
-            </th>
-            <th class="header"> Resp. Person
-              <i class="icon-sort"></i>
-            </th>
-            <th class="header"> Owner
-              <i class="icon-sort"></i>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for f in filter.qs %}
-          <tr {% if not a.available %}class="strikeout" {% endif %}>
-            <td>
-                <input type="checkbox" name="selected" value="{{f.id}}" id="select{{f.id}}">
-            </td>
-            <td>{{f.eartag}}</td>
-            <td>{{f.labid}}</td>
-            <td>{% if f.sex == 'f' %}
-              <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
-              {% elif f.sex == 'm' %}
-              <i class="fas fa-mars" style="color:#77F; font-size:13pt;"></i>
-              {% else %}
-              <i class="fas fa-question"></i>
-              {% endif %}
-            </td>
-            <td>{{f.age}}</td>
-            <td>{{f.dob}}</td>
-            <td>{{f.strain}}</td>
-            <td>{{f.mutation}}</td>
-            <td>{{f.location}}</td>
-            <td>{{f.licence}}</td>
-            <td>{{f.project}}</td>
-            <td>{{f.responsible}}</td>
-            <td>{{f.owner}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-        
-      </table>
-      <div class="m-sm-2"> 
-          <input type="submit" name='import' value="Import mouse/mice to AniShare " class="btn btn-info">
-        </div> 
-    </div>
-  </div>
-</form>
 {% endblock %}
