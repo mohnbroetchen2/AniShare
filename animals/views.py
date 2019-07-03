@@ -301,7 +301,6 @@ def tickatlabpersonlist(request):
 
 @login_required
 def pyratpuplist(request):
-    return render(request, 'animals/micefrompyrat.html')
     pyratuser = PyratUser.objects.using('mousedb').get(username=request.user.username)
     if (pyratuser.locallevel == 11):
         #messages.add_message(request, messages.INFO,'You do not have the right to connect to the PyRAT Database')
@@ -339,7 +338,6 @@ def pyratpuplist(request):
 
 @login_required
 def pyratmouselist(request):
-    return render(request, 'animals/micefrompyrat.html')
     pyratuser = PyratUser.objects.using('mousedb').get(username=request.user.username)
     if (pyratuser.locallevel == 11):
         #messages.add_message(request, messages.INFO,'You do not have the right to connect to the PyRAT Database')
