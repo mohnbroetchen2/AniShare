@@ -537,6 +537,7 @@ def importmicetoanishare(request):
                 mousemutations           = MouseMutation.objects.using('mousedb').filter(animalid = dataset.id)
                 new_mouse.mutations = ''
                 for m in mousemutations:
+                    if m.grade_name 
                     new_mouse.mutations  = new_mouse.mutations + m.mutation_name + ' ' + m.grade_name + '; '
                 try:
                     new_mouse.location       = Location.objects.get(name=dataset.location)
@@ -570,6 +571,7 @@ def importmicetoanishare(request):
                 i = i + 1
     except Exception:
         messages.add_message(request, messages.ERROR,'There was an error. The AniShare admin is informed about the error')
+        ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
         send_mail("AniShare Importfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} '.format(dataset.eartag, Exception), request.user.email, [ADMIN_EMAIL])
     return HttpResponseRedirect('/admin/animals/animal/')
 
