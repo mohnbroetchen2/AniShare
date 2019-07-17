@@ -8,6 +8,7 @@ It also contains an RSS Feed generator class to create an RSS feed from newly cr
 """
 import operator
 import logging
+import sys
 from functools import reduce
 from django.conf import settings
 from datetime import datetime
@@ -496,10 +497,10 @@ def importpuptoanishare(request):
                     messages.add_message(request, messages.SUCCESS,'The pup {} has been imported.'.format(dataset.eartag))
                 else:
                     messages.add_message(request, messages.SUCCESS,'The pup {} has been imported.'.format(dataset.id))
-            except Exception:
+            except BaseException as e:
                 messages.add_message(request, messages.ERROR,'Becaus of an error the pup {} has NOT been imported. The AniShare admin is informed about the error'.format(dataset.eartag))
                 ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-                send_mail("AniShare Importfehler", 'Fehler beim Pupimport von Pup {} mit Fehler {} '.format(dataset.eartag, Exception), request.user.email, [ADMIN_EMAIL])
+                send_mail("AniShare Importfehler", 'Fehler beim Pupimport von Pup {} mit Fehler {} in Zeile {}'.format(dataset.eartag, e,sys.exc_info()[2].tb_lineno ), request.user.email, [ADMIN_EMAIL])
             i = i + 1
     return HttpResponseRedirect('/admin/animals/animal/')
 
@@ -536,9 +537,15 @@ def importmicetoanishare(request):
                     new_mouse.responsible_person2 = Person.objects.get(name=responsible_person2[i])
                 mousemutations           = MouseMutation.objects.using('mousedb').filter(animalid = dataset.id)
                 new_mouse.mutations = ''
+                all_grades_exist = 1
                 for m in mousemutations:
-                    if m.grade_name 
-                    new_mouse.mutations  = new_mouse.mutations + m.mutation_name + ' ' + m.grade_name + '; '
+                    if m.grade_name: 
+                        new_mouse.mutations  = new_mouse.mutations + m.mutation_name + ' ' + m.grade_name + '; '
+                    else:
+                        all_grades_exist = 0
+                        messages.add_message(request, messages.ERROR,'The mouse {} was not imported because of a missing grade.'.format(dataset.eartag))   
+                if all_grades_exist == 0:
+                    continue
                 try:
                     new_mouse.location       = Location.objects.get(name=dataset.location)
                 except:
@@ -565,14 +572,14 @@ def importmicetoanishare(request):
                 try:
                     new_mouse.save()
                     messages.add_message(request, messages.SUCCESS,'The mouse {} has been imported.'.format(dataset.eartag))
-                except Exception:
+                except BaseException as e: 
                     messages.add_message(request, messages.ERROR,'Becaus of an error the mouse {} has NOT been imported. The AniShare admin is informed about the error'.format(dataset.eartag))
-                    send_mail("AniShare Importfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} '.format(dataset.eartag, Exception), request.user.email, [ADMIN_EMAIL])
+                    send_mail("AniShare Importfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} in Zeile {}'.format(dataset.eartag, e,sys.exc_info()[2].tb_lineno ), request.user.email, [ADMIN_EMAIL])
                 i = i + 1
-    except Exception:
+    except BaseException as e: 
         messages.add_message(request, messages.ERROR,'There was an error. The AniShare admin is informed about the error')
         ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-        send_mail("AniShare Importfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} '.format(dataset.eartag, Exception), request.user.email, [ADMIN_EMAIL])
+        send_mail("AniShare Importfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} in Zeile {}'.format(dataset.eartag, e,sys.exc_info()[2].tb_lineno ), request.user.email, [ADMIN_EMAIL])
     return HttpResponseRedirect('/admin/animals/animal/')
 
 @login_required
