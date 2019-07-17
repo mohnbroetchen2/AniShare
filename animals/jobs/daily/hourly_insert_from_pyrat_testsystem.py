@@ -1,7 +1,7 @@
-from django_extensions.management.jobs import DailyJob
+from django_extensions.management.jobs import HourlyJob
 
 
-class Job(DailyJob):
+class Job(HourlyJob):
     help = ""
 
     def execute(self):
@@ -12,6 +12,7 @@ class Job(DailyJob):
         from datetime import datetime, timedelta
         from django.conf import settings
         import logging
+        import sys
 
         mousedb = 'mousedb_test'
         logger = logging.getLogger('myscriptlogger')
@@ -30,7 +31,14 @@ class Job(DailyJob):
                         new_mouse = Animal()
                         new_mouse.animal_type    = "mouse"
                         dataset = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid)
-                        new_mouse.mouse_id       = dataset.id
+                        try:
+                            new_mouse.mouse_id       = dataset.id
+                        except: # mouse has no licence
+                            initiator_mail = ""
+                            initiator_mail = incident.initiator.email
+                            if len(initiator_mail) > 0:
+                                 #send_mail("AniShare: Mouse without license", 'You created a work request with the ID {} to add a mouse to AniShare. It is not possible to import a mouse without a license. ".format(new_person.name), ADMIN_EMAIL, [ADMIN_EMAIL])
+                            break
                         new_mouse.database_id    = dataset.eartag
                         new_mouse.lab_id         = dataset.labid
                         new_mouse.amount         = 1
@@ -67,14 +75,16 @@ class Job(DailyJob):
                         try:
                             new_mouse.save()
                             logger.debug('{}: Mouse with id {} has been imported by Script.'.format(datetime.now(), new_mouse.database_id))
-                        except Exception: 
+                        except BaseException as e: 
                             error = 1
                             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-                            send_mail("AniShare Importscriptfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} '.format(dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
-                    except Exception: 
+                            send_mail("AniShare Importscriptfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} in Zeile {}'.format(dataset.eartag, e,sys.exc_info()[2].tb_lineno ), ADMIN_EMAIL, [ADMIN_EMAIL])
+                            #send_mail("AniShare Importscriptfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} '.format(dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
+                    except BaseException as e: 
                         error = 1
                         ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-                        send_mail("AniShare Importscriptfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} '.format(dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])   
+                        send_mail("AniShare Importscriptfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} in Zeile {}'.format(dataset.eartag, e,sys.exc_info()[2].tb_lineno ), ADMIN_EMAIL, [ADMIN_EMAIL])
+                        #send_mail("AniShare Importscriptfehler", 'Fehler beim Mouseimport von Maus {} mit Fehler {} '.format(dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])   
                 
                 # Import pups #
                 puplist = WIncidentPups.objects.using(mousedb).filter(incidentid = incident.incidentid)
@@ -126,14 +136,16 @@ class Job(DailyJob):
                         try:
                             new_pup.save()
                             logger.debug('{}: Pup with id {} has been imported by Script.'.format(datetime.now(), new_pup.database_id))
-                        except Exception: 
+                        except BaseException as e:  
                             error = 1
                             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-                            send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
-                    except Exception: 
+                            send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} in Zeile {}'.format(mousedb, dataset.eartag, e,sys.exc_info()[2].tb_lineno ), ADMIN_EMAIL, [ADMIN_EMAIL])
+                            #send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
+                    except BaseException as e:  
                         error = 1
                         ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-                        send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])   
+                        send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} in Zeile {}'.format(mousedb, dataset.eartag, e,sys.exc_info()[2].tb_lineno ), ADMIN_EMAIL, [ADMIN_EMAIL])
+                        #send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])   
                             
                 if error == 0:
                     incident.status = 5
@@ -143,8 +155,8 @@ class Job(DailyJob):
                     new_comment.incidentid = incident
                     new_comment.comment = 'AniShare: Request status changed to Added to Anishare'
                     new_comment.save()
-        except Exception: 
+        except BaseException as e: 
             management.call_command("clearsessions")
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-            send_mail("AniShare Importscriptfehler hourly_insert_from_pyrat.py", '{}: Fehler {} '.format(mousedb, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])
+            send_mail("AniShare Importscriptfehler hourly_insert_from_pyrat.py", '{}: Fehler {} in Zeile {}'.format(mousedb, e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
         management.call_command("clearsessions")
