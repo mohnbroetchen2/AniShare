@@ -6,13 +6,14 @@ class Job(HourlyJob):
 
     def execute(self):
         from django.core import management
-        from ...models import WIncident, WIncidentAnimals, Animal, Mouse, WIncidentcomment, WIncidentPups, Pup
+        from ...models import WIncident, WIncident_write, WIncidentAnimals, Animal, Mouse, WIncidentcomment, WIncidentPups, Pup
         from django.core.mail import EmailMultiAlternatives, send_mail
         from datetime import datetime, timedelta
         from django.conf import settings
         import logging
 
         mousedb = 'mousedb'
+        mousedb_write = 'mousedb_write'
         logger = logging.getLogger('myscriptlogger')
         try:
             today = datetime.now().date()
@@ -57,13 +58,14 @@ class Job(HourlyJob):
                             send_mail("AniShare Check Status Error", 'Fehler {} bei der Statusüberprüfung des Auftrags {} (Pup)'.format( Exception, incident.incidentid), ADMIN_EMAIL, [ADMIN_EMAIL])
 
                 if (skip == 0 and i == count_animals):
-                    incident.status = 1
-                    incident.save()
+                    incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)
+                    incident_write.status = 1
+                    incident_write.save(using=mousedb_write)
                     logger.debug('{}: Incident status {} has been changed to 1.'.format(datetime.now(), incident.incidentid))
                     new_comment = WIncidentcomment()
                     new_comment.incidentid = incident
                     new_comment.comment = 'AniShare: Request status changed to closed'
-                    new_comment.save() 
+                    new_comment.save(using=mousedb_write) 
         except Exception: 
             management.call_command("clearsessions")
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)

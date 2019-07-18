@@ -555,6 +555,49 @@ class WIncident(models.Model):
         managed = False
         db_table = 'v_incident'
 
+class WIncident_write(models.Model):
+    incidentid = models.AutoField(db_column='incidentid', primary_key=True)
+    incidentclass =  models.IntegerField(db_column='incidentclass', blank=True, null=True)
+    #incidentclass = models.ForeignKey('WIncidentclass', models.DO_NOTHING, db_column='incidentclass', blank=True, null=True)
+    initiator = models.ForeignKey('PyratUser', models.DO_NOTHING, blank=True, null=True,db_column='initiator_id')
+    owner = models.ForeignKey('PyratUser', models.DO_NOTHING, blank=True, null=True, related_name='ownerpyrat_write', db_column='owner_id')
+    responsible= models.ForeignKey('PyratUser', models.DO_NOTHING, blank=True, null=True, related_name='responsiblepyrat_write', db_column='responsible_id')
+    incidentdescription = models.TextField(db_column='incidentdescription')
+    opendate = models.DateTimeField(db_column='opendate')
+    closedate = models.DateTimeField(blank=True, null=True, db_column='closedate')
+    priority = models.IntegerField(blank=True, null=True, db_column='priority')
+    #priority = models.ForeignKey('WIncidentpriorities', models.DO_NOTHING, db_column='priority')
+    status = models.IntegerField(blank=True, null=True, db_column='status') 
+    #status = models.ForeignKey('WIncidentstatus', models.DO_NOTHING, db_column='status')
+    duedate = models.DateTimeField(blank=True, null=True, db_column='duedate')
+    """
+    wr_building = models.ForeignKey('LocationBuildings', models.DO_NOTHING, blank=True, null=True)
+    wr_area = models.ForeignKey('LocationAreas', models.DO_NOTHING, blank=True, null=True)
+    wr_room = models.ForeignKey('LocationRooms', models.DO_NOTHING, blank=True, null=True)
+    wr_rack = models.ForeignKey('Rack', models.DO_NOTHING, blank=True, null=True)
+    behavior = models.ForeignKey('WIncidentBehavior', models.DO_NOTHING, blank=True, null=True)
+    """
+    approved = models.IntegerField(db_column='approved')
+    """
+    strain = models.ForeignKey('Strain', models.DO_NOTHING, blank=True, null=True)
+    procedure = models.ForeignKey('Procedures', models.DO_NOTHING, blank=True, null=True)
+    building = models.ForeignKey('LocationBuildings', models.DO_NOTHING, blank=True, null=True)
+    area = models.ForeignKey('LocationAreas', models.DO_NOTHING, blank=True, null=True)
+    room = models.ForeignKey('LocationRooms', models.DO_NOTHING, blank=True, null=True)
+    rack = models.ForeignKey('Rack', models.DO_NOTHING, blank=True, null=True)
+    sacrifice_reason = models.ForeignKey('WSacrificeReasons', models.DO_NOTHING, blank=True, null=True)
+    licence = models.ForeignKey('Licence2', models.DO_NOTHING, blank=True, null=True)
+    classification = models.ForeignKey('Classification', models.DO_NOTHING, blank=True, null=True)
+    new_owner = models.ForeignKey('Localuser', models.DO_NOTHING, blank=True, null=True)
+    new_responsible = models.ForeignKey('Localuser', models.DO_NOTHING, blank=True, null=True)
+    """
+    change_responsible = models.IntegerField(blank=True, null=True,db_column='change_responsible')
+    generation = models.CharField(max_length=10, blank=True, null=True,db_column='generation')
+
+    class Meta:
+        managed = False
+        db_table = 'w_incident'
+
 class WIncidentAnimals(models.Model):
     id = models.IntegerField(db_column='id', primary_key=True)
     #animalid = models.ForeignKey('Mouse', models.DO_NOTHING, db_column='animalid', blank=True, null=True)

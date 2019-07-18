@@ -1,12 +1,12 @@
-from django_extensions.management.jobs import HourlyJob
+from django_extensions.management.jobs import DailyJob
 
 
-class Job(HourlyJob):
+class Job(DailyJob):
     help = ""
 
     def execute(self):
         from django.core import management
-        from ...models import WIncident, WIncidentAnimals, Animal, Mouse, Pup, MouseMutation, Location, Person, Lab, WIncidentcomment, WIncidentPups
+        from ...models import WIncident, WIncident_write, WIncidentAnimals, Animal, Mouse, Pup, MouseMutation, Location, Person, Lab, WIncidentcomment, WIncidentPups
         from django.contrib.auth.models import User
         from django.core.mail import EmailMultiAlternatives, send_mail
         from datetime import datetime, timedelta
@@ -15,6 +15,7 @@ class Job(HourlyJob):
         import sys
 
         mousedb = 'mousedb_test'
+        mousedb_write = 'mousedb_test_write'
         logger = logging.getLogger('myscriptlogger')
 
         try:
@@ -37,7 +38,7 @@ class Job(HourlyJob):
                             initiator_mail = ""
                             initiator_mail = incident.initiator.email
                             if len(initiator_mail) > 0:
-                                 #send_mail("AniShare: Mouse without license", 'You created a work request with the ID {} to add a mouse to AniShare. It is not possible to import a mouse without a license. ".format(new_person.name), ADMIN_EMAIL, [ADMIN_EMAIL])
+                                send_mail("AniShare: Mouse without license", 'You created a work request with the ID {} to add a mouse to AniShare. It is not possible to import a mouse without a license. '.format(new_person.name), ADMIN_EMAIL, [ADMIN_EMAIL])
                             break
                         new_mouse.database_id    = dataset.eartag
                         new_mouse.lab_id         = dataset.labid
@@ -148,13 +149,14 @@ class Job(HourlyJob):
                         #send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])   
                             
                 if error == 0:
-                    incident.status = 5
-                    incident.save()
+                    incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)
+                    incident_write.status = 5
+                    incident_write.save(using=mousedb_write)
                     logger.debug('{}: Incident status {} has been changed to 5.'.format(datetime.now(), incident.incidentid))
                     new_comment = WIncidentcomment()
                     new_comment.incidentid = incident
                     new_comment.comment = 'AniShare: Request status changed to Added to Anishare'
-                    new_comment.save()
+                    new_comment.save(using=mousedb_write)
         except BaseException as e: 
             management.call_command("clearsessions")
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
