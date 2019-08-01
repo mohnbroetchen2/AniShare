@@ -11,6 +11,7 @@ class Job(DailyJob):
         from datetime import datetime, timedelta
         from django.conf import settings
         import logging
+        import sys
 
         mousedb = 'mousedb_test'
         mousedb_write = 'mousedb_test_write'
@@ -31,21 +32,27 @@ class Job(DailyJob):
                 for pyratmouse in animallist:
                     i = i + 1
                     try:
-                        animouse = Animal.objects.get(mouse_id=pyratmouse.animalid)
+                        animouseFilter = Animal.objects.filter(mouse_id=pyratmouse.animalid)
+                        if len(animouseFilter) == 0:
+                            continue
+                        else:
+                            animouse = Animal.objects.get(mouse_id=pyratmouse.animalid)
                         if (animouse.new_owner):
                             continue
                         if (animouse.available_to >= today):
                             skip = 1
                             break
-                    except Exception: 
+                    except BaseException as e: 
                             error = 1
                             skip = 1
                             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-                            send_mail("AniShare Check Status Error", 'Fehler {} bei der Statusüberprüfung des Auftrags {} (Maus)'.format( Exception, incident.incidentid), ADMIN_EMAIL, [ADMIN_EMAIL])
-                
+                            send_mail("AniShare Check Status Error", 'Fehler {} bei der Statusüberprüfung des Auftrags {} (Maus) in Zeile {}'.format( e, incident.incidentid, sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
                 for pyratpup in puplist:
                     i = i + 1
                     try:
+                        anipupFiler = Animal.objects.filter(pup_id=pyratpup.pupid)
+                        if len(anipupFiler) == 0:
+                            continue
                         anipup = Animal.objects.get(pup_id=pyratpup.pupid)
                         if (anipup.new_owner):
                             continue
@@ -67,6 +74,8 @@ class Job(DailyJob):
                     new_comment.incidentid = incident
                     new_comment.comment = 'AniShare: Request status changed to closed'
                     new_comment.save(using=mousedb_write) 
+                    new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
+                    new_comment.save(using=mousedb_write)
         except Exception: 
             management.call_command("clearsessions")
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)

@@ -11,6 +11,7 @@ class Job(DailyJob):
         from datetime import datetime, timedelta
         from django.conf import settings
         import logging
+        import sys
 
         mousedb = 'mousedb_test'
         mousedb_write = 'mousedb_test_write'
@@ -19,23 +20,36 @@ class Job(DailyJob):
         ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
 
         try:
-            mouselist = Animal.objects.filter(available_to == datetime.today().date() + timedelta(days=2)).filter(animal_type == 'mouse').filter(mouse_id is not None)
+            mouselist = Animal.objects.filter(available_to = datetime.today().date() + timedelta(days=2)).filter(animal_type = 'mouse')
             for mouse in mouselist: # Für jede Maus, die noch zwei Tage angeboten wird, und eine mouse_id besitzt
-                incidentsWithMouse = WIncidentAnimals.objects.using(mousedb).filter(id=mouse.mouse_id) # überprüfe ob es Auftrage (Incidents) mit der Maus gibt
+                logger.debug('{}: Maus mit ID {} wird noch zwei Tage ageboten'.format(datetime.now(), mouse.lab_id))
+                if mouse.mouse_id is None:
+                    continue
+                incidentsWithMouse = WIncidentAnimals.objects.using(mousedb).filter(animalid=mouse.mouse_id) # überprüfe ob es Auftrage (Incidents) mit der Maus gibt
                 for incidentWithMouse in incidentsWithMouse:
+                    logger.debug('{}: Incident {} wird überprüft'.format(datetime.now(), incidentWithMouse.id))
                     if (incidentWithMouse.incidentid in processedIncidents): # Wenn bereits eine Information zu diesem Auftrag rausgegangen ist  
                         continue;
+                    incidentFilter = WIncident.objects.using(mousedb).filter(incidentid = incidentWithMouse.incidentid)
+                    if len(incidentFilter) == 0:
+                        continue
                     incident = WIncident.objects.using(mousedb).get(incidentid = incidentWithMouse.incidentid)
+
                     if incident.status == 5: # wenn der Auftrag im Status "Added to Anishare" steht
                         initiator = incident.initiator
                         miceInIncident = WIncidentAnimals.objects.using(mousedb).filter(incidentid=incident.incidentid)
                         miceEartags=""
+                        countmice = 0
                         for mouse in miceInIncident: # Merke alle Eartags der Mäuse, die dem Auftrag zugeordnet sind.
                             pyratMouse = Mouse.objects.using(mousedb).get(id=mouse.animalid)
-                            miceEartags = "{}, {}".format(miceEartags,pyratMouse.eartag)
+                            if countmice == 0:
+                                miceEartags = "{}".format(pyratMouse.eartag)
+                            else:
+                                miceEartags = "{}, {}".format(miceEartags,pyratMouse.eartag)
+                            countmice = countmice +1
                         # Nutzer informieren, dass Auftrag mit Id in zwei Tagen ausläuft
-                        send_mail("Request Add to AniShare expires", 'The PyRAT request Add to AniShare with ID {} expires in two days. Following mice are affected: {}'.format(incident.incidentid, miceEartags), ADMIN_EMAIL, [initiator.email])
-                        processedIncidents.insert(incidentWithMouse.incidentid) 
+                        send_mail("Request Add to AniShare expires", "The PyRAT request Add to AniShare with ID {} expires in two days. Following mice are affected: {}".format(incident.incidentid, miceEartags), ADMIN_EMAIL, [initiator.email])
+                        processedIncidents.append(incidentWithMouse.incidentid) 
         except BaseException as e: 
             management.call_command("clearsessions")
             send_mail("AniShare inform initiator", '{}: Fehler {} in Zeile {}'.format(mousedb, e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
