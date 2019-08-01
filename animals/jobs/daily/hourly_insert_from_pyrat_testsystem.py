@@ -17,17 +17,27 @@ class Job(DailyJob):
         mousedb = 'mousedb_test'
         mousedb_write = 'mousedb_test_write'
         logger = logging.getLogger('myscriptlogger')
+        ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
 
         try:
             incidentlist = WIncident.objects.using(mousedb).all().filter(status=2)
             for incident in incidentlist:
                 error = 0
+                count_animals_deferred = 0
+                count_animals_imported = 0
+                initiator_mail = ""
+                initiator_mail = incident.initiator.email
                 # Import mice #
                 animallist = WIncidentAnimals.objects.using(mousedb).filter(incidentid = incident.incidentid)
                 for pyratmouse in animallist:
                     try:
                         if Animal.objects.filter(mouse_id=pyratmouse.animalid).exists():
-                            # Benachrichtigung, dass Maus bereits angeboten wird?
+                            send_mail("AniShare: Mouse already offered", 'You created a work request with the ID {} to add the mouse {} to AniShare. The mouse has already been offered. A second time is not possible'.format(incident.id, pyratmouse.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
+                            count_animals_deferred = count_animals_deferred + 1
+                            new_comment = WIncidentcomment()
+                            new_comment.incidentid = incident
+                            new_comment.comment = 'AniShare: Mouse {} already offered'.format(pyratmouse.eartag)
+                            new_comment.save(using=mousedb_write)
                             continue
                         new_mouse = Animal()
                         new_mouse.animal_type    = "mouse"
@@ -35,11 +45,13 @@ class Job(DailyJob):
                         try:
                             new_mouse.mouse_id       = dataset.id
                         except: # mouse has no licence
-                            initiator_mail = ""
-                            initiator_mail = incident.initiator.email
-                            if len(initiator_mail) > 0:
-                                send_mail("AniShare: Mouse without license", 'You created a work request with the ID {} to add a mouse to AniShare. It is not possible to import a mouse without a license. '.format(new_person.name), ADMIN_EMAIL, [ADMIN_EMAIL])
-                            break
+                            count_animals_deferred = count_animals_deferred + 1
+                            new_comment = WIncidentcomment()
+                            new_comment.incidentid = incident
+                            new_comment.comment = 'AniShare: Mouse {} without licence can not be imported'.format(pyratmouse.eartag)
+                            new_comment.save(using=mousedb_write)
+                            send_mail("AniShare: Mouse without license", 'You created a work request with the ID {} to add the mouse {} to AniShare. It is not possible to import a mouse without a license. '.format(incident.id, pyratmouse.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL)])
+                            continue
                         new_mouse.database_id    = dataset.eartag
                         new_mouse.lab_id         = dataset.labid
                         new_mouse.amount         = 1
@@ -75,6 +87,7 @@ class Job(DailyJob):
                         new_mouse.sex = dataset.sex
                         try:
                             new_mouse.save()
+                            count_animals_imported = count_animals_imported + 1
                             logger.debug('{}: Mouse with id {} has been imported by Script.'.format(datetime.now(), new_mouse.database_id))
                         except BaseException as e: 
                             error = 1
@@ -92,11 +105,25 @@ class Job(DailyJob):
                 for pyratpup in puplist:
                     try:
                         if Animal.objects.filter(pup_id=pyratpup.pupid).exists():
+                            new_comment = WIncidentcomment()
+                            new_comment.incidentid = incident
+                            new_comment.comment = 'AniShare: Pup {} already offered'.format(pyratmouse.eartag)
+                            new_comment.save(using=mousedb_write)
+                            send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.id, pyratpup.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
+                            count_animals_deferred = count_animals_deferred + 1
                             # Benachrichtigung, dass Maus bereits angeboten wird?
                             continue
                         new_pup = Animal()
                         new_pup.animal_type    = "pup"
                         dataset = Pup.objects.using(mousedb).get(id=pyratpup.pupid)
+                        if dataset.licence == None:
+                            new_comment = WIncidentcomment()
+                            new_comment.incidentid = incident
+                            new_comment.comment = 'Pup {} without licence can not be imported'.format(pyratpup.eartag)
+                            new_comment.save(using=mousedb_write)
+                            send_mail("AniShare: Pup without license", 'You created a work request with the ID {} to add the pup {} to AniShare. It is not possible to import a pup without a license. '.format(incident.id, pyratpup.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL)])
+                            count_animals_deferred = count_animals_deferred + 1
+                            continue
                         new_pup.pup_id       = dataset.id
                         new_pup.database_id    = dataset.eartag
                         new_pup.lab_id         = dataset.labid
@@ -148,15 +175,19 @@ class Job(DailyJob):
                         send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} in Zeile {}'.format(mousedb, dataset.eartag, e,sys.exc_info()[2].tb_lineno ), ADMIN_EMAIL, [ADMIN_EMAIL])
                         #send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])   
                             
-                if error == 0:
+                if (error == 0 and count_animals_deferred == 0):
                     incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)
-                    incident_write.status = 5
+                    incident_write.status = 5 # Added to AniShare
                     incident_write.save(using=mousedb_write)
                     logger.debug('{}: Incident status {} has been changed to 5.'.format(datetime.now(), incident.incidentid))
                     new_comment = WIncidentcomment()
                     new_comment.incidentid = incident
                     new_comment.comment = 'AniShare: Request status changed to Added to Anishare'
                     new_comment.save(using=mousedb_write)
+                elif (error == 0 and count_animals_deferred > 0 and count_animals_imported == 0):
+                    incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)
+                    incident_write.status = 6 # Deferred
+                    incident_write.save(using=mousedb_write)
         except BaseException as e: 
             management.call_command("clearsessions")
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)

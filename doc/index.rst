@@ -29,7 +29,7 @@ automatic generation of email messages as well as an RSS feed for updates.
     :width: 99%
 
 At the moment, the software/database is geared towards handling of mice, however, it can be adjusted
-to handle any kind of research animal. AniShare is not connected to `PyRat` or `Tick@lab`. 
+to handle any kind of research animal. AniShare is connected to import animals from `PyRat` or `Tick@lab`. Until now there is no synchronisation back to `PyRat` and `Tick@lab`.  
 The official changes (e.g. new ownership must be applied in `PyRat` or `Tick@lab` separately by the responsible person, in communication with the animal care takers).
 
 
@@ -38,7 +38,7 @@ This documentation can also be downloaded as pdf file: `Anishare Documentation <
 Contact
 -------
 
-Technical and application support: Fabian Monheim (CF Scientific IT), fabian.monheim@leibniz-fli.de, 03641-65-6872
+Technical and application support: Fabian Monheim (CF Life Science Computing), fabian.monheim@leibniz-fli.de, 03641-65-6872
 
 Content support: Animal Facility and Animal Welfare Officer
 
