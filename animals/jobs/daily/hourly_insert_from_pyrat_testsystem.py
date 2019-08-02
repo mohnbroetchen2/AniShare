@@ -24,7 +24,6 @@ class Job(DailyJob):
             incidentlist = WIncident.objects.using(mousedb).all().filter(status=2)
             for incident in incidentlist:
                 if incident.duedate.date() != datetime.today().date():
-                    logger.debug('incident.duedate {}: datetime.today().date(){} '.format(incident.duedate.date(), datetime.today().date()))
                     continue
                 error = 0
                 count_animals_deferred = 0
