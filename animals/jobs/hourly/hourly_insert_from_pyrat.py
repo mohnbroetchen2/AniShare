@@ -139,7 +139,10 @@ class Job(HourlyJob):
                             count_animals_deferred = count_animals_deferred + 1
                             continue
                         new_pup.pup_id       = dataset.id
-                        new_pup.database_id    = dataset.eartag
+                        if dataset.eartag:
+                            new_pup.database_id    = dataset.eartag
+                        else:
+                            new_pup.database_id   = dataset.id
                         new_pup.lab_id         = dataset.labid
                         new_pup.amount         = 1
                         new_pup.genetic_background  = dataset.genetic_bg
