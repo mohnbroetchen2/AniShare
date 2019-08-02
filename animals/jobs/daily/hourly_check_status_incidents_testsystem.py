@@ -77,7 +77,7 @@ class Job(DailyJob):
                     new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
                     new_comment.save(using=mousedb_write)
         except BaseException as e:  
-            management.call_command("clearsessions")
+            logger.error('{}: AniShare Importscriptfehler hourly_check_status_incidents.py: Fehler {} in Zeile {}'.format(datetime.now(), sys.exc_info()[2].tb_lineno)) 
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
             send_mail("AniShare Importscriptfehler hourly_check_status_incidents.py", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
         management.call_command("clearsessions")
