@@ -64,7 +64,6 @@ class Job(DailyJob):
                             skip = 1
                             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
                             send_mail("AniShare Check Status Error", 'Fehler {} bei der Statusüberprüfung des Auftrags {} (Pup) in Zeile {}'.format( e, incident.incidentid,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
-                logger.debug('{}:skip {}, i {}, count_animals {}'.format(datetime.now(), skip,i, count_animals))
                 if (skip == 0 and i == count_animals):
                     incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)
                     incident_write.status = 1
