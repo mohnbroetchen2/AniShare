@@ -48,7 +48,7 @@ class Job(DailyJob):
                                 miceEartags = "{}, {}".format(miceEartags,pyratMouse.eartag)
                             countmice = countmice +1
                         # Nutzer informieren, dass Auftrag mit Id in zwei Tagen ausläuft
-                        send_mail("Request Add to AniShare expires", "The PyRAT request Add to AniShare with ID {} expires in two days. Following mice are affected: {}".format(incident.incidentid, miceEartags), ADMIN_EMAIL, [initiator.email])
+                        send_mail("Request Add to AniShare expires", "The PyRAT request Add to AniShare with ID {} expires in two days. Following mice are affected: {}".format(incident.incidentid, miceEartags), "tierschutz@leibniz-fli.de", [initiator.email])
                         processedIncidents.append(incidentWithMouse.incidentid) 
             puplist = Animal.objects.filter(available_to = datetime.today().date() + timedelta(days=2)).filter(animal_type = 'pup')
             for pup in puplist: # Für jede Maus, die noch zwei Tage angeboten wird, und eine mouse_id besitzt
@@ -78,7 +78,7 @@ class Job(DailyJob):
                                 pupEartags = "{}, {}".format(pupEartags,pyratPup.eartag)
                             countpups = countpups +1
                         # Nutzer informieren, dass Auftrag mit Id in zwei Tagen ausläuft
-                        send_mail("Request Add to AniShare expires", "The PyRAT request Add to AniShare with ID {} expires in two days. Following pups are affected: {}".format(incident.incidentid, pupEartags), ADMIN_EMAIL, [initiator.email])
+                        send_mail("Request Add to AniShare expires", "The PyRAT request Add to AniShare with ID {} expires in two days. Following pups are affected: {}".format(incident.incidentid, pupEartags), "tierschutz@leibniz-fli.de", [initiator.email])
                         processedIncidents.append(incidentWithMouse.incidentid) 
         except BaseException as e: 
             management.call_command("clearsessions")
