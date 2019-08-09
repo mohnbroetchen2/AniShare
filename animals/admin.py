@@ -3,10 +3,10 @@ Admin module
 """
 import copy
 from django.contrib.auth.models import AbstractUser
-from import_export.admin import ImportExportModelAdmin, ImportMixin, ExportMixin, ImportExportActionModelAdmin
+from import_export.admin import ImportExportModelAdmin, ImportMixin, ExportMixin, ImportExportActionModelAdmin, ImportExportMixin
 from import_export.widgets import ManyToManyWidget
 from datetime import datetime, timedelta
-from import_export import fields, resources
+from import_export import fields, resources 
 from import_export.widgets import ForeignKeyWidget
 from django.contrib import admin
 from django import forms
@@ -352,9 +352,8 @@ def copy_animal(modeladmin, request, queryset):
 
 
 @admin.register(Animal)
-
-class AnimalAdmin(ImportExportActionModelAdmin):
-#class AnimalAdmin(ImportMixin, admin.ModelAdmin):
+#class AnimalAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
+class AnimalAdmin(ImportExportMixin, admin.ModelAdmin):
     """
     ModelAdmin for Animal model
     """
@@ -403,6 +402,8 @@ class AnimalAdmin(ImportExportActionModelAdmin):
         return [f for f in formats if f().can_export()]
     def get_export_resource_class(self):
         return AnimalExportResource
+
+
 
 @admin.register(Organ)
 class OrganAdmin(ImportExportModelAdmin):
