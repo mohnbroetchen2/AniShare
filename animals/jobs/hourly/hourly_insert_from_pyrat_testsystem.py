@@ -92,7 +92,10 @@ class Job(HourlyJob):
                             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
                             send_mail("AniShare neue Person", 'Neue Person in AniShare {}'.format(new_person.name), ADMIN_EMAIL, [ADMIN_EMAIL])
                         new_mouse.added_by       = User.objects.get(username='fmonheim')
-                        new_mouse.sex = dataset.sex
+                        if dataset.sex == '?':
+                            new_mouse.sex = 'u'
+                        else:
+                            new_mouse.sex = dataset.sex
                         try:
                             new_mouse.save()
                             count_animals_imported = count_animals_imported + 1
@@ -175,7 +178,10 @@ class Job(HourlyJob):
                             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
                             send_mail("AniShare neue Person", 'Neue Person in AniShare {}'.format(new_person.name), ADMIN_EMAIL, [ADMIN_EMAIL])
                         new_pup.added_by       = User.objects.get(username='fmonheim')
-                        new_pup.sex = dataset.sex
+                        if dataset.sex == '?':
+                            new_pup.sex = 'u'
+                        else:
+                            new_pup.sex = dataset.sex
                         try:
                             new_pup.save()
                             logger.debug('{}: Pup with id {} has been imported by Script.'.format(datetime.now(), new_pup.database_id))
