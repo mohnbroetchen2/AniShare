@@ -53,7 +53,7 @@ class Job(DailyJob):
             puplist = Animal.objects.filter(available_to = datetime.today().date() + timedelta(days=2)).filter(animal_type = 'pup')
             for pup in puplist: # Für jede Maus, die noch zwei Tage angeboten wird, und eine mouse_id besitzt
                 logger.debug('{}: Pup mit ID {} wird noch zwei Tage ageboten'.format(datetime.now(), pup.lab_id))
-                if Pup.pup_id is None:
+                if pup.pup_id is None:
                     continue
                 incidentsWithPup = WIncidentPups.objects.using(mousedb).filter(animalid=pup.pup_id) # überprüfe ob es Auftrage (Incidents) mit der Maus gibt
                 for incidentWithPup in incidentsWithPup:
