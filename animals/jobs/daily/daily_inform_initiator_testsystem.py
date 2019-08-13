@@ -55,9 +55,9 @@ class Job(DailyJob):
                 logger.debug('{}: Pup mit ID {} wird noch zwei Tage ageboten'.format(datetime.now(), pup.lab_id))
                 if pup.pup_id is None:
                     continue
-                incidentsWithPup = WIncidentPups.objects.using(mousedb).filter(animalid=pup.pup_id) # überprüfe ob es Auftrage (Incidents) mit der Maus gibt
+                incidentsWithPup = WIncidentPups.objects.using(mousedb).filter(pupid=pup.pup_id) # überprüfe ob es Auftrage (Incidents) mit der Maus gibt
                 for incidentWithPup in incidentsWithPup:
-                    logger.debug('{}: Incident {} wird überprüft'.format(datetime.now(), incidentWithPup.id))
+                    logger.debug('{}: Incident {} wird überprüft (Pups)'.format(datetime.now(), incidentWithPup.id))
                     if (incidentWithPup.incidentid in processedIncidents): # Wenn bereits eine Information zu diesem Auftrag rausgegangen ist  
                         continue;
                     incidentFilter = WIncident.objects.using(mousedb).filter(incidentid = incidentWithPup.incidentid)
