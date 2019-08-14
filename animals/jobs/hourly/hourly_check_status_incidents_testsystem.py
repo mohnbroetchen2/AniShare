@@ -16,6 +16,7 @@ class Job(HourlyJob):
         mousedb = 'mousedb_test'
         mousedb_write = 'mousedb_test_write'
         logger = logging.getLogger('myscriptlogger')
+        TIMEDIFF = getattr(settings, "TIMEDIFF", 2)
         try:
             today = datetime.now().date()
             incidentlist = WIncident.objects.using(mousedb).all().filter(status=5)
