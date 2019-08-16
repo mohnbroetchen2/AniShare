@@ -3,7 +3,7 @@ from django_extensions.management.jobs import HourlyJob
 
 class Job(HourlyJob):
     help = ""
-    
+
     def execute(self):
         from django.core import management
         from ...models import WIncident, WIncident_write, WIncidentAnimals, Animal, Mouse, Pup, MouseMutation, Location, Person, Lab, WIncidentcomment, WIncidentPups
@@ -117,6 +117,7 @@ class Job(HourlyJob):
                 puplist = WIncidentPups.objects.using(mousedb).filter(incidentid = incident.incidentid)
                 for pyratpup in puplist:
                     try:
+                        dataset = Pup.objects.using(mousedb).get(id=pyratpup.pupid)
                         if Animal.objects.filter(pup_id=pyratpup.pupid).exists():
                             new_comment = WIncidentcomment()
                             new_comment.incidentid = incident
@@ -134,7 +135,7 @@ class Job(HourlyJob):
                             continue
                         new_pup = Animal()
                         new_pup.animal_type    = "pup"
-                        dataset = Pup.objects.using(mousedb).get(id=pyratpup.pupid)
+                        
                         if dataset.licence == None:
                             new_comment = WIncidentcomment()
                             new_comment.incidentid = incident
