@@ -124,7 +124,7 @@ class Job(HourlyJob):
                                 new_comment.comment = 'AniShare: Pup {} already offered'.format(dataset.eartag)
                                 send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.id, dataset.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             else:
-                                new_comment.comment = 'AniShare: Pup {} already offered'.format(dataset.id)
+                                new_comment.comment = 'AniShare: Pup {} already offered'.format(pyratpup.pupid)
                                 send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.id, dataset.id), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             new_comment.save(using=mousedb_write)
                             new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
@@ -141,7 +141,7 @@ class Job(HourlyJob):
                                 new_comment.comment = 'Pup {} without licence can not be imported'.format(dataset.eartag)
                                 send_mail("AniShare: Pup without license", 'You created a work request with the ID {} to add the pup {} to AniShare. It is not possible to import a pup without a license. '.format(incident.id, dataset.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             else:
-                                new_comment.comment = 'Pup {} without licence can not be imported'.format(dataset.id)
+                                new_comment.comment = 'Pup {} without licence can not be imported'.format(pyratpup.pupid)
                                 send_mail("AniShare: Pup without license", 'You created a work request with the ID {} to add the pup {} to AniShare. It is not possible to import a pup without a license. '.format(incident.id, dataset.id), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             new_comment.save(using=mousedb_write)
                             new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
@@ -152,7 +152,7 @@ class Job(HourlyJob):
                         if dataset.eartag:
                             new_pup.database_id    = dataset.eartag
                         else:
-                            new_pup.database_id   = dataset.id
+                            new_pup.database_id   = pyratpup.pupid
                         new_pup.lab_id         = dataset.labid
                         new_pup.amount         = 1
                         new_pup.genetic_background  = dataset.genetic_bg

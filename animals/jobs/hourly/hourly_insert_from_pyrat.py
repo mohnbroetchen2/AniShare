@@ -123,10 +123,10 @@ class Job(HourlyJob):
                             new_comment.incidentid = incident
                             if dataset.eartag:
                                 new_comment.comment = 'AniShare: Pup {} already offered'.format(dataset.eartag)
-                                send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.id, dataset.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
+                                send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.incidentid, dataset.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             else:
                                 new_comment.comment = 'AniShare: Pup {} already offered'.format(dataset.id)
-                                send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.id, dataset.id), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
+                                send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.incidentid, dataset.id), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             new_comment.save(using=mousedb_write)
                             new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
                             new_comment.save(using=mousedb_write) 
@@ -141,10 +141,10 @@ class Job(HourlyJob):
                             new_comment.incidentid = incident
                             if dataset.eartag:
                                 new_comment.comment = 'Pup {} without licence can not be imported'.format(dataset.eartag)
-                                send_mail("AniShare: Pup without license", 'You created a work request with the ID {} to add the pup {} to AniShare. It is not possible to import a pup without a license. '.format(incident.id, dataset.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
+                                send_mail("AniShare: Pup without license", 'You created a work request with the ID {} to add the pup {} to AniShare. It is not possible to import a pup without a license. '.format(incident.incidentid, dataset.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             else:
                                 new_comment.comment = 'Pup {} without licence can not be imported'.format(dataset.id)
-                                send_mail("AniShare: Pup without license", 'You created a work request with the ID {} to add the pup {} to AniShare. It is not possible to import a pup without a license. '.format(incident.id, dataset.id), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
+                                send_mail("AniShare: Pup without license", 'You created a work request with the ID {} to add the pup {} to AniShare. It is not possible to import a pup without a license. '.format(incident.incidentid, dataset.id), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             new_comment.save(using=mousedb_write)
                             new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
                             new_comment.save(using=mousedb_write)
