@@ -2,8 +2,8 @@ from django_extensions.management.jobs import HourlyJob
 
 
 class Job(HourlyJob):
-    help = ""hour
-
+    help = ""
+    
     def execute(self):
         from django.core import management
         from ...models import WIncident, WIncident_write, WIncidentAnimals, Animal, Mouse, Pup, MouseMutation, Location, Person, Lab, WIncidentcomment, WIncidentPups
