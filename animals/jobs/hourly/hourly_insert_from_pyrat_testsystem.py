@@ -36,7 +36,7 @@ class Job(HourlyJob):
                 for pyratmouse in animallist:
                     try:
                         if Animal.objects.filter(mouse_id=pyratmouse.animalid).exists():
-                            """datasetMouse = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid)
+                            datasetMouse = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid)
                             send_mail("AniShare: Mouse already offered", 'You created a work request with the ID {} to add the mouse {} to AniShare. The mouse has already been offered. A second time is not possible'.format(incident.incidentid, datasetMouse.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             count_animals_deferred = count_animals_deferred + 1
                             new_comment = WIncidentcomment()
@@ -44,7 +44,7 @@ class Job(HourlyJob):
                             new_comment.comment = 'AniShare: Mouse {} already offered'.format(datasetMouse.eartag)
                             new_comment.save(using=mousedb_write)
                             new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
-                            new_comment.save(using=mousedb_write)"""
+                            new_comment.save(using=mousedb_write)
                             continue
                         new_mouse = Animal()
                         new_mouse.animal_type    = "mouse"
