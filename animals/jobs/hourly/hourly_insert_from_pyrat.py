@@ -73,7 +73,10 @@ class Job(HourlyJob):
                         mousemutations           = MouseMutation.objects.using(mousedb).filter(animalid = dataset.id)
                         new_mouse.mutations = ''
                         for m in mousemutations:
-                            new_mouse.mutations  = new_mouse.mutations + m.mutation_name + ' ' + m.grade_name + '; '
+                            if m.grade_name:   
+                                new_mouse.mutations  = new_mouse.mutations + m.mutation_name + ' ' + m.grade_name + '; '
+                            else:
+                                new_mouse.mutations  = new_mouse.mutations + m.mutation_name +'; '
                         try:
                             new_mouse.location       = Location.objects.get(name=dataset.location)
                         except:
