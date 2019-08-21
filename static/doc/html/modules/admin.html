@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Admin &#8212; AniShare 1.6 documentation</title>
+    <title>Admin &#8212; AniShare 1.8 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -34,7 +34,7 @@
 <p>Admin module</p>
 <dl class="class">
 <dt id="animals.admin.AnimalAdmin">
-<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalAdmin</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin" title="Permalink to this definition">¶</a></dt>
 <dd><p>ModelAdmin for Animal model</p>
 <dl class="method">
 <dt id="animals.admin.AnimalAdmin.age">
@@ -45,7 +45,13 @@
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.form">
 <code class="descname">form</code><a class="headerlink" href="#animals.admin.AnimalAdmin.form" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="../api_doc.html#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animals.admin.AnimalAdmin.get_export_resource_class">
+<code class="descname">get_export_resource_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin.get_export_resource_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns ResourceClass to use for export.</p>
 </dd></dl>
 
 <dl class="method">
@@ -57,7 +63,7 @@
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.resource_class">
 <code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.AnimalAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="../api_doc.html#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -67,6 +73,11 @@
 </dd></dl>
 
 </dd></dl>
+
+<dl class="class">
+<dt id="animals.admin.AnimalExportResource">
+<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalExportResource</code><a class="headerlink" href="#animals.admin.AnimalExportResource" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="class">
 <dt id="animals.admin.AnimalForm">
@@ -96,7 +107,10 @@ association with the field named ‘__all__’.</p>
 <dt id="animals.admin.AnimalResource.import_obj">
 <code class="descname">import_obj</code><span class="sig-paren">(</span><em>instance</em>, <em>row</em>, <em>dry_run</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalResource.import_obj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Traverses every field in this Resource and calls
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">import_field()</span></code>.</p>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">import_field()</span></code>. If
+<code class="docutils literal notranslate"><span class="pre">import_field()</span></code> results in a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> being raised for
+one of more fields, those errors are captured and reraised as a single,
+multi-field ValidationError.</p>
 </dd></dl>
 
 </dd></dl>
@@ -138,7 +152,7 @@ association with the field named ‘__all__’.</p>
 <dl class="attribute">
 <dt id="animals.admin.OrganAdmin.resource_class">
 <code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.OrganAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="../api_doc.html#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -162,7 +176,10 @@ association with the field named ‘__all__’.</p>
 <dt id="animals.admin.OrganResource.import_obj">
 <code class="descname">import_obj</code><span class="sig-paren">(</span><em>instance</em>, <em>row</em>, <em>dry_run</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganResource.import_obj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Traverses every field in this Resource and calls
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">import_field()</span></code>.</p>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">import_field()</span></code>. If
+<code class="docutils literal notranslate"><span class="pre">import_field()</span></code> results in a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> being raised for
+one of more fields, those errors are captured and reraised as a single,
+multi-field ValidationError.</p>
 </dd></dl>
 
 </dd></dl>
@@ -608,14 +625,59 @@ association with the field named ‘__all__’.</p>
 415
 416
 417
-418</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Admin module</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">copy</span>
-<span class="kn">from</span> <span class="nn">import_export.admin</span> <span class="kn">import</span> <span class="n">ImportExportModelAdmin</span><span class="p">,</span> <span class="n">ImportMixin</span><span class="p">,</span> <span class="n">ExportMixin</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">AbstractUser</span>
+<span class="kn">from</span> <span class="nn">import_export.admin</span> <span class="kn">import</span> <span class="n">ImportExportModelAdmin</span><span class="p">,</span> <span class="n">ImportMixin</span><span class="p">,</span> <span class="n">ExportMixin</span><span class="p">,</span> <span class="n">ImportExportActionModelAdmin</span><span class="p">,</span> <span class="n">ImportExportMixin</span>
 <span class="kn">from</span> <span class="nn">import_export.widgets</span> <span class="kn">import</span> <span class="n">ManyToManyWidget</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">import_export</span> <span class="kn">import</span> <span class="n">fields</span><span class="p">,</span> <span class="n">resources</span>
+<span class="kn">from</span> <span class="nn">import_export</span> <span class="kn">import</span> <span class="n">fields</span><span class="p">,</span> <span class="n">resources</span> 
 <span class="kn">from</span> <span class="nn">import_export.widgets</span> <span class="kn">import</span> <span class="n">ForeignKeyWidget</span>
 <span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
 <span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
@@ -624,6 +686,7 @@ association with the field named ‘__all__’.</p>
 <span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Animal</span><span class="p">,</span> <span class="n">Person</span><span class="p">,</span> <span class="n">Lab</span><span class="p">,</span> <span class="n">Location</span><span class="p">,</span> <span class="n">Organ</span><span class="p">,</span> <span class="n">Change</span><span class="p">,</span> <span class="n">Organtype</span>
 <span class="kn">from</span> <span class="nn">import_export.formats</span> <span class="kn">import</span> <span class="n">base_formats</span>
 <span class="kn">from</span> <span class="nn">django_admin_listfilter_dropdown.filters</span> <span class="kn">import</span> <span class="n">DropdownFilter</span><span class="p">,</span> <span class="n">RelatedDropdownFilter</span>
+<span class="kn">from</span> <span class="nn">simple_history.admin</span> <span class="kn">import</span> <span class="n">SimpleHistoryAdmin</span>
 
 
 <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">site_header</span> <span class="o">=</span> <span class="s1">&#39;AniShare admin interface&#39;</span>
@@ -678,8 +741,8 @@ association with the field named ‘__all__’.</p>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;lab_id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;database_id&#39;</span><span class="p">,</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
         <span class="s1">&#39;line&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span><span class="s1">&#39;location&#39;</span><span class="p">,</span><span class="s1">&#39;mutations1&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations2&#39;</span><span class="p">,</span><span class="s1">&#39;mutations3&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations4&#39;</span><span class="p">,</span><span class="s1">&#39;grade1&#39;</span><span class="p">,</span> <span class="s1">&#39;grade2&#39;</span><span class="p">,</span><span class="s1">&#39;grade3&#39;</span><span class="p">,</span> <span class="s1">&#39;grade4&#39;</span><span class="p">,</span><span class="s1">&#39;licence_number&#39;</span><span class="p">,</span>
         <span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span><span class="s1">&#39;responsible_person2&#39;</span><span class="p">,</span><span class="s1">&#39;available_from&#39;</span><span class="p">,</span><span class="s1">&#39;available_to&#39;</span><span class="p">,</span><span class="s1">&#39;comment&#39;</span><span class="p">,</span><span class="s1">&#39;genetic_background&#39;</span><span class="p">,)</span>
-        <span class="n">export_order</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;lab_id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;database_id&#39;</span><span class="p">,</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;line&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span><span class="s1">&#39;location&#39;</span><span class="p">,</span><span class="s1">&#39;mutations1&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations2&#39;</span><span class="p">,</span><span class="s1">&#39;mutations3&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations4&#39;</span><span class="p">,</span><span class="s1">&#39;grade1&#39;</span><span class="p">,</span> <span class="s1">&#39;grade2&#39;</span><span class="p">,</span><span class="s1">&#39;grade3&#39;</span><span class="p">,</span> <span class="s1">&#39;grade4&#39;</span><span class="p">,</span><span class="s1">&#39;licence_number&#39;</span><span class="p">,</span>
+        <span class="n">export_order</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span><span class="s1">&#39;database_id&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;line&#39;</span><span class="p">,</span><span class="s1">&#39;location&#39;</span><span class="p">,</span><span class="s1">&#39;mutations1&#39;</span><span class="p">,</span><span class="s1">&#39;grade1&#39;</span><span class="p">,</span> <span class="s1">&#39;grade2&#39;</span><span class="p">,</span><span class="s1">&#39;grade3&#39;</span><span class="p">,</span> <span class="s1">&#39;grade4&#39;</span><span class="p">,</span><span class="s1">&#39;licence_number&#39;</span><span class="p">,</span>
         <span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span><span class="s1">&#39;available_from&#39;</span><span class="p">,</span><span class="s1">&#39;available_to&#39;</span><span class="p">,</span><span class="s1">&#39;comment&#39;</span><span class="p">,)</span>
     <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_loader</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -689,9 +752,7 @@ association with the field named ‘__all__’.</p>
                 <span class="n">params</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">attribute</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">clean</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
-
-    
+            <span class="k">return</span> <span class="bp">None</span> 
 
     <span class="k">def</span> <span class="nf">import_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">dry_run</span><span class="p">):</span> <span class="c1"># Damit werden die Mutationen in ein Feld zusammengefasst</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">AnimalResource</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">import_obj</span><span class="p">(</span> <span class="n">instance</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">dry_run</span><span class="p">)</span>
@@ -770,6 +831,46 @@ association with the field named ‘__all__’.</p>
                     <span class="k">except</span><span class="p">:</span>
                         <span class="n">instance</span><span class="o">.</span><span class="n">mutations</span> <span class="o">=</span><span class="s2">&quot;&quot;</span>
 
+<span class="k">class</span> <span class="nc">AnimalExportResource</span><span class="p">(</span><span class="n">resources</span><span class="o">.</span><span class="n">ModelResource</span><span class="p">):</span> <span class="c1"># für den Import. Hier werden die Felder festgelegt, die importiert werden können</span>
+
+    <span class="n">animal_type</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Animal type&#39;</span><span class="p">)</span> 
+    <span class="n">responsible_person</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span>
+        <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Responsible&#39;</span><span class="p">,</span>
+        <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span>
+        <span class="n">widget</span><span class="o">=</span><span class="n">ForeignKeyWidget</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">))</span>
+    <span class="n">responsible_person2</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span>
+        <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Responsible2&#39;</span><span class="p">,</span>
+        <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;responsible_person2&#39;</span><span class="p">,</span>
+        <span class="n">widget</span><span class="o">=</span><span class="n">ForeignKeyWidget</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">))</span>
+    <span class="n">lab_id</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;lab_id&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Lab ID&#39;</span><span class="p">)</span>
+    <span class="n">database_id</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;database_id&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">)</span>
+    <span class="n">day_of_birth</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;DOB&#39;</span><span class="p">)</span>
+    <span class="n">genetic_background</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;genetic_background&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Background&#39;</span><span class="p">)</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Line / Strain (Name)&#39;</span><span class="p">)</span>
+    <span class="n">sex</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Sex&#39;</span><span class="p">)</span>
+    <span class="n">location</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span>
+        <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Building&#39;</span><span class="p">,</span>
+        <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;location&#39;</span><span class="p">,</span>
+        <span class="n">widget</span><span class="o">=</span><span class="n">ForeignKeyWidget</span><span class="p">(</span><span class="n">Location</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">))</span>
+    <span class="n">grade1</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;grade1&#39;</span><span class="p">,</span><span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Grade 1&#39;</span><span class="p">)</span>
+    <span class="n">grade2</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;grade2&#39;</span><span class="p">,</span><span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Grade 2&#39;</span><span class="p">)</span>
+    <span class="n">grade3</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;grade3&#39;</span><span class="p">,</span><span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Grade 3&#39;</span><span class="p">)</span>
+    <span class="n">grade4</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;grade4&#39;</span><span class="p">,</span><span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Grade 4&#39;</span><span class="p">)</span>
+    <span class="n">licence_number</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;License number&#39;</span><span class="p">)</span>
+    <span class="n">available_to</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Available to&#39;</span><span class="p">)</span>
+    <span class="n">available_from</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Available from&#39;</span><span class="p">)</span>
+    <span class="n">amount</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Amount&#39;</span><span class="p">)</span>
+    <span class="n">comment</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;comment&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Comment&#39;</span><span class="p">)</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Animal</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;lab_id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;database_id&#39;</span><span class="p">,</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;line&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span><span class="s1">&#39;location&#39;</span><span class="p">,</span><span class="s1">&#39;mutations&#39;</span><span class="p">,</span><span class="s1">&#39;grade1&#39;</span><span class="p">,</span> <span class="s1">&#39;grade2&#39;</span><span class="p">,</span><span class="s1">&#39;grade3&#39;</span><span class="p">,</span> <span class="s1">&#39;grade4&#39;</span><span class="p">,</span><span class="s1">&#39;licence_number&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span><span class="s1">&#39;responsible_person2&#39;</span><span class="p">,</span><span class="s1">&#39;available_from&#39;</span><span class="p">,</span><span class="s1">&#39;available_to&#39;</span><span class="p">,</span><span class="s1">&#39;comment&#39;</span><span class="p">,</span><span class="s1">&#39;genetic_background&#39;</span><span class="p">,</span><span class="s1">&#39;creation_date&#39;</span><span class="p">,</span><span class="s1">&#39;new_owner&#39;</span><span class="p">)</span>
+        <span class="n">export_order</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span><span class="s1">&#39;database_id&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;line&#39;</span><span class="p">,</span><span class="s1">&#39;location&#39;</span><span class="p">,</span><span class="s1">&#39;mutations&#39;</span><span class="p">,</span><span class="s1">&#39;genetic_background&#39;</span><span class="p">,</span><span class="s1">&#39;grade1&#39;</span><span class="p">,</span> <span class="s1">&#39;grade2&#39;</span><span class="p">,</span><span class="s1">&#39;grade3&#39;</span><span class="p">,</span> <span class="s1">&#39;grade4&#39;</span><span class="p">,</span><span class="s1">&#39;licence_number&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span><span class="s1">&#39;responsible_person2&#39;</span><span class="p">,</span><span class="s1">&#39;available_from&#39;</span><span class="p">,</span><span class="s1">&#39;available_to&#39;</span><span class="p">,</span><span class="s1">&#39;comment&#39;</span><span class="p">,</span><span class="s1">&#39;new_owner&#39;</span><span class="p">,</span><span class="s1">&#39;creation_date&#39;</span><span class="p">,)</span>
+    
+
 <span class="k">class</span> <span class="nc">OrganResource</span><span class="p">(</span><span class="n">resources</span><span class="o">.</span><span class="n">ModelResource</span><span class="p">):</span> <span class="c1"># für den Import. Hier werden die Felder festgelegt, die importiert werden können</span>
 
     <span class="n">animal_type</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;Animal type&#39;</span><span class="p">)</span> 
@@ -839,7 +940,7 @@ association with the field named ‘__all__’.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">Animal</span>
-        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;fish_specie&#39;</span><span class="p">,</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;database_id&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person2&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;genetic_background&#39;</span><span class="p">,</span><span class="s1">&#39;mutations&#39;</span><span class="p">,</span> <span class="s1">&#39;comment&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">,)</span>
@@ -922,26 +1023,25 @@ association with the field named ‘__all__’.</p>
 
 
 <span class="nd">@admin.register</span><span class="p">(</span><span class="n">Animal</span><span class="p">)</span>
-<span class="c1">#class AnimalAdmin(admin.ModelAdmin):</span>
-
-<span class="k">class</span> <span class="nc">AnimalAdmin</span><span class="p">(</span><span class="n">ImportMixin</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">AnimalAdmin</span><span class="p">(</span><span class="n">ImportExportActionModelAdmin</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+<span class="c1">#class AnimalAdmin(ImportExportMixin, admin.ModelAdmin):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    ModelAdmin for Animal model</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">resource_class</span> <span class="o">=</span> <span class="n">AnimalResource</span>
-    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;entry_date&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span>  <span class="s1">&#39;available_from&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations&#39;</span><span class="p">,</span> <span class="s1">&#39;genetic_background&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span>
+    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span><span class="s1">&#39;database_id&#39;</span><span class="p">,</span> <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;entry_date&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span>  <span class="s1">&#39;available_from&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span>
                     <span class="s1">&#39;responsible_persons&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">)</span>
     <span class="n">list_display_links</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span><span class="s1">&#39;entry_date&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations&#39;</span><span class="p">,</span> <span class="s1">&#39;genetic_background&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations&#39;</span><span class="p">,</span> <span class="s1">&#39;database_id&#39;</span><span class="p">,</span>
                           <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span><span class="s1">&#39;responsible_persons&#39;</span><span class="p">,</span>
                           <span class="s1">&#39;new_owner&#39;</span><span class="p">)</span>
-    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;database_id&#39;</span><span class="p">,</span> <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
+    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span> <span class="s1">&#39;fish_specie&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;database_id&#39;</span><span class="p">,</span> <span class="s1">&#39;lab_id&#39;</span><span class="p">,</span> <span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span>
                      <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;mutations&#39;</span><span class="p">,</span> <span class="s1">&#39;genetic_background&#39;</span><span class="p">,</span> <span class="s1">&#39;location__name&#39;</span><span class="p">,</span> <span class="s1">&#39;new_owner&#39;</span><span class="p">,</span> <span class="s1">&#39;licence_number&#39;</span><span class="p">,</span>
                      <span class="s1">&#39;available_from&#39;</span><span class="p">,</span> <span class="s1">&#39;available_to&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person__name&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;responsible_person__email&#39;</span><span class="p">,</span> <span class="s1">&#39;added_by__email&#39;</span><span class="p">)</span>
+                     <span class="s1">&#39;responsible_person__email&#39;</span><span class="p">,</span> <span class="s1">&#39;added_by__email&#39;</span><span class="p">,)</span>
     <span class="n">autocomplete_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;responsible_person&#39;</span><span class="p">,</span><span class="s1">&#39;responsible_person2&#39;</span><span class="p">]</span>
-    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;responsible_person__responsible_for_lab&#39;</span><span class="p">,</span><span class="n">RelatedDropdownFilter</span><span class="p">),(</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="n">DropdownFilter</span><span class="p">),(</span><span class="s1">&#39;genetic_background&#39;</span><span class="p">,</span> <span class="n">DropdownFilter</span><span class="p">),</span>
+    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;animal_type&#39;</span><span class="p">,</span><span class="s1">&#39;fish_specie&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;responsible_person__responsible_for_lab&#39;</span><span class="p">,</span><span class="n">RelatedDropdownFilter</span><span class="p">),(</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="n">DropdownFilter</span><span class="p">),(</span><span class="s1">&#39;genetic_background&#39;</span><span class="p">,</span> <span class="n">DropdownFilter</span><span class="p">),</span>
                    <span class="p">(</span><span class="s1">&#39;day_of_birth&#39;</span><span class="p">,</span> <span class="n">DateRangeFilter</span><span class="p">),</span>
                    <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;licence_number&#39;</span><span class="p">,</span> <span class="n">DropdownFilter</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;new_owner&#39;</span><span class="p">,</span> <span class="n">DropdownFilter</span><span class="p">),</span> <span class="s1">&#39;added_by&#39;</span><span class="p">)</span>
     <span class="n">radio_fields</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sex&#39;</span><span class="p">:</span><span class="n">admin</span><span class="o">.</span><span class="n">HORIZONTAL</span><span class="p">}</span>
@@ -971,10 +1071,14 @@ association with the field named ‘__all__’.</p>
                   <span class="n">base_formats</span><span class="o">.</span><span class="n">CSV</span><span class="p">,</span>
                   <span class="n">SCSV</span><span class="p">,)</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">formats</span> <span class="k">if</span> <span class="n">f</span><span class="p">()</span><span class="o">.</span><span class="n">can_export</span><span class="p">()]</span>
+    <span class="k">def</span> <span class="nf">get_export_resource_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">AnimalExportResource</span>
+
+
 
 <span class="nd">@admin.register</span><span class="p">(</span><span class="n">Organ</span><span class="p">)</span>
-<span class="c1">#class OrganAdmin(ImportExportModelAdmin):</span>
-<span class="k">class</span> <span class="nc">OrganAdmin</span><span class="p">(</span><span class="n">ImportMixin</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">OrganAdmin</span><span class="p">(</span><span class="n">ImportExportModelAdmin</span><span class="p">):</span>
+<span class="c1">#class OrganAdmin(ImportMixin, admin.ModelAdmin):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    ModelAdmin for Organ model</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1026,6 +1130,7 @@ association with the field named ‘__all__’.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;responsible_person&#39;</span><span class="p">)</span>
     <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,)</span>
+
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -1066,7 +1171,7 @@ association with the field named ‘__all__’.</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2018, Holger Dinkel, Fabian Monheim.
+      &copy;2019, Fabian Monheim, Holger Dinkel.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>

@@ -56,8 +56,8 @@
 
 
 \title{AniShare Documentation}
-\date{Dec 21, 2018}
-\release{1.7}
+\date{Aug 21, 2019}
+\release{1.8}
 \author{Holger Dinkel, Fabian Monheim}
 \newcommand{\sphinxlogo}{\vbox{}}
 \renewcommand{\releasename}{Release}
@@ -87,8 +87,8 @@ automatic generation of email messages as well as an RSS feed for updates.
 
 \noindent\sphinxincludegraphics[width=0.990\linewidth]{{anishare_index}.png}
 
-At the moment, the software/database is geared towards handling of mice, however, it can be adjusted
-to handle any kind of research animal. AniShare is not connected to \sphinxtitleref{PyRat} or \sphinxtitleref{Tick@lab}.
+At the moment, the software/database is geared towards handling of mice and fish, however, it can be adjusted
+to handle any kind of research animal. AniShare is connected to import animals from \sphinxtitleref{PyRat} or \sphinxtitleref{Tick@lab}. Until now there is only a special limited synchronisation back to \sphinxtitleref{PyRat}.
 The official changes (e.g. new ownership must be applied in \sphinxtitleref{PyRat} or \sphinxtitleref{Tick@lab} separately by the responsible person, in communication with the animal care takers).
 
 This documentation can also be downloaded as pdf file: \sphinxhref{https://anishare.leibniz-fli.de/static/doc/anishare\_documentation.pdf}{Anishare Documentation}
@@ -96,13 +96,13 @@ This documentation can also be downloaded as pdf file: \sphinxhref{https://anish
 
 \chapter{Contact}
 \label{\detokenize{index:contact}}
-Technical and application support: Fabian Monheim (CF Scientific IT), \sphinxhref{mailto:fabian.monheim@leibniz-fli.de}{fabian.monheim@leibniz-fli.de}, 03641-65-6872
+Technical and application support: Fabian Monheim (CF Life Science Computing), \sphinxhref{mailto:fabian.monheim@leibniz-fli.de}{fabian.monheim@leibniz-fli.de}, 03641-65-6872
 
 Content support: Animal Facility and Animal Welfare Officer
 
 
-\chapter{Licence}
-\label{\detokenize{index:licence}}
+\chapter{License}
+\label{\detokenize{index:license}}
 The software was developed at the Leibniz Institute on Aging - Fritz Lipmann Institute (FLI; \sphinxurl{http://www.leibniz-fli.de/}) under a mixed licensing model.
 Researchers at academic and non-profit organizations can use anishare using the included license, while for-profit organizations are required to purchase a license.
 By downloading the package you agree with conditions of the FLI Software License Agreement for Academic Non-commercial Research (LICENSE.pdf).
@@ -133,9 +133,6 @@ Animal and organ feed: \sphinxurl{https://anishare.leibniz-fli.de/animals/feed}
 
 \item {} 
 Administration: \sphinxurl{https://anishare.leibniz-fli.de/admin}
-
-\item {} 
-Macros: \sphinxurl{https://anishare.leibniz-fli.de/macros}
 
 \item {} 
 Change history: \sphinxurl{https://anishare.leibniz-fli.de/changehistory}
@@ -246,18 +243,29 @@ After adding several animals, the main (index) view should look like this:
 
 \section{Animals import}
 \label{\detokenize{index:animals-import}}
-There are two ways to import informations of animals. First you can use AniShare to import the details directly. The second way is to export the
-informations using an excel file and then to import the file to anishare. Both ways will be explained below.
+There are several ways to import informations of animals. Using PyRAT you can create a work request or you can use AniShare to import the details
+wich is also possible using \sphinxhref{mailto:tick@lab}{tick@lab}. Both ways will be explained below.
 
 
 \subsection{From PyRAT}
 \label{\detokenize{index:from-pyrat}}
-In most cases it is the easiest way to use the website \sphinxhref{https://anishare.leibniz-fli.de/animals/micefrompyrat/}{Add Mice} or for pups
+In most cases it is the easiest way to create a work request inside PyRAT. Select the work request class \sphinxstylestrong{Add to AniShare} and add the animals you like
+to import. Every hour AniShare searchs after those requests with status \sphinxstylestrong{open}. If the import succeded the status of the work request
+change to \sphinxstylestrong{Added to AniShare}. Mice are offered two weeks and pups one week. The import will fail if a mouse has no license or a mouse has been already offered. If a mouse can not be imported the
+creator of the work request gets a email about it and a comment about will be visible inside the work request. The status of the work request will change to
+\sphinxstylestrong{Deferred}, if no animal could be imported.
+
+The creator of the work request gets a email about it two days before the offer time ends. The status of the request time will be set to
+\sphinxstylestrong{close} after the offer time.
+
+\noindent\sphinxincludegraphics[width=0.750\linewidth]{{pyrat_work_request}.png}
+
+Another way to import animals from PyRAT is to use the website \sphinxhref{https://anishare.leibniz-fli.de/animals/micefrompyrat/}{Add Mice} or for pups
 \sphinxhref{https://anishare.leibniz-fli.de/animals/pupfrompyrat}{Add Pup}. The user has the same rights as in PyRAT. It means the user has access to all animals
 as in PyRAT and the user must have a PyRAT account. If the user in PyRAT has the role \sphinxcode{\sphinxupquote{Animal facility staff}} or \sphinxcode{\sphinxupquote{Administrator}} the user will only
 see the data after searching (filter) an owner or a responsible person of the animals.
 
-\noindent\sphinxincludegraphics[width=0.600\linewidth]{{mice_from_pyrat}.png}
+\noindent\sphinxincludegraphics[width=0.900\linewidth]{{mice_from_pyrat}.png}
 
 To import the animals please select / activate the animals (rows) and push the button \sphinxcode{\sphinxupquote{Import mouse/mice to AniShare}}. You find the button on the left
 side below the table. Now it’s possible to change the default offering period (mouse = 14 days, pup = 7 days) and to add a second responsible person.
@@ -266,37 +274,13 @@ The second responsible person gets a mail too if the animals was claimed. After 
 if the import successful. If an import failed you see an error message and the AniShare admin gets a mail about it. One last hint: It’s only possible to
 import an animal once only.
 
-In some cases it can be useful to import the animal informations via an excel file. How to do it:
-
-First login to PyRAT and \sphinxstylestrong{switch to the english version} of PyRAT if it is no preset. Then select the animals which
-should be import to anishare. Click on \sphinxcode{\sphinxupquote{QS}} (Quick Select) and activate the option \sphinxcode{\sphinxupquote{Export this list to Excel}}.
-Push the button \sphinxcode{\sphinxupquote{Apply}}.
-
-\noindent\sphinxincludegraphics[width=0.600\linewidth]{{pyrat_export}.png}
-
-Now it’s important to select all mandatory fields:
-\sphinxstylestrong{ID, Lab ID, Sex, Line / Strine (Name), Mutations, Date of birth, Responsible, License number, Building}
-
-It’s possible to save the selected columns as a \sphinxcode{\sphinxupquote{Manage View}} for reuse (fold out \sphinxcode{\sphinxupquote{Manage View}} on the left side of the \sphinxcode{\sphinxupquote{File name}})
-
-\noindent\sphinxincludegraphics[width=0.600\linewidth]{{pyrat_export_select_columns}.png}
-
-After downloading the file it’s nessecary to edit the file because the coloumns \sphinxstylestrong{Animal type, Available from, Available to} are missing.
-To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
-\sphinxcode{\sphinxupquote{mouse}} (Animal type), \sphinxcode{\sphinxupquote{Current Date}} (Available from), \sphinxcode{\sphinxupquote{Current Date + 14 days}} (Available to).
-Please refeer to the \sphinxhref{https://anishare.leibniz-fli.de/macros/}{macro site} to downloading the macros and further informations.
-
-After adding the missing coloumns the file can be save. Please use the .xlsx file format. Now go to the anishare admin interface to \sphinxcode{\sphinxupquote{Home › Animals › Animals}}
-and click the button \sphinxcode{\sphinxupquote{IMPORT}} (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
-the user if all requirements match.
-
 
 \subsection{From \sphinxtitleref{tick@lab}}
 \label{\detokenize{index:from-tick-lab}}
 In most cases it is the easiest way to use the website \sphinxhref{https://anishare.leibniz-fli.de/animals/fishfromtickatlab/}{Add Fish}. The user has the same rights as in PyRAT. It means the user has access to all animals
 as in \sphinxhref{mailto:tick@lab}{tick@lab} and the user must have a \sphinxhref{mailto:tick@lab}{tick@lab} account.
 
-\noindent\sphinxincludegraphics[width=0.600\linewidth]{{fish_from_tickatlab}.png}
+\noindent\sphinxincludegraphics[width=0.900\linewidth]{{fish_from_tickatlab}.png}
 
 To import the animals please select / activate the animals (rows) and push the button \sphinxcode{\sphinxupquote{Import Fishs to AniShare}}. You find the button on the left
 side below the table. Now it’s possible to change the default offering period (14 days) and to add a second responsible person.
@@ -304,20 +288,6 @@ The second responsible person gets a mail too if the animals was claimed. After 
 \sphinxcode{\sphinxupquote{Yes, I want to offer these fishes!}}. After import you switch automatically to the administration area of AniShare und you can see the imported animals
 if the import successful. If an import failed you see an error message and the AniShare admin gets a mail about it. One last hint: It’s only possible to
 import an animal once only.
-
-In some cases it can be useful to import the animal informations via an excel file. How to do it:
-
-First login to \sphinxtitleref{Tick@lab} and open the population site. All visible entrys can be exported with the button \sphinxtitleref{Export to Excel}. It isn’t yet possible to export
-only selected animals. Therefore use the filter option.
-
-\noindent\sphinxincludegraphics[width=0.800\linewidth]{{tickatlab_export}.png}
-
-To import the file it’s nessecary to do a lot of changes to the structure of the data. So please use the macro which do the changes automatic.
-Please refeer to the \sphinxhref{https://anishare.leibniz-fli.de/macros/}{macro site} to downloading the macro and further informations.
-
-After running the macro the file can be save. Please use the .xlsx file format. Now go to the anishare admin interface to \sphinxcode{\sphinxupquote{Home › Animals › Animals}}
-and click the button \sphinxcode{\sphinxupquote{IMPORT}} (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
-the user if all requirements match.
 
 
 \section{Add Organs manually}
@@ -333,7 +303,7 @@ All fields in bold \sphinxstylestrong{need} to be filled in, the others are opti
 \label{\detokenize{index:organs-import}}
 
 \subsection{From PyRAT}
-\label{\detokenize{index:id2}}
+\label{\detokenize{index:id1}}
 First login to PyRAT and \sphinxstylestrong{switch to the english version} of PyRAT if it is no preset. Then select the animals which
 should be import to anishare. Click on \sphinxcode{\sphinxupquote{QS}} (Quick Select) and activate the option \sphinxcode{\sphinxupquote{Export this list to Excel}}.
 Push the button \sphinxcode{\sphinxupquote{Apply}}.
@@ -367,7 +337,7 @@ the user if all requirements match.
 
 
 \subsection{From \sphinxtitleref{tick@lab}}
-\label{\detokenize{index:id4}}
+\label{\detokenize{index:id2}}
 Because we expect only a small quantity of importing organs from \sphinxtitleref{tick@lab} it’s only possible to add entries manually.
 
 
@@ -399,7 +369,7 @@ These organs are standard values for the field \sphinxstylestrong{Organ used}.
 
 
 \section{Animals}
-\label{\detokenize{index:id5}}
+\label{\detokenize{index:id3}}
 The main category to administer are animals to share.
 Here, several filters (such as “sex”, “location”, etc.) are available to search for any set of animals.
 
@@ -467,6 +437,13 @@ and group \sphinxstyleemphasis{animal manager}):
 New functions and bugfix at the system should be documented. So users can be informed about changes on the system.
 All changes are visible to authenticated users. Please refeer to the site \sphinxhref{https://anishare.leibniz-fli.de/changehistory/}{AniShare Change History} to see all changes. Furthermore it’s possible to subscribe to
 the \sphinxhref{https://anishare.leibniz-fli.de/changehistory/feed}{Anishare Version Feed} to stay informed.
+
+
+\section{UML Model}
+\label{\detokenize{index:uml-model}}
+Enter \sphinxcode{\sphinxupquote{python manage.py graph\_models}} to get an updated uml model.
+
+\noindent\sphinxincludegraphics[width=0.900\linewidth]{{anishare_uml_models}.png}
 
 
 

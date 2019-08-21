@@ -26,13 +26,13 @@ django.setup()
 # -- Project information -----------------------------------------------------
 
 project = 'AniShare'
-copyright = '2018, Holger Dinkel, Fabian Monheim'
-author = 'Holger Dinkel, Fabian Monheim'
+copyright = '2019, Fabian Monheim, Holger Dinkel'
+author = 'Fabian Monheim, Holger Dinkel'
 
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
-release = '1.7'
+release = '1.8'
 
 
 # -- General configuration ---------------------------------------------------

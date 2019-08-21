@@ -28,8 +28,8 @@ automatic generation of email messages as well as an RSS feed for updates.
 .. image:: img/anishare_index.png
     :width: 99%
 
-At the moment, the software/database is geared towards handling of mice, however, it can be adjusted
-to handle any kind of research animal. AniShare is not connected to `PyRat` or `Tick@lab`. 
+At the moment, the software/database is geared towards handling of mice and fish, however, it can be adjusted
+to handle any kind of research animal. AniShare is connected to import animals from `PyRat` or `Tick@lab`. Until now there is only a special limited synchronisation back to `PyRat`.  
 The official changes (e.g. new ownership must be applied in `PyRat` or `Tick@lab` separately by the responsible person, in communication with the animal care takers).
 
 
@@ -38,11 +38,11 @@ This documentation can also be downloaded as pdf file: `Anishare Documentation <
 Contact
 -------
 
-Technical and application support: Fabian Monheim (CF Scientific IT), fabian.monheim@leibniz-fli.de, 03641-65-6872
+Technical and application support: Fabian Monheim (CF Life Science Computing), fabian.monheim@leibniz-fli.de, 03641-65-6872
 
 Content support: Animal Facility and Animal Welfare Officer
 
-Licence
+License
 -------
 The software was developed at the Leibniz Institute on Aging - Fritz Lipmann Institute (FLI; http://www.leibniz-fli.de/) under a mixed licensing model. 
 Researchers at academic and non-profit organizations can use anishare using the included license, while for-profit organizations are required to purchase a license. 
@@ -58,7 +58,6 @@ Sitemap
 * Add fish directly from tick@lab: https://anishare.leibniz-fli.de/animals/fishfromtickatlab
 * Animal and organ feed: https://anishare.leibniz-fli.de/animals/feed
 * Administration: https://anishare.leibniz-fli.de/admin
-* Macros: https://anishare.leibniz-fli.de/macros
 * Change history: https://anishare.leibniz-fli.de/changehistory
 * Change history feed: https://anishare.leibniz-fli.de/changehistory/feed
 
@@ -158,18 +157,30 @@ After adding several animals, the main (index) view should look like this:
 
 Animals import
 """"""""""""""
-There are two ways to import informations of animals. First you can use AniShare to import the details directly. The second way is to export the
-informations using an excel file and then to import the file to anishare. Both ways will be explained below.
+There are several ways to import informations of animals. Using PyRAT you can create a work request or you can use AniShare to import the details
+wich is also possible using tick@lab. Both ways will be explained below.
 
 From PyRAT
 ++++++++++
-In most cases it is the easiest way to use the website `Add Mice <https://anishare.leibniz-fli.de/animals/micefrompyrat/>`_ or for pups 
+In most cases it is the easiest way to create a work request inside PyRAT. Select the work request class **Add to AniShare** and add the animals you like
+to import. Every hour AniShare searchs after those requests with status **open**. If the import succeded the status of the work request 
+change to **Added to AniShare**. Mice are offered two weeks and pups one week. The import will fail if a mouse has no license or a mouse has been already offered. If a mouse can not be imported the 
+creator of the work request gets a email about it and a comment about will be visible inside the work request. The status of the work request will change to 
+**Deferred**, if no animal could be imported. 
+
+The creator of the work request gets a email about it two days before the offer time ends. The status of the request time will be set to
+**close** after the offer time. 
+
+.. image:: img/pyrat_work_request.png
+   :width: 75%
+
+Another way to import animals from PyRAT is to use the website `Add Mice <https://anishare.leibniz-fli.de/animals/micefrompyrat/>`_ or for pups 
 `Add Pup <https://anishare.leibniz-fli.de/animals/pupfrompyrat>`_. The user has the same rights as in PyRAT. It means the user has access to all animals
 as in PyRAT and the user must have a PyRAT account. If the user in PyRAT has the role ``Animal facility staff`` or ``Administrator`` the user will only
 see the data after searching (filter) an owner or a responsible person of the animals.  
 
 .. image:: img/mice_from_pyrat.png
-   :width: 60%
+   :width: 90%
 
 To import the animals please select / activate the animals (rows) and push the button ``Import mouse/mice to AniShare``. You find the button on the left
 side below the table. Now it's possible to change the default offering period (mouse = 14 days, pup = 7 days) and to add a second responsible person.
@@ -178,31 +189,6 @@ The second responsible person gets a mail too if the animals was claimed. After 
 if the import successful. If an import failed you see an error message and the AniShare admin gets a mail about it. One last hint: It's only possible to
 import an animal once only.
 
-In some cases it can be useful to import the animal informations via an excel file. How to do it:
-
-First login to PyRAT and **switch to the english version** of PyRAT if it is no preset. Then select the animals which 
-should be import to anishare. Click on ``QS`` (Quick Select) and activate the option ``Export this list to Excel``.
-Push the button ``Apply``.
-
-.. image:: img/pyrat_export.png
-   :width: 60%
-
-Now it's important to select all mandatory fields:
-**ID, Lab ID, Sex, Line / Strine (Name), Mutations, Date of birth, Responsible, License number, Building** 
-
-It's possible to save the selected columns as a ``Manage View`` for reuse (fold out ``Manage View`` on the left side of the ``File name``)
-
-.. image:: img/pyrat_export_select_columns.png
-   :width: 60%
-
-After downloading the file it's nessecary to edit the file because the coloumns **Animal type, Available from, Available to** are missing.
-To simplify this process there are macros for LibreOffice and MS Office. The macros automatically add the missing coloumns and add the values
-``mouse`` (Animal type), ``Current Date`` (Available from), ``Current Date + 14 days`` (Available to).
-Please refeer to the `macro site <https://anishare.leibniz-fli.de/macros/>`_ to downloading the macros and further informations. 
-
-After adding the missing coloumns the file can be save. Please use the .xlsx file format. Now go to the anishare admin interface to ``Home › Animals › Animals``
-and click the button ``IMPORT`` (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
-the user if all requirements match.  
 
 From `tick@lab`
 +++++++++++++++
@@ -211,7 +197,7 @@ In most cases it is the easiest way to use the website `Add Fish <https://anisha
 as in tick@lab and the user must have a tick@lab account. 
 
 .. image:: img/fish_from_tickatlab.png
-   :width: 60%
+   :width: 90%
 
 To import the animals please select / activate the animals (rows) and push the button ``Import Fishs to AniShare``. You find the button on the left
 side below the table. Now it's possible to change the default offering period (14 days) and to add a second responsible person.
@@ -219,21 +205,6 @@ The second responsible person gets a mail too if the animals was claimed. After 
 ``Yes, I want to offer these fishes!``. After import you switch automatically to the administration area of AniShare und you can see the imported animals
 if the import successful. If an import failed you see an error message and the AniShare admin gets a mail about it. One last hint: It's only possible to
 import an animal once only.
-
-In some cases it can be useful to import the animal informations via an excel file. How to do it:
-
-First login to `Tick@lab` and open the population site. All visible entrys can be exported with the button `Export to Excel`. It isn't yet possible to export 
-only selected animals. Therefore use the filter option.
-
-.. image:: img/tickatlab_export.png
-   :width: 80%
-
-To import the file it's nessecary to do a lot of changes to the structure of the data. So please use the macro which do the changes automatic. 
-Please refeer to the `macro site <https://anishare.leibniz-fli.de/macros/>`_ to downloading the macro and further informations. 
-
-After running the macro the file can be save. Please use the .xlsx file format. Now go to the anishare admin interface to ``Home › Animals › Animals``
-and click the button ``IMPORT`` (above the filter). Select the file and choose the file format. Upload the file. After submitting all datasets will show to
-the user if all requirements match.  
 
 Add Organs manually
 """""""""""""""""""
@@ -381,7 +352,12 @@ All changes are visible to authenticated users. Please refeer to the site `AniSh
 the `Anishare Version Feed
 <https://anishare.leibniz-fli.de/changehistory/feed>`_ to stay informed.
 
+UML Model
+"""""""""
+Enter ``python manage.py graph_models`` to get an updated uml model.
 
+.. image:: img/anishare_uml_models.png
+   :width: 90%
 
 .. Indices and tables
 .. ==================
