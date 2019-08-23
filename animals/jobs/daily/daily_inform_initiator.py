@@ -79,7 +79,7 @@ class Job(DailyJob):
                             countpups = countpups +1
                         # Nutzer informieren, dass Auftrag mit Id in zwei Tagen ausläuft
                         send_mail("Request Add to AniShare expires", "The PyRAT request Add to AniShare with ID {} expires in two days. Following pups are affected: {}".format(incident.incidentid, pupEartags), "tierschutz@leibniz-fli.de", [initiator.email])
-                        processedIncidents.append(incidentWithMouse.incidentid) 
+                        processedIncidents.append(incidentWithPup.incidentid) 
         except BaseException as e: 
             management.call_command("clearsessions")
             send_mail("AniShare inform initiator", '{}: Fehler {} in Zeile {}'.format(mousedb, e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
