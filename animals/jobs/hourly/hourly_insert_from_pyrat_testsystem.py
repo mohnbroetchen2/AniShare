@@ -21,7 +21,7 @@ class Job(HourlyJob):
         TIMEDIFF = getattr(settings, "TIMEDIFF", 2)
 
         try:
-            incidentlist = WIncident.objects.using(mousedb).all().filter(status=2)
+            incidentlist = WIncident.objects.using(mousedb).all().filter(incidentclass=22).filter(status=2)
             for incident in incidentlist:
                 if incident.duedate.date() != datetime.today().date():
                     logger.debug('incident.duedate {}: datetime.today().date(){} '.format(incident.duedate.date(), datetime.today().date()))
