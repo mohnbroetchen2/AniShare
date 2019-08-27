@@ -78,7 +78,7 @@ class Job(HourlyJob):
                     new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
                     new_comment.save(using=mousedb_write)
 
-                    new_sacrifice_incident                  =  WIncident_write().using(mousedb_write)
+                    new_sacrifice_incident                  =  WIncident_write()
                     new_sacrifice_incident.incidentclass    = 1
                     new_sacrifice_incident.initiator        = incident_write.initiator
                     new_sacrifice_incident.owner            = incident_write.owner
