@@ -19,7 +19,7 @@ class Job(HourlyJob):
         TIMEDIFF = getattr(settings, "TIMEDIFF", 2)
         try:
             today = datetime.now().date()
-            incidentlist = WIncident.objects.using(mousedb).all().filter(status=5)
+            incidentlist = WIncident.objects.using(mousedb).all().filter(incidentclass=22).filter(status=5)
             for incident in incidentlist:
                 skip = 0
                 error = 0
@@ -85,6 +85,7 @@ class Job(HourlyJob):
                     new_sacrifice_incident.responsible      = incident_write.responsible
                     new_sacrifice_incident.sacrifice_reason = incident_write.sacrifice_reason
                     new_sacrifice_incident.sacrifice_method = incident_write.sacrifice_method
+                    new_sacrifice_incident.behavior_id      = 4 # Sacrifice
                     new_sacrifice_incident.priority         = 3
                     new_sacrifice_incident.status           = 2
                     new_sacrifice_incident.duedate          = datetime.now() + timedelta(hours=TIMEDIFF)
