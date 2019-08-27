@@ -92,7 +92,7 @@ class Job(HourlyJob):
                     new_sacrifice_incident.save(using=mousedb_write)
 
                     new_comment = WIncidentcomment()
-                    new_comment.incidentid = WIncident.objects.using(mousedb).get(incidentid = new_sacrifice_incident.incidentid)
+                    new_comment.incidentid = WIncident.objects.using(mousedb).get(duedate = new_sacrifice_incident.duedate)
                     new_comment.comment = 'AniShare: Request created'
                     new_comment.save(using=mousedb_write) 
                     new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
