@@ -80,7 +80,7 @@ class Job(HourlyJob):
 
                     new_sacrifice_incident                  =  WIncident_write()
                     new_sacrifice_incident.incidentclass    = 1
-                    new_sacrifice_incident,initiator        = incident_write.initiator
+                    new_sacrifice_incident.initiator        = incident_write.initiator
                     new_sacrifice_incident.owner            = incident_write.owner
                     new_sacrifice_incident.responsible      = incident_write.responsible
                     new_sacrifice_incident.priority         = 3
