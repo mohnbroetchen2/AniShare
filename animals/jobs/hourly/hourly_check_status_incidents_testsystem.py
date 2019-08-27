@@ -83,6 +83,8 @@ class Job(HourlyJob):
                     new_sacrifice_incident.initiator        = incident_write.initiator
                     new_sacrifice_incident.owner            = incident_write.owner
                     new_sacrifice_incident.responsible      = incident_write.responsible
+                    new_sacrifice_incident.sacrifice_reason = incident_write.sacrifice_reason
+                    new_sacrifice_incident.sacrifice_method = incident_write.sacrifice_method
                     new_sacrifice_incident.priority         = 3
                     new_sacrifice_incident.status           = 2
                     new_sacrifice_incident.duedate          = datetime.now() + timedelta(hours=TIMEDIFF)
@@ -90,7 +92,7 @@ class Job(HourlyJob):
                     new_sacrifice_incident.save(using=mousedb_write)
 
                     new_comment = WIncidentcomment()
-                    new_comment.incidentid = new_sacrifice_incident 
+                    new_comment.incidentid = WIncident.objects.using(mousedb).get(incidentid = new_sacrifice_incident.incidentid)
                     new_comment.comment = 'AniShare: Request created'
                     new_comment.save(using=mousedb_write) 
                     new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)

@@ -527,6 +527,8 @@ class WIncident(models.Model):
     status = models.IntegerField(blank=True, null=True, db_column='status') 
     #status = models.ForeignKey('WIncidentstatus', models.DO_NOTHING, db_column='status')
     duedate = models.DateTimeField(blank=True, null=True, db_column='duedate')
+    sacrifice_reason = models.IntegerField(blank=True, null=True, db_column='sacrifice_reason_id') 
+    sacrifice_method = models.IntegerField(blank=True, null=True, db_column='sacrifice_method_id') 
     """
     wr_building = models.ForeignKey('LocationBuildings', models.DO_NOTHING, blank=True, null=True)
     wr_area = models.ForeignKey('LocationAreas', models.DO_NOTHING, blank=True, null=True)
@@ -542,7 +544,6 @@ class WIncident(models.Model):
     area = models.ForeignKey('LocationAreas', models.DO_NOTHING, blank=True, null=True)
     room = models.ForeignKey('LocationRooms', models.DO_NOTHING, blank=True, null=True)
     rack = models.ForeignKey('Rack', models.DO_NOTHING, blank=True, null=True)
-    sacrifice_reason = models.ForeignKey('WSacrificeReasons', models.DO_NOTHING, blank=True, null=True)
     licence = models.ForeignKey('Licence2', models.DO_NOTHING, blank=True, null=True)
     classification = models.ForeignKey('Classification', models.DO_NOTHING, blank=True, null=True)
     new_owner = models.ForeignKey('Localuser', models.DO_NOTHING, blank=True, null=True)
@@ -573,6 +574,8 @@ class WIncident_write(models.Model):
     status = models.IntegerField(blank=True, null=True, db_column='status') 
     #status = models.ForeignKey('WIncidentstatus', models.DO_NOTHING, db_column='status')
     duedate = models.DateTimeField(blank=True, null=True, db_column='duedate')
+    sacrifice_reason = models.IntegerField(blank=True, null=True, db_column='sacrifice_reason_id') 
+    sacrifice_method = models.IntegerField(blank=True, null=True, db_column='sacrifice_method_id') 
     """
     wr_building = models.ForeignKey('LocationBuildings', models.DO_NOTHING, blank=True, null=True)
     wr_area = models.ForeignKey('LocationAreas', models.DO_NOTHING, blank=True, null=True)
@@ -588,7 +591,6 @@ class WIncident_write(models.Model):
     area = models.ForeignKey('LocationAreas', models.DO_NOTHING, blank=True, null=True)
     room = models.ForeignKey('LocationRooms', models.DO_NOTHING, blank=True, null=True)
     rack = models.ForeignKey('Rack', models.DO_NOTHING, blank=True, null=True)
-    sacrifice_reason = models.ForeignKey('WSacrificeReasons', models.DO_NOTHING, blank=True, null=True)
     licence = models.ForeignKey('Licence2', models.DO_NOTHING, blank=True, null=True)
     classification = models.ForeignKey('Classification', models.DO_NOTHING, blank=True, null=True)
     new_owner = models.ForeignKey('Localuser', models.DO_NOTHING, blank=True, null=True)
