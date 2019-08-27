@@ -563,7 +563,7 @@ class WIncident_write(models.Model):
     owner = models.ForeignKey('PyratUser', models.DO_NOTHING, blank=True, null=True, related_name='ownerpyrat_write', db_column='owner_id')
     responsible= models.ForeignKey('PyratUser', models.DO_NOTHING, blank=True, null=True, related_name='responsiblepyrat_write', db_column='responsible_id')
     incidentdescription = models.TextField(db_column='incidentdescription')
-    opendate = models.DateTimeField(db_column='opendate')
+    opendate = models.DateTimeField(db_column='opendate', auto_now_add=True)
     closedate = models.DateTimeField(blank=True, null=True, db_column='closedate')
     priority = models.IntegerField(blank=True, null=True, db_column='priority')
     #priority = models.ForeignKey('WIncidentpriorities', models.DO_NOTHING, db_column='priority')
@@ -626,8 +626,20 @@ class WIncidentcomment(models.Model):
 
     class Meta:
         managed = False
-        #default_manager_name = 'mousedb'
         db_table = 'w_incidentcomment'
 
+class WIncidentanimals_write(models.Model):
+    incidentid = models.ForeignKey('WIncident', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
+    animalid = models.IntegerField(db_column='animalid',blank=False, null=False)
 
+    class Meta:
+        managed = False
+        db_table = 'w_incident_animals'
 
+class WIncidentpups_write(models.Model):
+    incidentid = models.ForeignKey('WIncident', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
+    pupid = models.IntegerField(db_column='pupid',blank=False, null=False)
+
+    class Meta:
+        managed = False
+        db_table = 'w_incident_pups'

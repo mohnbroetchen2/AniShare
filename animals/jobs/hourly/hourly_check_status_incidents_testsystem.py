@@ -6,7 +6,7 @@ class Job(HourlyJob):
 
     def execute(self):
         from django.core import management
-        from ...models import WIncident, WIncident_write, WIncidentAnimals, Animal, Mouse, WIncidentcomment, WIncidentPups, Pup
+        from ...models import WIncident, WIncident_write, WIncidentAnimals, Animal, Mouse, WIncidentcomment, WIncidentPups, Pup, WIncidentanimals_write, WIncidentpups_write
         from django.core.mail import EmailMultiAlternatives, send_mail
         from datetime import datetime, timedelta
         from django.conf import settings
@@ -68,6 +68,7 @@ class Job(HourlyJob):
                 if (skip == 0 and i == count_animals):
                     incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)
                     incident_write.status = 1
+                    incident_write.closedate = datetime.now()
                     incident_write.save(using=mousedb_write)
                     logger.debug('{}: Incident status {} has been changed to 1.'.format(datetime.now(), incident.incidentid))
                     new_comment = WIncidentcomment()
@@ -76,6 +77,35 @@ class Job(HourlyJob):
                     new_comment.save(using=mousedb_write) 
                     new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
                     new_comment.save(using=mousedb_write)
+
+                    new_sacrifice_incident                  =  WIncident_write()
+                    new_sacrifice_incident.incidentclass    = 1
+                    new_sacrifice_incident.owner            = incident_write.owner
+                    new_sacrifice_incident.responsible      = incident_write.responsible
+                    new_sacrifice_incident.priority         = 3
+                    new_sacrifice_incident.status           = 2
+                    new_sacrifice_incident.duedate          = datetime.now() + timedelta(hours=TIMEDIFF)
+                    new_sacrifice_incident.approved         = 1
+                    new_sacrifice_incident.save(using=mousedb_write)
+
+                    new_comment = WIncidentcomment()
+                    new_comment.incidentid = new_sacrifice_incident 
+                    new_comment.comment = 'AniShare: Request created'
+                    new_comment.save(using=mousedb_write) 
+                    new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
+                    new_comment.save(using=mousedb_write)
+
+                    for pyratmouse in animallist:
+                        incident_mouse = WIncidentanimals_write()
+                        incident_mouse.incidentid = new_sacrifice_incident
+                        incident_mouse.animalid = pyratmouse.animalid
+                        incident_mouse.save(using=mousedb_write)
+
+                    for pyratpup in puplist:
+                        incident_pup = WIncidentpups_write()
+                        incident_pup.incidentid = new_sacrifice_incident
+                        incident_pup.pupid = pyratpup.pupid
+                        incident_pup.save(using=mousedb_write)
         except BaseException as e:  
             logger.error('{}: AniShare Importscriptfehler hourly_check_status_incidents.py: Fehler {} in Zeile {}'.format(datetime.now(),e, sys.exc_info()[2].tb_lineno)) 
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
