@@ -56,7 +56,7 @@ class Job(HourlyJob):
                             count_animals_deferred = count_animals_deferred + 1
                             new_comment = WIncidentcomment()
                             new_comment.incidentid = incident
-                            new_comment.comment = 'AniShare: Mouse {} without licence can not be imported'.format(pyratmouse.eartag)
+                            new_comment.comment = 'AniShare: Mouse {} without licence can not be imported'.format(datasetMouse.eartag)
                             new_comment.save(using=mousedb_write)
                             new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
                             new_comment.save(using=mousedb_write)
