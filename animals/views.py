@@ -29,7 +29,7 @@ from django.views import generic
 
 from .filters import AnimalFilter, OrganFilter, ChangeFilter, PersonFilter, FishFilter, MouseFilter, PupFilter
 from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab, FishPeople, FishTeam, FishMutation
-from .models import Mouse, MouseMutation, PyratUser, PyratUserPermission, Pup
+from .models import Mouse, MouseMutation, PyratUser, PyratUserPermission, Pup, SacrificeIncident
 from .importscript import runimport
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.utils.html import strip_tags
@@ -687,6 +687,13 @@ def importfishtoanishare(request):
             i = i + 1
     return HttpResponseRedirect('/admin/animals/animal/')
 
+
+@login_required
+def ConfirmRequest(request):### Change Status from a sacrifice work request to the status open
+    sIncident = SacrificeIncident.objects.get(urltoken = token)
+    if sIncident:
+        #nur Nutzer
+    return render(request, 'animals/confirmrequest.html', {'filter': f})
 
 @login_required
 def change_history(request):

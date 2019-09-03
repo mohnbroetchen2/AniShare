@@ -649,3 +649,9 @@ class WIncidentpups_write(models.Model):
     class Meta:
         managed = False
         db_table = 'w_incident_pups'
+
+class SacrificeIncident(models.Model):
+    incidentid  = models.IntegerField(blank=False, null=False)
+    urltoken    = models.CharField(max_length=20, blank=False, null=False)
+    created     = models.DateTimeField(null=False, auto_now_add=True)
+    confirmed   = models.DateTimeField(null=True)

@@ -47,9 +47,9 @@ class Job(DailyJob):
                             else:
                                 miceEartags = "{}, {}".format(miceEartags,pyratMouse.eartag)
                             countmice = countmice +1
-                        # Nutzer informieren, dass Auftrag mit Id in zwei Tagen ausläuft
-                        send_mail("Request Add to AniShare expires", "The PyRAT request Add to AniShare with ID {} expires in two days. Following mice are affected: {}".format(incident.incidentid, miceEartags), "tierschutz@leibniz-fli.de", [initiator.email])
-                        processedIncidents.append(incidentWithMouse.incidentid) 
+                            # Nutzer informieren, dass Auftrag mit Id in zwei Tagen ausläuft
+                            send_mail("Request Add to AniShare expires", "The PyRAT request Add to AniShare with ID {} expires in two days. Following mice are affected: {}".format(incident.incidentid, miceEartags), "tierschutz@leibniz-fli.de", [initiator.email])
+                            processedIncidents.append(incidentWithMouse.incidentid) 
             puplist = Animal.objects.filter(available_to = datetime.today().date() + timedelta(days=2)).filter(animal_type = 'pup')
             for pup in puplist: # Für jede Maus, die noch zwei Tage angeboten wird, und eine mouse_id besitzt
                 logger.debug('{}: Pup mit ID {} wird noch zwei Tage ageboten'.format(datetime.now(), pup.lab_id))

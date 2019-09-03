@@ -49,9 +49,9 @@ class Job(HourlyJob):
                             continue
                         new_mouse = Animal()
                         new_mouse.animal_type    = "mouse"
-                        dataset = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid)
+                        
                         try:
-                            new_mouse.mouse_id       = dataset.id
+                            dataset = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid)
                         except: # mouse has no licence
                             count_animals_deferred = count_animals_deferred + 1
                             new_comment = WIncidentcomment()
@@ -62,6 +62,8 @@ class Job(HourlyJob):
                             new_comment.save(using=mousedb_write)
                             send_mail("AniShare: Mouse without license", 'You created a work request with the ID {} to add the mouse {} to AniShare. It is not possible to import a mouse without a license. '.format(incident.id, pyratmouse.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             continue
+                        dataset = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid)
+                        new_mouse.mouse_id       = dataset.id
                         new_mouse.database_id    = dataset.eartag
                         new_mouse.lab_id         = dataset.labid
                         new_mouse.amount         = 1
