@@ -22,7 +22,7 @@ Anishare is a simple database of animals offered for reuse and a easy
 way to claim an animal with automatic generation of email messages as
 well as an RSS feed for updates.
 
-![image](img/anishare_index.png)
+![image](doc/img/anishare_index.png)
 
 At the moment, the software/database is geared towards handling of mice
 and fish, however, it can be adjusted to handle any kind of research
@@ -96,7 +96,7 @@ The main user-facing site is the list of animals to be shared. A user
 can browse this list, sort it via the headers or search for a term using
 the search bar.
 
-![image](img/anishare_index.png)
+![image](doc/img/anishare_index.png)
 
 If a user is interested in an animal, they should click on the button
 \"Claim\" which will bring up another page (see below) in which they can
@@ -122,7 +122,7 @@ offer exactly one mouse per dataset. In contrast fishes can be offer in
 a group.
 
 
-![image](img/anishare_claim.png)
+![image](doc/img/anishare_claim.png)
 
 Organs
 ------
@@ -138,11 +138,11 @@ might want to claim other organs).
 
 Organ index view:
 
-![image](img/organs_index.png)
+![image](doc/img/organs_index.png)
 
 Organ claim view:
 
-![image](img/organs_claim.png)
+![image](doc/img/organs_claim.png)
 
 RSS Feed
 --------
@@ -154,7 +154,7 @@ feeds) to this feed to stay up-to-date with the animal catalogue. By
 clicking on a link in the feed, they are directed to the claim page of
 the individual animal/organ.
 
-![image](img/anishare_rss_feed.png)
+![image](doc/img/anishare_rss_feed.png)
 
 Main animal manager tasks
 =========================
@@ -169,21 +169,21 @@ use the export function of [PyRAT]{.title-ref} or
 export/import process please read the topic **Animals import** or
 **Organs import**.
 
-![image](img/admin_overview_manager.png)
+![image](doc/img/admin_overview_manager.png)
 
 Add Animals manually
 --------------------
 
 Click on `Animals` -\> `Add` to add an animal.
 
-![image](img/admin_add_animal.png)
+![image](doc/img/admin_add_animal.png)
 
 All fields in bold **need** to be filled in, the others are optional.
 
 After adding several animals, the main (index) view should look like
 this:
 
-![image](img/admin_after_loaddata.png)
+![image](doc/img/admin_after_loaddata.png)
 
 Animals import
 --------------
@@ -210,7 +210,7 @@ The creator of the work request gets a email about it two days before
 the offer time ends. The status of the request time will be set to
 **close** after the offer time.
 
-![image](img/pyrat_work_request.png)
+![image](doc/img/pyrat_work_request.png)
 
 Another way to import animals from PyRAT is to use the website [Add
 Mice](https://anishare.leibniz-fli.de/animals/micefrompyrat/) or for
@@ -221,7 +221,7 @@ the user in PyRAT has the role `Animal facility staff` or
 `Administrator` the user will only see the data after searching (filter)
 an owner or a responsible person of the animals.
 
-![image](img/mice_from_pyrat.png)
+![image](doc/img/mice_from_pyrat.png)
 
 To import the animals please select / activate the animals (rows) and
 push the button `Import mouse/mice to AniShare`. You find the button on
@@ -244,7 +244,7 @@ user has the same rights as in PyRAT. It means the user has access to
 all animals as in <tick@lab> and the user must have a <tick@lab>
 account.
 
-![image](img/fish_from_tickatlab.png)
+![image](doc/img/fish_from_tickatlab.png)
 
 To import the animals please select / activate the animals (rows) and
 push the button `Import Fishs to AniShare`. You find the button on the
@@ -263,7 +263,7 @@ Add Organs manually
 
 Click on `Organs` -\> `Add` to add an organ.
 
-![image](img/admin_add_organ.png)
+![image](doc/img/admin_add_organ.png)
 
 All fields in bold **need** to be filled in, the others are optional.
 
@@ -281,7 +281,7 @@ Now it\'s important to select all mandatory fields: **ID, Lab ID, Sex,
 Line / Strine (Name), Mutations, Date of birth, Responsible, License
 number, Building, Sacrifice date, Sacrifice method**
 
-![image](img/pyrat_export_organs.png)
+![image](doc/img/pyrat_export_organs.png)
 
 It\'s possible to save the selected columns as a `Manage View` for reuse
 (fold out `Manage View` on the left side of the `File name`)
@@ -327,13 +327,13 @@ animal or organ entry. For this, select one or more entries in the list
 (see figure below) and select \"[copy animal]{.title-ref}\" from the
 dropdown menu and click \"[Go]{.title-ref}\".
 
-![image](img/admin_copy_animal.png)
+![image](doc/img/admin_copy_animal.png)
 
 Another option is to edit an existing animal and click on \"[Save as
 new]{.title-ref}\". This will save the currently edited animal as a new
 instance:
 
-![image](img/admin_save_as_new.png)
+![image](doc/img/admin_save_as_new.png)
 
 Main administrator tasks
 ========================
@@ -341,7 +341,7 @@ Main administrator tasks
 The administrator can edit more objects in the admin interface, namely
 not just animals and organs but also labs, locations and persons:
 
-![image](img/admin_overview.png)
+![image](doc/img/admin_overview.png)
 
 Organs used
 -----------
@@ -355,7 +355,7 @@ The main category to administer are animals to share. Here, several
 filters (such as \"sex\", \"location\", etc.) are available to search
 for any set of animals.
 
-![image](img/admin_animals.png)
+![image](doc/img/admin_animals.png)
 
 Note:
 in order to remove a claim (thus making the animal available again),
@@ -373,7 +373,7 @@ Labs
 Labs are research labs/research groups and need to have at least one
 responsible/contact person each
 
-![image](img/admin_labs.png)
+![image](doc/img/admin_labs.png)
 
 
 Note:
@@ -386,7 +386,7 @@ Locations
 Locations are where animals are stored. Usually something like room
 numbers or \"animal house\" or \"fish facility\".
 
-![image](img/admin_locations.png)
+![image](doc/img/admin_locations.png)
 
 Note:
 Only *administrators* are allowed to see and change Locations
@@ -398,7 +398,7 @@ Persons responsible for the animals. Could be a vet or similar. Every
 animal needs to have a responsible person associated to them. This
 person then gets an email when the animal is being claimed.
 
-![image](img/admin_persons.png)
+![image](doc/img/admin_persons.png)
 
 Note:
 Only *administrators* are allowed to see and change Persons
@@ -415,7 +415,7 @@ admin interface by clicking \"Home\" -\> \"Authentication and
 Authorization\" -\> \"Users\". Here, they can make a *user* an *animal
 manager*, by setting these values (*staff* and group *animal manager*):
 
-![image](img/admin_permissions_user.png)
+![image](doc/img/admin_permissions_user.png)
 
 Anishare change history
 -----------------------
@@ -433,4 +433,4 @@ UML Model
 
 Enter `python manage.py graph_models` to get an updated uml model.
 
-![image](img/anishare_uml_models.png)
+![image](doc/img/anishare_uml_models.png)
