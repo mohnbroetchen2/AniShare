@@ -122,6 +122,7 @@ class Job(HourlyJob):
                 puplist = WIncidentPups.objects.using(mousedb).filter(incidentid = incident.incidentid)
                 for pyratpup in puplist:
                     try:
+                        dataset = Pup()
                         dataset = Pup.objects.using(mousedb).get(id=pyratpup.pupid)
                         if Animal.objects.filter(pup_id=pyratpup.pupid).exists():
                             new_comment = WIncidentcomment()
