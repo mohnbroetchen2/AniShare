@@ -209,7 +209,10 @@ class Job(HourlyJob):
                     except BaseException as e:  
                         error = 1
                         ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-                        send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} in Zeile {}'.format(mousedb, dataset.eartag, e,sys.exc_info()[2].tb_lineno ), ADMIN_EMAIL, [ADMIN_EMAIL])
+                        if dataset:
+                            send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} in Zeile {}'.format(mousedb, dataset.eartag, e,sys.exc_info()[2].tb_lineno ), ADMIN_EMAIL, [ADMIN_EMAIL])
+                        else:
+                            send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup mit Fehler {} in Zeile {}'.format(mousedb, e,sys.exc_info()[2].tb_lineno ), ADMIN_EMAIL, [ADMIN_EMAIL])
                         #send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])   
                             
                 if (error == 0 and count_animals_deferred == 0):
