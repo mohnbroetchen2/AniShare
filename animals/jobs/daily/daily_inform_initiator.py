@@ -67,11 +67,11 @@ class Job(DailyJob):
 
                     if incident.status == 5: # wenn der Auftrag im Status "Added to Anishare" steht
                         initiator = incident.initiator
-                        pupInIncident = WIncidentPups.objects.using(mousedb).filter(incidentid=incident.incidentid)
+                        pupInIncidentList = WIncidentPups.objects.using(mousedb).filter(incidentid=incident.incidentid)
                         pupEartags=""
                         countpups = 0
-                        for pup in pupInIncident: # Merke alle Eartags der Mäuse, die dem Auftrag zugeordnet sind.
-                            pyratPup = Pup.objects.using(mousedb).get(id=pup.pupid)
+                        for pupInIncident in pupInIncidentList: # Merke alle Eartags der Mäuse, die dem Auftrag zugeordnet sind.
+                            pyratPup = Pup.objects.using(mousedb).get(id=pupInIncident.pupid)
                             if countpups == 0:
                                 pupEartags = "{}".format(pyratPup.eartag)
                             else:
