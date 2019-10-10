@@ -71,12 +71,15 @@ class Job(DailyJob):
                         pupEartags=""
                         countpups = 0
                         for pupInInciden in pupInIncidentList: # Merke alle Eartags der Mäuse, die dem Auftrag zugeordnet sind.
-                            pyratPup = Pup.objects.using(mousedb).get(id=pupInInciden.pupid)
-                            if countpups == 0:
-                                pupEartags = "{}".format(pyratPup.eartag)
-                            else:
-                                pupEartags = "{}, {}".format(pupEartags,pyratPup.eartag)
-                            countpups = countpups +1
+                            try:
+                                pyratPup = Pup.objects.using(mousedb).get(id=pupInIncident.pupid)
+                                if countpups == 0:
+                                    pupEartags = "{}".format(pyratPup.eartag)
+                                else:
+                                    pupEartags = "{}, {}".format(pupEartags,pyratPup.eartag)
+                                countpups = countpups +1
+                            except BaseException as e: 
+                                logger.debug('{}: Pup {} kommt nicht mehr in View v_pup vor (vermutlich bereits Tod)'.format(datetime.now(), pupInIncident.pupid))
                         # Nutzer informieren, dass Auftrag mit Id in zwei Tagen ausläuft
                         send_mail("Request Add to AniShare expires", "The PyRAT request Add to AniShare with ID {} expires in two days. Following pups are affected: {}".format(incident.incidentid, pupEartags), "tierschutz@leibniz-fli.de", [initiator.email])
                         processedIncidents.append(incidentWithPup.incidentid) 
