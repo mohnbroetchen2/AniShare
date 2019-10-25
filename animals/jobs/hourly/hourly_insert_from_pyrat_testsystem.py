@@ -66,6 +66,7 @@ class Job(HourlyJob):
                         new_mouse.database_id    = dataset.eartag
                         new_mouse.lab_id         = dataset.labid
                         new_mouse.amount         = 1
+                        new_mouse.pyrat_incidentid = incident.incidentid
                         new_mouse.genetic_background  = dataset.genetic_bg
                         new_mouse.available_from = datetime.today().date()
                         new_mouse.available_to   = datetime.today().date() + timedelta(days=14)
@@ -160,6 +161,7 @@ class Job(HourlyJob):
                             new_pup.database_id   = pyratpup.pupid
                         new_pup.lab_id         = dataset.labid
                         new_pup.amount         = 1
+                        new_pup.pyrat_incidentid = incident.incidentid
                         new_pup.genetic_background  = dataset.genetic_bg
                         new_pup.available_from = datetime.today().date()
                         new_pup.available_to   = datetime.today().date() + timedelta(days=7)

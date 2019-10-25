@@ -149,6 +149,7 @@ class Animal(models.Model):
     new_owner = models.CharField(max_length=200, blank=True,
                                  help_text='Person claiming this animal for themselves') # turn into foreignkey to auth_users?
     added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, default=1)
+    pyrat_incidentid = models.CharField(max_length=20, null=True, blank=True)
     history = HistoricalRecords()
 
     def validate_amount(value):
@@ -650,8 +651,9 @@ class WIncidentpups_write(models.Model):
         managed = False
         db_table = 'w_incident_pups'
 
-class SacrificeIncident(models.Model):
-    incidentid  = models.IntegerField(blank=False, null=False)
+class SacrificeIncidentToken(models.Model):
+    initiator   = models.ForeignKey(PyratUser, on_delete=models.DO_NOTHING)
+    incidentid  = models.IntegerField(blank=False, null=False) # AddToAniShare Incident ID
     urltoken    = models.CharField(max_length=20, blank=False, null=False)
     created     = models.DateTimeField(null=False, auto_now_add=True)
     confirmed   = models.DateTimeField(null=True)

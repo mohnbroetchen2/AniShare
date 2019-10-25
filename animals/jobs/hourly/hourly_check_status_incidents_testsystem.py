@@ -7,8 +7,13 @@ class Job(HourlyJob):
     def execute(self):
         from django.core import management
         from ...models import WIncident, WIncident_write, WIncidentAnimals, Animal, Mouse, WIncidentcomment, WIncidentPups, Pup, WIncidentanimals_write, WIncidentpups_write
+        from ...models import SacrificeIncidentToken
         from django.core.mail import EmailMultiAlternatives, send_mail
         from datetime import datetime, timedelta
+        from django.conf import settings
+        from django.core.signing import Signer
+        from django.core.mail import EmailMultiAlternatives, send_mail
+        from django.template.loader import render_to_string
         from django.conf import settings
         import logging
         import sys
@@ -51,8 +56,8 @@ class Job(HourlyJob):
                 for pyratpup in puplist:
                     i = i + 1
                     try:
-                        anipupFiler = Animal.objects.filter(pup_id=pyratpup.pupid)
-                        if len(anipupFiler) == 0:
+                        anipupFilter = Animal.objects.filter(pup_id=pyratpup.pupid)
+                        if len(anipupFilter) == 0:
                             continue
                         anipup = Animal.objects.get(pup_id=pyratpup.pupid)
                         if (anipup.new_owner):
@@ -78,17 +83,36 @@ class Job(HourlyJob):
                     new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
                     new_comment.save(using=mousedb_write)
 
-                    new_sacrifice_incident                  =  WIncident_write()
-                    new_sacrifice_incident.incidentclass    = 1
-                    new_sacrifice_incident.initiator        = incident_write.initiator
-                    new_sacrifice_incident.owner            = incident_write.owner
-                    new_sacrifice_incident.responsible      = incident_write.responsible
-                    new_sacrifice_incident.sacrifice_reason = incident_write.sacrifice_reason
-                    new_sacrifice_incident.sacrifice_method = incident_write.sacrifice_method
+                    # save token and send to Add to AniShare initiator to create sacrifice request
+                    new_sacrifice_incident_token            = SacrificeIncidentToken()
+                    new_sacrifice_incident_token.initiator  = incident.initiator
+                    new_sacrifice_incident_token.incidentid = incident.incidentid
+                    signer = Signer()
+                    new_sacrifice_incident_token.urltoken   = signer.sign("{}".format(incident.incidentid))
+                    new_sacrifice_incident_token.save()
+                    
+                    # Send email to initiator to confirm sacrifice request
+                    animallist = Animal.objects.filter(pyrat_incidentid = incident.incidentid)
+                    initiator_name = "{} {}".format(WIncident.initiator.firstname,WIncident.initiator.lastname)
+                    sacrifice_link = "{}/{}/{}".format(settings.DOMAIN,"confirmsacrificerequest",new_sacrifice_incident_token.urltoken)
+                    message = render_to_string('email_animals_sacrifice.html',{'animals':animallist, 'initiator':initiator_name, 'sacrifice_link':sacrifice_link})
+                    subject = "Confirmation sacrifice request"
+                    recipient = incident.initiator.email
+                    msg = EmailMessage(subject, message, "tierschutz@leibniz-fli.de", [recipient])
+                    msg.content_subtype = "html"
+                    msg.send()
+                    # Create sacrifice request
+                    """new_sacrifice_incident                  = WIncident_write()
+                    new_sacrifice_incident.incidentclass    = 1                         # Sacrifices
+                    new_sacrifice_incident.initiator        = incident_write.initiator  # Person who create the Add to AniShare request
+                    new_sacrifice_incident.owner            = incident_write.owner      # copied from the Add to AniShare request
+                    new_sacrifice_incident.responsible      = incident_write.responsible # copied from the Add to AniShare request
+                    new_sacrifice_incident.sacrifice_reason = incident_write.sacrifice_reason # copied from the Add to AniShare request
+                    new_sacrifice_incident.sacrifice_method = incident_write.sacrifice_method # copied from the Add to AniShare request
                     new_sacrifice_incident.behavior         = 4 # Sacrifice
-                    new_sacrifice_incident.priority         = 3
-                    new_sacrifice_incident.status           = 2
-                    new_sacrifice_incident.duedate          = datetime.now() + timedelta(hours=TIMEDIFF)
+                    new_sacrifice_incident.priority         = 3 # medium
+                    new_sacrifice_incident.status           = 2 # open
+                    new_sacrifice_incident.duedate          = datetime.now() + timedelta(hours=TIMEDIFF) + timedelta(days=3)
                     new_sacrifice_incident.approved         = 1
                     new_sacrifice_incident.save(using=mousedb_write)
                     
@@ -111,7 +135,7 @@ class Job(HourlyJob):
                         incident_pup = WIncidentpups_write()
                         incident_pup.incidentid = wincident_new_sacrifice_incident
                         incident_pup.pupid = pyratpup.pupid
-                        incident_pup.save(using=mousedb_write)
+                        incident_pup.save(using=mousedb_write)"""
         except BaseException as e:  
             logger.error('{}: AniShare Importscriptfehler hourly_check_status_incidents.py: Fehler {} in Zeile {}'.format(datetime.now(),e, sys.exc_info()[2].tb_lineno)) 
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
