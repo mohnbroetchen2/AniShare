@@ -14,6 +14,7 @@ class Job(HourlyJob):
         from django.core.signing import Signer
         from django.core.mail import EmailMultiAlternatives, send_mail
         from django.template.loader import render_to_string
+        from django.core.mail import EmailMessage
         from django.conf import settings
         import logging
         import sys
