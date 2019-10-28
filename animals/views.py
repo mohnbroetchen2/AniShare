@@ -690,22 +690,32 @@ def importfishtoanishare(request):
 
 @login_required
 def ConfirmRequest(request, token):### Change Status from a sacrifice work request to the status open
-    succeed = 0
+    message = "URL is wrong. Please check your URL or get in contact with the administrator" 
+    confirmed = 0
     try:
-        sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
-        if sIncidentToken:
-            if (request.user.username == sIncidentToken.initiator):
-                # zweimaliges aufrufen/erstellen unterbinden
-                succeed = 1
-            else:
-                succeed = 2 
-        else:
-            succeed = 3
+        if SacrificeIncidentToken.objects.get(urltoken = token).exists():
+            try:
+                sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
+                if sIncidentToken:
+                    if (request.user.username == sIncidentToken.initiator):
+                        if sIncidentToken.confirmed:
+                            message = "Request is allready created. A second time is not possible"
+                        else:
+                            confirmed = 1
+                            message = "Sacrifice request created successfull"
+                    else:
+                        message ="Wrong user"
+                else:
+                    #not possible
+                    message =""
+            except BaseException as e: 
+                ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
+                send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
+                return render(request, 'animals/confirmrequest.html', {'message': message,'confirmed':confirmed})
     except BaseException as e: 
-        ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-        send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
-        return render(request, 'animals/confirmrequest.html', {'succeed': succeed})
-    return render(request, 'animals/confirmrequest.html', {'succeed': succeed})
+        # Wrong URL or token exists multiple times
+        return render(request, 'animals/confirmrequest.html', {'message': message,'confirmed':confirmed})
+    return render(request, 'animals/confirmrequest.html', {'message': message,'confirmed':confirmed})
 
 @login_required
 def change_history(request):
