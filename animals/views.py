@@ -29,7 +29,7 @@ from django.views import generic
 
 from .filters import AnimalFilter, OrganFilter, ChangeFilter, PersonFilter, FishFilter, MouseFilter, PupFilter
 from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab, FishPeople, FishTeam, FishMutation
-from .models import Mouse, MouseMutation, PyratUser, PyratUserPermission, Pup, SacrificeIncident
+from .models import Mouse, MouseMutation, PyratUser, PyratUserPermission, Pup, SacrificeIncidentToken
 from .importscript import runimport
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.utils.html import strip_tags
