@@ -693,25 +693,25 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
     message = "URL is wrong. Please check your URL or get in contact with the administrator" 
     confirmed = 0
     try:
-        if SacrificeIncidentToken.objects.get(urltoken = token).exists():
-            try:
-                sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
-                if sIncidentToken:
-                    if (request.user.username == sIncidentToken.initiator):
-                        if sIncidentToken.confirmed:
-                            message = "Request is allready created. A second time is not possible"
-                        else:
-                            confirmed = 1
-                            message = "Sacrifice request created successfull"
+        sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
+        try:
+            #sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
+            if sIncidentToken:
+                if (request.user.username == sIncidentToken.initiator):
+                    if sIncidentToken.confirmed:
+                        message = "Request is allready created. A second time is not possible"
                     else:
-                        message ="Wrong user"
+                        confirmed = 1
+                        message = "Sacrifice request created successfull"
                 else:
-                    #not possible
-                    message =""
-            except BaseException as e: 
-                ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-                send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
-                return render(request, 'animals/confirmrequest.html', {'message': message,'confirmed':confirmed})
+                    message ="Wrong user"
+            else:
+                #not possible
+                message =""
+        except BaseException as e: 
+            ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
+            send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
+            return render(request, 'animals/confirmrequest.html', {'message': message,'confirmed':confirmed})
     except BaseException as e: 
         # Wrong URL or token exists multiple times
         return render(request, 'animals/confirmrequest.html', {'message': message,'confirmed':confirmed})
