@@ -93,7 +93,7 @@ class Job(HourlyJob):
                     
                     # Send email to initiator to confirm sacrifice request
                     animallist = Animal.objects.filter(pyrat_incidentid = incident.incidentid)
-                    initiator_name = "{} {}".format(WIncident.initiator__firstname,WIncident.initiator__lastname)
+                    initiator_name = "{} {}".format(incident.initiator.firstname,incident.initiator.lastname)
                     sacrifice_link = "{}/{}/{}".format(settings.DOMAIN,"confirmsacrificerequest",new_sacrifice_incident_token.urltoken)
                     message = render_to_string('email_animals_sacrifice.html',{'animals':animallist, 'initiator':initiator_name, 'sacrifice_link':sacrifice_link})
                     subject = "Confirmation sacrifice request"
