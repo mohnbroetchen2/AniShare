@@ -7,19 +7,19 @@
 <!-- https://datatables.net/reference/option/pageLength -->
 {% endblock %} {% block content %}
 <h1 class="text-center"> Confirm Request</h1>
-{% if succeed = 1 %}  
+{% if succeed == 1 %}  
 <div class="alert alert-success" role="alert">
   Sacrifice request created successfull 
 </div>
 {% endif %} 
 
-{% if succeed = 2 %}  
+{% if succeed == 2 %}  
 <div class="alert-danger" role="alert">
   Wrong user
 </div>
 {% endif %} 
 
-{% if succeed = 3 %}  
+{% if succeed == 3 %}  
 <div class="alert-danger" role="alert">
   Wrong Token
 </div>
