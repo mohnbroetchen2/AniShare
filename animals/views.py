@@ -689,7 +689,7 @@ def importfishtoanishare(request):
 
 
 @login_required
-def ConfirmRequest(request):### Change Status from a sacrifice work request to the status open
+def ConfirmRequest(request, token):### Change Status from a sacrifice work request to the status open
     try:
         sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
         succeed = 0
