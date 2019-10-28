@@ -85,7 +85,7 @@ class Job(HourlyJob):
 
                     # save token and send to Add to AniShare initiator to create sacrifice request
                     new_sacrifice_incident_token            = SacrificeIncidentToken()
-                    new_sacrifice_incident_token.initiator  = incident.initiator
+                    new_sacrifice_incident_token.initiator  = incident.initiator.username
                     new_sacrifice_incident_token.incidentid = incident.incidentid
                     signer = Signer()
                     new_sacrifice_incident_token.urltoken   = signer.sign("{}".format(incident.incidentid))

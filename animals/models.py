@@ -652,8 +652,11 @@ class WIncidentpups_write(models.Model):
         db_table = 'w_incident_pups'
 
 class SacrificeIncidentToken(models.Model):
-    initiator   = models.ForeignKey(PyratUser, on_delete=models.DO_NOTHING)
+    initiator   = models.CharField(max_length=50, blank=False, null=False)
     incidentid  = models.IntegerField(blank=False, null=False) # AddToAniShare Incident ID
     urltoken    = models.CharField(max_length=20, blank=False, null=False)
     created     = models.DateTimeField(null=False, auto_now_add=True)
     confirmed   = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return self.initiator
