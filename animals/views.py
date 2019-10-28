@@ -689,11 +689,18 @@ def importfishtoanishare(request):
 
 
 @login_required
-#def ConfirmRequest(request):### Change Status from a sacrifice work request to the status open
-#    sIncident = SacrificeIncident.objects.get(urltoken = token)
-#    if sIncident:
-        #nur Nutzer
-#    return render(request, 'animals/confirmrequest.html', {'filter': f})
+def ConfirmRequest(request):### Change Status from a sacrifice work request to the status open
+    sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
+    succeed = 0
+    if sIncidentToken:
+        if (request.user.username == sIncidentToken.initiator):
+            #create sacrifice request
+            succeed = 1
+        else:
+            succeed = 2 
+    else:
+        succeed = 3
+    return render(request, 'animals/confirmrequest.html', {'succeed': succeed})
 
 @login_required
 def change_history(request):

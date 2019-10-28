@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% load static %} {% load widget_tweaks %} {% block extrascripts %}
+
+<script src="{% static '/js/jquery-2.0.3.min.js' %}"></script>
+<script src="{% static '/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static '/js/dataTables.bootstrap4.min.js' %}"></script>
+<link rel="stylesheet" href="{% static '/css/dataTables.bootstrap4.min.css' %}">
+<!-- https://datatables.net/reference/option/pageLength -->
+{% endblock %} {% block content %}
+<h1 class="text-center"> Confirm Request</h1>
+{% if succeed = 1 %}  
+<div class="alert alert-success" role="alert">
+  Sacrifice request created successfull 
+</div>
+{% endif %} 
+
+{% if succeed = 2 %}  
+<div class="alert-danger" role="alert">
+  Wrong user
+</div>
+{% endif %} 
+
+{% if succeed = 3 %}  
+<div class="alert-danger" role="alert">
+  Wrong Token
+</div>
+{% endif %} 
+
+{% endblock %}
