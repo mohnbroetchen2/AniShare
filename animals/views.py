@@ -690,16 +690,19 @@ def importfishtoanishare(request):
 
 @login_required
 def ConfirmRequest(request):### Change Status from a sacrifice work request to the status open
-    sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
-    succeed = 0
-    if sIncidentToken:
-        if (request.user.username == sIncidentToken.initiator):
-            #create sacrifice request
-            succeed = 1
+    try:
+        sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
+        succeed = 0
+        if sIncidentToken:
+            if (request.user.username == sIncidentToken.initiator):
+                succeed = 1
+            else:
+                succeed = 2 
         else:
-            succeed = 2 
-    else:
-        succeed = 3
+            succeed = 3
+    except BaseException as e: 
+        ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
+        send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
     return render(request, 'animals/confirmrequest.html', {'succeed': succeed})
 
 @login_required
