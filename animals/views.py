@@ -723,14 +723,14 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                         for animal in animallist:
                             if (animal.animal_type == 'mouse'):
                                 try:
-                                    if not Mouse.objects.using(MOUSEDB).get(id = animal.mouse_id).exists():
+                                    if not Mouse.objects.using(MOUSEDB).filter(id = animal.mouse_id).exists():
                                         animallist=animallist.exclude(pk=animal.pk)
                                 except BaseException as e:     
                                     send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
                                     animallist=animallist.exclude(pk=animal.pk)
                             if (animal.animal_type == 'pup'):
                                 try:
-                                    if not Pup.objects.using(MOUSEDB).get(id = animal.pup_id).exists():
+                                    if not Pup.objects.using(MOUSEDB).filter(id = animal.pup_id).exists():
                                         animallist=animallist.exclude(pk=animal.pk)
                                 except:
                                     animallist=animallist.exclude(pk=animal.pk)
