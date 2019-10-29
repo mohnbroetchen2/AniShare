@@ -209,7 +209,7 @@ except ImportError:
 ADMIN_REORDER = (
     # Keep original label and models
     'sites',   
-    {'app': 'animals', 'models': ('animals.Animal', 'animals.Organ','animals.Organtype', 'animals.Location', 'animals.Person', 'animals.Lab')},
+    {'app': 'animals', 'models': ('animals.Animal', 'animals.Organ','animals.Organtype', 'animals.Location', 'animals.Person', 'animals.Lab','animals.SacrificeIncidentToken')},
     # Rename app
     {'app': 'auth', 'label': 'Authentication and Authorization'},
     # Reorder app models
