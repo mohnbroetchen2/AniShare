@@ -95,7 +95,7 @@ class Job(HourlyJob):
                     # Send email to initiator to confirm sacrifice request
                     animallist = Animal.objects.filter(pyrat_incidentid = incident.incidentid)
                     i = 0
-                    for animal in aminallist:
+                    for animal in animallist:
                         if animal.new_owner:
                             animallist.remove(i)
                         i = i + 1
