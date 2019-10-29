@@ -636,7 +636,7 @@ class WIncidentcomment(models.Model):
         db_table = 'w_incidentcomment'
 
 class WIncidentanimals_write(models.Model):
-    incidentid = models.ForeignKey('WIncident', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
+    incidentid = models.ForeignKey('WIncident_write', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
     animalid = models.IntegerField(db_column='animalid',blank=False, null=False)
 
     class Meta:
@@ -644,7 +644,7 @@ class WIncidentanimals_write(models.Model):
         db_table = 'w_incident_animals'
 
 class WIncidentpups_write(models.Model):
-    incidentid = models.ForeignKey('WIncident', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
+    incidentid = models.ForeignKey('WIncident_write', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
     pupid = models.IntegerField(db_column='pupid',blank=False, null=False)
 
     class Meta:

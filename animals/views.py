@@ -775,7 +775,7 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                             if (animal.animal_type == 'pup'):
                                 try:
                                     incident_pup = WIncidentpups_write()
-                                    incident_pup.incidentid = wincident_new_sacrifice_incident
+                                    incident_pup.incidentid = new_sacrifice_incident
                                     incident_pup.pupid = pyratpup.pupid
                                     incident_pup.save(using=mousedb_write)
                                 except BaseException as e:
