@@ -12,7 +12,7 @@ from django.contrib import admin
 from django import forms
 from django.conf import settings
 from rangefilter.filter import DateRangeFilter # , DateTimeRangeFilter
-from .models import Animal, Person, Lab, Location, Organ, Change, Organtype
+from .models import Animal, Person, Lab, Location, Organ, Change, Organtype, SacrificeIncidentToken
 from import_export.formats import base_formats
 from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter
 from simple_history.admin import SimpleHistoryAdmin
