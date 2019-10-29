@@ -29,7 +29,8 @@ from django.views import generic
 
 from .filters import AnimalFilter, OrganFilter, ChangeFilter, PersonFilter, FishFilter, MouseFilter, PupFilter
 from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab, FishPeople, FishTeam, FishMutation
-from .models import Mouse, MouseMutation, PyratUser, PyratUserPermission, Pup, SacrificeIncidentToken
+from .models import Mouse, MouseMutation, PyratUser, PyratUserPermission, Pup 
+from .models import SacrificeIncidentToken, WIncident_write, WIncident, WIncidentanimals_write, WIncidentpups_write
 from .importscript import runimport
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.utils.html import strip_tags
@@ -692,6 +693,7 @@ def importfishtoanishare(request):
 def ConfirmRequest(request, token):### Change Status from a sacrifice work request to the status open
     message = "URL is wrong. Please check your URL or get in contact with the administrator" 
     confirmed = 0
+    ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
     try:
         sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
         try:
@@ -701,15 +703,87 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                     if sIncidentToken.confirmed:
                         message = "Request is allready created. A second time is not possible"
                     else:
-                        confirmed = 1
-                        message = "Sacrifice request created successfull"
+
+                        MOUSEDB= getattr(settings, "MOUSEDB", None)
+                        previous_incident = WIncident.objects.using(MOUSEDB).get(incidentid = sIncidentToken.incidentid) 
+                        animallist = Animal.objects.filter(pyrat_incidentid = previous_incident.incidentid)
+                        
+                        # Check if a mouse is claimed
+                        i = 0
+                        for animal in aminallist:
+                            if animal.new_owner:
+                                animallist.remove(i)
+                            i = i + 1
+                        if len(animallist) == 0:
+                            message = "All mice are claimed"
+                            return render(request, 'animals/confirmrequest.html', {'message': message,'confirmed':confirmed})
+
+                        # Check if all mice are still alive
+                        i = 0
+                        for animal in animallist:
+                            if (animal.animal_type == 'mouse'):
+                                try:
+                                    if not Mouse.objects.using(MOUSEDB).get(id = animal.mouse_id).exists():
+                                        animallist.remove(i)
+                                except:
+                                    animallist.remove(i)
+                            if (animal.animal_type == 'pup'):
+                                try:
+                                    if not Pup.objects.using(MOUSEDB).get(id = animal.pup_id).exists():
+                                        animallist.remove(i)
+                                except:
+                                    animallist.remove(i)
+                        if len(animallist) > 0:
+                            confirmed = 1
+                        else:
+                            message = "There is no living mouse or pup to create a sacrifice request"
+                            return render(request, 'animals/confirmrequest.html', {'message': message,'confirmed':confirmed})
+
+                        new_sacrifice_incident                  = WIncident_write()
+                        new_sacrifice_incident.incidentclass    = 1                         # Sacrifices
+                        new_sacrifice_incident.initiator        = previous_incident.initiator  # Person who create the Add to AniShare request
+                        new_sacrifice_incident.owner            = previous_incident.owner      # copied from the Add to AniShare request
+                        new_sacrifice_incident.responsible      = previous_incident.responsible # copied from the Add to AniShare request
+                        new_sacrifice_incident.sacrifice_reason = previous_incident.sacrifice_reason # copied from the Add to AniShare request
+                        new_sacrifice_incident.sacrifice_method = previous_incident.sacrifice_method # copied from the Add to AniShare request
+                        new_sacrifice_incident.behavior         = 4 # Sacrifice
+                        new_sacrifice_incident.priority         = 3 # medium
+                        new_sacrifice_incident.status           = 2 # open
+                        new_sacrifice_incident.duedate          = datetime.now() + timedelta(hours=TIMEDIFF) + timedelta(days=3)
+                        new_sacrifice_incident.approved         = 1
+                        MOUSEDB_WRITE = getattr(settings, "MOUSEDB_WRITE", None)
+                        new_sacrifice_incident.save(using=MOUSEDB_WRITE)
+
+                        new_comment = WIncidentcomment()
+                        new_comment.incidentid = wincident_new_sacrifice_incident
+                        new_comment.comment = 'AniShare: Request created'
+                        new_comment.save(using=MOUSEDB_WRITE) 
+                        new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
+                        new_comment.save(using=MOUSEDB_WRITE)
+
+                        for animal in animallist:
+                            if (animal.animal_type == 'mouse'):
+                                try:
+                                    incident_mouse = WIncidentanimals_write()
+                                    incident_mouse.incidentid = new_sacrifice_incident
+                                    incident_mouse.animalid = pyratmouse.animalid
+                                    incident_mouse.save(using=mousedb_write)
+                                except BaseException as e:
+                                    send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
+                            if (animal.animal_type == 'pup'):
+                                try:
+                                    incident_pup = WIncidentpups_write()
+                                    incident_pup.incidentid = wincident_new_sacrifice_incident
+                                    incident_pup.pupid = pyratpup.pupid
+                                    incident_pup.save(using=mousedb_write)
+                                except BaseException as e:
+                                    send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
                 else:
                     message ="Wrong user"
             else:
                 #not possible
                 message =""
         except BaseException as e: 
-            ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
             send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
             return render(request, 'animals/confirmrequest.html', {'message': message,'confirmed':confirmed})
     except BaseException as e: 
