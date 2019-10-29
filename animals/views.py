@@ -768,7 +768,7 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                                 try:
                                     incident_mouse = WIncidentanimals_write()
                                     incident_mouse.incidentid = new_sacrifice_incident
-                                    incident_mouse.animalid = pyratmouse.animalid
+                                    incident_mouse.animalid = animal.animalid
                                     incident_mouse.save(using=mousedb_write)
                                 except BaseException as e:
                                     send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
@@ -776,7 +776,7 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                                 try:
                                     incident_pup = WIncidentpups_write()
                                     incident_pup.incidentid = new_sacrifice_incident
-                                    incident_pup.pupid = pyratpup.pupid
+                                    incident_pup.pupid = animal.pupid
                                     incident_pup.save(using=mousedb_write)
                                 except BaseException as e:
                                     send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
