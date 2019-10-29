@@ -694,6 +694,7 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
     message = "URL is wrong. Please check your URL or get in contact with the administrator" 
     confirmed = 0
     ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
+    TIMEDIFF = getattr(settings, "TIMEDIFF", 2)
     try:
         sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
         try:
