@@ -710,7 +710,7 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                         
                         # Check if a mouse is claimed
                         i = 0
-                        for animal in aminallist:
+                        for animal in animallist:
                             if animal.new_owner:
                                 animallist.remove(i)
                             i = i + 1
