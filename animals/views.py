@@ -782,6 +782,8 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                                     send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
                         #sIncidentToken.confirmed = datetime.now()
                         #sIncidentToken.save()   
+                        message ="Sacrifice request created with id: {}".format(new_sacrifice_incident.incidentid)
+                        confirmed = 1
                 else:
                     message ="Wrong user"
             else:
