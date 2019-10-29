@@ -9,6 +9,7 @@ It also contains an RSS Feed generator class to create an RSS feed from newly cr
 import operator
 import logging
 import sys
+import time
 from functools import reduce
 from django.conf import settings
 from datetime import datetime, timedelta
@@ -755,13 +756,15 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                         new_sacrifice_incident.approved         = 1
                         MOUSEDB_WRITE = getattr(settings, "MOUSEDB_WRITE", None)
                         new_sacrifice_incident.save(using=MOUSEDB_WRITE)
+                        time.sleep(1)
 
-                        """new_comment = WIncidentcomment()
-                        new_comment.incidentid = new_sacrifice_incident
+                        new_sacrifice_incident_tmp = WIncident.objects.using(using=MOUSEDB).get(incidentid=new_sacrifice_incident.incidentid) 
+                        new_comment = WIncidentcomment()
+                        new_comment.incidentid = new_sacrifice_incident_tmp
                         new_comment.comment = 'AniShare: Request created'
                         new_comment.save(using=MOUSEDB_WRITE) 
                         new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
-                        new_comment.save(using=MOUSEDB_WRITE)"""
+                        new_comment.save(using=MOUSEDB_WRITE)
 
                         for animal in animallist:
                             if (animal.animal_type == 'mouse'):
