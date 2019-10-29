@@ -758,7 +758,7 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                         new_sacrifice_incident.save(using=MOUSEDB_WRITE)
                         time.sleep(1)
 
-                        new_sacrifice_incident_tmp = WIncident.objects.using(using=MOUSEDB).get(incidentid=new_sacrifice_incident.incidentid) 
+                        new_sacrifice_incident_tmp = WIncident.objects.using(MOUSEDB).get(incidentid=new_sacrifice_incident.incidentid) 
                         new_comment = WIncidentcomment()
                         new_comment.incidentid = new_sacrifice_incident_tmp
                         new_comment.comment = 'AniShare: Request created'
