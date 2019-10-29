@@ -712,7 +712,7 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                         i = 0
                         for animal in animallist:
                             if animal.new_owner:
-                                animallist.remove(i)
+                                animallist=animallist.exclude(pk=animal.pk)
                             i = i + 1
                         if len(animallist) == 0:
                             message = "All mice are claimed"
@@ -724,15 +724,15 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                             if (animal.animal_type == 'mouse'):
                                 try:
                                     if not Mouse.objects.using(MOUSEDB).get(id = animal.mouse_id).exists():
-                                        animallist.remove(i)
+                                        animallist=animallist.exclude(pk=animal.pk)
                                 except:
-                                    animallist.remove(i)
+                                    animallist=animallist.exclude(pk=animal.pk)
                             if (animal.animal_type == 'pup'):
                                 try:
                                     if not Pup.objects.using(MOUSEDB).get(id = animal.pup_id).exists():
-                                        animallist.remove(i)
+                                        animallist=animallist.exclude(pk=animal.pk)
                                 except:
-                                    animallist.remove(i)
+                                    animallist=animallist.exclude(pk=animal.pk)
                         if len(animallist) > 0:
                             confirmed = 1
                         else:
