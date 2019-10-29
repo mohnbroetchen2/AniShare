@@ -743,9 +743,9 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
 
                         new_sacrifice_incident                  = WIncident_write()
                         new_sacrifice_incident.incidentclass    = 1                         # Sacrifices
-                        new_sacrifice_incident.initiator        = previous_incident.initiator  # Person who create the Add to AniShare request
-                        new_sacrifice_incident.owner            = previous_incident.owner      # copied from the Add to AniShare request
-                        new_sacrifice_incident.responsible      = previous_incident.responsible # copied from the Add to AniShare request
+                        new_sacrifice_incident.initiator        = previous_incident.initiator.id  # Person who create the Add to AniShare request
+                        new_sacrifice_incident.owner            = previous_incident.owner.id      # copied from the Add to AniShare request
+                        new_sacrifice_incident.responsible      = previous_incident.responsible.id # copied from the Add to AniShare request
                         new_sacrifice_incident.sacrifice_reason = previous_incident.sacrifice_reason # copied from the Add to AniShare request
                         new_sacrifice_incident.sacrifice_method = previous_incident.sacrifice_method # copied from the Add to AniShare request
                         new_sacrifice_incident.behavior         = 4 # Sacrifice
