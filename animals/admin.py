@@ -460,3 +460,7 @@ class LabAdmin(admin.ModelAdmin):
     list_display = ('name', 'responsible_person')
     search_fields = ('name',)
 
+@admin.register(SacrificeIncidentToken)
+class SacrificeIncidentToken(admin.ModelAdmin):
+    list_display = ('initiator', 'incidentid','urltoken','created','confirmed')
+    search_fields = ('initiator', 'incidentid','urltoken','created','confirmed')
