@@ -756,12 +756,12 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                         MOUSEDB_WRITE = getattr(settings, "MOUSEDB_WRITE", None)
                         new_sacrifice_incident.save(using=MOUSEDB_WRITE)
 
-                        new_comment = WIncidentcomment()
+                        """new_comment = WIncidentcomment()
                         new_comment.incidentid = new_sacrifice_incident
                         new_comment.comment = 'AniShare: Request created'
                         new_comment.save(using=MOUSEDB_WRITE) 
                         new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
-                        new_comment.save(using=MOUSEDB_WRITE)
+                        new_comment.save(using=MOUSEDB_WRITE)"""
 
                         for animal in animallist:
                             if (animal.animal_type == 'mouse'):
