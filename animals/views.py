@@ -30,7 +30,7 @@ from django.views import generic
 from .filters import AnimalFilter, OrganFilter, ChangeFilter, PersonFilter, FishFilter, MouseFilter, PupFilter
 from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab, FishPeople, FishTeam, FishMutation
 from .models import Mouse, MouseMutation, PyratUser, PyratUserPermission, Pup 
-from .models import SacrificeIncidentToken, WIncident_write, WIncident, WIncidentanimals_write, WIncidentpups_write
+from .models import SacrificeIncidentToken, WIncident_write, WIncident, WIncidentanimals_write, WIncidentpups_write, WIncidentcomment
 from .importscript import runimport
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.utils.html import strip_tags
@@ -780,6 +780,8 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                                     incident_pup.save(using=mousedb_write)
                                 except BaseException as e:
                                     send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
+                        #sIncidentToken.confirmed = datetime.now()
+                        #sIncidentToken.save()   
                 else:
                     message ="Wrong user"
             else:
