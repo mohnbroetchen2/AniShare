@@ -725,7 +725,8 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                                 try:
                                     if not Mouse.objects.using(MOUSEDB).get(id = animal.mouse_id).exists():
                                         animallist=animallist.exclude(pk=animal.pk)
-                                except:
+                                except BaseException as e:     
+                                    send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
                                     animallist=animallist.exclude(pk=animal.pk)
                             if (animal.animal_type == 'pup'):
                                 try:
