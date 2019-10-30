@@ -703,7 +703,7 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
             if sIncidentToken:
                 if (request.user.username == sIncidentToken.initiator):
                     if sIncidentToken.confirmed:
-                        message = "Request is allready created. A second time is not possible"
+                        message = "Request is already created. A second time is not possible"
                     elif (sIncidentToken.created + timedelta(days=15) < datetime.now(sIncidentToken.created.tzinfo)): # Request expired
                         message = "The Link is expired because the AddToAniShare request has expired more than 14 days ago. You can create a sacrifice request directly inside PyRAT."
                     else:

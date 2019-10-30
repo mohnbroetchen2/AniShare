@@ -97,7 +97,7 @@ class Job(HourlyJob):
                     i = 0
                     for animal in animallist:
                         if animal.new_owner:
-                            animallist.remove(i)
+                            animallist.exclude(pk=animal.pk)
                         i = i + 1
                     if len(animallist) > 0:
                         initiator_name = "{} {}".format(incident.initiator.firstname,incident.initiator.lastname)
@@ -108,29 +108,7 @@ class Job(HourlyJob):
                         msg = EmailMessage(subject, message, "tierschutz@leibniz-fli.de", [recipient])
                         msg.content_subtype = "html"
                         msg.send()
-                    # Create sacrifice request
-                    """
-                    
-                    wincident_new_sacrifice_incident = WIncident.objects.using(mousedb).get(incidentid = new_sacrifice_incident.incidentid)
-
-                    new_comment = WIncidentcomment()
-                    new_comment.incidentid = wincident_new_sacrifice_incident
-                    new_comment.comment = 'AniShare: Request created'
-                    new_comment.save(using=mousedb_write) 
-                    new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
-                    new_comment.save(using=mousedb_write)
-
-                    for pyratmouse in animallist:
-                        incident_mouse = WIncidentanimals_write()
-                        incident_mouse.incidentid = wincident_new_sacrifice_incident
-                        incident_mouse.animalid = pyratmouse.animalid
-                        incident_mouse.save(using=mousedb_write)
-
-                    for pyratpup in puplist:
-                        incident_pup = WIncidentpups_write()
-                        incident_pup.incidentid = wincident_new_sacrifice_incident
-                        incident_pup.pupid = pyratpup.pupid
-                        incident_pup.save(using=mousedb_write)"""
+                 
         except BaseException as e:  
             logger.error('{}: AniShare Importscriptfehler hourly_check_status_incidents.py: Fehler {} in Zeile {}'.format(datetime.now(),e, sys.exc_info()[2].tb_lineno)) 
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
