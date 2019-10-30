@@ -704,8 +704,9 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                 if (request.user.username == sIncidentToken.initiator):
                     if sIncidentToken.confirmed:
                         message = "Request is allready created. A second time is not possible"
+                    elif (sIncidentToken.created + timedelta(days=15) > datetime.now()): # Request expired
+                        message = "The Link is expired because the AddToAniShare request has expired more than 14 days ago. You can create a sacrifice request directly inside PyRAT."
                     else:
-
                         MOUSEDB= getattr(settings, "MOUSEDB", None)
                         previous_incident = WIncident.objects.using(MOUSEDB).get(incidentid = sIncidentToken.incidentid) 
                         animallist = Animal.objects.filter(pyrat_incidentid = previous_incident.incidentid)
@@ -761,7 +762,14 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                         new_sacrifice_incident_tmp = WIncident.objects.using(MOUSEDB).get(incidentid=new_sacrifice_incident.incidentid) 
                         new_comment = WIncidentcomment()
                         new_comment.incidentid = new_sacrifice_incident_tmp
-                        new_comment.comment = 'AniShare: Request created'
+                        new_comment.comment = 'AniShare: Request created. Previous AddToAniShare request is: {}'.format(previous_incident.incidentid)
+                        new_comment.save(using=MOUSEDB_WRITE) 
+                        new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
+                        new_comment.save(using=MOUSEDB_WRITE)
+
+                        new_comment = WIncidentcomment()
+                        new_comment.incidentid = previous_incident.incidentid
+                        new_comment.comment = 'AniShare: Sacrifice request with id {} created'.format(new_sacrifice_incident.incidentid)
                         new_comment.save(using=MOUSEDB_WRITE) 
                         new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
                         new_comment.save(using=MOUSEDB_WRITE)
@@ -783,8 +791,8 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                                     incident_pup.save(using=MOUSEDB_WRITE)
                                 except BaseException as e:
                                     send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
-                        #sIncidentToken.confirmed = datetime.now()
-                        #sIncidentToken.save()   
+                        sIncidentToken.confirmed = datetime.now()
+                        sIncidentToken.save()   
                         message ="Sacrifice request created with id: {}".format(new_sacrifice_incident.incidentid)
                         confirmed = 1
                 else:
