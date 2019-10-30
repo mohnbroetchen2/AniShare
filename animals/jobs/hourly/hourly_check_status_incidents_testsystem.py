@@ -97,7 +97,7 @@ class Job(HourlyJob):
                     i = 0
                     for animal in animallist:
                         if animal.new_owner:
-                            animallist.exclude(pk=animal.pk)
+                            animallist = animallist.exclude(pk=animal.pk)
                         i = i + 1
                     if len(animallist) > 0:
                         initiator_name = "{} {}".format(incident.initiator.firstname,incident.initiator.lastname)
