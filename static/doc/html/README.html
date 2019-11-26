@@ -1,0 +1,436 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Introduction &#8212; AniShare 1.8 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>—
+title: ‘Welcome to the documentation of anishare !’
+—</p>
+<div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p><strong>anishare</strong> is a webservice for research institutes to share animals
+with the goal to re-use animals and thus minimize total animal usage.</p>
+<p>It has been developed at the [Leibniz institute for aging
+research](<a class="reference external" href="http://www.leibniz-fli.de">http://www.leibniz-fli.de</a>) in Jena. This django app is meant
+to be used by researchers who want to share research animals with their
+colleagues. The basic idea is that animals are bred for experiments;
+however, sometimes, not all parts of the animal are used or sometimes an
+experiment gets cancelled for whatever reason. By sharing animals within
+the institute, less animals in total have to be sacrificed for research.</p>
+<p>Anishare is a simple database of animals offered for reuse and a easy
+way to claim an animal with automatic generation of email messages as
+well as an RSS feed for updates.</p>
+<p>![image](img/anishare_index.png)</p>
+<p>At the moment, the software/database is geared towards handling of mice
+and fish, however, it can be adjusted to handle any kind of research
+animal. AniShare is connected to import animals from PyRat
+or <a class="reference external" href="mailto:Tick&#37;&#52;&#48;lab">Tick<span>&#64;</span>lab</a>. Until now there is only a special limited
+synchronisation back to PyRat. The official changes (e.g.
+new ownership must be applied in PyRat or
+<a class="reference external" href="mailto:Tick&#37;&#52;&#48;lab">Tick<span>&#64;</span>lab</a> separately by the responsible person, in
+communication with the animal care takers).</p>
+<p>This documentation can also be downloaded as pdf file: [Anishare
+Documentation](<a class="reference external" href="https://anishare.leibniz-fli.de/static/doc/anishare_documentation.pdf">https://anishare.leibniz-fli.de/static/doc/anishare_documentation.pdf</a>)</p>
+</div>
+<div class="section" id="contact">
+<h1>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h1>
+<p>Technical and application support: Fabian Monheim (CF Life Science
+Computing), &lt;<a class="reference external" href="mailto:fabian&#46;monheim&#37;&#52;&#48;leibniz-fli&#46;de">fabian<span>&#46;</span>monheim<span>&#64;</span>leibniz-fli<span>&#46;</span>de</a>&gt;, 03641-65-6872</p>
+<p>Content support: Animal Facility and Animal Welfare Officer</p>
+</div>
+<div class="section" id="license">
+<h1>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h1>
+<p>The software was developed at the Leibniz Institute on Aging - Fritz
+Lipmann Institute (FLI; &lt;<a class="reference external" href="http://www.leibniz-fli.de/">http://www.leibniz-fli.de/</a>&gt;) under a mixed
+licensing model. Researchers at academic and non-profit organizations
+can use anishare using the included license, while for-profit
+organizations are required to purchase a license. By downloading the
+package you agree with conditions of the FLI Software License Agreement
+for Academic Non-commercial Research (LICENSE.pdf).</p>
+</div>
+<div class="section" id="sitemap">
+<h1>Sitemap<a class="headerlink" href="#sitemap" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Start: &lt;<a class="reference external" href="https://anishare.leibniz-fli.de">https://anishare.leibniz-fli.de</a>&gt;</p></li>
+<li><p>Animal: &lt;<a class="reference external" href="https://anishare.leibniz-fli.de/animals">https://anishare.leibniz-fli.de/animals</a>&gt;</p></li>
+<li><p>Organ: &lt;<a class="reference external" href="https://anishare.leibniz-fli.de/organs">https://anishare.leibniz-fli.de/organs</a>&gt;</p></li>
+<li><p>Add mice directly from PyRAT:
+&lt;<a class="reference external" href="https://anishare.leibniz-fli.de/animals/micefrompyrat">https://anishare.leibniz-fli.de/animals/micefrompyrat</a>&gt;</p></li>
+<li><p>Add pup directly from PyRAT:
+&lt;<a class="reference external" href="https://anishare.leibniz-fli.de/animals/pupfrompyrat">https://anishare.leibniz-fli.de/animals/pupfrompyrat</a>&gt;</p></li>
+<li><p>Add fish directly from &lt;<a class="reference external" href="mailto:tick&#37;&#52;&#48;lab">tick<span>&#64;</span>lab</a>&gt;:
+&lt;<a class="reference external" href="https://anishare.leibniz-fli.de/animals/fishfromtickatlab">https://anishare.leibniz-fli.de/animals/fishfromtickatlab</a>&gt;</p></li>
+<li><p>Animal and organ feed:
+&lt;<a class="reference external" href="https://anishare.leibniz-fli.de/animals/feed">https://anishare.leibniz-fli.de/animals/feed</a>&gt;</p></li>
+<li><p>Administration: &lt;<a class="reference external" href="https://anishare.leibniz-fli.de/admin">https://anishare.leibniz-fli.de/admin</a>&gt;</p></li>
+<li><p>Change history: &lt;<a class="reference external" href="https://anishare.leibniz-fli.de/changehistory">https://anishare.leibniz-fli.de/changehistory</a>&gt;</p></li>
+<li><p>Change history feed:
+&lt;<a class="reference external" href="https://anishare.leibniz-fli.de/changehistory/feed">https://anishare.leibniz-fli.de/changehistory/feed</a>&gt;</p></li>
+</ul>
+</div>
+<div class="section" id="user-types">
+<h1>User types<a class="headerlink" href="#user-types" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>User: every FLI employee who wants to claim an animal.</p></li>
+<li><p>Manager: this person is appointed within the research group and
+coordinates the offering/sharing of animals.</p></li>
+<li><p>Person who perform euthanasia: this person will be named in anishare
+by the manager (relevant only for organ sharing).</p></li>
+<li><p>Superuser: this person is administrator of the database and has the
+full control of the function (IT, animal welfare officers,
+veterinarians and heads of animal facilities).</p></li>
+</ul>
+</div>
+<div class="section" id="main-user-interface">
+<h1>Main user interface<a class="headerlink" href="#main-user-interface" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="animals">
+<h2>Animals<a class="headerlink" href="#animals" title="Permalink to this headline">¶</a></h2>
+<p>The main user-facing site is the list of animals to be shared. A user
+can browse this list, sort it via the headers or search for a term using
+the search bar.</p>
+<p>![image](img/anishare_index.png)</p>
+<p>If a user is interested in an animal, they should click on the button
+“Claim” which will bring up another page (see below) in which they can
+review their claim before finally submitting. When they click on “Yes,
+I want to claim this!”, then they will be entered as <em>new owner</em> of
+this animal and an email will be send to them as well as the
+responsible/contact person informing them about this transaction. To
+claim more than one animal it is possible to select the desired animals
+at the first coloumn. Please use after selection the button <strong>Claim all
+selected animals</strong>. Again a new page opens to review the selection.
+After submitting the responsible person(s) of the animals only get one
+email with their claimed animals. To claim an animal from a fish group
+(coloumn # &gt; 1) it is nessecary to claim it individualy with the claim
+function of the entry (last coloumn).</p>
+<p>Note:</p>
+<p>If more than one animal is available (coloumn # &gt; 1), the user can
+adjust the number they want to claim. The remaining animals will still
+be available for claim. Because of uniqueness it’s only possible to
+offer exactly one mouse per dataset. In contrast fishes can be offer in
+a group.</p>
+<p>![image](img/anishare_claim.png)</p>
+</div>
+<div class="section" id="organs">
+<h2>Organs<a class="headerlink" href="#organs" title="Permalink to this headline">¶</a></h2>
+<p>There exists an individual page for animal organ share. It is very
+similar to the animal page, however only individual organs are for
+offer. The entry at the column <cite>Organ (used)</cite> indicates all organs which
+can not be claimed. Also there is no availability period, but a day at
+which the animal gets sacrificed. The person responsible for sacrifice
+the animal will be informed via email if anybody claims some of the
+available organs. The entry will remain available to others (as they
+might want to claim other organs).</p>
+<p>Organ index view:</p>
+<p>![image](img/organs_index.png)</p>
+<p>Organ claim view:</p>
+<p>![image](img/organs_claim.png)</p>
+</div>
+<div class="section" id="rss-feed">
+<h2>RSS Feed<a class="headerlink" href="#rss-feed" title="Permalink to this headline">¶</a></h2>
+<p>An RSS feed containing the latest ten animals and organs is
+automatically generated and can be found at [/animals/feed]{.title-ref}.
+Users can subscribe (Most email clients allow the subscription to RSS
+feeds) to this feed to stay up-to-date with the animal catalogue. By
+clicking on a link in the feed, they are directed to the claim page of
+the individual animal/organ.</p>
+<p>![image](img/anishare_rss_feed.png)</p>
+</div>
+</div>
+<div class="section" id="main-animal-manager-tasks">
+<h1>Main animal manager tasks<a class="headerlink" href="#main-animal-manager-tasks" title="Permalink to this headline">¶</a></h1>
+<p>An <em>animal manager</em> can add animals and organs to the database on two
+ways. First, it is possible to add entrys manually. Secondly, it is
+possible to import an Excel sheet. At the FLI Jena there are two
+databases to manage animals. Now the databases are not connected. To
+transfer more than one or two datasets to anishare it’s recommend to
+use the export function of [PyRAT]{.title-ref} or
+[tick&#64;lab]{.title-ref} and the import function of anishare. To use the
+export/import process please read the topic <strong>Animals import</strong> or
+<strong>Organs import</strong>.</p>
+<p>![image](img/admin_overview_manager.png)</p>
+<div class="section" id="add-animals-manually">
+<h2>Add Animals manually<a class="headerlink" href="#add-animals-manually" title="Permalink to this headline">¶</a></h2>
+<p>Click on <cite>Animals</cite> -&gt; <cite>Add</cite> to add an animal.</p>
+<p>![image](img/admin_add_animal.png)</p>
+<p>All fields in bold <strong>need</strong> to be filled in, the others are optional.</p>
+<p>After adding several animals, the main (index) view should look like
+this:</p>
+<p>![image](img/admin_after_loaddata.png)</p>
+</div>
+<div class="section" id="animals-import">
+<h2>Animals import<a class="headerlink" href="#animals-import" title="Permalink to this headline">¶</a></h2>
+<p>There are several ways to import informations of animals. Using PyRAT
+you can create a work request or you can use AniShare to import the
+details wich is also possible using &lt;<a class="reference external" href="mailto:tick&#37;&#52;&#48;lab">tick<span>&#64;</span>lab</a>&gt;. Both ways will be
+explained below.</p>
+<p>### From PyRAT</p>
+<p>In most cases it is the easiest way to create a work request inside
+PyRAT. Select the work request class <strong>Add to AniShare</strong> and add the
+animals you like to import. Every hour AniShare searchs after those
+requests with status <strong>open</strong>. If the import succeded the status of the
+work request change to <strong>Added to AniShare</strong>. Mice are offered two weeks
+and pups one week. The import will fail if a mouse has no license or a
+mouse has been already offered. If a mouse can not be imported the
+creator of the work request gets a email about it and a comment about
+will be visible inside the work request. The status of the work request
+will change to <strong>Deferred</strong>, if no animal could be imported.</p>
+<p>The creator of the work request gets a email about it two days before
+the offer time ends. The status of the request time will be set to
+<strong>close</strong> after the offer time.</p>
+<p>![image](img/pyrat_work_request.png)</p>
+<p>Another way to import animals from PyRAT is to use the website [Add
+Mice](<a class="reference external" href="https://anishare.leibniz-fli.de/animals/micefrompyrat/">https://anishare.leibniz-fli.de/animals/micefrompyrat/</a>) or for
+pups [Add Pup](<a class="reference external" href="https://anishare.leibniz-fli.de/animals/pupfrompyrat">https://anishare.leibniz-fli.de/animals/pupfrompyrat</a>).
+The user has the same rights as in PyRAT. It means the user has access
+to all animals as in PyRAT and the user must have a PyRAT account. If
+the user in PyRAT has the role <cite>Animal facility staff</cite> or
+<cite>Administrator</cite> the user will only see the data after searching (filter)
+an owner or a responsible person of the animals.</p>
+<p>![image](img/mice_from_pyrat.png)</p>
+<p>To import the animals please select / activate the animals (rows) and
+push the button <cite>Import mouse/mice to AniShare</cite>. You find the button on
+the left side below the table. Now it’s possible to change the default
+offering period (mouse = 14 days, pup = 7 days) and to add a second
+responsible person. The second responsible person gets a mail too if the
+animals was claimed. After checking the informations the import runs
+after pushing the button <cite>Yes, I want to offer these mice!</cite>. After
+import you switch automatically to the administration area of AniShare
+und you can see the imported animals if the import successful. If an
+import failed you see an error message and the AniShare admin gets a
+mail about it. One last hint: It’s only possible to import an animal
+once only.</p>
+<p>### From [tick&#64;lab]{.title-ref}</p>
+<p>In most cases it is the easiest way to use the website [Add
+Fish](<a class="reference external" href="https://anishare.leibniz-fli.de/animals/fishfromtickatlab/">https://anishare.leibniz-fli.de/animals/fishfromtickatlab/</a>). The
+user has the same rights as in PyRAT. It means the user has access to
+all animals as in &lt;<a class="reference external" href="mailto:tick&#37;&#52;&#48;lab">tick<span>&#64;</span>lab</a>&gt; and the user must have a &lt;<a class="reference external" href="mailto:tick&#37;&#52;&#48;lab">tick<span>&#64;</span>lab</a>&gt;
+account.</p>
+<p>![image](img/fish_from_tickatlab.png)</p>
+<p>To import the animals please select / activate the animals (rows) and
+push the button <cite>Import Fishs to AniShare</cite>. You find the button on the
+left side below the table. Now it’s possible to change the default
+offering period (14 days) and to add a second responsible person. The
+second responsible person gets a mail too if the animals was claimed.
+After checking the informations the import runs after pushing the button
+<cite>Yes, I want to offer these fishes!</cite>. After import you switch
+automatically to the administration area of AniShare und you can see the
+imported animals if the import successful. If an import failed you see
+an error message and the AniShare admin gets a mail about it. One last
+hint: It’s only possible to import an animal once only.</p>
+</div>
+<div class="section" id="add-organs-manually">
+<h2>Add Organs manually<a class="headerlink" href="#add-organs-manually" title="Permalink to this headline">¶</a></h2>
+<p>Click on <cite>Organs</cite> -&gt; <cite>Add</cite> to add an organ.</p>
+<p>![image](img/admin_add_organ.png)</p>
+<p>All fields in bold <strong>need</strong> to be filled in, the others are optional.</p>
+</div>
+<div class="section" id="organs-import">
+<h2>Organs import<a class="headerlink" href="#organs-import" title="Permalink to this headline">¶</a></h2>
+<p>### From PyRAT</p>
+<p>First login to PyRAT and <strong>switch to the english version</strong> of PyRAT if
+it is no preset. Then select the animals which should be import to
+anishare. Click on <cite>QS</cite> (Quick Select) and activate the option
+<cite>Export this list to Excel</cite>. Push the button <cite>Apply</cite>.</p>
+<p>Now it’s important to select all mandatory fields: <strong>ID, Lab ID, Sex,
+Line / Strine (Name), Mutations, Date of birth, Responsible, License
+number, Building, Sacrifice date, Sacrifice method</strong></p>
+<p>![image](img/pyrat_export_organs.png)</p>
+<p>It’s possible to save the selected columns as a <cite>Manage View</cite> for reuse
+(fold out <cite>Manage View</cite> on the left side of the <cite>File name</cite>)</p>
+<p>After downloading the file it’s nessecary to edit the file because the
+coloumns <strong>Animal type, Euthanasia performed by, Comment</strong> are missing.
+Furthermore the format of the coloumn <strong>Sacrifice date</strong> needs to be
+adapt. To simplify this process there are macros for LibreOffice and MS
+Office. The macros automatically add the missing coloumns and add the
+value <cite>mouse</cite> at coloumn <strong>Animal type</strong> Please refeer to the [macro
+site](<a class="reference external" href="https://anishare.leibniz-fli.de/macros/">https://anishare.leibniz-fli.de/macros/</a>) to downloading the macros
+and further informations.</p>
+<p>After running the macro it’s possible to fill out the coloumn
+<strong>Sacrifice method</strong> with one of the following entries: <strong>CO2, cervicale
+dislocation, decapitation, blood withdrawl, finale heart punction,
+overdose anaesthetics, other</strong> and the coloumn <strong>Organ used</strong> with the
+following entries: <strong>bladder, bone marrow, brain, genitals, heart,
+intestine, kidney, liver, lungs, other, spleen, stomatch</strong> It’s also
+possible to add this entries after uploading the file.</p>
+<p>Note:</p>
+<p>It’s possible to add more than one entry at the field <strong>Organ used</strong>.
+Please use a comma as seperator like <cite>brain, bladder</cite>.</p>
+<p>Please save the Excel file as .xlsx file. Now go to the anishare admin
+interface to <cite>Home › Animals › Animals</cite> and click the button <cite>IMPORT</cite>
+(above the filter). Select the file and choose the file format. Upload
+the file. After submitting all datasets will show to the user if all
+requirements match.</p>
+<p>### From [tick&#64;lab]{.title-ref}</p>
+<p>Because we expect only a small quantity of importing organs from
+[tick&#64;lab]{.title-ref} it’s only possible to add entries manually.</p>
+</div>
+<div class="section" id="duplicating-entries">
+<h2>Duplicating entries<a class="headerlink" href="#duplicating-entries" title="Permalink to this headline">¶</a></h2>
+<p>For input of multiple similar entries, it is possible to duplicate an
+animal or organ entry. For this, select one or more entries in the list
+(see figure below) and select “[copy animal]{.title-ref}” from the
+dropdown menu and click “[Go]{.title-ref}”.</p>
+<p>![image](img/admin_copy_animal.png)</p>
+<p>Another option is to edit an existing animal and click on “[Save as
+new]{.title-ref}”. This will save the currently edited animal as a new
+instance:</p>
+<p>![image](img/admin_save_as_new.png)</p>
+</div>
+</div>
+<div class="section" id="main-administrator-tasks">
+<h1>Main administrator tasks<a class="headerlink" href="#main-administrator-tasks" title="Permalink to this headline">¶</a></h1>
+<p>The administrator can edit more objects in the admin interface, namely
+not just animals and organs but also labs, locations and persons:</p>
+<p>![image](img/admin_overview.png)</p>
+<div class="section" id="organs-used">
+<h2>Organs used<a class="headerlink" href="#organs-used" title="Permalink to this headline">¶</a></h2>
+<p>These organs are standard values for the field <strong>Organ used</strong>.</p>
+</div>
+<div class="section" id="id1">
+<h2>Animals<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>The main category to administer are animals to share. Here, several
+filters (such as “sex”, “location”, etc.) are available to search
+for any set of animals.</p>
+<p>![image](img/admin_animals.png)</p>
+<p>Note:
+in order to remove a claim (thus making the animal available again),
+either click on an animal and remove the email address from the field
+“new owner”, or select one or multiple animals and select the “clear
+claim” <em>Action</em> and click “Go”.</p>
+<p>Note:</p>
+<p>Once created, an animal cannot be deleted, except by the administrator.</p>
+</div>
+<div class="section" id="labs">
+<h2>Labs<a class="headerlink" href="#labs" title="Permalink to this headline">¶</a></h2>
+<p>Labs are research labs/research groups and need to have at least one
+responsible/contact person each</p>
+<p>![image](img/admin_labs.png)</p>
+<p>Note:</p>
+<p>Only <em>administrators</em> are allowed to see and change Labs:</p>
+</div>
+<div class="section" id="locations">
+<h2>Locations<a class="headerlink" href="#locations" title="Permalink to this headline">¶</a></h2>
+<p>Locations are where animals are stored. Usually something like room
+numbers or “animal house” or “fish facility”.</p>
+<p>![image](img/admin_locations.png)</p>
+<p>Note:
+Only <em>administrators</em> are allowed to see and change Locations</p>
+</div>
+<div class="section" id="persons">
+<h2>Persons<a class="headerlink" href="#persons" title="Permalink to this headline">¶</a></h2>
+<p>Persons responsible for the animals. Could be a vet or similar. Every
+animal needs to have a responsible person associated to them. This
+person then gets an email when the animal is being claimed.</p>
+<p>![image](img/admin_persons.png)</p>
+<p>Note:
+Only <em>administrators</em> are allowed to see and change Persons</p>
+</div>
+<div class="section" id="make-a-user-an-animal-manager">
+<h2>Make a user an animal manager<a class="headerlink" href="#make-a-user-an-animal-manager" title="Permalink to this headline">¶</a></h2>
+<p>The <em>administrator</em> is also responsible for user/rights management. In
+order to be able to add/edit animals, a user has to be in the group
+<em>animal manager</em> and have <em>staff status</em> in the django admin interface.
+For this, an <em>administrator</em> has to go to the [user
+management](<a class="reference external" href="https://anishare.leibniz-fli.de/admin/auth/user/">https://anishare.leibniz-fli.de/admin/auth/user/</a>) in the
+admin interface by clicking “Home” -&gt; “Authentication and
+Authorization” -&gt; “Users”. Here, they can make a <em>user</em> an <em>animal
+manager</em>, by setting these values (<em>staff</em> and group <em>animal manager</em>):</p>
+<p>![image](img/admin_permissions_user.png)</p>
+</div>
+<div class="section" id="anishare-change-history">
+<h2>Anishare change history<a class="headerlink" href="#anishare-change-history" title="Permalink to this headline">¶</a></h2>
+<p>New functions and bugfix at the system should be documented. So users
+can be informed about changes on the system. All changes are visible to
+authenticated users. Please refeer to the site [AniShare Change
+History](<a class="reference external" href="https://anishare.leibniz-fli.de/changehistory/">https://anishare.leibniz-fli.de/changehistory/</a>) to see all
+changes. Furthermore it’s possible to subscribe to the [Anishare
+Version Feed](<a class="reference external" href="https://anishare.leibniz-fli.de/changehistory/feed">https://anishare.leibniz-fli.de/changehistory/feed</a>) to
+stay informed.</p>
+</div>
+<div class="section" id="uml-model">
+<h2>UML Model<a class="headerlink" href="#uml-model" title="Permalink to this headline">¶</a></h2>
+<p>Enter <cite>python manage.py graph_models</cite> to get an updated uml model.</p>
+<p>![image](img/anishare_uml_models.png)</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">AniShare</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Fabian Monheim, Holger Dinkel.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/README.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

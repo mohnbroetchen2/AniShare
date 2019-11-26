@@ -1,6 +1,5 @@
 {% extends "base.html" %} {% load static %} {% load widget_tweaks %} {% block extrascripts %}
 
-<script src="{% static '/js/jquery-2.0.3.min.js' %}"></script>
 <script src="{% static '/js/jquery.dataTables.min.js' %}"></script>
 <script src="{% static '/js/dataTables.bootstrap4.min.js' %}"></script>
 <link rel="stylesheet" href="{% static '/css/dataTables.bootstrap4.min.css' %}">
@@ -96,13 +95,10 @@
           <tr>
             <th class="header">
             </th>
-            <th class="header"> ID
+            <th class="header"> Type
               <i class="icon-sort"></i>
             </th>
             <th class="header"> #
-              <i class="icon-sort"></i>
-            </th>
-            <th class="header"> Type
               <i class="icon-sort"></i>
             </th>
             <th class="header"> Sex
@@ -140,8 +136,9 @@
             <!--th class="header"> Added By
               <i class="icon-sort"></i>
             </th-->
+            <th class="header"> Comment
+            </th>
             <th class="header"> New Owner
-              <i class="icon-sort"></i>
             </th>
           </tr>
         </thead>
@@ -151,12 +148,9 @@
             <td>
               <input type="checkbox" name="selected" value="{{a.pk}}" id="select{{a.pk}}">
             </td>
-            <td>
-              {{a.pk}}</a>
-            </td>
-            <td>{{a.amount}}</td>
             <td>{{a.animal_type}}{% if a.fish_specie%}{% if a.fish_specie == 'n' %}
               <span>Notho</span> {% elif a.fish_specie == 'z' %} <span>Zebra</span>{% endif %}{% endif %}</td>
+            <td>{{a.amount}}</td>
             <td>{% if a.get_sex_display == 'female' %}
               <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
               {% elif a.get_sex_display == 'male' %}
@@ -177,6 +171,9 @@
             <td>{{a.lab_id}} </td>
             <td>{{a.background}}</td>
             <td>{{a.responsible_persons}}</td>
+            <td>{% if a.comment%}<span class="d-inline-block" data-toggle="popover" data-trigger="focus" data-content="{{a.comment}}">
+              <button class="btn btn-primary" type="button">See comment</button>
+            </span>{% endif %}</td>
             <!--td>
               <a href="mailto:{{a.added_by.email}}">{{a.added_by.first_name}} {{a.added_by.last_name}}</a>
             </td-->
@@ -195,4 +192,9 @@
     </div>
   </div>
 </form>
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+  });
+  </script>
 {% endblock %}

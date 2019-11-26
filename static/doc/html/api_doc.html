@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>First time setup &#8212; AniShare 1.8 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -13,6 +11,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
    
@@ -30,10 +29,12 @@
           <div class="body" role="main">
             
   <blockquote>
-<div>Installation</div></blockquote>
+<div><p>Installation</p>
+</div></blockquote>
 <hr class="docutils" />
 <blockquote>
-<div>Requirements</div></blockquote>
+<div><p>Requirements</p>
+</div></blockquote>
 <hr class="docutils" />
 <p>We use the latest version of <a class="reference external" href="https://www.djangoproject.com">django</a>, which requires <a class="reference external" href="https://www.python.org">python3</a>.
 Install django and other dependancies (see file requirements.txt. We recommend using a virtual environment for this):</p>
@@ -52,31 +53,33 @@ the respective lines. Most importantly, you should configure the following lines
 <span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="p">]</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Then, you can run migrations::</dt>
-<dd><blockquote class="first">
-<div>python manage.py migrate</div></blockquote>
-<dl class="last docutils">
-<dt>note:: This will create the sqlite database <code class="docutils literal notranslate"><span class="pre">db.sqlite3</span></code> containing all the models</dt>
-<dd>(eg. tables) as defined in <a class="reference internal" href="#module-animals.models" title="animals.models"><code class="xref py py-mod docutils literal notranslate"><span class="pre">animals.models</span></code></a>.</dd>
+<dl>
+<dt>Then, you can run migrations::</dt><dd><blockquote>
+<div><p>python manage.py migrate</p>
+</div></blockquote>
+<dl class="simple">
+<dt>note:: This will create the sqlite database <code class="docutils literal notranslate"><span class="pre">db.sqlite3</span></code> containing all the models</dt><dd><p>(eg. tables) as defined in <a class="reference internal" href="modules/models.html#module-animals.models" title="animals.models"><code class="xref py py-mod docutils literal notranslate"><span class="pre">animals.models</span></code></a>.</p>
+</dd>
 </dl>
 </dd>
-<dt>Now create a superuser::</dt>
-<dd>python manage.py createsuperuser</dd>
-<dt>You are now able to login to the admin interface, but first run the dev server::</dt>
-<dd>python manage.py runserver</dd>
+<dt>Now create a superuser::</dt><dd><p>python manage.py createsuperuser</p>
+</dd>
+<dt>You are now able to login to the admin interface, but first run the dev server::</dt><dd><p>python manage.py runserver</p>
+</dd>
 </dl>
 <p>This will listen on <code class="docutils literal notranslate"><span class="pre">http://localhost:8000</span></code>, so browse to the admin page
 <code class="docutils literal notranslate"><span class="pre">http://localhost:8000/admin</span></code> and you should see this after login:</p>
 <blockquote>
-<div>image:: img/admin_empty.png</div></blockquote>
-<dl class="docutils">
-<dt>You can also import a dummy set of data using the <code class="docutils literal notranslate"><span class="pre">loaddata</span></code> command::</dt>
-<dd>python manage.py loaddata initial_data.json</dd>
+<div><p>image:: img/admin_empty.png</p>
+</div></blockquote>
+<dl class="simple">
+<dt>You can also import a dummy set of data using the <code class="docutils literal notranslate"><span class="pre">loaddata</span></code> command::</dt><dd><p>python manage.py loaddata initial_data.json</p>
+</dd>
 </dl>
 <p>After loading the data, the main admin interface should look like this:</p>
 <blockquote>
-<div>image:: img/admin_after_loaddata.png</div></blockquote>
+<div><p>image:: img/admin_after_loaddata.png</p>
+</div></blockquote>
 </div>
 <div class="section" id="importing-existing-data">
 <h1>Importing existing data<a class="headerlink" href="#importing-existing-data" title="Permalink to this headline">¶</a></h1>
@@ -116,11 +119,11 @@ activate its virtualenv:</p>
 <span class="n">source</span> <span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Next, install/upgrade whatever library (here: django to the latest version)::</dt>
-<dd><blockquote class="first">
-<div>pip install –upgrade django</div></blockquote>
-<p class="last">Note:: It’s best to test the latest version in a local/development environment first!</p>
+<dl>
+<dt>Next, install/upgrade whatever library (here: django to the latest version)::</dt><dd><blockquote>
+<div><p>pip install –upgrade django</p>
+</div></blockquote>
+<p>Note:: It’s best to test the latest version in a local/development environment first!</p>
 </dd>
 </dl>
 </div>
@@ -129,7 +132,8 @@ activate its virtualenv:</p>
 <p>When upgrading the python version of the host operating system, it might be necessary to also
 upgrade the python in the virtualenv. Otherwise an error like the following might occur:</p>
 <blockquote>
-<div><code class="docutils literal notranslate"><span class="pre">python:</span> <span class="pre">error</span> <span class="pre">while</span> <span class="pre">loading</span> <span class="pre">shared</span> <span class="pre">libraries:</span> <span class="pre">libpython3.4m.so.1.0:</span> <span class="pre">cannot</span> <span class="pre">open</span> <span class="pre">shared</span> <span class="pre">object</span> <span class="pre">file:</span> <span class="pre">No</span> <span class="pre">such</span> <span class="pre">file</span> <span class="pre">or</span> <span class="pre">directory</span></code></div></blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">python:</span> <span class="pre">error</span> <span class="pre">while</span> <span class="pre">loading</span> <span class="pre">shared</span> <span class="pre">libraries:</span> <span class="pre">libpython3.4m.so.1.0:</span> <span class="pre">cannot</span> <span class="pre">open</span> <span class="pre">shared</span> <span class="pre">object</span> <span class="pre">file:</span> <span class="pre">No</span> <span class="pre">such</span> <span class="pre">file</span> <span class="pre">or</span> <span class="pre">directory</span></code></p>
+</div></blockquote>
 <p>In that case, go into the anishare directory, and delete the following directories:
 - bin
 - include
@@ -148,41 +152,41 @@ Afterwards, create a new virtualenv and install the required libraries like so:<
 <p>Admin module</p>
 <dl class="class">
 <dt id="animals.admin.AnimalAdmin">
-<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalAdmin</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.admin.</code><code class="sig-name descname">AnimalAdmin</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin" title="Permalink to this definition">¶</a></dt>
 <dd><p>ModelAdmin for Animal model</p>
 <dl class="method">
 <dt id="animals.admin.AnimalAdmin.age">
-<code class="descname">age</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin.age" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">age</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin.age" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show the age in the admin as ‘Age (w)’ instead of ‘age’</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.form">
-<code class="descname">form</code><a class="headerlink" href="#animals.admin.AnimalAdmin.form" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
+<code class="sig-name descname">form</code><a class="headerlink" href="#animals.admin.AnimalAdmin.form" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="modules/admin.html#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.admin.AnimalAdmin.get_export_resource_class">
-<code class="descname">get_export_resource_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin.get_export_resource_class" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_export_resource_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin.get_export_resource_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns ResourceClass to use for export.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.admin.AnimalAdmin.get_import_formats">
-<code class="descname">get_import_formats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin.get_import_formats" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_import_formats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin.get_import_formats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns available import formats.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.resource_class">
-<code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.AnimalAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
+<code class="sig-name descname">resource_class</code><a class="headerlink" href="#animals.admin.AnimalAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="modules/admin.html#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.admin.AnimalAdmin.save_model">
-<code class="descname">save_model</code><span class="sig-paren">(</span><em>request</em>, <em>obj</em>, <em>form</em>, <em>change</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin.save_model" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save_model</code><span class="sig-paren">(</span><em class="sig-param">request</em>, <em class="sig-param">obj</em>, <em class="sig-param">form</em>, <em class="sig-param">change</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalAdmin.save_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a model instance save it to the database.</p>
 </dd></dl>
 
@@ -190,16 +194,16 @@ Afterwards, create a new virtualenv and install the required libraries like so:<
 
 <dl class="class">
 <dt id="animals.admin.AnimalExportResource">
-<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalExportResource</code><a class="headerlink" href="#animals.admin.AnimalExportResource" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.admin.</code><code class="sig-name descname">AnimalExportResource</code><a class="headerlink" href="#animals.admin.AnimalExportResource" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="class">
 <dt id="animals.admin.AnimalForm">
-<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em>, <em>use_required_attribute=None</em>, <em>renderer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalForm" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.admin.</code><code class="sig-name descname">AnimalForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">instance=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Form for animal editing in admin</p>
 <dl class="method">
 <dt id="animals.admin.AnimalForm.clean">
-<code class="descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalForm.clean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalForm.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook for doing any extra form-wide cleaning after Field.clean() has been
 called on every field. Any ValidationError raised by this method will
 not be associated with a particular field; it will have a special-case
@@ -210,16 +214,16 @@ association with the field named ‘__all__’.</p>
 
 <dl class="class">
 <dt id="animals.admin.AnimalResource">
-<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">AnimalResource</code><a class="headerlink" href="#animals.admin.AnimalResource" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.admin.</code><code class="sig-name descname">AnimalResource</code><a class="headerlink" href="#animals.admin.AnimalResource" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="animals.admin.AnimalResource.get_instance">
-<code class="descname">get_instance</code><span class="sig-paren">(</span><em>instance_loader</em>, <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalResource.get_instance" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_instance</code><span class="sig-paren">(</span><em class="sig-param">instance_loader</em>, <em class="sig-param">row</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalResource.get_instance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calls the <span class="xref std std-doc">InstanceLoader</span>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.admin.AnimalResource.import_obj">
-<code class="descname">import_obj</code><span class="sig-paren">(</span><em>instance</em>, <em>row</em>, <em>dry_run</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalResource.import_obj" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">import_obj</code><span class="sig-paren">(</span><em class="sig-param">instance</em>, <em class="sig-param">row</em>, <em class="sig-param">dry_run</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalResource.import_obj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Traverses every field in this Resource and calls
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">import_field()</span></code>. If
 <code class="docutils literal notranslate"><span class="pre">import_field()</span></code> results in a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> being raised for
@@ -231,47 +235,47 @@ multi-field ValidationError.</p>
 
 <dl class="class">
 <dt id="animals.admin.ChangeAdmin">
-<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">ChangeAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.ChangeAdmin" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.admin.</code><code class="sig-name descname">ChangeAdmin</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.ChangeAdmin" title="Permalink to this definition">¶</a></dt>
 <dd><p>ChangeAdmin for Change model</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.admin.LabAdmin">
-<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">LabAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.LabAdmin" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.admin.</code><code class="sig-name descname">LabAdmin</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.LabAdmin" title="Permalink to this definition">¶</a></dt>
 <dd><p>ModelAdmin for Lab model</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.admin.LocationAdmin">
-<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">LocationAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.LocationAdmin" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.admin.</code><code class="sig-name descname">LocationAdmin</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.LocationAdmin" title="Permalink to this definition">¶</a></dt>
 <dd><p>ModelAdmin for Location model</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.admin.OrganAdmin">
-<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">OrganAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.admin.</code><code class="sig-name descname">OrganAdmin</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin" title="Permalink to this definition">¶</a></dt>
 <dd><p>ModelAdmin for Organ model</p>
 <dl class="method">
 <dt id="animals.admin.OrganAdmin.age">
-<code class="descname">age</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin.age" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">age</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin.age" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show the age in the admin as ‘Age (w)’ instead of ‘age’</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.admin.OrganAdmin.get_import_formats">
-<code class="descname">get_import_formats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin.get_import_formats" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_import_formats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin.get_import_formats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns available import formats.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="animals.admin.OrganAdmin.resource_class">
-<code class="descname">resource_class</code><a class="headerlink" href="#animals.admin.OrganAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
+<code class="sig-name descname">resource_class</code><a class="headerlink" href="#animals.admin.OrganAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="modules/admin.html#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.admin.OrganAdmin.save_model">
-<code class="descname">save_model</code><span class="sig-paren">(</span><em>request</em>, <em>obj</em>, <em>form</em>, <em>change</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin.save_model" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save_model</code><span class="sig-paren">(</span><em class="sig-param">request</em>, <em class="sig-param">obj</em>, <em class="sig-param">form</em>, <em class="sig-param">change</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganAdmin.save_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a model instance save it to the database.</p>
 </dd></dl>
 
@@ -279,16 +283,16 @@ multi-field ValidationError.</p>
 
 <dl class="class">
 <dt id="animals.admin.OrganResource">
-<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">OrganResource</code><a class="headerlink" href="#animals.admin.OrganResource" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.admin.</code><code class="sig-name descname">OrganResource</code><a class="headerlink" href="#animals.admin.OrganResource" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="animals.admin.OrganResource.get_instance">
-<code class="descname">get_instance</code><span class="sig-paren">(</span><em>instance_loader</em>, <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganResource.get_instance" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_instance</code><span class="sig-paren">(</span><em class="sig-param">instance_loader</em>, <em class="sig-param">row</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganResource.get_instance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calls the <span class="xref std std-doc">InstanceLoader</span>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.admin.OrganResource.import_obj">
-<code class="descname">import_obj</code><span class="sig-paren">(</span><em>instance</em>, <em>row</em>, <em>dry_run</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganResource.import_obj" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">import_obj</code><span class="sig-paren">(</span><em class="sig-param">instance</em>, <em class="sig-param">row</em>, <em class="sig-param">dry_run</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganResource.import_obj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Traverses every field in this Resource and calls
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">import_field()</span></code>. If
 <code class="docutils literal notranslate"><span class="pre">import_field()</span></code> results in a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> being raised for
@@ -300,25 +304,30 @@ multi-field ValidationError.</p>
 
 <dl class="class">
 <dt id="animals.admin.OrgantypeAdmin">
-<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">OrgantypeAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrgantypeAdmin" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.admin.</code><code class="sig-name descname">OrgantypeAdmin</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrgantypeAdmin" title="Permalink to this definition">¶</a></dt>
 <dd><p>ModelAdmin for Organ types</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.admin.PersonAdmin">
-<em class="property">class </em><code class="descclassname">animals.admin.</code><code class="descname">PersonAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.PersonAdmin" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.admin.</code><code class="sig-name descname">PersonAdmin</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.PersonAdmin" title="Permalink to this definition">¶</a></dt>
 <dd><p>ModelAdmin for Person model</p>
 </dd></dl>
 
+<dl class="class">
+<dt id="animals.admin.SacrificeIncidentToken">
+<em class="property">class </em><code class="sig-prename descclassname">animals.admin.</code><code class="sig-name descname">SacrificeIncidentToken</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.SacrificeIncidentToken" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="function">
 <dt id="animals.admin.clear_claim">
-<code class="descclassname">animals.admin.</code><code class="descname">clear_claim</code><span class="sig-paren">(</span><em>modeladmin</em>, <em>request</em>, <em>queryset</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.clear_claim" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">animals.admin.</code><code class="sig-name descname">clear_claim</code><span class="sig-paren">(</span><em class="sig-param">modeladmin</em>, <em class="sig-param">request</em>, <em class="sig-param">queryset</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.clear_claim" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience Function to delete a claim from several selected animals</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="animals.admin.copy_animal">
-<code class="descclassname">animals.admin.</code><code class="descname">copy_animal</code><span class="sig-paren">(</span><em>modeladmin</em>, <em>request</em>, <em>queryset</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.copy_animal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">animals.admin.</code><code class="sig-name descname">copy_animal</code><span class="sig-paren">(</span><em class="sig-param">modeladmin</em>, <em class="sig-param">request</em>, <em class="sig-param">queryset</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.copy_animal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copy an instance of an animal so similar entries can be easily created.</p>
 </dd></dl>
 
@@ -328,34 +337,34 @@ multi-field ValidationError.</p>
 <p>This file describes all the models in the database.</p>
 <dl class="class">
 <dt id="animals.models.Animal">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Animal</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">Animal</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main model containing the animals.</p>
 <dl class="exception">
 <dt id="animals.models.Animal.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Animal.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Animal.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.Animal.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Animal.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Animal.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="animals.models.Animal.age">
-<code class="descname">age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.age" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.age" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the age of the animal, calculated by the difference to either
 the current date or the available_to date</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.models.Animal.available">
-<code class="descname">available</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.available" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">available</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.available" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns True if the animal is still available</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.models.Animal.clean">
-<code class="descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.clean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook for doing any extra model-wide validation after clean() has been
 called on every field by self.clean_fields. Any ValidationError raised
 by this method will not be associated with a particular field; it will
@@ -364,19 +373,19 @@ have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
 
 <dl class="method">
 <dt id="animals.models.Animal.description">
-<code class="descname">description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.description" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.description" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return description of this model</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.models.Animal.get_absolute_url">
-<code class="descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.get_absolute_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.get_absolute_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get absolute url for this model. Important to link from the admin.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="animals.models.Animal.grade">
-<code class="descname">grade</code><a class="headerlink" href="#animals.models.Animal.grade" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">grade</code><a class="headerlink" href="#animals.models.Animal.grade" title="Permalink to this definition">¶</a></dt>
 <dd><p>grade1 = models.CharField(max_length=10, null=True, choices=(
 (‘+/+’, ‘+/+’),
 (‘+/0’, ‘+/0’),
@@ -409,7 +418,7 @@ have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
 
 <dl class="method">
 <dt id="animals.models.Animal.save_without_historical_record">
-<code class="descname">save_without_historical_record</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.save_without_historical_record" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save_without_historical_record</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Animal.save_without_historical_record" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save model without saving a historical record</p>
 <p>Make sure you know what you’re doing before you use this method.</p>
 </dd></dl>
@@ -418,27 +427,27 @@ have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
 
 <dl class="class">
 <dt id="animals.models.Change">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Change</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Change" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">Change</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Change" title="Permalink to this definition">¶</a></dt>
 <dd><p>Model for documentation all changes to anishare</p>
 <dl class="exception">
 <dt id="animals.models.Change.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Change.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Change.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.Change.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Change.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Change.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="animals.models.Change.get_absolute_url">
-<code class="descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Change.get_absolute_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Change.get_absolute_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get absolute url for this model. Important to link from the admin.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="animals.models.Change.image">
-<code class="descname">image</code><a class="headerlink" href="#animals.models.Change.image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">image</code><a class="headerlink" href="#animals.models.Change.image" title="Permalink to this definition">¶</a></dt>
 <dd><p>def __str__(self):
 return “{} {} {}, {} id:{} [{}]”.format
 (self.version, self.change_type, self.short_text, self.description, self.pk, self.entry_date)</p>
@@ -448,20 +457,20 @@ return “{} {} {}, {} id:{} [{}]”.format
 
 <dl class="class">
 <dt id="animals.models.Fish">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Fish</code><span class="sig-paren">(</span><em>id</em>, <em>animalnumber</em>, <em>identifier1</em>, <em>identifier2</em>, <em>identifier3</em>, <em>identifier4</em>, <em>sex</em>, <em>quantity</em>, <em>dob</em>, <em>notes</em>, <em>responsible</em>, <em>responsible_email</em>, <em>location</em>, <em>license</em>, <em>strain</em>, <em>teamid</em>, <em>teamname</em>, <em>mutation</em>, <em>tag</em>, <em>specie</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Fish" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">Fish</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">animalnumber</em>, <em class="sig-param">identifier1</em>, <em class="sig-param">identifier2</em>, <em class="sig-param">identifier3</em>, <em class="sig-param">identifier4</em>, <em class="sig-param">sex</em>, <em class="sig-param">quantity</em>, <em class="sig-param">dob</em>, <em class="sig-param">notes</em>, <em class="sig-param">responsible</em>, <em class="sig-param">responsible_email</em>, <em class="sig-param">location</em>, <em class="sig-param">license</em>, <em class="sig-param">strain</em>, <em class="sig-param">teamid</em>, <em class="sig-param">teamname</em>, <em class="sig-param">mutation</em>, <em class="sig-param">tag</em>, <em class="sig-param">specie</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Fish" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.Fish.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Fish.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Fish.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.Fish.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Fish.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Fish.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="animals.models.Fish.age">
-<code class="descname">age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Fish.age" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Fish.age" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the age of the animal, calculated by the difference to either
 the current date or the available_to date</p>
 </dd></dl>
@@ -470,83 +479,83 @@ the current date or the available_to date</p>
 
 <dl class="class">
 <dt id="animals.models.FishMutation">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">FishMutation</code><span class="sig-paren">(</span><em>id</em>, <em>description</em>, <em>genotype</em>, <em>referenceid</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.FishMutation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">FishMutation</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">description</em>, <em class="sig-param">genotype</em>, <em class="sig-param">referenceid</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.FishMutation" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.FishMutation.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.FishMutation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.FishMutation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.FishMutation.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.FishMutation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.FishMutation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.models.FishPeople">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">FishPeople</code><span class="sig-paren">(</span><em>id</em>, <em>login</em>, <em>firstname</em>, <em>lastname</em>, <em>mainteamid</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.FishPeople" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">FishPeople</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">login</em>, <em class="sig-param">firstname</em>, <em class="sig-param">lastname</em>, <em class="sig-param">mainteamid</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.FishPeople" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.FishPeople.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.FishPeople.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.FishPeople.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.FishPeople.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.FishPeople.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.FishPeople.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.models.FishTeam">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">FishTeam</code><span class="sig-paren">(</span><em>id</em>, <em>teamid</em>, <em>userid</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.FishTeam" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">FishTeam</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">teamid</em>, <em class="sig-param">userid</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.FishTeam" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.FishTeam.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.FishTeam.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.FishTeam.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.FishTeam.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.FishTeam.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.FishTeam.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.models.HistoricalAnimal">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">HistoricalAnimal</code><span class="sig-paren">(</span><em>id</em>, <em>amount</em>, <em>animal_type</em>, <em>database_id</em>, <em>fish_id</em>, <em>mouse_id</em>, <em>pup_id</em>, <em>lab_id</em>, <em>creation_date</em>, <em>modification_date</em>, <em>entry_date</em>, <em>day_of_birth</em>, <em>fish_specie</em>, <em>genetic_background</em>, <em>line</em>, <em>sex</em>, <em>mutations</em>, <em>grade</em>, <em>grade1</em>, <em>grade2</em>, <em>grade3</em>, <em>grade4</em>, <em>licence_number</em>, <em>available_from</em>, <em>available_to</em>, <em>comment</em>, <em>new_owner</em>, <em>location</em>, <em>responsible_person</em>, <em>responsible_person2</em>, <em>added_by</em>, <em>history_id</em>, <em>history_date</em>, <em>history_change_reason</em>, <em>history_type</em>, <em>history_user</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.HistoricalAnimal" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">HistoricalAnimal</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">amount</em>, <em class="sig-param">animal_type</em>, <em class="sig-param">database_id</em>, <em class="sig-param">fish_id</em>, <em class="sig-param">mouse_id</em>, <em class="sig-param">pup_id</em>, <em class="sig-param">lab_id</em>, <em class="sig-param">creation_date</em>, <em class="sig-param">modification_date</em>, <em class="sig-param">entry_date</em>, <em class="sig-param">day_of_birth</em>, <em class="sig-param">fish_specie</em>, <em class="sig-param">genetic_background</em>, <em class="sig-param">line</em>, <em class="sig-param">sex</em>, <em class="sig-param">mutations</em>, <em class="sig-param">grade</em>, <em class="sig-param">grade1</em>, <em class="sig-param">grade2</em>, <em class="sig-param">grade3</em>, <em class="sig-param">grade4</em>, <em class="sig-param">licence_number</em>, <em class="sig-param">available_from</em>, <em class="sig-param">available_to</em>, <em class="sig-param">comment</em>, <em class="sig-param">new_owner</em>, <em class="sig-param">pyrat_incidentid</em>, <em class="sig-param">location</em>, <em class="sig-param">responsible_person</em>, <em class="sig-param">responsible_person2</em>, <em class="sig-param">added_by</em>, <em class="sig-param">history_id</em>, <em class="sig-param">history_date</em>, <em class="sig-param">history_change_reason</em>, <em class="sig-param">history_type</em>, <em class="sig-param">history_user</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.HistoricalAnimal" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.HistoricalAnimal.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.HistoricalAnimal.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.HistoricalAnimal.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.HistoricalAnimal.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.HistoricalAnimal.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.HistoricalAnimal.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="animals.models.HistoricalAnimal.instance_type">
-<code class="descname">instance_type</code><a class="headerlink" href="#animals.models.HistoricalAnimal.instance_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#animals.models.Animal" title="animals.models.Animal"><code class="xref py py-class docutils literal notranslate"><span class="pre">Animal</span></code></a></p>
+<code class="sig-name descname">instance_type</code><a class="headerlink" href="#animals.models.HistoricalAnimal.instance_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="modules/models.html#animals.models.Animal" title="animals.models.Animal"><code class="xref py py-class docutils literal notranslate"><span class="pre">Animal</span></code></a></p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="animals.models.HistoricalAnimal.next_record">
-<code class="descname">next_record</code><a class="headerlink" href="#animals.models.HistoricalAnimal.next_record" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">next_record</code><a class="headerlink" href="#animals.models.HistoricalAnimal.next_record" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the next history record for the instance. <cite>None</cite> if last.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="animals.models.HistoricalAnimal.prev_record">
-<code class="descname">prev_record</code><a class="headerlink" href="#animals.models.HistoricalAnimal.prev_record" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">prev_record</code><a class="headerlink" href="#animals.models.HistoricalAnimal.prev_record" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the previous history record for the instance. <cite>None</cite> if first.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.models.HistoricalAnimal.revert_url">
-<code class="descname">revert_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.HistoricalAnimal.revert_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">revert_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.HistoricalAnimal.revert_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>URL for this change in the default admin site.</p>
 </dd></dl>
 
@@ -554,22 +563,22 @@ the current date or the available_to date</p>
 
 <dl class="class">
 <dt id="animals.models.Lab">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Lab</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Lab" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">Lab</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Lab" title="Permalink to this definition">¶</a></dt>
 <dd><p>Labs are only defined by a name and are referenced by
 Person(s) which are responsible (contact) person for this lab</p>
 <dl class="exception">
 <dt id="animals.models.Lab.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Lab.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Lab.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.Lab.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Lab.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Lab.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="animals.models.Lab.responsible_person">
-<code class="descname">responsible_person</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Lab.responsible_person" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">responsible_person</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Lab.responsible_person" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve only the person(s) which are responsible for this lab.</p>
 </dd></dl>
 
@@ -577,36 +586,36 @@ Person(s) which are responsible (contact) person for this lab</p>
 
 <dl class="class">
 <dt id="animals.models.Location">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Location</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Location" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">Location</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Location" title="Permalink to this definition">¶</a></dt>
 <dd><p>Location of animals. Eg. animal house, fish facilities etc.</p>
 <dl class="exception">
 <dt id="animals.models.Location.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Location.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Location.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.Location.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Location.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Location.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.models.Mouse">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Mouse</code><span class="sig-paren">(</span><em>id</em>, <em>eartag</em>, <em>sex</em>, <em>dob</em>, <em>responsible</em>, <em>responsible_email</em>, <em>location</em>, <em>licence</em>, <em>strain</em>, <em>labid</em>, <em>genetic_bg</em>, <em>owner_id</em>, <em>owner</em>, <em>mutation</em>, <em>project</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Mouse" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">Mouse</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">eartag</em>, <em class="sig-param">sex</em>, <em class="sig-param">dob</em>, <em class="sig-param">responsible</em>, <em class="sig-param">responsible_email</em>, <em class="sig-param">location</em>, <em class="sig-param">licence</em>, <em class="sig-param">strain</em>, <em class="sig-param">labid</em>, <em class="sig-param">genetic_bg</em>, <em class="sig-param">owner_id</em>, <em class="sig-param">owner</em>, <em class="sig-param">mutation</em>, <em class="sig-param">project</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Mouse" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.Mouse.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Mouse.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Mouse.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.Mouse.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Mouse.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Mouse.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="animals.models.Mouse.age">
-<code class="descname">age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Mouse.age" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Mouse.age" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the age of the animal, calculated by the difference to either
 the current date or the available_to date</p>
 </dd></dl>
@@ -615,60 +624,60 @@ the current date or the available_to date</p>
 
 <dl class="class">
 <dt id="animals.models.MouseMutation">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">MouseMutation</code><span class="sig-paren">(</span><em>animalid</em>, <em>pupid</em>, <em>mutation_name</em>, <em>grade_name</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.MouseMutation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">MouseMutation</code><span class="sig-paren">(</span><em class="sig-param">animalid</em>, <em class="sig-param">pupid</em>, <em class="sig-param">mutation_name</em>, <em class="sig-param">grade_name</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.MouseMutation" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.MouseMutation.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.MouseMutation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.MouseMutation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.MouseMutation.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.MouseMutation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.MouseMutation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.models.Organ">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Organ</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">Organ</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Model containing the organs</p>
 <dl class="exception">
 <dt id="animals.models.Organ.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Organ.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Organ.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.Organ.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Organ.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Organ.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="animals.models.Organ.age">
-<code class="descname">age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.age" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.age" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the age of the animal, at the time of death</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.models.Organ.available">
-<code class="descname">available</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.available" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">available</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.available" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns True if the animal is still available</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.models.Organ.description">
-<code class="descname">description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.description" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.description" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return description of this model</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.models.Organ.get_absolute_url">
-<code class="descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.get_absolute_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.get_absolute_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get absolute url for this model. Important to link from the admin.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.models.Organ.get_organtypes">
-<code class="descname">get_organtypes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.get_organtypes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_organtypes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organ.get_organtypes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get all organ types which are used</p>
 </dd></dl>
 
@@ -676,53 +685,53 @@ the current date or the available_to date</p>
 
 <dl class="class">
 <dt id="animals.models.Organtype">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Organtype</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organtype" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">Organtype</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Organtype" title="Permalink to this definition">¶</a></dt>
 <dd><p>Model containing the organ types</p>
 <dl class="exception">
 <dt id="animals.models.Organtype.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Organtype.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Organtype.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.Organtype.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Organtype.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Organtype.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.models.Person">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Person</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Person" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">Person</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Person" title="Permalink to this definition">¶</a></dt>
 <dd><p>The responsible (contact) person for each lab.
 This person gets an email when an animal is being claimed.</p>
 <dl class="exception">
 <dt id="animals.models.Person.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Person.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Person.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.Person.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Person.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Person.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.models.Pup">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">Pup</code><span class="sig-paren">(</span><em>id</em>, <em>eartag</em>, <em>sex</em>, <em>dob</em>, <em>responsible</em>, <em>responsible_email</em>, <em>location</em>, <em>licence</em>, <em>strain</em>, <em>labid</em>, <em>genetic_bg</em>, <em>owner_id</em>, <em>owner</em>, <em>mutation</em>, <em>project</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Pup" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">Pup</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">eartag</em>, <em class="sig-param">sex</em>, <em class="sig-param">dob</em>, <em class="sig-param">responsible</em>, <em class="sig-param">responsible_email</em>, <em class="sig-param">location</em>, <em class="sig-param">licence</em>, <em class="sig-param">strain</em>, <em class="sig-param">labid</em>, <em class="sig-param">genetic_bg</em>, <em class="sig-param">owner_id</em>, <em class="sig-param">owner</em>, <em class="sig-param">mutation</em>, <em class="sig-param">project</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Pup" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.Pup.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Pup.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.Pup.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.Pup.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Pup.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.Pup.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="animals.models.Pup.age">
-<code class="descname">age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Pup.age" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.Pup.age" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the age of the animal, calculated by the difference to either
 the current date or the available_to date</p>
 </dd></dl>
@@ -731,57 +740,71 @@ the current date or the available_to date</p>
 
 <dl class="class">
 <dt id="animals.models.PyratUser">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">PyratUser</code><span class="sig-paren">(</span><em>id</em>, <em>username</em>, <em>firstname</em>, <em>lastname</em>, <em>usernum</em>, <em>locallevel</em>, <em>email</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.PyratUser" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">PyratUser</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">username</em>, <em class="sig-param">firstname</em>, <em class="sig-param">lastname</em>, <em class="sig-param">usernum</em>, <em class="sig-param">locallevel</em>, <em class="sig-param">email</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.PyratUser" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.PyratUser.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.PyratUser.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.PyratUser.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.PyratUser.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.PyratUser.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.PyratUser.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.models.PyratUserPermission">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">PyratUserPermission</code><span class="sig-paren">(</span><em>id</em>, <em>userid</em>, <em>aliasid</em>, <em>uid</em>, <em>usernum</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.PyratUserPermission" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">PyratUserPermission</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">userid</em>, <em class="sig-param">aliasid</em>, <em class="sig-param">uid</em>, <em class="sig-param">usernum</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.PyratUserPermission" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.PyratUserPermission.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.PyratUserPermission.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.PyratUserPermission.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.PyratUserPermission.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.PyratUserPermission.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.PyratUserPermission.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.SacrificeIncidentToken">
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">SacrificeIncidentToken</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">initiator</em>, <em class="sig-param">incidentid</em>, <em class="sig-param">urltoken</em>, <em class="sig-param">created</em>, <em class="sig-param">confirmed</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.SacrificeIncidentToken" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="animals.models.SacrificeIncidentToken.DoesNotExist">
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.SacrificeIncidentToken.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.SacrificeIncidentToken.MultipleObjectsReturned">
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.SacrificeIncidentToken.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.models.WIncident">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">WIncident</code><span class="sig-paren">(</span><em>incidentid</em>, <em>incidentclass</em>, <em>initiator</em>, <em>owner</em>, <em>responsible</em>, <em>incidentdescription</em>, <em>opendate</em>, <em>closedate</em>, <em>priority</em>, <em>status</em>, <em>duedate</em>, <em>approved</em>, <em>change_responsible</em>, <em>generation</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.WIncident" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">WIncident</code><span class="sig-paren">(</span><em class="sig-param">incidentid</em>, <em class="sig-param">incidentclass</em>, <em class="sig-param">initiator</em>, <em class="sig-param">owner</em>, <em class="sig-param">responsible</em>, <em class="sig-param">incidentdescription</em>, <em class="sig-param">opendate</em>, <em class="sig-param">closedate</em>, <em class="sig-param">priority</em>, <em class="sig-param">status</em>, <em class="sig-param">duedate</em>, <em class="sig-param">sacrifice_reason</em>, <em class="sig-param">sacrifice_method</em>, <em class="sig-param">approved</em>, <em class="sig-param">change_responsible</em>, <em class="sig-param">generation</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.WIncident" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.WIncident.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.WIncident.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.WIncident.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.WIncident.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.WIncident.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.WIncident.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="animals.models.WIncident.approved">
-<code class="descname">approved</code><a class="headerlink" href="#animals.models.WIncident.approved" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">approved</code><a class="headerlink" href="#animals.models.WIncident.approved" title="Permalink to this definition">¶</a></dt>
 <dd><p>strain = models.ForeignKey(‘Strain’, models.DO_NOTHING, blank=True, null=True)
 procedure = models.ForeignKey(‘Procedures’, models.DO_NOTHING, blank=True, null=True)
 building = models.ForeignKey(‘LocationBuildings’, models.DO_NOTHING, blank=True, null=True)
 area = models.ForeignKey(‘LocationAreas’, models.DO_NOTHING, blank=True, null=True)
 room = models.ForeignKey(‘LocationRooms’, models.DO_NOTHING, blank=True, null=True)
 rack = models.ForeignKey(‘Rack’, models.DO_NOTHING, blank=True, null=True)
-sacrifice_reason = models.ForeignKey(‘WSacrificeReasons’, models.DO_NOTHING, blank=True, null=True)
 licence = models.ForeignKey(‘Licence2’, models.DO_NOTHING, blank=True, null=True)
 classification = models.ForeignKey(‘Classification’, models.DO_NOTHING, blank=True, null=True)
 new_owner = models.ForeignKey(‘Localuser’, models.DO_NOTHING, blank=True, null=True)
@@ -789,8 +812,8 @@ new_responsible = models.ForeignKey(‘Localuser’, models.DO_NOTHING, blank=Tr
 </dd></dl>
 
 <dl class="attribute">
-<dt id="animals.models.WIncident.duedate">
-<code class="descname">duedate</code><a class="headerlink" href="#animals.models.WIncident.duedate" title="Permalink to this definition">¶</a></dt>
+<dt id="animals.models.WIncident.sacrifice_method">
+<code class="sig-name descname">sacrifice_method</code><a class="headerlink" href="#animals.models.WIncident.sacrifice_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>wr_building = models.ForeignKey(‘LocationBuildings’, models.DO_NOTHING, blank=True, null=True)
 wr_area = models.ForeignKey(‘LocationAreas’, models.DO_NOTHING, blank=True, null=True)
 wr_room = models.ForeignKey(‘LocationRooms’, models.DO_NOTHING, blank=True, null=True)
@@ -802,57 +825,56 @@ behavior = models.ForeignKey(‘WIncidentBehavior’, models.DO_NOTHING, blank=T
 
 <dl class="class">
 <dt id="animals.models.WIncidentAnimals">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">WIncidentAnimals</code><span class="sig-paren">(</span><em>id</em>, <em>animalid</em>, <em>incidentid</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.WIncidentAnimals" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">WIncidentAnimals</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">animalid</em>, <em class="sig-param">incidentid</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.WIncidentAnimals" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.WIncidentAnimals.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.WIncidentAnimals.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.WIncidentAnimals.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.WIncidentAnimals.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.WIncidentAnimals.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.WIncidentAnimals.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.models.WIncidentPups">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">WIncidentPups</code><span class="sig-paren">(</span><em>id</em>, <em>pupid</em>, <em>incidentid</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.WIncidentPups" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">WIncidentPups</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">pupid</em>, <em class="sig-param">incidentid</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.WIncidentPups" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.WIncidentPups.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.WIncidentPups.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.WIncidentPups.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.WIncidentPups.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.WIncidentPups.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.WIncidentPups.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.models.WIncident_write">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">WIncident_write</code><span class="sig-paren">(</span><em>incidentid</em>, <em>incidentclass</em>, <em>initiator</em>, <em>owner</em>, <em>responsible</em>, <em>incidentdescription</em>, <em>opendate</em>, <em>closedate</em>, <em>priority</em>, <em>status</em>, <em>duedate</em>, <em>approved</em>, <em>change_responsible</em>, <em>generation</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.WIncident_write" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">WIncident_write</code><span class="sig-paren">(</span><em class="sig-param">incidentid</em>, <em class="sig-param">incidentclass</em>, <em class="sig-param">initiator</em>, <em class="sig-param">owner</em>, <em class="sig-param">responsible</em>, <em class="sig-param">incidentdescription</em>, <em class="sig-param">opendate</em>, <em class="sig-param">closedate</em>, <em class="sig-param">priority</em>, <em class="sig-param">status</em>, <em class="sig-param">duedate</em>, <em class="sig-param">sacrifice_reason</em>, <em class="sig-param">behavior</em>, <em class="sig-param">approved</em>, <em class="sig-param">change_responsible</em>, <em class="sig-param">generation</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.WIncident_write" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.WIncident_write.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.WIncident_write.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.WIncident_write.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.WIncident_write.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.WIncident_write.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.WIncident_write.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="animals.models.WIncident_write.approved">
-<code class="descname">approved</code><a class="headerlink" href="#animals.models.WIncident_write.approved" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">approved</code><a class="headerlink" href="#animals.models.WIncident_write.approved" title="Permalink to this definition">¶</a></dt>
 <dd><p>strain = models.ForeignKey(‘Strain’, models.DO_NOTHING, blank=True, null=True)
 procedure = models.ForeignKey(‘Procedures’, models.DO_NOTHING, blank=True, null=True)
 building = models.ForeignKey(‘LocationBuildings’, models.DO_NOTHING, blank=True, null=True)
 area = models.ForeignKey(‘LocationAreas’, models.DO_NOTHING, blank=True, null=True)
 room = models.ForeignKey(‘LocationRooms’, models.DO_NOTHING, blank=True, null=True)
 rack = models.ForeignKey(‘Rack’, models.DO_NOTHING, blank=True, null=True)
-sacrifice_reason = models.ForeignKey(‘WSacrificeReasons’, models.DO_NOTHING, blank=True, null=True)
 licence = models.ForeignKey(‘Licence2’, models.DO_NOTHING, blank=True, null=True)
 classification = models.ForeignKey(‘Classification’, models.DO_NOTHING, blank=True, null=True)
 new_owner = models.ForeignKey(‘Localuser’, models.DO_NOTHING, blank=True, null=True)
@@ -860,8 +882,8 @@ new_responsible = models.ForeignKey(‘Localuser’, models.DO_NOTHING, blank=Tr
 </dd></dl>
 
 <dl class="attribute">
-<dt id="animals.models.WIncident_write.duedate">
-<code class="descname">duedate</code><a class="headerlink" href="#animals.models.WIncident_write.duedate" title="Permalink to this definition">¶</a></dt>
+<dt id="animals.models.WIncident_write.behavior">
+<code class="sig-name descname">behavior</code><a class="headerlink" href="#animals.models.WIncident_write.behavior" title="Permalink to this definition">¶</a></dt>
 <dd><p>wr_building = models.ForeignKey(‘LocationBuildings’, models.DO_NOTHING, blank=True, null=True)
 wr_area = models.ForeignKey(‘LocationAreas’, models.DO_NOTHING, blank=True, null=True)
 wr_room = models.ForeignKey(‘LocationRooms’, models.DO_NOTHING, blank=True, null=True)
@@ -872,16 +894,46 @@ behavior = models.ForeignKey(‘WIncidentBehavior’, models.DO_NOTHING, blank=T
 </dd></dl>
 
 <dl class="class">
+<dt id="animals.models.WIncidentanimals_write">
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">WIncidentanimals_write</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">incidentid</em>, <em class="sig-param">animalid</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.WIncidentanimals_write" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="animals.models.WIncidentanimals_write.DoesNotExist">
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.WIncidentanimals_write.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.WIncidentanimals_write.MultipleObjectsReturned">
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.WIncidentanimals_write.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="animals.models.WIncidentcomment">
-<em class="property">class </em><code class="descclassname">animals.models.</code><code class="descname">WIncidentcomment</code><span class="sig-paren">(</span><em>id</em>, <em>incidentid</em>, <em>comment</em>, <em>commentdate</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.WIncidentcomment" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">WIncidentcomment</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">incidentid</em>, <em class="sig-param">comment</em>, <em class="sig-param">commentdate</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.WIncidentcomment" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.WIncidentcomment.DoesNotExist">
-<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#animals.models.WIncidentcomment.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.WIncidentcomment.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="exception">
 <dt id="animals.models.WIncidentcomment.MultipleObjectsReturned">
-<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.WIncidentcomment.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.WIncidentcomment.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="animals.models.WIncidentpups_write">
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">WIncidentpups_write</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">incidentid</em>, <em class="sig-param">pupid</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.WIncidentpups_write" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="animals.models.WIncidentpups_write.DoesNotExist">
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.WIncidentpups_write.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.WIncidentpups_write.MultipleObjectsReturned">
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.WIncidentpups_write.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -891,43 +943,43 @@ behavior = models.ForeignKey(‘WIncidentBehavior’, models.DO_NOTHING, blank=T
 <span id="views"></span><h4>Views<a class="headerlink" href="#module-animals.views" title="Permalink to this headline">¶</a></h4>
 <p>Django Views contains all the functions for rendering objects (HTML display).
 It also contains an RSS Feed generator class to create an RSS feed from newly created animals</p>
-<dl class="docutils">
-<dt><strong>Important</strong>:</dt>
-<dd>When adding new functions, use the login_required decorator
-When adding new classes, use the LoginRequiredMixin</dd>
+<dl class="simple">
+<dt><strong>Important</strong>:</dt><dd><p>When adding new functions, use the login_required decorator
+When adding new classes, use the LoginRequiredMixin</p>
+</dd>
 </dl>
 <dl class="class">
 <dt id="animals.views.AnimalDetailView">
-<em class="property">class </em><code class="descclassname">animals.views.</code><code class="descname">AnimalDetailView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.AnimalDetailView" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.views.</code><code class="sig-name descname">AnimalDetailView</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.AnimalDetailView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Detail view for an animal.
 This is rarely used, rather use the claim page.</p>
 <dl class="attribute">
 <dt id="animals.views.AnimalDetailView.model">
-<code class="descname">model</code><a class="headerlink" href="#animals.views.AnimalDetailView.model" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#animals.models.Animal" title="animals.models.Animal"><code class="xref py py-class docutils literal notranslate"><span class="pre">animals.models.Animal</span></code></a></p>
+<code class="sig-name descname">model</code><a class="headerlink" href="#animals.views.AnimalDetailView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="modules/models.html#animals.models.Animal" title="animals.models.Animal"><code class="xref py py-class docutils literal notranslate"><span class="pre">animals.models.Animal</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="animals.views.LatestAnimalsFeed">
-<em class="property">class </em><code class="descclassname">animals.views.</code><code class="descname">LatestAnimalsFeed</code><a class="headerlink" href="#animals.views.LatestAnimalsFeed" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.views.</code><code class="sig-name descname">LatestAnimalsFeed</code><a class="headerlink" href="#animals.views.LatestAnimalsFeed" title="Permalink to this definition">¶</a></dt>
 <dd><p>RSS Feed for new animals/organs.</p>
 <dl class="method">
 <dt id="animals.views.LatestAnimalsFeed.item_description">
-<code class="descname">item_description</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestAnimalsFeed.item_description" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">item_description</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestAnimalsFeed.item_description" title="Permalink to this definition">¶</a></dt>
 <dd><p>What to print as item description (use default description from model).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.views.LatestAnimalsFeed.item_title">
-<code class="descname">item_title</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestAnimalsFeed.item_title" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">item_title</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestAnimalsFeed.item_title" title="Permalink to this definition">¶</a></dt>
 <dd><p>What to print as item title (use default __str__ of model).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.views.LatestAnimalsFeed.items">
-<code class="descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestAnimalsFeed.items" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestAnimalsFeed.items" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get latest animals as items.</p>
 </dd></dl>
 
@@ -935,23 +987,23 @@ This is rarely used, rather use the claim page.</p>
 
 <dl class="class">
 <dt id="animals.views.LatestChangesFeed">
-<em class="property">class </em><code class="descclassname">animals.views.</code><code class="descname">LatestChangesFeed</code><a class="headerlink" href="#animals.views.LatestChangesFeed" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.views.</code><code class="sig-name descname">LatestChangesFeed</code><a class="headerlink" href="#animals.views.LatestChangesFeed" title="Permalink to this definition">¶</a></dt>
 <dd><p>RSS Feed for system changes on AniShare.</p>
 <dl class="method">
 <dt id="animals.views.LatestChangesFeed.item_description">
-<code class="descname">item_description</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestChangesFeed.item_description" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">item_description</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestChangesFeed.item_description" title="Permalink to this definition">¶</a></dt>
 <dd><p>What to print as item description (use default description from model).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.views.LatestChangesFeed.item_title">
-<code class="descname">item_title</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestChangesFeed.item_title" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">item_title</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestChangesFeed.item_title" title="Permalink to this definition">¶</a></dt>
 <dd><p>What to print as item title (use default __str__ of model).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="animals.views.LatestChangesFeed.items">
-<code class="descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestChangesFeed.items" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.LatestChangesFeed.items" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get latest changes as items.</p>
 </dd></dl>
 
@@ -959,104 +1011,89 @@ This is rarely used, rather use the claim page.</p>
 
 <dl class="function">
 <dt id="animals.views.claim">
-<code class="descclassname">animals.views.</code><code class="descname">claim</code><span class="sig-paren">(</span><em>request</em>, <em>primary_key</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.claim" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">animals.views.</code><code class="sig-name descname">claim</code><span class="sig-paren">(</span><em class="sig-param">request</em>, <em class="sig-param">primary_key</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.claim" title="Permalink to this definition">¶</a></dt>
 <dd><p>View to claim an animal.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>primary_key</strong> – the id/pk of the animal to retrieve</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">rendered page with the claim form
-or 404 if animal not found</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>primary_key</strong> – the id/pk of the animal to retrieve</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>rendered page with the claim form
+or 404 if animal not found</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="animals.views.claim_organ">
-<code class="descclassname">animals.views.</code><code class="descname">claim_organ</code><span class="sig-paren">(</span><em>request</em>, <em>primary_key</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.claim_organ" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">animals.views.</code><code class="sig-name descname">claim_organ</code><span class="sig-paren">(</span><em class="sig-param">request</em>, <em class="sig-param">primary_key</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.claim_organ" title="Permalink to this definition">¶</a></dt>
 <dd><p>View to claim an organ.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>primary_key</strong> – the id/pk of the organ to retrieve</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">rendered page with the claim form
-or 404 if organ not found</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>primary_key</strong> – the id/pk of the organ to retrieve</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>rendered page with the claim form
+or 404 if organ not found</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="animals.views.send_email_animal">
-<code class="descclassname">animals.views.</code><code class="descname">send_email_animal</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.send_email_animal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">animals.views.</code><code class="sig-name descname">send_email_animal</code><span class="sig-paren">(</span><em class="sig-param">request</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.send_email_animal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to send an email about an animal being claimed.</p>
 <p>Needs these variables in the POST request: email, pk, count</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>email</strong> – email address of the request user / new owner</li>
-<li><strong>pk</strong> – primary_key of the animal(s) to be claimed</li>
-<li><strong>count</strong> – how many animals are being claimed</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>email</strong> – email address of the request user / new owner</p></li>
+<li><p><strong>pk</strong> – primary_key of the animal(s) to be claimed</p></li>
+<li><p><strong>count</strong> – how many animals are being claimed</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="animals.views.send_email_organ">
-<code class="descclassname">animals.views.</code><code class="descname">send_email_organ</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.send_email_organ" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">animals.views.</code><code class="sig-name descname">send_email_organ</code><span class="sig-paren">(</span><em class="sig-param">request</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.views.send_email_organ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to send an email about an animal being claimed.</p>
 <p>Needs these variables in the POST request: email, pk, count</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>email</strong> – email address of the request user / new owner</li>
-<li><strong>pk</strong> – primary_key of the animal(s) to be claimed</li>
-<li><strong>organs_wanted</strong> – organs wanted from the given animal</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>email</strong> – email address of the request user / new owner</p></li>
+<li><p><strong>pk</strong> – primary_key of the animal(s) to be claimed</p></li>
+<li><p><strong>organs_wanted</strong> – organs wanted from the given animal</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
 <div class="section" id="module-animals.urls">
 <span id="urls"></span><h4>URLs<a class="headerlink" href="#module-animals.urls" title="Permalink to this headline">¶</a></h4>
 <p>animals URL Configuration</p>
-<dl class="docutils">
-<dt>The <cite>urlpatterns</cite> list routes URLs to views. For more information please see:</dt>
-<dd><a class="reference external" href="https://docs.djangoproject.com/en/2.0/topics/http/urls/">https://docs.djangoproject.com/en/2.0/topics/http/urls/</a></dd>
+<dl class="simple">
+<dt>The <cite>urlpatterns</cite> list routes URLs to views. For more information please see:</dt><dd><p><a class="reference external" href="https://docs.djangoproject.com/en/2.0/topics/http/urls/">https://docs.djangoproject.com/en/2.0/topics/http/urls/</a></p>
+</dd>
 </dl>
 <p>Examples:</p>
-<dl class="docutils">
-<dt>Function views:</dt>
-<dd><ol class="first last arabic simple">
-<li>Add an import:  from my_app import views</li>
-<li>Add a URL to urlpatterns:  path(‘’, views.home, name=’home’)</li>
+<dl class="simple">
+<dt>Function views:</dt><dd><ol class="arabic simple">
+<li><p>Add an import:  from my_app import views</p></li>
+<li><p>Add a URL to urlpatterns:  path(‘’, views.home, name=’home’)</p></li>
 </ol>
 </dd>
-<dt>Class-based views:</dt>
-<dd><ol class="first last arabic simple">
-<li>Add an import:  from other_app.views import Home</li>
-<li>Add a URL to urlpatterns:  path(‘’, Home.as_view(), name=’home’)</li>
+<dt>Class-based views:</dt><dd><ol class="arabic simple">
+<li><p>Add an import:  from other_app.views import Home</p></li>
+<li><p>Add a URL to urlpatterns:  path(‘’, Home.as_view(), name=’home’)</p></li>
 </ol>
 </dd>
-<dt>Including another URLconf:</dt>
-<dd><ol class="first last arabic simple">
-<li>Import the include() function: from django.urls import include, path</li>
-<li>Add a URL to urlpatterns:  path(‘blog/’, include(‘blog.urls’))</li>
+<dt>Including another URLconf:</dt><dd><ol class="arabic simple">
+<li><p>Import the include() function: from django.urls import include, path</p></li>
+<li><p>Add a URL to urlpatterns:  path(‘blog/’, include(‘blog.urls’))</p></li>
 </ol>
 </dd>
 </dl>
@@ -1071,26 +1108,17 @@ or 404 if organ not found</td>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">First time setup</a></li>
-<li><a class="reference internal" href="#importing-existing-data">Importing existing data</a></li>
-<li><a class="reference internal" href="#in-db-caching">In-DB Caching</a></li>
-<li><a class="reference internal" href="#running-tests">Running Tests</a><ul>
-<li><a class="reference internal" href="#upgrading-django">Upgrading django</a></li>
-<li><a class="reference internal" href="#upgrading-python">Upgrading python</a><ul>
-<li><a class="reference internal" href="#api-documentation">API documentation</a><ul>
-<li><a class="reference internal" href="#module-animals.admin">Admin</a></li>
-<li><a class="reference internal" href="#module-animals.models">Models</a></li>
-<li><a class="reference internal" href="#module-animals.views">Views</a></li>
-<li><a class="reference internal" href="#module-animals.urls">URLs</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<h1 class="logo"><a href="index.html">AniShare</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -1098,21 +1126,12 @@ or 404 if organ not found</td>
   </ul></li>
 </ul>
 </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/api_doc.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -1125,7 +1144,7 @@ or 404 if organ not found</td>
       &copy;2019, Fabian Monheim, Holger Dinkel.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

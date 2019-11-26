@@ -72,7 +72,7 @@
 
 
 \title{AniShare Documentation}
-\date{Aug 30, 2019}
+\date{Nov 26, 2019}
 \release{1.8}
 \author{Holger Dinkel, Fabian Monheim}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -268,15 +268,27 @@ wich is also possible using \sphinxhref{mailto:tick@lab}{tick@lab}. Both ways wi
 \subsection{From PyRAT}
 \label{\detokenize{index:from-pyrat}}
 In most cases it is the easiest way to create a work request inside PyRAT. Select the work request class \sphinxstylestrong{Add to AniShare} and add the animals you like
-to import. Every hour AniShare searchs after those requests with status \sphinxstylestrong{open}. If the import succeded the status of the work request
+to import. Because it’s possible to create an sacrifice request based on an \sphinxstylestrong{Add to AniShare} request it is nessecary to select the sacrifice method if the mice will not find a new responsible person (claiming).
+You can use the comment field, if you like to add additional information for all mice belonging to the work request. The comment is displayed in AniShare in the comment field of the mice.
+Every hour AniShare searchs after those requests with status \sphinxstylestrong{open}. If the import succeded the status of the work request
 change to \sphinxstylestrong{Added to AniShare}. Mice are offered two weeks and pups one week. The import will fail if a mouse has no license or a mouse has been already offered. If a mouse can not be imported the
 creator of the work request gets a email about it and a comment about will be visible inside the work request. The status of the work request will change to
 \sphinxstylestrong{Deferred}, if no animal could be imported.
 
-The creator of the work request gets a email about it two days before the offer time ends. The status of the request time will be set to
-\sphinxstylestrong{close} after the offer time.
-
 \noindent\sphinxincludegraphics[width=0.750\linewidth]{{pyrat_work_request}.png}
+
+The status of the \sphinxstylestrong{Add to AniShare} will change to \sphinxstylestrong{close} after the offer time has been expired. Additionally the creator of the \sphinxstylestrong{Add to AniShare} work request
+gets a message with all mice that are not claimed. The message contains a link to create a sacrifice request including the animals listed in the message.
+The link is 14 days valid. After this time it is still possible to create the work request manually. Only the recipient of the message can open the link to create the sacrifice request.
+
+\noindent\sphinxincludegraphics[width=0.750\linewidth]{{anishare_confirmation_mail}.png}
+
+After opening the link the user gets a confirmation or error message. The confirmation message includes the work request id from PyRAT.
+
+\noindent\sphinxincludegraphics[width=0.750\linewidth]{{anishare_confirmation_link}.png}
+
+The due date inside the created sacrifice request will be set to three days in the future. The fields \sphinxstylestrong{Responsible staff}, \sphinxstylestrong{Pertains to}, \sphinxstylestrong{Initiator},
+\sphinxstylestrong{Sacrifice reason} and \sphinxstylestrong{Sacrifice method} will be copied from the previous \sphinxstylestrong{Add to AniShare} work request.
 
 Another way to import animals from PyRAT is to use the website \sphinxhref{https://anishare.leibniz-fli.de/animals/micefrompyrat/}{Add Mice} or for pups
 \sphinxhref{https://anishare.leibniz-fli.de/animals/pupfrompyrat}{Add Pup}. The user has the same rights as in PyRAT. It means the user has access to all animals

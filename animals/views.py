@@ -796,7 +796,7 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                         message ="Sacrifice request created with id: {}".format(new_sacrifice_incident.incidentid)
                         confirmed = 1
                 else:
-                    message ="Wrong user"
+                    message ="Sorry, you can not create this request because you are not the initiator of the previous AddToAniShare request."
             else:
                 #not possible
                 message =""

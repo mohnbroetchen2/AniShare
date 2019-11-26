@@ -163,16 +163,30 @@ wich is also possible using tick@lab. Both ways will be explained below.
 From PyRAT
 ++++++++++
 In most cases it is the easiest way to create a work request inside PyRAT. Select the work request class **Add to AniShare** and add the animals you like
-to import. Every hour AniShare searchs after those requests with status **open**. If the import succeded the status of the work request 
+to import. Because it's possible to create an sacrifice request based on an **Add to AniShare** request it is nessecary to select the sacrifice method if the mice will not find a new responsible person (claiming).
+You can use the comment field, if you like to add additional information for all mice belonging to the work request. The comment is displayed in AniShare in the comment field of the mice. 
+Every hour AniShare searchs after those requests with status **open**. If the import succeded the status of the work request 
 change to **Added to AniShare**. Mice are offered two weeks and pups one week. The import will fail if a mouse has no license or a mouse has been already offered. If a mouse can not be imported the 
 creator of the work request gets a email about it and a comment about will be visible inside the work request. The status of the work request will change to 
 **Deferred**, if no animal could be imported. 
 
-The creator of the work request gets a email about it two days before the offer time ends. The status of the request time will be set to
-**close** after the offer time. 
-
 .. image:: img/pyrat_work_request.png
    :width: 75%
+
+The status of the **Add to AniShare** will change to **close** after the offer time has been expired. Additionally the creator of the **Add to AniShare** work request
+gets a message with all mice that are not claimed. The message contains a link to create a sacrifice request including the animals listed in the message.
+The link is 14 days valid. After this time it is still possible to create the work request manually. Only the recipient of the message can open the link to create the sacrifice request.
+ 
+.. image:: img/anishare_confirmation_mail.png
+   :width: 75%
+
+After opening the link the user gets a confirmation or error message. The confirmation message includes the work request id from PyRAT. 
+
+.. image:: img/anishare_confirmation_link.png
+   :width: 75%
+
+The due date inside the created sacrifice request will be set to three days in the future. The fields **Responsible staff**, **Pertains to**, **Initiator**, 
+**Sacrifice reason** and **Sacrifice method** will be copied from the previous **Add to AniShare** work request.   
 
 Another way to import animals from PyRAT is to use the website `Add Mice <https://anishare.leibniz-fli.de/animals/micefrompyrat/>`_ or for pups 
 `Add Pup <https://anishare.leibniz-fli.de/animals/pupfrompyrat>`_. The user has the same rights as in PyRAT. It means the user has access to all animals
