@@ -31,6 +31,7 @@ class Job(HourlyJob):
                 count_animals_imported = 0
                 initiator_mail = ""
                 initiator_mail = incident.initiator.email
+                
                 # Import mice #
                 animallist = WIncidentAnimals.objects.using(mousedb).filter(incidentid = incident.incidentid)
                 for pyratmouse in animallist:
@@ -72,6 +73,7 @@ class Job(HourlyJob):
                         new_mouse.available_to   = datetime.today().date() + timedelta(days=14)
                         new_mouse.licence_number = dataset.licence
                         new_mouse.day_of_birth   = dataset.dob
+                        new_mouse.comment        = incident.incidentdescription
                         mousemutations           = MouseMutation.objects.using(mousedb).filter(animalid = dataset.id)
                         new_mouse.mutations = ''
                         for m in mousemutations:
@@ -167,6 +169,7 @@ class Job(HourlyJob):
                         new_pup.available_to   = datetime.today().date() + timedelta(days=7)
                         new_pup.licence_number = dataset.licence
                         new_pup.day_of_birth   = dataset.dob
+                        new_pup.comment        = incident.incidentdescription
                         mousemutations           = MouseMutation.objects.using('mousedb').filter(pupid = dataset.id)
                         new_pup.mutations = ''
                         for m in mousemutations:
