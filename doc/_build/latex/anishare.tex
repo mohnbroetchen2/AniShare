@@ -64,15 +64,14 @@
 \usepackage{hypcap}% it must be loaded after hyperref.
 % Set up styles of URL: it should be placed after hyperref.
 \urlstyle{same}
-\addto\captionsenglish{\renewcommand{\contentsname}{Contents:}}
 
 \usepackage{sphinxmessages}
-\setcounter{tocdepth}{2}
+
 
 
 
 \title{AniShare Documentation}
-\date{Nov 26, 2019}
+\date{Dec 02, 2019}
 \release{1.8}
 \author{Holger Dinkel, Fabian Monheim}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -269,7 +268,7 @@ wich is also possible using \sphinxhref{mailto:tick@lab}{tick@lab}. Both ways wi
 \label{\detokenize{index:from-pyrat}}
 In most cases it is the easiest way to create a work request inside PyRAT. Select the work request class \sphinxstylestrong{Add to AniShare} and add the animals you like
 to import. Because it’s possible to create an sacrifice request based on an \sphinxstylestrong{Add to AniShare} request it is nessecary to select the sacrifice method if the mice will not find a new responsible person (claiming).
-You can use the comment field, if you like to add additional information for all mice belonging to the work request. The comment is displayed in AniShare in the comment field of the mice.
+You can use the \sphinxstylestrong{Comments} field, if you like to add additional information for all mice belonging to the work request. The comment is displayed in AniShare in the comment field of the mice.
 Every hour AniShare searchs after those requests with status \sphinxstylestrong{open}. If the import succeded the status of the work request
 change to \sphinxstylestrong{Added to AniShare}. Mice are offered two weeks and pups one week. The import will fail if a mouse has no license or a mouse has been already offered. If a mouse can not be imported the
 creator of the work request gets a email about it and a comment about will be visible inside the work request. The status of the work request will change to
@@ -278,7 +277,7 @@ creator of the work request gets a email about it and a comment about will be vi
 \noindent\sphinxincludegraphics[width=0.750\linewidth]{{pyrat_work_request}.png}
 
 The status of the \sphinxstylestrong{Add to AniShare} will change to \sphinxstylestrong{close} after the offer time has been expired. Additionally the creator of the \sphinxstylestrong{Add to AniShare} work request
-gets a message with all mice that are not claimed. The message contains a link to create a sacrifice request including the animals listed in the message.
+gets a message with all mice that are not claimed excepting wild type animals. The message contains a link to create a sacrifice request including the animals listed in the message.
 The link is 14 days valid. After this time it is still possible to create the work request manually. Only the recipient of the message can open the link to create the sacrifice request.
 
 \noindent\sphinxincludegraphics[width=0.750\linewidth]{{anishare_confirmation_mail}.png}

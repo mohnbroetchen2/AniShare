@@ -32,7 +32,7 @@ author = 'Fabian Monheim, Holger Dinkel'
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
-release = '1.8'
+release = '2.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -58,6 +58,19 @@ templates_path = ['_templates']
 #
 source_suffix = ['.rst', '.md']
 # source_suffix = '.rst'
+
+html_theme_options = {
+    'canonical_url': '',
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': False,
+    'style_nav_header_background': 'white',
+    # Toc options
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+    'navigation_depth': 4,
+    'includehidden': True,
+    'titles_only': False
+    }
 
 # The master toctree document.
 master_doc = 'index'
@@ -85,7 +98,7 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the

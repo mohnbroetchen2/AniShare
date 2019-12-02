@@ -8,7 +8,8 @@ Welcome to the documentation of anishare !
 
 .. toctree::
    :maxdepth: 3
-   :caption: Contents:
+   :caption: 
+   :Contents: 
 
 Introduction
 ------------
@@ -174,7 +175,7 @@ creator of the work request gets a email about it and a comment about will be vi
    :width: 75%
 
 The status of the **Add to AniShare** will change to **close** after the offer time has been expired. Additionally the creator of the **Add to AniShare** work request
-gets a message with all mice that are not claimed. The message contains a link to create a sacrifice request including the animals listed in the message.
+gets a message with all mice that are not claimed excepting wild type animals. The message contains a link to create a sacrifice request including the animals listed in the message.
 The link is 14 days valid. After this time it is still possible to create the work request manually. Only the recipient of the message can open the link to create the sacrifice request.
  
 .. image:: img/anishare_confirmation_mail.png
@@ -372,6 +373,7 @@ Enter ``python manage.py graph_models`` to get an updated uml model.
 
 .. image:: img/anishare_uml_models.png
    :width: 90%
+
 
 .. Indices and tables
 .. ==================
