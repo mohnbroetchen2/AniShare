@@ -26,6 +26,7 @@ ALLOWED_HOSTS = [ ]
 STATIC_URL = ''
 DEBUG = False # SECURITY WARNING: don't run with debug turned on in production!
 ADMIN_EMAIL = ''
+LINES_PROHIBIT_SACRIFICE =[]
 
 
 # Quick-start development settings - unsuitable for production

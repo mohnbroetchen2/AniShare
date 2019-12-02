@@ -21,6 +21,7 @@ class Job(HourlyJob):
 
         mousedb = 'mousedb_test'
         mousedb_write = 'mousedb_test_write'
+        LINES_PROHIBIT_SACRIFICE = getattr(settings, "LINES_PROHIBIT_SACRIFICE", None)
         logger = logging.getLogger('myscriptlogger')
         TIMEDIFF = getattr(settings, "TIMEDIFF", 2)
         try:
@@ -98,6 +99,8 @@ class Job(HourlyJob):
                     for animal in animallist:
                         if animal.new_owner:
                             animallist = animallist.exclude(pk=animal.pk)
+                        if animal.line in LINES_PROHIBIT_SACRIFICE:
+                            animallist = animallist.exclude(pk=animal.pk) 
                         i = i + 1
                     if len(animallist) > 0:
                         initiator_name = "{} {}".format(incident.initiator.firstname,incident.initiator.lastname)

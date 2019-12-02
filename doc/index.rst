@@ -164,7 +164,7 @@ From PyRAT
 ++++++++++
 In most cases it is the easiest way to create a work request inside PyRAT. Select the work request class **Add to AniShare** and add the animals you like
 to import. Because it's possible to create an sacrifice request based on an **Add to AniShare** request it is nessecary to select the sacrifice method if the mice will not find a new responsible person (claiming).
-You can use the comment field, if you like to add additional information for all mice belonging to the work request. The comment is displayed in AniShare in the comment field of the mice. 
+You can use the **Comments** field, if you like to add additional information for all mice belonging to the work request. The comment is displayed in AniShare in the comment field of the mice. 
 Every hour AniShare searchs after those requests with status **open**. If the import succeded the status of the work request 
 change to **Added to AniShare**. Mice are offered two weeks and pups one week. The import will fail if a mouse has no license or a mouse has been already offered. If a mouse can not be imported the 
 creator of the work request gets a email about it and a comment about will be visible inside the work request. The status of the work request will change to 

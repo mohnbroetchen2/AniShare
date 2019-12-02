@@ -696,6 +696,7 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
     confirmed = 0
     ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
     TIMEDIFF = getattr(settings, "TIMEDIFF", 2)
+    LINES_PROHIBIT_SACRIFICE = getattr(settings, "LINES_PROHIBIT_SACRIFICE", None)
     try:
         sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
         try:
@@ -716,6 +717,8 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                         for animal in animallist:
                             if animal.new_owner:
                                 animallist=animallist.exclude(pk=animal.pk)
+                            if animal.line in LINES_PROHIBIT_SACRIFICE:
+                                animallist = animallist.exclude(pk=animal.pk)
                             i = i + 1
                         if len(animallist) == 0:
                             message = "All mice are claimed"

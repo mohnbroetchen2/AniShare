@@ -352,8 +352,8 @@ def copy_animal(modeladmin, request, queryset):
 
 
 @admin.register(Animal)
-class AnimalAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
-#class AnimalAdmin(ImportExportMixin, admin.ModelAdmin):
+#class AnimalAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
+class AnimalAdmin(ImportExportMixin, admin.ModelAdmin):
     """
     ModelAdmin for Animal model
     """
