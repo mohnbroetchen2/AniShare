@@ -84,33 +84,34 @@ class Job(HourlyJob):
                     new_comment.save(using=mousedb_write) 
                     new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
                     new_comment.save(using=mousedb_write)
+                    if incident.sacrifice_reason:
 
-                    # save token and send to Add to AniShare initiator to create sacrifice request
-                    new_sacrifice_incident_token            = SacrificeIncidentToken()
-                    new_sacrifice_incident_token.initiator  = incident.initiator.username
-                    new_sacrifice_incident_token.incidentid = incident.incidentid
-                    signer = Signer()
-                    new_sacrifice_incident_token.urltoken   = signer.sign("{}".format(incident.incidentid))
-                    new_sacrifice_incident_token.save()
-                    
-                    # Send email to initiator to confirm sacrifice request
-                    animallist = Animal.objects.filter(pyrat_incidentid = incident.incidentid)
-                    i = 0
-                    for animal in animallist:
-                        if animal.new_owner:
-                            animallist = animallist.exclude(pk=animal.pk)
-                        if animal.line in LINES_PROHIBIT_SACRIFICE:
-                            animallist = animallist.exclude(pk=animal.pk) 
-                        i = i + 1
-                    if len(animallist) > 0:
-                        initiator_name = "{} {}".format(incident.initiator.firstname,incident.initiator.lastname)
-                        sacrifice_link = "{}/{}/{}".format(settings.DOMAIN,"confirmsacrificerequest",new_sacrifice_incident_token.urltoken)
-                        message = render_to_string('email_animals_sacrifice.html',{'animals':animallist, 'initiator':initiator_name, 'sacrifice_link':sacrifice_link})
-                        subject = "Confirmation sacrifice request"
-                        recipient = incident.initiator.email
-                        msg = EmailMessage(subject, message, "tierschutz@leibniz-fli.de", [recipient])
-                        msg.content_subtype = "html"
-                        msg.send()
+                        # save token and send to Add to AniShare initiator to create sacrifice request
+                        new_sacrifice_incident_token            = SacrificeIncidentToken()
+                        new_sacrifice_incident_token.initiator  = incident.initiator.username
+                        new_sacrifice_incident_token.incidentid = incident.incidentid
+                        signer = Signer()
+                        new_sacrifice_incident_token.urltoken   = signer.sign("{}".format(incident.incidentid))
+                        new_sacrifice_incident_token.save()
+                        
+                        # Send email to initiator to confirm sacrifice request
+                        animallist = Animal.objects.filter(pyrat_incidentid = incident.incidentid)
+                        i = 0
+                        for animal in animallist:
+                            if animal.new_owner:
+                                animallist = animallist.exclude(pk=animal.pk)
+                            if animal.line in LINES_PROHIBIT_SACRIFICE:
+                                animallist = animallist.exclude(pk=animal.pk) 
+                            i = i + 1
+                        if len(animallist) > 0:
+                            initiator_name = "{} {}".format(incident.initiator.firstname,incident.initiator.lastname)
+                            sacrifice_link = "{}/{}/{}".format(settings.DOMAIN,"confirmsacrificerequest",new_sacrifice_incident_token.urltoken)
+                            message = render_to_string('email_animals_sacrifice.html',{'animals':animallist, 'initiator':initiator_name, 'sacrifice_link':sacrifice_link})
+                            subject = "Confirmation sacrifice request"
+                            recipient = incident.initiator.email
+                            msg = EmailMessage(subject, message, "tierschutz@leibniz-fli.de", [recipient])
+                            msg.content_subtype = "html"
+                            msg.send()
                  
         except BaseException as e:  
             logger.error('{}: AniShare Importscriptfehler hourly_check_status_incidents.py: Fehler {} in Zeile {}'.format(datetime.now(),e, sys.exc_info()[2].tb_lineno)) 

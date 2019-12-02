@@ -17,7 +17,6 @@ class Job(HourlyJob):
         mousedb = 'mousedb'
         mousedb_write = 'mousedb_write'
         logger = logging.getLogger('myscriptlogger')
-
         ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
         TIMEDIFF = getattr(settings, "TIMEDIFF", 2)
 
@@ -32,6 +31,7 @@ class Job(HourlyJob):
                 count_animals_imported = 0
                 initiator_mail = ""
                 initiator_mail = incident.initiator.email
+                
                 # Import mice #
                 animallist = WIncidentAnimals.objects.using(mousedb).filter(incidentid = incident.incidentid)
                 for pyratmouse in animallist:
@@ -49,29 +49,31 @@ class Job(HourlyJob):
                             continue
                         new_mouse = Animal()
                         new_mouse.animal_type    = "mouse"
-                        
+                        dataset = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid)
                         try:
                             dataset = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid)
+                            new_mouse.mouse_id       = dataset.id
                         except: # mouse has no licence
                             count_animals_deferred = count_animals_deferred + 1
                             new_comment = WIncidentcomment()
                             new_comment.incidentid = incident
-                            new_comment.comment = 'AniShare: Mouse {} without licence can not be imported'.format(pyratmouse.animalid)
+                            new_comment.comment = 'AniShare: Mouse {} without licence can not be imported'.format(pyratmouse.eartag)
                             new_comment.save(using=mousedb_write)
                             new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
                             new_comment.save(using=mousedb_write)
-                            send_mail("AniShare: Mouse without license", 'You created a work request with the ID {} to add the mouse {} to AniShare. It is not possible to import a mouse without a license. '.format(incident.incidentid, pyratmouse.animalid), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
+                            send_mail("AniShare: Mouse without license", 'You created a work request with the ID {} to add the mouse {} to AniShare. It is not possible to import a mouse without a license. '.format(incident.id, pyratmouse.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             continue
                         dataset = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid)
-                        new_mouse.mouse_id       = dataset.id
                         new_mouse.database_id    = dataset.eartag
                         new_mouse.lab_id         = dataset.labid
                         new_mouse.amount         = 1
+                        new_mouse.pyrat_incidentid = incident.incidentid
                         new_mouse.genetic_background  = dataset.genetic_bg
                         new_mouse.available_from = datetime.today().date()
                         new_mouse.available_to   = datetime.today().date() + timedelta(days=14)
                         new_mouse.licence_number = dataset.licence
                         new_mouse.day_of_birth   = dataset.dob
+                        new_mouse.comment        = incident.incidentdescription
                         mousemutations           = MouseMutation.objects.using(mousedb).filter(animalid = dataset.id)
                         new_mouse.mutations = ''
                         for m in mousemutations:
@@ -122,17 +124,16 @@ class Job(HourlyJob):
                 puplist = WIncidentPups.objects.using(mousedb).filter(incidentid = incident.incidentid)
                 for pyratpup in puplist:
                     try:
-                        dataset = Pup()
                         dataset = Pup.objects.using(mousedb).get(id=pyratpup.pupid)
                         if Animal.objects.filter(pup_id=pyratpup.pupid).exists():
                             new_comment = WIncidentcomment()
                             new_comment.incidentid = incident
                             if dataset.eartag:
                                 new_comment.comment = 'AniShare: Pup {} already offered'.format(dataset.eartag)
-                                send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.incidentid, dataset.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
+                                send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.id, dataset.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             else:
-                                new_comment.comment = 'AniShare: Pup {} already offered'.format(dataset.id)
-                                send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.incidentid, dataset.id), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
+                                new_comment.comment = 'AniShare: Pup {} already offered'.format(pyratpup.pupid)
+                                send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.id, dataset.id), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             new_comment.save(using=mousedb_write)
                             new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
                             new_comment.save(using=mousedb_write) 
@@ -141,7 +142,6 @@ class Job(HourlyJob):
                             continue
                         new_pup = Animal()
                         new_pup.animal_type    = "pup"
-                        
                         if dataset.licence == None:
                             new_comment = WIncidentcomment()
                             new_comment.incidentid = incident
@@ -149,7 +149,7 @@ class Job(HourlyJob):
                                 new_comment.comment = 'Pup {} without licence can not be imported'.format(dataset.eartag)
                                 send_mail("AniShare: Pup without license", 'You created a work request with the ID {} to add the pup {} to AniShare. It is not possible to import a pup without a license. '.format(incident.incidentid, dataset.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             else:
-                                new_comment.comment = 'Pup {} without licence can not be imported'.format(dataset.id)
+                                new_comment.comment = 'Pup {} without licence can not be imported'.format(pyratpup.pupid)
                                 send_mail("AniShare: Pup without license", 'You created a work request with the ID {} to add the pup {} to AniShare. It is not possible to import a pup without a license. '.format(incident.incidentid, dataset.id), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             new_comment.save(using=mousedb_write)
                             new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
@@ -160,14 +160,16 @@ class Job(HourlyJob):
                         if dataset.eartag:
                             new_pup.database_id    = dataset.eartag
                         else:
-                            new_pup.database_id   = dataset.id
+                            new_pup.database_id   = pyratpup.pupid
                         new_pup.lab_id         = dataset.labid
                         new_pup.amount         = 1
+                        new_pup.pyrat_incidentid = incident.incidentid
                         new_pup.genetic_background  = dataset.genetic_bg
                         new_pup.available_from = datetime.today().date()
                         new_pup.available_to   = datetime.today().date() + timedelta(days=7)
                         new_pup.licence_number = dataset.licence
                         new_pup.day_of_birth   = dataset.dob
+                        new_pup.comment        = incident.incidentdescription
                         mousemutations           = MouseMutation.objects.using('mousedb').filter(pupid = dataset.id)
                         new_pup.mutations = ''
                         for m in mousemutations:
