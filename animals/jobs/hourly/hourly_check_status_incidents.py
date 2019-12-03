@@ -60,10 +60,13 @@ class Job(HourlyJob):
                     try:
                         anipupFilter = Animal.objects.filter(pup_id=pyratpup.pupid)
                         if len(anipupFilter) == 0:
+                            logger.debug('anipupFilter=0')
                             continue
                         anipup = Animal.objects.get(pup_id=pyratpup.pupid)
                         if (anipup.new_owner):
+                            logger.debug('anipup.new_owner=1')
                             continue
+                        logger.debug('anipup.available_to:{} ,today:{}'.format(anipup.available_to, today))
                         if (anipup.available_to >= today):
                             skip = 1
                             break
