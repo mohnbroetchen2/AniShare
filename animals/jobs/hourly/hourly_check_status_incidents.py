@@ -43,13 +43,17 @@ class Job(HourlyJob):
                     try:
                         animouseFilter = Animal.objects.filter(mouse_id=pyratmouse.animalid)
                         if len(animouseFilter) == 0:
+                            logger.debug('animouseFilter=0')
                             continue
                         else:
                             animouse = Animal.objects.get(mouse_id=pyratmouse.animalid)
                         if (animouse.new_owner):
+                            logger.debug('anipup.new_owner=1')
                             continue
+                        logger.debug('animouse.available_to:{} today:{}'.format(animouse.available_to, today))
                         if (animouse.available_to >= today):
                             skip = 1
+                            logger.debug('skip=1')
                             break
                     except BaseException as e: 
                             error = 1
