@@ -28,7 +28,6 @@ class Job(HourlyJob):
             today = datetime.now().date()
             incidentlist = WIncident.objects.using(mousedb).all().filter(incidentclass=22).filter(status=5)
             for incident in incidentlist:
-                logger.debug('incidentid = {}'.format(incident.incidentid))
                 skip = 0
                 error = 0
                 i = 0
@@ -37,25 +36,26 @@ class Job(HourlyJob):
                 count_mice = animallist.count()
                 count_pups = puplist.count()
                 count_animals = count_mice + count_pups
-                #logger.debug('{}: count_animals {}'.format(datetime.now(), count_animals))
                 for pyratmouse in animallist:
                     i = i + 1
                     try:
                         animouseFilter = Animal.objects.filter(mouse_id=pyratmouse.animalid)
-                        if len(animouseFilter) == 0:
-                            animouseFilter = Animal.objects.filter(pup_id=pyratmouse.animalid)
-                            if len(animouseFilter) == 0:
-                                logger.debug('animouseFilter=0')
+                        if len(animouseFilter) == 0: # Check if pup has been weaned
+                            v_mouse = Mouse.objects.using(mousedb).filter(animalid = pyratmouse.animalid)
+                            if len(v_mouse) == 0:
                                 continue
+                            elif Animal.objects.filter(database_id=v_mouse.eartag).exists():
+                                animouse = Animal.objects.get(database_id=v_mouse.eartag)
+                                animouse.mouse_id = mouse.animalid
+                                animouse.save()
+                                skip = 1
                         else:
                             animouse = Animal.objects.get(mouse_id=pyratmouse.animalid)
                         if (animouse.new_owner):
                             logger.debug('anipup.new_owner=1')
                             continue
-                        logger.debug('animouse.available_to:{} today:{}'.format(animouse.available_to, today))
                         if (animouse.available_to >= today):
                             skip = 1
-                            logger.debug('skip=1')
                             break
                     except BaseException as e: 
                             error = 1
@@ -67,15 +67,11 @@ class Job(HourlyJob):
                     try:
                         anipupFilter = Animal.objects.filter(pup_id=pyratpup.pupid)
                         if len(anipupFilter) == 0:
-                            logger.debug('anipupFilter=0')
                             continue
                         anipup = Animal.objects.get(pup_id=pyratpup.pupid)
                         if (anipup.new_owner):
-                            logger.debug('anipup.new_owner=1')
                             continue
-                        logger.debug('anipup.available_to:{} today:{}'.format(anipup.available_to, today))
                         if (anipup.available_to >= today):
-                            logger.debug('skip=1')
                             skip = 1
                             break
                     except BaseException as e:  
