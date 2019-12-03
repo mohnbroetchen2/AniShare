@@ -28,6 +28,7 @@ class Job(HourlyJob):
             today = datetime.now().date()
             incidentlist = WIncident.objects.using(mousedb).all().filter(incidentclass=22).filter(status=5)
             for incident in incidentlist:
+                logger.debug('incidentid = {}'.format(incident.incidentid))
                 skip = 0
                 error = 0
                 i = 0
@@ -66,8 +67,9 @@ class Job(HourlyJob):
                         if (anipup.new_owner):
                             logger.debug('anipup.new_owner=1')
                             continue
-                        logger.debug('anipup.available_to:{} ,today:{}'.format(anipup.available_to, today))
+                        logger.debug('anipup.available_to:{} today:{}'.format(anipup.available_to, today))
                         if (anipup.available_to >= today):
+                            logger.debug('skip=1')
                             skip = 1
                             break
                     except BaseException as e:  
