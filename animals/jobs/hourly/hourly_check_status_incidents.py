@@ -47,7 +47,7 @@ class Job(HourlyJob):
                                 continue
                             if Animal.objects.filter(database_id=v_mouse.eartag).exists():
                                 animouse = Animal.objects.get(database_id=v_mouse.eartag)
-                                animouse.mouse_id = mouse.animalid
+                                animouse.mouse_id = v_mouse.animalid
                                 animouse.save()
                                 skip = 1
                             else:
