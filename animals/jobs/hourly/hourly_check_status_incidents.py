@@ -48,8 +48,8 @@ class Job(HourlyJob):
                             if Animal.objects.filter(database_id=v_mouse.eartag).exists():
                                 animouse = Animal.objects.get(database_id=v_mouse.eartag)
                                 animouse.mouse_id = v_mouse.id
-                                animouse.save()
-                                skip = 1
+                                animouse.save() # Save new animal_id (id changed because pup is now an adult)
+                                skip = 1 # with the next run the script will find the pup with the mouse_id
                             else:
                                 continue
                         else:
