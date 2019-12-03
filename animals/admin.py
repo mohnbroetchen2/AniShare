@@ -270,7 +270,7 @@ class AnimalForm(forms.ModelForm):
     class Meta:
         model = Animal
         fields = ('amount', 'animal_type', 'fish_specie','day_of_birth',
-                  'available_from', 'available_to', 'sex', 'database_id',
+                  'available_from', 'available_to', 'sex', 'database_id','pup_id',
                   'lab_id', 'line', 'location', 'responsible_person', 'responsible_person2',
                   'licence_number', 'genetic_background','mutations', 'comment', 'new_owner',)
     def clean(self):
