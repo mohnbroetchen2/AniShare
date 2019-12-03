@@ -84,7 +84,7 @@ class Job(HourlyJob):
                     new_comment.save(using=mousedb_write) 
                     new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
                     new_comment.save(using=mousedb_write)
-                    if incident.sacrifice_reason:
+                    """if incident.sacrifice_reason:
 
                         # save token and send to Add to AniShare initiator to create sacrifice request
                         new_sacrifice_incident_token            = SacrificeIncidentToken()
@@ -111,7 +111,7 @@ class Job(HourlyJob):
                             recipient = incident.initiator.email
                             msg = EmailMessage(subject, message, "tierschutz@leibniz-fli.de", [recipient])
                             msg.content_subtype = "html"
-                            msg.send()
+                            msg.send()"""
                  
         except BaseException as e:  
             logger.error('{}: AniShare Importscriptfehler hourly_check_status_incidents.py: Fehler {} in Zeile {}'.format(datetime.now(),e, sys.exc_info()[2].tb_lineno)) 
