@@ -43,8 +43,10 @@ class Job(HourlyJob):
                     try:
                         animouseFilter = Animal.objects.filter(mouse_id=pyratmouse.animalid)
                         if len(animouseFilter) == 0:
-                            logger.debug('animouseFilter=0')
-                            continue
+                            animouseFilter = Animal.objects.filter(pup_id=pyratmouse.animalid)
+                            if len(animouseFilter) == 0:
+                                logger.debug('animouseFilter=0')
+                                continue
                         else:
                             animouse = Animal.objects.get(mouse_id=pyratmouse.animalid)
                         if (animouse.new_owner):
