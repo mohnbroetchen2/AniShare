@@ -41,14 +41,17 @@ class Job(HourlyJob):
                     try:
                         animouseFilter = Animal.objects.filter(mouse_id=pyratmouse.animalid)
                         if len(animouseFilter) == 0: # Check if pup has been weaned
-                            v_mouse = Mouse.objects.using(mousedb).filter(id = pyratmouse.animalid)
-                            if len(v_mouse) == 0:
+                            if Mouse.objects.using(mousedb).filter(id = pyratmouse.animalid).exists():
+                                v_mouse = Mouse.objects.using(mousedb).get(id = pyratmouse.animalid)
+                            else:
                                 continue
-                            elif Animal.objects.filter(database_id=v_mouse.eartag).exists():
+                            if Animal.objects.filter(database_id=v_mouse.eartag).exists():
                                 animouse = Animal.objects.get(database_id=v_mouse.eartag)
                                 animouse.mouse_id = mouse.animalid
                                 animouse.save()
                                 skip = 1
+                            else:
+                                continue
                         else:
                             animouse = Animal.objects.get(mouse_id=pyratmouse.animalid)
                         if (animouse.new_owner):
