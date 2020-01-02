@@ -737,6 +737,8 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                             if (animal.animal_type == 'pup'):
                                 try:
                                     if not Pup.objects.using(MOUSEDB).filter(id = animal.pup_id).exists():
+                                        send_mail("AniShare ConfirmRequest", 'Pup {} nicht vorhanden. Siehe AddToAniShare Auftrag {}'.format(animal.pup_id,previous_incident.incidentid), ADMIN_EMAIL, [ADMIN_EMAIL])
+                                        # Pup könnte bereits zu einem erwachsenen Tier übergangen sein 
                                         animallist=animallist.exclude(pk=animal.pk)
                                 except:
                                     animallist=animallist.exclude(pk=animal.pk)
