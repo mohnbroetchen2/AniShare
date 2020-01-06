@@ -738,8 +738,20 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                                 try:
                                     if not Pup.objects.using(MOUSEDB).filter(id = animal.pup_id).exists():
                                         send_mail("AniShare ConfirmRequest", 'Pup {} nicht vorhanden. Siehe AddToAniShare Auftrag {}'.format(animal.pup_id,previous_incident.incidentid), ADMIN_EMAIL, [ADMIN_EMAIL])
-                                        # Pup könnte bereits zu einem erwachsenen Tier übergangen sein 
-                                        animallist=animallist.exclude(pk=animal.pk)
+                                        # Pup könnte bereits zu einem erwachsenen Tier übergangen sein, Änderung muss kontrolliert werden
+                                        if Mouse.objects.using(MOUSEDB).filter(id = animal.animalid).exists():
+                                            v_mouse = Mouse.objects.using(mousedb).get(id = animal.animalid)
+                                        else:
+                                            animallist=animallist.exclude(pk=animal.pk)
+                                            continue
+                                        if Animal.objects.filter(database_id=v_mouse.eartag).exists():
+                                            animal = Animal.objects.get(database_id=v_mouse.eartag)
+                                            animal.mouse_id = v_mouse.id
+                                            animal.save() # Save new animal_id (id changed because pup is now an adult)
+                                        else:
+                                            animallist=animallist.exclude(pk=animal.pk)
+                                            continue 
+                                        #animallist=animallist.exclude(pk=animal.pk)
                                 except:
                                     animallist=animallist.exclude(pk=animal.pk)
                         if len(animallist) > 0:
