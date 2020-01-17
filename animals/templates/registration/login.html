@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-
+{% load static %}
 {% block title %}Login{% endblock %}
 
 {% block toggle_login %}{% endblock %}
@@ -33,5 +33,8 @@
   		{% csrf_token %}
   		<button style="margin-left:5px;" type="submit" class="btn btn-success">Sign in</button>
 		</form>
+	</div>
+	<div style="display:flex; align-items: center;justify-content: center;">
+		<img src="{% static 'anishare_logo_min.png' %}" alt=""></img>
 	</div>
 {% endblock %}
