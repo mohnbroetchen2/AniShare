@@ -589,18 +589,23 @@ def tickatlabfishlist(request):
     
     try:
         fishuser = FishPeople.objects.using('fishdb').get(login=request.user.username)
+        #fishuser = FishPeople.objects.using('fishdb').get(login="mbaumgart")
         fishteams = FishTeam.objects.using('fishdb').all().filter(userid=fishuser.id)
+        #logger.debug('{}:fishteams {}'.format(datetime.now(), fishteams))
         fishteamsid = []
         i=0
         fishteamsid.insert(i,fishuser.mainteamid)
         i=1
         for t in fishteams:
             fishteamsid.insert(i,t.teamid)
+            #logger.debug('{}:fishteamsid {}'.format(datetime.now(), t.teamid))
             i=i+1
+        #logger.debug('{}:fishteamsid {}'.format(datetime.now(), fishteamsid))
         fishlist = Fish.objects.using('fishdb').all().filter(teamid__in=fishteamsid).order_by('id')
         f = FishFilter(request.GET, queryset=fishlist)
         return render(request, 'animals/fishfromtickatlab.html', {'filter': f})
-    except:
+    except BaseException as e:                            
+        logger.debug('{}:tickatlabfishlist except Fehler {} in Zeile {}'.format(datetime.now(),e,sys.exc_info()[2].tb_lineno))
         return render(request, 'animals/fishfromtickatlab.html')
 
 @login_required
