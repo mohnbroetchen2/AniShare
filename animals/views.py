@@ -699,15 +699,22 @@ def importfishtoanishare(request):
 def ConfirmRequest(request, token):### Change Status from a sacrifice work request to the status open
     message = "URL is wrong. Please check your URL or get in contact with the administrator" 
     confirmed = 0
+    user_confirmed = 0
     ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
     TIMEDIFF = getattr(settings, "TIMEDIFF", 2)
+    USER_MAPPING = [[]]
+    USER_MAPPING = getattr(settings, "USER_MAPPING", None)
     LINES_PROHIBIT_SACRIFICE = getattr(settings, "LINES_PROHIBIT_SACRIFICE", None)
     try:
         sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
         try:
             #sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
             if sIncidentToken:
-                if (request.user.username == sIncidentToken.initiator):
+                for u in range(len(USER_MAPPING)): # used if the username differs from anishare and pyrat
+                    if 'gpercin' == USER_MAPPING[u][0]:
+                        if USER_MAPPING[u][1] == sIncidentToken.initiator:
+                            user_confirmed = 1 
+                if ((request.user.username == sIncidentToken.initiator) or (user_confirmed == 1)):
                     if sIncidentToken.confirmed:
                         message = "Request is already created. A second time is not possible"
                     elif (sIncidentToken.created + timedelta(days=15) < datetime.now(sIncidentToken.created.tzinfo)): # Request expired
