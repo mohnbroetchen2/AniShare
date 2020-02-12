@@ -702,9 +702,6 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
     user_confirmed = 0
     ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
     TIMEDIFF = getattr(settings, "TIMEDIFF", 2)
-    USER_MAPPING = [[]]
-    USER_MAPPING =[['gpercin','percin']]
-    USER_MAPPING = getattr(settings, "USER_MAPPING", [[]])
     LINES_PROHIBIT_SACRIFICE = getattr(settings, "LINES_PROHIBIT_SACRIFICE", None)
     try:
         sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
@@ -712,7 +709,7 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
             #sIncidentToken = SacrificeIncidentToken.objects.get(urltoken = token)
             if sIncidentToken:
                 for u in range(len(settings.USER_MAPPING)): # used if the username differs from anishare and pyrat
-                    if 'gpercin' == settings.USER_MAPPING[u][0]:
+                    if request.user.username == settings.USER_MAPPING[u][0]:
                         if settings.USER_MAPPING[u][1] == sIncidentToken.initiator:
                             user_confirmed = 1 
                 if ((request.user.username == sIncidentToken.initiator) or (user_confirmed == 1)):
