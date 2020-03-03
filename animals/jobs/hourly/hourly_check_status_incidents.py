@@ -123,6 +123,7 @@ class Job(HourlyJob):
                             msg = EmailMessage(subject, message, "tierschutz@leibniz-fli.de", [recipient])
                             msg.content_subtype = "html"
                             msg.send()
+                            logger.debug('Mail Confirmation sacrifice request an {} mit Link {} gesendet'.format(recipient,sacrifice_link))
                  
         except BaseException as e:  
             logger.error('{}: AniShare Importscriptfehler hourly_check_status_incidents.py: Fehler {} in Zeile {}'.format(datetime.now(),e, sys.exc_info()[2].tb_lineno)) 
