@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'bootstrap_email',
     'django_extensions', # for jobs scheduling
     'simple_history',
+    'pyrat_api',
 ]
 
 MIDDLEWARE = [
