@@ -39,7 +39,7 @@ class Job(HourlyJob):
                         if Animal.objects.filter(mouse_id=pyratmouse.animalid).exists(): # Check if mouse has already been imported
                             ani_mouse = Animal.objects.get(mouse_id=pyratmouse.animalid)  # Get AniShare mouse that has already been imported
                             if ani_mouse.pyrat_incidentid: # Save the original PyRAT request id using the comment field
-                                ani_mouse.comment = ani_mouse.comment + "Ursprünglich über AddToAniShare Auftrag: {} importiert;".format(ani_mouse.pyrat_incidentid)
+                                ani_mouse.comment = ani_mouse.comment + "Ursprünglich über AddToAniShare Auftrag: {} importiert; ".format(ani_mouse.pyrat_incidentid)
                             ani_mouse.pyrat_incidentid = incident.incidentid # Save the new PyRAT request id
                             ani_mouse.save()
                             datasetMouse = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid) 
@@ -231,7 +231,8 @@ class Job(HourlyJob):
                 if (error == 0 and count_animals_deferred > 0 and count_animals_imported == 0):
                     incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)
                     incident_write.status = 6 # Deferred
-                    incident_write.save(using=mousedb_write)            
+                    incident_write.save(using=mousedb_write) 
+                    send_mail("AniShare: AddToAniShare request set to deferred", 'You created a PyRAT AddToAniShare request with the ID {} but the import process failed and the request is set to deferred. Please check this work request.'.format(incident.incidentid), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])           
                 elif (error == 0 and count_animals_deferred == 0):
                     incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)
                     incident_write.status = 5 # Added to AniShare
