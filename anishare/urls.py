@@ -50,5 +50,5 @@ urlpatterns = [
     path('changehistory/feed', never_cache(animals.views.LatestChangesFeed()), name='version-feed'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('confirmsacrificerequest/<str:token>', animals.views.ConfirmRequest, name='confirm_request'),
-    path('eln/', animals.views.eln_pyrat_view, name='eln_pyrat_view'),
+    #path('eln/', animals.views.eln_pyrat_view, name='eln_pyrat_view'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

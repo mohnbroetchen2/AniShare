@@ -36,11 +36,15 @@ class Job(HourlyJob):
                 animallist = WIncidentAnimals.objects.using(mousedb).filter(incidentid = incident.incidentid)
                 for pyratmouse in animallist:
                     try:
-                        if Animal.objects.filter(mouse_id=pyratmouse.animalid).exists():
-                            datasetMouse = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid)
-                            send_mail("AniShare: Mouse already offered", 'You created a work request with the ID {} to add the mouse {} to AniShare. The mouse has already been offered. A second time is not possible'.format(incident.incidentid, datasetMouse.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
-                            count_animals_deferred = count_animals_deferred + 1
-                            new_comment = WIncidentcomment()
+                        if Animal.objects.filter(mouse_id=pyratmouse.animalid).exists(): # Check if mouse has already been imported
+                            ani_mouse = Animal.objects.get(mouse_id=pyratmouse.animalid)  # Get AniShare mouse that has already been imported
+                            if ani_mouse.pyrat_incidentid: # Save the original PyRAT request id using the comment field
+                                ani_mouse.comment = ani_mouse.comment + "Ursprünglich über AddToAniShare Auftrag: {} importiert; ".format(ani_mouse.pyrat_incidentid)
+                            ani_mouse.pyrat_incidentid = incident.incidentid # Save the new PyRAT request id
+                            ani_mouse.save()
+                            datasetMouse = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid) 
+                            #send_mail("AniShare: Mouse already offered", 'You created a work request with the ID {} to add the mouse {} to AniShare. The mouse has already been offered. A second time is not possible'.format(incident.incidentid, datasetMouse.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
+                            new_comment = WIncidentcomment() # Create a comment to the PyRAT request that mouse has already been imported
                             new_comment.incidentid = incident
                             new_comment.comment = 'AniShare: Mouse {} already offered'.format(datasetMouse.eartag)
                             new_comment.save(using=mousedb_write)
@@ -126,18 +130,23 @@ class Job(HourlyJob):
                     try:
                         dataset = Pup.objects.using(mousedb).get(id=pyratpup.pupid)
                         if Animal.objects.filter(pup_id=pyratpup.pupid).exists():
+                            ani_mouse = Animal.objects.get(pup_id=pyratpup.pupid)  # Get AniShare mouse that has already been imported
+                            if ani_mouse.pyrat_incidentid: # Save the original PyRAT request id using the comment field
+                                ani_mouse.comment = ani_mouse.comment + "Ursprünglich über AddToAniShare Auftrag: {} importiert;".format(ani_mouse.pyrat_incidentid)
+                            ani_mouse.pyrat_incidentid = incident.incidentid # Save the new PyRAT request id
+                            ani_mouse.save()
+
                             new_comment = WIncidentcomment()
                             new_comment.incidentid = incident
                             if dataset.eartag:
                                 new_comment.comment = 'AniShare: Pup {} already offered'.format(dataset.eartag)
-                                send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.incidentid, dataset.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
+                                #send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.incidentid, dataset.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             else:
                                 new_comment.comment = 'AniShare: Pup {} already offered'.format(pyratpup.pupid)
-                                send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.incidentid, dataset.id), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
+                                #send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.incidentid, dataset.id), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             new_comment.save(using=mousedb_write)
                             new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
                             new_comment.save(using=mousedb_write) 
-                            count_animals_deferred = count_animals_deferred + 1
                             # Benachrichtigung, dass Maus bereits angeboten wird?
                             continue
                         new_pup = Animal()
@@ -204,6 +213,7 @@ class Job(HourlyJob):
                         try:
                             new_pup.save()
                             logger.debug('{}: Pup with id {} has been imported by Script.'.format(datetime.now(), new_pup.database_id))
+                            count_animals_imported = count_animals_imported + 1
                         except BaseException as e:  
                             error = 1
                             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
@@ -217,8 +227,13 @@ class Job(HourlyJob):
                         else:
                             send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup mit Fehler {} in Zeile {}'.format(mousedb, e,sys.exc_info()[2].tb_lineno ), ADMIN_EMAIL, [ADMIN_EMAIL])
                         #send_mail("AniShare Importscriptfehler", '{}: Fehler beim Pupimport von Pup {} mit Fehler {} '.format(mousedb, dataset.eartag, Exception), ADMIN_EMAIL, [ADMIN_EMAIL])   
-                            
-                if (error == 0 and count_animals_deferred == 0):
+
+                if (error == 0 and count_animals_deferred > 0 and count_animals_imported == 0):
+                    incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)
+                    incident_write.status = 6 # Deferred
+                    incident_write.save(using=mousedb_write) 
+                    send_mail("AniShare: AddToAniShare request set to deferred", 'You created a PyRAT AddToAniShare request with the ID {} but the import process failed and the request is set to deferred. Please check this work request.'.format(incident.incidentid), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])           
+                elif (error == 0 and count_animals_deferred == 0):
                     incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)
                     incident_write.status = 5 # Added to AniShare
                     incident_write.save(using=mousedb_write)
@@ -229,10 +244,7 @@ class Job(HourlyJob):
                     new_comment.save(using=mousedb_write)
                     new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
                     new_comment.save(using=mousedb_write)
-                elif (error == 0 and count_animals_deferred > 0 and count_animals_imported == 0):
-                    incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)
-                    incident_write.status = 6 # Deferred
-                    incident_write.save(using=mousedb_write)
+                
         except BaseException as e: 
             management.call_command("clearsessions")
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
