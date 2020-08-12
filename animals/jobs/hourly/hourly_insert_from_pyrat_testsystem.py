@@ -232,6 +232,7 @@ class Job(HourlyJob):
                     incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)
                     incident_write.status = 6 # Deferred
                     incident_write.save(using=mousedb_write) 
+                    logger.debug('{}: Incident status {} has been changed to deferred.'.format(datetime.now(), incident.incidentid))
                     send_mail("AniShare: AddToAniShare request set to deferred", 'You created a PyRAT AddToAniShare request with the ID {} but the import process failed and the request is set to deferred. Please check this work request.'.format(incident.incidentid), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])           
                 elif (error == 0 and count_animals_deferred == 0):
                     incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)

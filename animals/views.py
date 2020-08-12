@@ -742,12 +742,12 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                                     if not Mouse.objects.using(MOUSEDB).filter(id = animal.mouse_id).exists():
                                         animallist=animallist.exclude(pk=animal.pk)
                                 except BaseException as e:     
-                                    send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
+                                    send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL,request.user.email])
                                     animallist=animallist.exclude(pk=animal.pk)
                             if (animal.animal_type == 'pup'):
                                 try:
                                     if not Pup.objects.using(MOUSEDB).filter(id = animal.pup_id).exists():
-                                        send_mail("AniShare ConfirmRequest", 'Pup {} nicht vorhanden. Siehe AddToAniShare Auftrag {}'.format(animal.pup_id,previous_incident.incidentid), ADMIN_EMAIL, [ADMIN_EMAIL])
+                                        send_mail("AniShare ConfirmRequest", 'Pup {} nicht vorhanden. Siehe AddToAniShare Auftrag {}'.format(animal.pup_id,previous_incident.incidentid), ADMIN_EMAIL, [ADMIN_EMAIL,request.user.email])
                                         # Pup könnte bereits zu einem erwachsenen Tier übergangen sein, Änderung muss kontrolliert werden
                                         if Mouse.objects.using(MOUSEDB).filter(id = animal.animalid).exists():
                                             v_mouse = Mouse.objects.using(mousedb).get(id = animal.animalid)
