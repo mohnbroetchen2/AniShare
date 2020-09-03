@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'import_export',
     'admin_reorder',
-    'admin_interface',  # https://github.com/fabiocaccamo/django-admin-interface
+   # 'admin_interface',  # https://github.com/fabiocaccamo/django-admin-interface
     'colorfield',
     'django.contrib.admin',
     'django_admin_listfilter_dropdown',
@@ -59,6 +59,8 @@ INSTALLED_APPS = [
     'simple_history',
     'pyrat_api',
 ]
+
+X_FRAME_OPTIONS='SAMEORIGIN'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
