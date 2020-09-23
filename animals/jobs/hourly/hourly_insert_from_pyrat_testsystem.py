@@ -39,7 +39,10 @@ class Job(HourlyJob):
                         if Animal.objects.filter(mouse_id=pyratmouse.animalid).exists(): # Check if mouse has already been imported
                             ani_mouse = Animal.objects.get(mouse_id=pyratmouse.animalid)  # Get AniShare mouse that has already been imported
                             if ani_mouse.pyrat_incidentid: # Save the original PyRAT request id using the comment field
-                                ani_mouse.comment = ani_mouse.comment + "Ursprünglich über AddToAniShare Auftrag: {} importiert; ".format(ani_mouse.pyrat_incidentid)
+                                if ani_mouse.comment:
+                                    ani_mouse.comment = ani_mouse.comment + " Ursprünglich über AddToAniShare Auftrag: {} importiert; ".format(ani_mouse.pyrat_incidentid)
+                                else:
+                                    ani_mouse.comment = "Ursprünglich über AddToAniShare Auftrag: {} importiert; ".format(ani_mouse.pyrat_incidentid)
                             ani_mouse.pyrat_incidentid = incident.incidentid # Save the new PyRAT request id
                             ani_mouse.save()
                             datasetMouse = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid) 
