@@ -321,8 +321,14 @@ class MouseMutation(models.Model):
     grade_name        = models.CharField(db_column='grade_name', max_length=255)
     
 
-
-
+class PyratProject(models.Model):
+    id      = models.IntegerField(db_column='id', primary_key=True)
+    name    = models.CharField(db_column='name', max_length=100)
+    status  = models.CharField(db_column='status', max_length=10, choices=(('active', 'active'), ('inactive', 'inactive')))
+    class Meta:
+        managed = False
+        db_table = 'project'
+        
 class Mouse(models.Model):
     id      = models.IntegerField(db_column='animalid', primary_key=True)
     eartag  = models.CharField(db_column='eartag', max_length=255)
@@ -374,7 +380,6 @@ class Pup(models.Model):
     owner = models.CharField(db_column='owner', max_length=255)
     mutation = models.CharField(db_column='mutation', max_length=512)
     project = models.CharField(db_column='projectname', max_length=512)
-
     def age(self):
         """
         Return the age of the animal, calculated by the difference to either
