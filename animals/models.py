@@ -583,6 +583,7 @@ class WIncident_write(models.Model):
     sacrifice_reason = models.IntegerField(blank=True, null=True, db_column='sacrifice_reason_id') 
     #sacrifice_method = models.IntegerField(blank=True, null=True, db_column='sacrifice_method_id') 
     behavior = models.IntegerField(blank=True, null=True, db_column='behavior_id') 
+    last_modified = models.DateTimeField(null=False, db_column='last_modified')
     """
     wr_building = models.ForeignKey('LocationBuildings', models.DO_NOTHING, blank=True, null=True)
     wr_area = models.ForeignKey('LocationAreas', models.DO_NOTHING, blank=True, null=True)

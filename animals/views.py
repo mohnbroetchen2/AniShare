@@ -782,6 +782,7 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                         new_sacrifice_incident.status           = 2 # open
                         new_sacrifice_incident.duedate          = datetime.now() + timedelta(hours=TIMEDIFF) + timedelta(days=3)
                         new_sacrifice_incident.approved         = 1
+                        new_sarcifice_incident.last_modified    = datetime.now() + timedelta(hours=TIMEDIFF)
                         MOUSEDB_WRITE = getattr(settings, "MOUSEDB_WRITE", None)
                         new_sacrifice_incident.save(using=MOUSEDB_WRITE)
                         time.sleep(1)
