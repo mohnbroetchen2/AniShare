@@ -4,5 +4,5 @@ pyasn1==0.4.2
 pyasn1-modules==0.2.1
 python-ldap==3.0.0
 pytz==2018.4
-PyYAML==3.12
+PyYAML==5.4
 xlrd==1.1.0
