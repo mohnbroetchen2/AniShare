@@ -1,0 +1,22 @@
+State: 25.3.21
+Python: Python Software Foundation License
+Django: 3-clause BSD
+django-auth-ldap: BSD 2-Clause
+django-filter: BSD License
+pyasn1: BSD License
+pyasn1-modules: BSD-2-Clause
+python-ldap: Python Software Foundation
+pytz: MIT License
+PyYAML: MIT License
+xlrd: BSD License
+django-admin-rangefilter: MIT License
+django-widget-tweaks: MIT License
+django-import-export: BSD License
+django-modeladmin-reorder: BSD License
+django-bootstrap-email: Apache License 2.0
+django-admin-list-filter-dropdown: MIT License
+django-admin-interface: MIT License
+cx_Oracle: BSD License
+mysqlclient: GNU General Public License
+django-extensions: MIT License
+django-simple-history: BSD License
