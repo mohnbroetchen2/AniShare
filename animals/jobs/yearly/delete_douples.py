@@ -23,10 +23,21 @@ class Job(YearlyJob):
         try:
             animals = Animal.objects.all()
             for a in animals:
-                if a.pk in ids:
-                    a.delete() 
+                try:
+                    douples = Animal.objects.filter(database_id=a.database_id)
+                    for douple in douples:
+                        if douple.pk == a.pk:
+                            continue
+                        else:
+                            douple.delete()
+                except:
+                    continue
+            #animals = Animal.objects.all()
+            #for a in animals:
+            #    if a.pk in ids:
+            #        a.delete() 
         except BaseException as e: 
             management.call_command("clearsessions")
             ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
-            send_mail("AniShare Importscriptfehler delete_douples", '{}: Fehler {} in Zeile {}'.format(mousedb, e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
+            send_mail("AniShare Importscriptfehler delete_douples", ': Fehler {} in Zeile {}'.format( e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
         management.call_command("clearsessions")
