@@ -31,7 +31,8 @@ class Job(YearlyJob):
                     if len(original) == 1:
                         logger.debug('Doppelter Eintrag von {}'.fromat(a.database_id))
                         #a.delete()
-                except:
+                except BaseException as e:
+                    logger.debug("Fehler {} in Zeile {}".format(e,sys.exc_info()[2].tb_lineno))
                     continue
             #animals = Animal.objects.all()
             #for a in animals:
