@@ -27,7 +27,7 @@ class Job(YearlyJob):
                 if a in dismiss_animals:
                     continue
                 try:
-                    original = Animal.objects.filter(database_id=a.database_id).exlude(entry_date=datetime.date(2021,2,25))
+                    original = Animal.objects.filter(database_id=a.database_id).exlude(entry_date__range=["2021-02-25", "2021-02-25"])
                     if len(original) == 1:
                         logger.debug('Doppelter Eintrag von {}'.fromat(a.database_id))
                         #a.delete()
