@@ -29,7 +29,7 @@ class Job(YearlyJob):
                 try:
                     original = Animal.objects.filter(database_id=a.database_id).exclude(entry_date__range=["2021-02-25", "2021-02-25"])
                     if len(original) == 1:
-                        logger.debug('Doppelter Eintrag von {}'.fromat(a.database_id))
+                        logger.debug('Doppelter Eintrag von {}'.format(a.database_id))
                         #a.delete()
                 except BaseException as e:
                     logger.debug("Fehler {} in Zeile {}".format(e,sys.exc_info()[2].tb_lineno))
