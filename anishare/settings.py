@@ -76,6 +76,8 @@ MIDDLEWARE = [
     'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 IMPORT_EXPORT_USE_TRANSACTIONS = True #  It determines if the library will use database transactions on data import, just to be on the safe side.
 
 AUTHENTICATION_BACKENDS = [
