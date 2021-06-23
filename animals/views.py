@@ -341,11 +341,12 @@ def pyratpuplist(request):
 
 @login_required
 def pyratmouselist(request):
-    pyratuser = PyratUser.objects.using('mousedb').get(username=request.user.username)
+    MOUSEDB= getattr(settings, "MOUSEDB", None)
+    pyratuser = PyratUser.objects.using(MOUSEDB).get(username=request.user.username)
     if (pyratuser.locallevel == 11):
         #messages.add_message(request, messages.INFO,'You do not have the right to connect to the PyRAT Database')
         fullname = pyratuser.firstname + ' '  + pyratuser.lastname
-        mouselist = Mouse.objects.using('mousedb').all().filter(responsible=fullname).order_by('eartag') 
+        mouselist = Mouse.objects.using(MOUSEDB).all().filter(responsible=fullname).order_by('eartag') 
         f = MouseFilter(request.GET, queryset=mouselist)
         return render(request, 'animals/micefrompyrat.html', {'showgroups': True, 'filter': f,})
     if (pyratuser.locallevel == 3 or pyratuser.locallevel == 4):
@@ -356,10 +357,10 @@ def pyratmouselist(request):
             owner=''
             responsible1=''
         if (owner =='' and responsible1==''):
-            mouselist = Mouse.objects.using('mousedb').all().filter(owner_id__in=[]).order_by('eartag') 
+            mouselist = Mouse.objects.using(MOUSEDB).all().filter(owner_id__in=[]).order_by('eartag') 
             messages.add_message(request, messages.INFO,'Please search for an owner or a responsible person of the mice you like to share')
         else:
-            mouselist = Mouse.objects.using('mousedb').all().order_by('eartag') 
+            mouselist = Mouse.objects.using(MOUSEDB).all().order_by('eartag') 
         f = MouseFilter(request.GET, queryset=mouselist)
         return render(request, 'animals/micefrompyrat.html', {'showgroups': True, 'filter': f,})
     mouseownerid = []
@@ -367,19 +368,20 @@ def pyratmouselist(request):
     i = 0
     if (pyratuser.usernum is not None and pyratuser.usernum != ''):
         mouseownerid.insert(i,pyratuser.id)
-    permission= PyratUserPermission.objects.using('mousedb').all().filter(userid=pyratuser.id)
+    permission= PyratUserPermission.objects.using(MOUSEDB).all().filter(userid=pyratuser.id)
     if (permission is not None and permission !=''):       
         for p in permission:
             mouseownerid.insert(i,p.uid)
-    mouselist = Mouse.objects.using('mousedb').all().filter(owner_id__in=mouseownerid).order_by('eartag') 
-    mutationlist = MouseMutation.objects.using('mousedb').all()  
+    mouselist = Mouse.objects.using(MOUSEDB).all().filter(owner_id__in=mouseownerid).order_by('eartag') 
+    mutationlist = MouseMutation.objects.using(MOUSEDB).all()  
     # .filter(animalid__in = mouselist.id) 
     f = MouseFilter(request.GET, queryset=mouselist)
     return render(request, 'animals/micefrompyrat.html', {'filter': f, 'mutation': mutationlist})
 
 @login_required
 def pyratmouselistuser(request, username):
-    pyratuser = PyratUser.objects.using('mousedb').get(username=username)
+    MOUSEDB = getattr(settings, "MOUSEDB", None)
+    pyratuser = PyratUser.objects.using(MOUSEDB).get(username=username)
     if (pyratuser.locallevel == 3 or pyratuser.locallevel == 4):
         try:
             owner = request.GET['owner']
@@ -388,10 +390,10 @@ def pyratmouselistuser(request, username):
             owner=''
             responsible1=''
         if (owner =='' and responsible1==''):
-            mouselist = Mouse.objects.using('mousedb').all().filter(owner_id__in=[]).order_by('eartag') 
+            mouselist = Mouse.objects.using(MOUSEDB).all().filter(owner_id__in=[]).order_by('eartag') 
             messages.add_message(request, messages.INFO,'Please search for an owner or a responsible person of the mice you like to share')
         else:
-            mouselist = Mouse.objects.using('mousedb').all().order_by('eartag') 
+            mouselist = Mouse.objects.using(MOUSEDB).all().order_by('eartag') 
         f = MouseFilter(request.GET, queryset=mouselist)
         return render(request, 'animals/micefrompyrat.html', {'showgroups': True, 'filter': f})
     mouseownerid = []
@@ -399,19 +401,20 @@ def pyratmouselistuser(request, username):
     i = 0
     if (pyratuser.usernum is not None and pyratuser.usernum != ''):
         mouseownerid.insert(i,pyratuser.id)
-    permission= PyratUserPermission.objects.using('mousedb').all().filter(userid=pyratuser.id)
+    permission= PyratUserPermission.objects.using(MOUSEDB).all().filter(userid=pyratuser.id)
     if (permission is not None and permission !=''):       
         for p in permission:
             mouseownerid.insert(i,p.uid)
-    mouselist = Mouse.objects.using('mousedb').all().filter(owner_id__in=mouseownerid).order_by('eartag')    
+    mouselist = Mouse.objects.using(MOUSEDB).all().filter(owner_id__in=mouseownerid).order_by('eartag')    
     f = MouseFilter(request.GET, queryset=mouselist)
     return render(request, 'animals/micefrompyrat.html', {'filter': f})
 
 @login_required
 def importmice_view(request):
     if request.method == "POST":
+        MOUSEDB = getattr(settings, "MOUSEDB", None)
         importlist = request.POST.getlist("selected",None)
-        mouselist = Mouse.objects.using('mousedb').filter(id__in = importlist).order_by('id')
+        mouselist = Mouse.objects.using(MOUSEDB).filter(id__in = importlist).order_by('id')
         f = MouseFilter(request.GET, queryset=mouselist)
         persons = Person.objects.all().order_by('name')
         return render(request, 'animals/import-mice.html', {'filter': f, 'persons':persons})
@@ -419,8 +422,9 @@ def importmice_view(request):
 @login_required
 def importpup_view(request):
     if request.method == "POST":
+        MOUSEDB = getattr(settings, "MOUSEDB", None)
         importlist = request.POST.getlist("selected",None)
-        puplist = Pup.objects.using('mousedb').filter(id__in = importlist).order_by('id')
+        puplist = Pup.objects.using(MOUSEDB).filter(id__in = importlist).order_by('id')
         f = PupFilter(request.GET, queryset=puplist)
         persons = Person.objects.all().order_by('name')
         return render(request, 'animals/import-pup.html', {'filter': f, 'persons':persons})
@@ -429,11 +433,12 @@ def importpup_view(request):
 def importpuptoanishare(request):
 
     if request.method == "POST":
+        MOUSEDB = getattr(settings, "MOUSEDB", None)
         pupidlist = request.POST.getlist("id",None)
         availablefromlist = request.POST.getlist("availablefrom",None)
         availabletolist = request.POST.getlist("availableto",None)
         responsible_person2 = request.POST.getlist("responsible_person2",None)
-        puplist = Pup.objects.using('mousedb').filter(id__in = pupidlist)
+        puplist = Pup.objects.using(MOUSEDB).filter(id__in = pupidlist)
         i=0
         for dataset in puplist:
             try:
@@ -462,7 +467,7 @@ def importpuptoanishare(request):
             new_pup.day_of_birth   = dataset.dob
             if responsible_person2[i]!="":
                 new_pup.responsible_person2 = Person.objects.get(name=responsible_person2[i])
-            mousemutations           = MouseMutation.objects.using('mousedb').filter(pupid = dataset.id)
+            mousemutations           = MouseMutation.objects.using(MOUSEDB).filter(pupid = dataset.id)
             new_pup.mutations = ''
             for m in mousemutations:
                 if m.grade_name:
