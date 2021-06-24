@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'django_extensions', # for jobs scheduling
     'simple_history',
     'pyrat_api',
+    'adminrestrict',
 ]
 
 X_FRAME_OPTIONS='SAMEORIGIN'
@@ -65,6 +66,7 @@ X_FRAME_OPTIONS='SAMEORIGIN'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'adminrestrict.middleware.AdminPagesRestrictMiddleware',
     #'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     #'django.middleware.cache.FetchFromCacheMiddleware',
@@ -185,6 +187,8 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+ADMINRESTRICT_ENABLE_CACHE=True # https://github.com/robromano/django-adminrestrict
 
 MIN_SHARE_DURATION = 14
 MIN_SHARE_DURATION_PUPS = 6
