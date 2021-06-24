@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'simple_history',
     'pyrat_api',
     'adminrestrict',
+    'defender',
 ]
 
 X_FRAME_OPTIONS='SAMEORIGIN'
@@ -76,6 +77,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'admin_reorder.middleware.ModelAdminReorder',
     'simple_history.middleware.HistoryRequestMiddleware',
+    'defender.middleware.FailedLoginMiddleware',
+    'defender.middleware.FailedLoginMiddleware',
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
@@ -85,7 +88,6 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True #  It determines if the library will use d
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
-
 
 AUTH_LDAP_CONNECTION_OPTIONS = { ldap.OPT_REFERRALS: 0 }
 AUTH_LDAP_SERVER_URI = ""
