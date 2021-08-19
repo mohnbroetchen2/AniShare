@@ -58,8 +58,6 @@ INSTALLED_APPS = [
     'django_extensions', # for jobs scheduling
     'simple_history',
     'pyrat_api',
-    'adminrestrict',
-    'defender',
 ]
 
 X_FRAME_OPTIONS='SAMEORIGIN'
