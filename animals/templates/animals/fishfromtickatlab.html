@@ -35,6 +35,11 @@
   }
 </style>
 <h1 class="text-center"> Fish from tick@lab</h1>
+{% if not f %}
+<div class="alert alert-warning" role="alert">
+  It seems there is no connection to the tick@lab database. Maybe you use the demo version without a connection to the fish database. However you can add new entries <a href=../admin/animals/animal/add/> here </a>
+</div>
+{% endif %}
 <!--<form id='filterform' style="padding-top:5px;" action="" method="get">
         {{ filter.form.as_table }}
         <input type="submit" value="Filter"/>
@@ -71,7 +76,7 @@
           </div>
           <div>
             <p>
-              <button type="submit" style="margin-top:42%;" class="btn">Search</button>
+              <button type="submit" style="margin-top:42%;" class="btn btn-info">Search</button>
             </p>
           </div>
         </div>
