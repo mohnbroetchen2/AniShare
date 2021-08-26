@@ -63,7 +63,7 @@
 
 <form action="/animals/send_email_animal" method="post" style="margin:auto; text-align:center;"> {% csrf_token %}
   By clicking on the button, an email will be sent from <br/>
-  <input name="email" type='text' style="width:250px;" value={{request.user.email}} readonly="readonly"> to<br/>
+  <input name="email" type='text' style="width:250px;" value="{{request.user.email}}" readonly="readonly"> to<br/>
   <b>{{object.responsible_person.name}}</b> ({{object.responsible_person.email}}){% if object.responsible_person2 is not None %} and <b>{{object.responsible_person2.name}}</b> ({{object.responsible_person2.email}}){% endif %}, <br/>
   informing that you take responsibility for 
   <input name="count" type="text" style="width:40px;" value="{{object.amount}}"> 

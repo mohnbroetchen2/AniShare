@@ -208,10 +208,12 @@ def send_email_animal(request):
     logger.info('{} The entry {} has been claimed by {}.'.format(datetime.now(),animal.pk, animal.new_owner))
     subject = "User {} claimed animal {} in AniShare".format(email, primary_key)
     message = render_to_string('email.html', {'email': email, 'object': animal, 'now': datetime.now()})
-    if animal.responsible_person2 is None:
-        send_mail(subject, message, email, [animal.responsible_person.email, email],html_message=message)
-    else:
-        send_mail(subject, message, email, [animal.responsible_person.email, animal.responsible_person2.email, email],html_message=message)
+    #if animal.responsible_person2 is None:
+    #    send_mail(subject, message, email, [animal.responsible_person.email, email],html_message=message)
+    #else:
+    #    send_mail(subject, message, email, [animal.responsible_person.email, animal.responsible_person2.email, email],html_message=message)
+    
+    
     #msg = EmailMultiAlternatives(subject, message, email, [animal.responsible_person.email, email],html_message=message)
     #msg.attach_alternative(message, "text/html")
     #msg.content_subtype = "html"
@@ -262,7 +264,7 @@ def send_email_organ(request):
     else:
         msg = EmailMessage(subject, message, email, [organ.responsible_person.email,organ.responsible_person2.email, email])
     msg.content_subtype = "html"
-    msg.send()
+    #msg.send()
     if organ.responsible_person2 is None:
         messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(organ.responsible_person.email))
     else:
@@ -933,7 +935,7 @@ def send_email_animals(request):  # send a mail to the responsible persons of th
                 else: # send mail to the first and second responsible person
                     msg = EmailMessage(subject, message, email, [sAnimal.responsible_person.email, sAnimal.responsible_person2.email, email])
                 msg.content_subtype = "html"
-                msg.send()
+                #msg.send()
                 if last_responsible2 is None:
                     messages.add_message(request, messages.SUCCESS, 'An Email has been sent to <{}>.'.format(sAnimal.responsible_person.email))
                 else:

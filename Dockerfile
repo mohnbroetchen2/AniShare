@@ -21,10 +21,10 @@ ENV PYTHONUNBUFFERED 1
 ADD . /anishare/
 
 RUN apt-get update
-RUN apt-get dist-upgrade
+RUN apt-get dist-upgrade -y
 RUN apt-get -y install git python3-dev python3-ldap python3-pip default-libmysqlclient-dev default-mysql-client ldap-utils libldap2-dev libsasl2-dev
 
-RUN pip install -r requirements.txtpytho
+RUN pip install -r requirements.txt
 #EXPOSE 8000
 
-# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+#CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
