@@ -18,8 +18,8 @@ import os
 # ]
 
 EMAIL_HOST = ''
-SECRET_KEY = ''
-ALLOWED_HOSTS = ['127.0.0.1', ]
+SECRET_KEY = '1238sdfn12' # Please change the key
+ALLOWED_HOSTS = ['*', ]   # Please change the option to your needs
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
