@@ -1,9 +1,3 @@
----
-title: 'Welcome to the documentation of anishare !'
----
-
-
-
 Introduction
 ============
 
@@ -57,12 +51,12 @@ for Academic Non-commercial Research (LICENSE.pdf).
 
 Public demo version
 ============
-You can try a limited version from AniShare using the public instance [https://anishare-demo.leibniz-fli.de] (https://anishare-demo.leibniz-fli.de) with the user/password admin.
+You can try a limited version from AniShare using the public instance [https://anishare-demo.leibniz-fli.de](https://anishare-demo.leibniz-fli.de) with the user/password admin.
 The demo isn't connected to an animal management system like PyRAT or tick@lab. Because of this, some important functions of AniShare cannot be tried out.
 
 Installation 
 ============
-You can use the docker container [https://hub.docker.com/r/lscit/anishare] (https://hub.docker.com/r/lscit/anishare) to test AniShare locally. 
+You can use the docker container [https://hub.docker.com/r/lscit/anishare](https://hub.docker.com/r/lscit/anishare) to test AniShare locally. 
 Please note the instructions on the linked website how to run the container.
 For productive use we suggest to use the source files, adapt it to your needs and deploy AniShare using apache or gunicorn. 
 Please note the installation instructions file (installation_instructions.txt).
