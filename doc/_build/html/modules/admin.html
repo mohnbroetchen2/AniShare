@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Admin &mdash; AniShare 2.0 documentation</title>
+  <title>Admin &mdash; AniShare 2.1 documentation</title>
   
 
   
@@ -161,7 +161,7 @@
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.form">
 <code class="sig-name descname">form</code><a class="headerlink" href="#animals.admin.AnimalAdmin.form" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="../api_doc.html#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalForm" title="animals.admin.AnimalForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalForm</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -179,7 +179,7 @@
 <dl class="attribute">
 <dt id="animals.admin.AnimalAdmin.resource_class">
 <code class="sig-name descname">resource_class</code><a class="headerlink" href="#animals.admin.AnimalAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="../api_doc.html#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#animals.admin.AnimalResource" title="animals.admin.AnimalResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnimalResource</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -216,7 +216,9 @@ association with the field named ‘__all__’.</p>
 <dd><dl class="method">
 <dt id="animals.admin.AnimalResource.get_instance">
 <code class="sig-name descname">get_instance</code><span class="sig-paren">(</span><em class="sig-param">instance_loader</em>, <em class="sig-param">row</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.AnimalResource.get_instance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calls the <span class="xref std std-doc">InstanceLoader</span>.</p>
+<dd><p>If all ‘import_id_fields’ are present in the dataset, calls
+the <span class="xref std std-doc">InstanceLoader</span>. Otherwise,
+returns <cite>None</cite>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -268,7 +270,7 @@ multi-field ValidationError.</p>
 <dl class="attribute">
 <dt id="animals.admin.OrganAdmin.resource_class">
 <code class="sig-name descname">resource_class</code><a class="headerlink" href="#animals.admin.OrganAdmin.resource_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="../api_doc.html#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#animals.admin.OrganResource" title="animals.admin.OrganResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganResource</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -285,7 +287,9 @@ multi-field ValidationError.</p>
 <dd><dl class="method">
 <dt id="animals.admin.OrganResource.get_instance">
 <code class="sig-name descname">get_instance</code><span class="sig-paren">(</span><em class="sig-param">instance_loader</em>, <em class="sig-param">row</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.admin.OrganResource.get_instance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calls the <span class="xref std std-doc">InstanceLoader</span>.</p>
+<dd><p>If all ‘import_id_fields’ are present in the dataset, calls
+the <span class="xref std std-doc">InstanceLoader</span>. Otherwise,
+returns <cite>None</cite>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1275,7 +1279,7 @@ multi-field ValidationError.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Fabian Monheim, Holger Dinkel
+        &copy; Copyright 2021, Fabian Monheim
 
     </p>
   </div>

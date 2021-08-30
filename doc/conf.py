@@ -26,13 +26,13 @@ django.setup()
 # -- Project information -----------------------------------------------------
 
 project = 'AniShare'
-copyright = '2019, Fabian Monheim, Holger Dinkel'
-author = 'Fabian Monheim, Holger Dinkel'
+copyright = '2021, Fabian Monheim'
+author = 'Fabian Monheim'
 
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
-release = '2.0'
+release = '2.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -157,7 +157,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'anishare.tex', 'AniShare Documentation',
-     'Holger Dinkel, Fabian Monheim', 'manual'),
+     'Fabian Monheim', 'manual'),
 ]
 
 

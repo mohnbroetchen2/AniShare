@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Models &mdash; AniShare 2.0 documentation</title>
+  <title>Models &mdash; AniShare 2.1 documentation</title>
   
 
   
@@ -348,10 +348,17 @@ the current date or the available_to date</p>
 <em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.HistoricalAnimal.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="animals.models.HistoricalAnimal.get_default_history_user">
+<em class="property">static </em><code class="sig-name descname">get_default_history_user</code><span class="sig-paren">(</span><em class="sig-param">instance</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.HistoricalAnimal.get_default_history_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the user specified by <cite>get_user</cite> method for manually creating
+historical objects</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="animals.models.HistoricalAnimal.instance_type">
 <code class="sig-name descname">instance_type</code><a class="headerlink" href="#animals.models.HistoricalAnimal.instance_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="../api_doc.html#animals.models.Animal" title="animals.models.Animal"><code class="xref py py-class docutils literal notranslate"><span class="pre">Animal</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#animals.models.Animal" title="animals.models.Animal"><code class="xref py py-class docutils literal notranslate"><span class="pre">Animal</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -552,6 +559,21 @@ the current date or the available_to date</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="animals.models.PyratProject">
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">PyratProject</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">name</em>, <em class="sig-param">status</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.PyratProject" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="animals.models.PyratProject.DoesNotExist">
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.PyratProject.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="animals.models.PyratProject.MultipleObjectsReturned">
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#animals.models.PyratProject.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="animals.models.PyratUser">
 <em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">PyratUser</code><span class="sig-paren">(</span><em class="sig-param">id</em>, <em class="sig-param">username</em>, <em class="sig-param">firstname</em>, <em class="sig-param">lastname</em>, <em class="sig-param">usernum</em>, <em class="sig-param">locallevel</em>, <em class="sig-param">email</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.PyratUser" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
@@ -668,7 +690,7 @@ behavior = models.ForeignKey(‘WIncidentBehavior’, models.DO_NOTHING, blank=T
 
 <dl class="class">
 <dt id="animals.models.WIncident_write">
-<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">WIncident_write</code><span class="sig-paren">(</span><em class="sig-param">incidentid</em>, <em class="sig-param">incidentclass</em>, <em class="sig-param">initiator</em>, <em class="sig-param">owner</em>, <em class="sig-param">responsible</em>, <em class="sig-param">incidentdescription</em>, <em class="sig-param">opendate</em>, <em class="sig-param">closedate</em>, <em class="sig-param">priority</em>, <em class="sig-param">status</em>, <em class="sig-param">duedate</em>, <em class="sig-param">sacrifice_reason</em>, <em class="sig-param">behavior</em>, <em class="sig-param">approved</em>, <em class="sig-param">change_responsible</em>, <em class="sig-param">generation</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.WIncident_write" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">animals.models.</code><code class="sig-name descname">WIncident_write</code><span class="sig-paren">(</span><em class="sig-param">incidentid</em>, <em class="sig-param">incidentclass</em>, <em class="sig-param">initiator</em>, <em class="sig-param">owner</em>, <em class="sig-param">responsible</em>, <em class="sig-param">incidentdescription</em>, <em class="sig-param">opendate</em>, <em class="sig-param">closedate</em>, <em class="sig-param">priority</em>, <em class="sig-param">status</em>, <em class="sig-param">duedate</em>, <em class="sig-param">sacrifice_reason</em>, <em class="sig-param">behavior</em>, <em class="sig-param">last_modified</em>, <em class="sig-param">approved</em>, <em class="sig-param">change_responsible</em>, <em class="sig-param">generation</em><span class="sig-paren">)</span><a class="headerlink" href="#animals.models.WIncident_write" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="animals.models.WIncident_write.DoesNotExist">
 <em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#animals.models.WIncident_write.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -695,8 +717,8 @@ new_responsible = models.ForeignKey(‘Localuser’, models.DO_NOTHING, blank=Tr
 </dd></dl>
 
 <dl class="attribute">
-<dt id="animals.models.WIncident_write.behavior">
-<code class="sig-name descname">behavior</code><a class="headerlink" href="#animals.models.WIncident_write.behavior" title="Permalink to this definition">¶</a></dt>
+<dt id="animals.models.WIncident_write.last_modified">
+<code class="sig-name descname">last_modified</code><a class="headerlink" href="#animals.models.WIncident_write.last_modified" title="Permalink to this definition">¶</a></dt>
 <dd><p>wr_building = models.ForeignKey(‘LocationBuildings’, models.DO_NOTHING, blank=True, null=True)
 wr_area = models.ForeignKey(‘LocationAreas’, models.DO_NOTHING, blank=True, null=True)
 wr_room = models.ForeignKey(‘LocationRooms’, models.DO_NOTHING, blank=True, null=True)
@@ -1412,7 +1434,13 @@ behavior = models.ForeignKey(‘WIncidentBehavior’, models.DO_NOTHING, blank=T
 659
 660
 661
-662</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+662
+663
+664
+665
+666
+667
+668</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This file describes all the models in the database.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
@@ -1735,8 +1763,14 @@ behavior = models.ForeignKey(‘WIncidentBehavior’, models.DO_NOTHING, blank=T
     <span class="n">grade_name</span>        <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">db_column</span><span class="o">=</span><span class="s1">&#39;grade_name&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
     
 
-
-
+<span class="k">class</span> <span class="nc">PyratProject</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="nb">id</span>      <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">db_column</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">name</span>    <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">db_column</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">status</span>  <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">db_column</span><span class="o">=</span><span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">((</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;active&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;inactive&#39;</span><span class="p">,</span> <span class="s1">&#39;inactive&#39;</span><span class="p">)))</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">db_table</span> <span class="o">=</span> <span class="s1">&#39;project&#39;</span>
+        
 <span class="k">class</span> <span class="nc">Mouse</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="nb">id</span>      <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">db_column</span><span class="o">=</span><span class="s1">&#39;animalid&#39;</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">eartag</span>  <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">db_column</span><span class="o">=</span><span class="s1">&#39;eartag&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
@@ -1788,7 +1822,6 @@ behavior = models.ForeignKey(‘WIncidentBehavior’, models.DO_NOTHING, blank=T
     <span class="n">owner</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">db_column</span><span class="o">=</span><span class="s1">&#39;owner&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
     <span class="n">mutation</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">db_column</span><span class="o">=</span><span class="s1">&#39;mutation&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
     <span class="n">project</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">db_column</span><span class="o">=</span><span class="s1">&#39;projectname&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
-
     <span class="k">def</span> <span class="nf">age</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the age of the animal, calculated by the difference to either</span>
@@ -1992,6 +2025,7 @@ behavior = models.ForeignKey(‘WIncidentBehavior’, models.DO_NOTHING, blank=T
     <span class="n">sacrifice_reason</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">db_column</span><span class="o">=</span><span class="s1">&#39;sacrifice_reason_id&#39;</span><span class="p">)</span> 
     <span class="c1">#sacrifice_method = models.IntegerField(blank=True, null=True, db_column=&#39;sacrifice_method_id&#39;) </span>
     <span class="n">behavior</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">db_column</span><span class="o">=</span><span class="s1">&#39;behavior_id&#39;</span><span class="p">)</span> 
+    <span class="n">last_modified</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">db_column</span><span class="o">=</span><span class="s1">&#39;last_modified&#39;</span><span class="p">)</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    wr_building = models.ForeignKey(&#39;LocationBuildings&#39;, models.DO_NOTHING, blank=True, null=True)</span>
 <span class="sd">    wr_area = models.ForeignKey(&#39;LocationAreas&#39;, models.DO_NOTHING, blank=True, null=True)</span>
@@ -2089,7 +2123,7 @@ behavior = models.ForeignKey(‘WIncidentBehavior’, models.DO_NOTHING, blank=T
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Fabian Monheim, Holger Dinkel
+        &copy; Copyright 2021, Fabian Monheim
 
     </p>
   </div>
