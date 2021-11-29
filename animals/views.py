@@ -784,6 +784,7 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                         new_sacrifice_incident.responsible      = previous_incident.responsible.id # copied from the Add to AniShare request
                         new_sacrifice_incident.sacrifice_reason = previous_incident.sacrifice_reason # copied from the Add to AniShare request
                         new_sacrifice_incident.sacrifice_method = previous_incident.sacrifice_method # copied from the Add to AniShare request
+                        new_sacrifice_incident.incidentdescription = previous_incident.incidentdescription # copied from the Add to AniShare request
                         new_sacrifice_incident.behavior         = 4 # Sacrifice
                         new_sacrifice_incident.priority         = 3 # medium
                         new_sacrifice_incident.status           = 2 # open
