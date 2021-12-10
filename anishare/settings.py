@@ -125,6 +125,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_settings_export.settings_export',
             ],
         },
     },
@@ -213,6 +214,10 @@ def FILTERS_VERBOSE_LOOKUPS():
     })
     return verbose_lookups
 
+SHOW_ORGANS = True # if 1 there is a link to view offered Organs
+TEST_ENVIRONMENT = False # if 1 there will be a hint for the users that it is a test environment
+MOUSEDB = False  # Name of the mouse database AniShare uses to connect
+FISHDB = True # True if there is a connection to a fish database / False if there isn't a connection
 try:
     from .local_settings import *
 except ImportError:
@@ -231,3 +236,13 @@ ADMIN_REORDER = (
     )},
     'admin_interface',  
 )
+
+
+
+# https://github.com/jakubroztocil/django-settings-export
+SETTINGS_EXPORT = [
+    'SHOW_ORGANS',
+    'MOUSEDB',
+    'TEST_ENVIRONMENT',
+    'FISHDB',
+]
