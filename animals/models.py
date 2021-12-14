@@ -133,10 +133,10 @@ class Animal(models.Model):
         ('Wv/Wv', 'Wv/Wv'),
         ('y/-', 'y/-'),
         ),help_text='Grade 1',)"""
-    grade1 = models.CharField(max_length=10, null=True,help_text='Grade 1')
-    grade2 = models.CharField(max_length=10, null=True,help_text='Grade 2')
-    grade3 = models.CharField(max_length=10, null=True ,help_text='Grade 3')
-    grade4 = models.CharField(max_length=10, null=True ,help_text='Grade 4')
+    grade1 = models.CharField(max_length=10,blank=True, null=True,help_text='Grade 1')
+    grade2 = models.CharField(max_length=10,blank=True, null=True,help_text='Grade 2')
+    grade3 = models.CharField(max_length=10,blank=True, null=True ,help_text='Grade 3')
+    grade4 = models.CharField(max_length=10,blank=True, null=True ,help_text='Grade 4')
     licence_number = models.CharField(max_length=200, verbose_name='License number')
     responsible_person = models.ForeignKey(Person, related_name='rperson', on_delete=models.CASCADE, help_text='Person who is responsible in the lab for dealing with the animals')
     responsible_person2 = models.ForeignKey(Person, related_name='rperson2', null=True, blank=True, on_delete=models.CASCADE, 

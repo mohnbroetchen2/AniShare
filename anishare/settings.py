@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'pyrat_api',
     'adminrestrict',
     'defender',
+    'crispy_forms',
 ]
 
 X_FRAME_OPTIONS='SAMEORIGIN'
@@ -217,7 +218,7 @@ def FILTERS_VERBOSE_LOOKUPS():
 SHOW_ORGANS = True # if 1 there is a link to view offered Organs
 TEST_ENVIRONMENT = False # if 1 there will be a hint for the users that it is a test environment
 MOUSEDB = False  # Name of the mouse database AniShare uses to connect
-FISHDB = True # True if there is a connection to a fish database / False if there isn't a connection
+FISHDB = False # True if there is a connection to a fish database / False if there isn't a connection
 try:
     from .local_settings import *
 except ImportError:
@@ -237,7 +238,7 @@ ADMIN_REORDER = (
     'admin_interface',  
 )
 
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # https://github.com/jakubroztocil/django-settings-export
 SETTINGS_EXPORT = [

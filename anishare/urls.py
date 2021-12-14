@@ -28,6 +28,7 @@ urlpatterns = [
 #    path('', animals.views.AnimalIndexView.as_view(), name='root'),
     path('', animals.views.animal_list, name='animal-list'),
     path('animals/', include('animals.urls', namespace='animals-index')),
+    path('animals/add',  animals.views.addAnimal, name='addanimal'),
     path('organs/', animals.views.organ_list, name='organs'),
     path('animals/claim', animals.views.AnimalClaimView, name='claim_animals'),
     #path('animals/fishpeople', animals.views.tickatlabpersonlist, name='view_tickatlabperson'),

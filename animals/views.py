@@ -35,6 +35,7 @@ from .models import SacrificeIncidentToken, WIncident_write, WIncident, WInciden
 from .importscript import runimport
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.utils.html import strip_tags
+from .forms import addAnimalForm
 
 logger = logging.getLogger('mylogger')
 
@@ -945,40 +946,16 @@ def send_email_animals(request):  # send a mail to the responsible persons of th
     return HttpResponseRedirect('/animals')
 
 @login_required
-def eln_pyrat_view(request):
-    pyratuser = PyratUser.objects.using(MOUSEDB).get(username=request.user.username)
-    MOUSEDB= getattr(settings, "MOUSEDB", None)
-    if (pyratuser.locallevel == 11):
-        #messages.add_message(request, messages.INFO,'You do not have the right to connect to the PyRAT Database')
-        fullname = pyratuser.firstname + ' '  + pyratuser.lastname
-        mouselist = Mouse.objects.using(MOUSEDB).all().filter(responsible=fullname).order_by('eartag') 
-        f = MouseFilter(request.GET, queryset=mouselist)
-        return render(request, 'animals/pyrat_eln.html', {'showgroups': True, 'filter': f,})
-    if (pyratuser.locallevel == 3 or pyratuser.locallevel == 4):
-        try:
-            owner = request.GET['owner']
-            responsible1 = request.GET['responsible']
-        except:
-            owner=''
-            responsible1=''
-        if (owner =='' and responsible1==''):
-            mouselist = Mouse.objects.using(MOUSEDB).all().filter(owner_id__in=[]).order_by('eartag') 
-            messages.add_message(request, messages.INFO,'Please search for an owner or a responsible person of the mice you like to share')
+def addAnimal(request):
+    try:
+        if request.method == 'POST':  # If the form has been submitted...
+            form = addAnimalForm(request.POST, request.FILES)  # A form bound to the POST data
+            if form.is_valid(): 
+                form.save()
+                messages.success(request, 'New entry successfully created')
+                return HttpResponseRedirect('/')  # Redirect after POST
         else:
-            mouselist = Mouse.objects.using(MOUSEDB).all().order_by('eartag') 
-        f = MouseFilter(request.GET, queryset=mouselist)
-        return render(request, 'animals/pyrat_eln.html', {'showgroups': True, 'filter': f,})
-    mouseownerid = []
-    mouselist = None
-    i = 0
-    if (pyratuser.usernum is not None and pyratuser.usernum != ''):
-        mouseownerid.insert(i,pyratuser.id)
-    permission= PyratUserPermission.objects.using(MOUSEDB).all().filter(userid=pyratuser.id)
-    if (permission is not None and permission !=''):       
-        for p in permission:
-            mouseownerid.insert(i,p.uid)
-    mouselist = Mouse.objects.using(MOUSEDB).all().filter(owner_id__in=mouseownerid).order_by('eartag') 
-    mutationlist = MouseMutation.objects.using(MOUSEDB).all()  
-    # .filter(animalid__in = mouselist.id) 
-    f = MouseFilter(request.GET, queryset=mouselist)
-    return render(request, 'animals/pyrat_eln.html', {'filter': f, 'mutation': mutationlist})
+            return render(request, 'animals/add-animal.html', {'form': addAnimalForm()})
+    except BaseException as e:
+        messages.error(request, 'Error creating a new entry {}'.format(e))
+        return HttpResponseRedirect('/')  # Redirect after POST
