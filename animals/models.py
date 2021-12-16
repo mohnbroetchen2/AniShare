@@ -12,6 +12,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from simple_history.models import HistoricalRecords
 
+
 class Lab(models.Model):
     """
     Labs are only defined by a name and are referenced by
@@ -105,6 +106,7 @@ class Animal(models.Model):
     mutations = models.TextField(blank=True, null=True,
                                  help_text="Describe the mutations with the grade of this line in as much detail as possible")
     grade = models.CharField(max_length=200, null=True, blank=True, help_text="")
+    cage = models.CharField(null=True, blank=True,max_length=200, help_text="cage where the animal is located")
     """grade1 = models.CharField(max_length=10, null=True, choices=(
         ('+/+', '+/+'),
         ('+/0', '+/0'),

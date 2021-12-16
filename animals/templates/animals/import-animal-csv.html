@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!--Importform for Helmholtz Zentrum Munich -->
+<div class="alert alert-info" role="alert">
+    Dear <b>{{request.user.first_name}} {{request.user.last_name}}</b>, please select the file to import (xlsx).<br/>
+</div>
+<div class="container">
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="input-group">
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="customFile" name="importfile">
+            <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+        <div style="margin-left:10px"> </div>
+        <div> <button type="submit" class="btn btn-success">Upload</button></div>
+    </div>
+</form>
+</div>
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function() {
+      var fileName = $(this).val().split("\\").pop();
+      $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!--Importform for Helmholtz Zentrum Munich -->
+<div class="alert alert-info" role="alert">
+    Dear <b>{{request.user.first_name}} {{request.user.last_name}}</b>, the following animals have been imported. Now you can change the default dates.<br/>
+</div>
+
+<form action="/animals/importanimaltoanishare" method="post" style="margin:auto; text-align:center;"> {% csrf_token %}
+            <table class="table table-bordered table-hover table-striped tablesorter">
+                <thead>
+                <tr>
+                  <th class="header"> Animal-ID<i class="icon-sort"></i></th>
+                  <th class="header"> Available from <i class="icon-sort"></i></th>
+                  <th class="header"> Available to <i class="icon-sort"></i></th>
+                  <th class="header"> Lab ID <i class="icon-sort"></i></th>
+                  <th class="header"> Sex<i class="icon-sort"></i></th>
+                  <th class="header"> Age<i class="icon-sort"></i></th>
+                  <th class="header"> Date of Birth <i class="icon-sort"></i></th>
+                  <th class="header"> Strain <i class="icon-sort"></i></th>
+                  <th class="header"> Mutation <i class="icon-sort"></i></th>
+                  <th class="header"> Location <i class="icon-sort"></i></th>
+                  <th class="header"> Rack <i class="icon-sort"></i></th>
+                  <th class="header"> Resp. Person <i class="icon-sort"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in imported_animals %}
+                        <input name="id" type="hidden" value="{{a.id}}" readonly="readonly" id="select{{a.id}}">
+                    <tr>
+                        <td>{{a.database_id}}</a></td>
+                        <td><input class="from" name="availablefrom"  type="date" id="from{{a.id}}" min=""></td> 
+                        <td><input class="to" name="availableto" type="date" id="to{{a.id}}" min=""></td>
+                        <td>{{a.lab_id}}</td>
+                        <td>{% if a.sex == 'f' %}
+                            <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
+                            {% elif a.sex == 'm' %}
+                            <i class="fas fa-mars" style="color:#77F; font-size:13pt;"></i>
+                            {% else %}
+                            <i class="fas fa-question"></i>
+                            {% endif %}
+                          </td>
+                        <td>{{a.age}}</td>
+                        <td>{{a.day_of_birth}}</td>
+                        <td>{{a.line}}</td>
+                        <td>{{a.mutations}}</td>
+                        <td>{{a.location}}</td>
+                        <td>{{a.cage}}</td>
+                        <td>{{a.responsible_person}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        <input type="submit" name='claim' value="Confirm" class="btn btn-success">
+</form>
+
+
+<script type="text/javascript">
+var d1 = new Date();
+var y1= d1.getFullYear();
+var m1 = d1.getMonth()+1;
+var m1temp = m1;
+if(m1<10)
+    m1="0"+m1;
+var dt1 = d1.getDate();
+if(dt1<10)
+dt1 = "0"+dt1;
+var d2 = y1+"-"+m1+"-"+dt1;
+var list, index;
+list = document.getElementsByClassName('from');
+for (index = 0; index < list.length; ++index) {
+    list[index].setAttribute('value',d2);
+    list[index].setAttribute('min',d2);
+}
+list = undefined;
+index = undefined;
+var d1 = new Date();
+var y1= d1.getFullYear();
+var m1 = d1.getMonth();
+var dt1 = d1.getDate();
+var todate=new Date(y1,m1,dt1+14);
+var y2=todate.getFullYear();
+var m2=todate.getMonth()+1;
+var dt2=todate.getDate();
+if(m2<10)
+    m2="0"+m2;
+if(dt2<10)
+dt2 = "0"+dt2;
+var dto = y2+"-"+m2+"-"+dt2;
+list = document.getElementsByClassName('to');
+for (index = 0; index < list.length; ++index) {
+    list[index].setAttribute('value',dto);
+    list[index].setAttribute('min',dto);
+}
+</script>
+{% endblock %}

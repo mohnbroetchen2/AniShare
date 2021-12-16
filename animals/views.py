@@ -20,6 +20,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.syndication.views import Feed
 from django.db.models import Q
 from django.core.mail import EmailMessage
+from django.db.models.query_utils import RegisterLookupMixin
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -27,6 +28,7 @@ from django.template.loader import render_to_string
 from django.views.decorators.cache import cache_page
 #from django.urls import reverse
 from django.views import generic
+from tablib import Dataset
 
 from .filters import AnimalFilter, OrganFilter, ChangeFilter, PersonFilter, FishFilter, MouseFilter, PupFilter
 from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab, FishPeople, FishTeam, FishMutation
@@ -959,3 +961,89 @@ def addAnimal(request):
     except BaseException as e:
         messages.error(request, 'Error creating a new entry {}'.format(e))
         return HttpResponseRedirect('/')  # Redirect after POST
+
+@login_required
+def importAnimalCsv(request): #https://simpleisbetterthancomplex.com/packages/2016/08/11/django-import-export.html
+    try:
+        if request.method == 'POST':
+            animal_resource = AnimalHelmholtzResource
+            dataset = Dataset()
+            new_animal = request.FILES['importfile']
+
+            imported_data = dataset.load(new_animal.read())
+            #messages.success(request, len(imported_data))
+            imported_animals = []
+            for i in range(0,len(imported_data)):
+                new_animal = Animal()
+                try:
+                    new_animal.responsible_person= Person.objects.get(email=request.user.email)
+                except:
+                    new_person                  = Person()
+                    new_person.email            = request.user.email
+                    if (request.user.first_name and request.user.last_name):
+                        new_person.name         = "{} {}".format(request.user.first_name, request.user.last_name)
+                    else:
+                        new_person.name         = request.user.username
+                    new_person.save()
+                    new_animal.responsible_person = new_person
+                new_animal.animal_type          = 'mouse'
+                new_animal.added_by             = request.user
+                new_animal.available_from       = datetime.date(datetime.today())
+                new_animal.available_to         = datetime.date(datetime.today() + timedelta(days=14))
+                new_animal.amount               = 1
+                new_animal.database_id          = imported_data['mouse_id'][i]
+                new_animal.sex                  = imported_data['sex'][i]
+                new_animal.lab_id               = imported_data['ear'][i]
+                birthdate                       = imported_data['born'][i]
+                new_animal.day_of_birth         = datetime.date(datetime.strptime(birthdate,'%d.%m.%Y'))
+                strain                          = imported_data['strain'][i]
+                line                            = imported_data['line'][i]
+                new_animal.line                 = "{} {}".format(strain, line)
+                new_animal.cage                 = imported_data['cage'][i]
+                room                            = imported_data['room/rack'][i]
+                try:        
+                    new_animal.location = Location.objects.get(name=room)
+                except:
+                    new_location = Location()
+                    new_location.name = room
+                    new_location.save()
+                    new_animal.location = new_location
+                new_animal.comment              = imported_data['comment'][i]
+                new_animal.mutations            = imported_data['genotype'][i]
+                imported_animals.append(new_animal)
+            for i in range(len(imported_animals)):
+                imported_animals[i].save()
+            return render(request, 'animals/import-animal-confirm.html', {'imported_animals':imported_animals})  
+        else:
+            return render(request, 'animals/import-animal-csv.html')       
+
+    except BaseException as e:
+        messages.error(request, 'Error import: {}'.format(e))
+        return HttpResponseRedirect('/')
+
+@login_required
+def confirmImportAnimalCsv(request):
+    try:
+        if request.method == 'POST':
+            animallist = request.POST.getlist("id",None)
+            availablefromlist = request.POST.getlist("availablefrom",None)
+            availabletolist = request.POST.getlist("availableto",None)
+            i=0
+            for id in animallist:
+                try:
+                    animal_imported = Animal.objects.get(pk=id)
+                    if animal_imported.available_from != availablefromlist[i]:
+                       animal_imported.available_from =  availablefromlist[i]
+                       animal_imported.save()
+                    if animal_imported.available_to != availabletolist[i]:
+                       animal_imported.available_to =  availabletolist[i]
+                       animal_imported.save()           
+                except Animal.DoesNotExist:
+                    continue
+                i = i + 1
+            messages.add_message(request, messages.SUCCESS, 'Import finished')
+            return HttpResponseRedirect('/')
+
+    except BaseException as e:
+        messages.error(request, 'Error: {}'.format(e))
+        return HttpResponseRedirect('/')

@@ -160,7 +160,7 @@ class AnimalResource(resources.ModelResource): # für den Import. Hier werden di
                     except:
                         instance.mutations =""
 
-class AnimalExportResource(resources.ModelResource): # für den Import. Hier werden die Felder festgelegt, die importiert werden können
+class AnimalExportResource(resources.ModelResource): # für den Export. Hier werden die Felder festgelegt, die exportiert werden können
 
     animal_type = fields.Field(attribute='animal_type', column_name='Animal type') 
     responsible_person = fields.Field(
@@ -351,13 +351,56 @@ def copy_animal(modeladmin, request, queryset):
     copy_animal.short_description = "Make a Copy of an entry"
 
 
+class AnimalHelmholtzResource(resources.ModelResource): # für den Import. Hier werden die Felder festgelegt, die importiert werden können
+
+    animal_type = 'mouse'
+    responsible_person = fields.Field(
+        column_name='Responsible',
+        attribute='responsible_person',
+        widget=ForeignKeyWidget(Person, 'name'))
+    lab_id = fields.Field(attribute='lab_id', column_name='ear')
+    database_id = fields.Field(attribute='database_id', column_name='mouse_id')
+    day_of_birth = fields.Field(attribute='day_of_birth', column_name='born')
+    genetic_background = fields.Field(attribute='genotype', column_name='genotype')
+    line = fields.Field(attribute='line', column_name='line')
+    sex = fields.Field(attribute='sex', column_name='sex')
+    location = fields.Field(
+        column_name='room/rack',
+        attribute='location',
+        widget=ForeignKeyWidget(Location, 'name'))
+    licence_number = ''
+    amount = 1
+    comment = fields.Field(attribute='comment', column_name='Comment')
+    class Meta:
+        model = Animal
+        fields = ('lab_id','animal_type', 'amount', 'database_id','day_of_birth','line','sex','location','licence_number','comment','genetic_background')
+    def get_instance(self, instance_loader, row):
+        try:
+            params = {}
+            for key in instance_loader.resource.get_import_id_fields():
+                field = instance_loader.resource.fields[key]
+                params[field.attribute] = field.clean(row)
+            return self.get_queryset().get(**params)
+        except Exception:
+            return None 
+
+    def before_import_row(self, row, **kwargs):
+        row['available_from'] = datetime.today()   
+
+    def before_import(self, dataset, dry_run, *args, **kwargs):
+        for data in dataset.dict:
+            data['available_from'] = datetime.today()    
+            data['available_to'] =   datetime.today() + timedelta(days=14) 
+        return super(AnimalHelmholtzResource, self).before_import(dataset, dry_run, *args, **kwargs)
+
+
 @admin.register(Animal)
 #class AnimalAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
 class AnimalAdmin(ImportExportMixin, admin.ModelAdmin):
     """
     ModelAdmin for Animal model
     """
-    resource_class = AnimalResource
+    resource_class = AnimalHelmholtzResource
     list_display = ('id','animal_type','database_id', 'lab_id','sex', 'entry_date', 'day_of_birth', 'age',  'available_from',
                     'available_to', 'line', 'mutations', 'location', 'licence_number',
                     'responsible_persons', 'new_owner')
