@@ -35,7 +35,7 @@ class Person(models.Model):
     """
     name = models.CharField(max_length=200)
     email = models.EmailField()
-    responsible_for_lab = models.ForeignKey(Lab, on_delete=models.CASCADE, default=0)
+    responsible_for_lab = models.ForeignKey(Lab, on_delete=models.CASCADE, default=1)
     def __str__(self):
         return self.name + ' (' + str(self.responsible_for_lab) + ')'
 

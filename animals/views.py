@@ -966,7 +966,6 @@ def addAnimal(request):
 def importAnimalCsv(request): #https://simpleisbetterthancomplex.com/packages/2016/08/11/django-import-export.html
     try:
         if request.method == 'POST':
-            animal_resource = AnimalHelmholtzResource
             dataset = Dataset()
             new_animal = request.FILES['importfile']
 
