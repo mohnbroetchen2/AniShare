@@ -35,4 +35,7 @@ STATIC_URL = '/static_collected/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static_collected")
 
 DEBUG = False # SECURITY WARNING: don't run with debug turned on in production!
-
+SHOW_ORGANS = False # if 1 there is a link to view offered Organs
+TEST_ENVIRONMENT = False # if 1 there will be a hint for the users that it is a test environment
+MOUSEDB = False  # Name of the mouse database AniShare uses to connect
+FISHDB = False # True if there is a connection to a fish database / False if there isn't a connection
