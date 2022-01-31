@@ -90,11 +90,11 @@ class Job(HourlyJob):
                     incident_write.save(using=mousedb_write)
                     logger.debug('{}: Incident status {} has been changed to 1.'.format(datetime.now(), incident.incidentid))
 
-                    incident_animals = WIncidentanimals_write.objects.filter(incidentid = incident_write.incidentid)
+                    incident_animals = WIncidentanimals_write.objects.using(mousedb_write).filter(incidentid = incident_write.incidentid)
                     for entry in incident_animals:
                         entry.perform_status = 'performed'
                         entry.save()
-                    incident_pups = WIncidentpups_write.objects.filter(incidentid = incident_write.incidentid)
+                    incident_pups = WIncidentpups_write.objects.using(mousedb_write).filter(incidentid = incident_write.incidentid)
                     for entry in incident_pups:
                         entry.perform_status = 'performed'
                         entry.save()
