@@ -646,6 +646,7 @@ class WIncidentcomment(models.Model):
 class WIncidentanimals_write(models.Model):
     incidentid = models.ForeignKey('WIncident_write', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
     animalid = models.IntegerField(db_column='animalid',blank=False, null=False)
+    perform_status = models.CharField(max_length=20, blank=False, null=False,db_column='perform_status')
 
     class Meta:
         managed = False
@@ -654,6 +655,7 @@ class WIncidentanimals_write(models.Model):
 class WIncidentpups_write(models.Model):
     incidentid = models.ForeignKey('WIncident_write', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
     pupid = models.IntegerField(db_column='pupid',blank=False, null=False)
+    perform_status = models.CharField(max_length=20, blank=False, null=False,db_column='perform_status')
 
     class Meta:
         managed = False

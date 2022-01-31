@@ -89,6 +89,16 @@ class Job(HourlyJob):
                     incident_write.closedate = datetime.now()
                     incident_write.save(using=mousedb_write)
                     logger.debug('{}: Incident status {} has been changed to 1.'.format(datetime.now(), incident.incidentid))
+
+                    incident_animals = WIncidentanimals_write.objects.filter(incidentid = incident_write.incidentid)
+                    for entry in incident_animals:
+                        entry.perform_status = 'performed'
+                        entry.save()
+                    incident_pups = WIncidentpups_write.objects.filter(incidentid = incident_write.incidentid)
+                    for entry in incident_pups:
+                        entry.perform_status = 'performed'
+                        entry.save()
+
                     new_comment = WIncidentcomment()
                     new_comment.incidentid = incident
                     new_comment.comment = 'AniShare: Request status changed to closed'

@@ -816,9 +816,10 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                         for animal in animallist:
                             if (animal.animal_type == 'mouse'):
                                 try:
-                                    incident_mouse = WIncidentanimals_write()
-                                    incident_mouse.incidentid = new_sacrifice_incident
-                                    incident_mouse.animalid = animal.mouse_id
+                                    incident_mouse                  = WIncidentanimals_write()
+                                    incident_mouse.incidentid       = new_sacrifice_incident
+                                    incident_mouse.animalid         = animal.mouse_id
+                                    incident_mouse.perform_status   = 'pending'
                                     incident_mouse.save(using=MOUSEDB_WRITE)
                                 except BaseException as e:
                                     send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
@@ -827,6 +828,7 @@ def ConfirmRequest(request, token):### Change Status from a sacrifice work reque
                                     incident_pup = WIncidentpups_write()
                                     incident_pup.incidentid = new_sacrifice_incident
                                     incident_pup.pupid = animal.pup_id
+                                    incident_pup.perform_status   = 'pending'
                                     incident_pup.save(using=MOUSEDB_WRITE)
                                 except BaseException as e:
                                     send_mail("AniShare ConfirmRequest", 'Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
