@@ -1,0 +1,27 @@
+<VirtualHost *:80>
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html
+        ServerName anishare.test
+
+        Alias /static/ /var/www/AniShare/static_collected/
+
+        WSGIDaemonProcess anishare python-path=/var/www/AniShare python-home=/var/www/AniShare
+        WSGIProcessGroup anishare
+        WSGIScriptAlias / /var/www/AniShare/anishare/wsgi.py
+
+        <Directory /var/www/AniShare/anishare>
+           Options FollowSymLinks
+           <Files wsgi.py>
+                 Require all granted
+           </Files>
+        </Directory>
+
+        <Directory /var/www/AniShare/static>
+          Require all granted
+        </Directory>
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>
