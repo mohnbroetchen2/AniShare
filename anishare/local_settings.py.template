@@ -17,7 +17,7 @@ import os
 #     'django.contrib.auth.backends.ModelBackend',
 # ]
 
-EMAIL_HOST = '%EMAIL_HOST%'
+EMAIL_HOST = ''
 SECRET_KEY = '%SECRET_KEY%'
 ALLOWED_HOSTS = ['127.0.0.1','%HOST%']
 
