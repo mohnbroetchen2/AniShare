@@ -344,7 +344,7 @@ def pyratpuplist(request):
 
 
 @login_required
-def 
+def pyratmouselist(request):
     MOUSEDB= getattr(settings, "MOUSEDB", None)
     pyratuser = PyratUser.objects.using(MOUSEDB).get(username=request.user.username)
     if (pyratuser.locallevel == 11):
