@@ -8,7 +8,7 @@ group=www-data			# www-data is the apache group. you don't need to edit this
 sudo apt-get update
 sudo apt-get install git python3 python3-dev python3-ldap python3-pip default-libmysqlclient-dev mysql-client ldap-utils libldap2-dev libsasl2-dev apache2 redis pipenv libapache2-mod-wsgi-py3 -y
 cd /var/www/
-git clone https://github.com/mohnbroetchen2/AniShare.git
+git clone https://gitlab.leibniz-fli/fmonheim/animatch.git
 cd AniShare
 virtualenv ./
 source bin/activate
