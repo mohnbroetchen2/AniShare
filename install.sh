@@ -11,8 +11,9 @@ cd /var/www/
 git clone https://github.com/mohnbroetchen2/AniShare.git
 cd AniShare
 virtualenv ./
+source bin/activate
 pip install -r requirements.txt
-sed -e 's/%SECRET_KEY%/'$secret_key'/' \ 
+sed -e 's/%SECRET_KEY%/'$secret_key'/' \
     -e 's/%EMAIL_HOST%/'$host'/'< anishare/local_settings.py.template > anishare/local_settings.py
 python manage.py collectstatic
 python manage.py migrate
@@ -22,7 +23,6 @@ chown $user:$group AniShare -R
 rm /etc/apache2/sites-enabled/000-default.conf
 cp /var/www/AniShare/apache_conf.template /etc/apache2/sites-available/anishare.conf
 ln -s /etc/apache2/sites-available/anishare.conf /etc/apache2/sites-enabled/anishare.conf
-cp /etc/apache2/sites-enabled/
 service apache2 restart
 #sudo cp -a /etc/redis/default.conf.example /etc/redis/anishare.conf
 #sudo chown root:redis  /etc/redis/anishare.conf
