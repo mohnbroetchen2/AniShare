@@ -19,6 +19,7 @@ sed -e 's/%SECRET_KEY%/'$secret_key'/' \
 python manage.py collectstatic
 python manage.py migrate
 chmod 664 /var/www/AniShare/db/db.sqlite3
+chmod g+w /var/www/AniShare/db
 cd /var/www/
 chown $user:$group AniShare -R
 rm /etc/apache2/sites-enabled/000-default.conf
