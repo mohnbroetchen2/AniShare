@@ -18,7 +18,7 @@ sed -e 's/%SECRET_KEY%/'$secret_key'/' \
     -e 's/%HOST%/'$host'/'< anishare/local_settings.py.template > anishare/local_settings.py
 python manage.py collectstatic
 python manage.py migrate
-chmod 664 /var/www/AniShare/db.sqlite3
+chmod 664 /var/www/AniShare/db/db.sqlite3
 cd /var/www/
 chown $user:$group AniShare -R
 rm /etc/apache2/sites-enabled/000-default.conf
