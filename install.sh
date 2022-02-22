@@ -17,6 +17,7 @@ pip install -r requirements.txt
 sed -e 's/%SECRET_KEY%/'$secret_key'/' \
     -e 's/%HOST%/'$host'/'< anishare/local_settings.py.template > anishare/local_settings.py
 python manage.py collectstatic
+python manage.py makemigrations
 python manage.py migrate
 chmod 664 /var/www/AniShare/db/db.sqlite3
 chmod g+w /var/www/AniShare/db
