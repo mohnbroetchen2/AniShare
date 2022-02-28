@@ -1019,7 +1019,7 @@ def importAnimalCsv(request): #https://simpleisbetterthancomplex.com/packages/20
             return render(request, 'animals/import-animal-csv.html')       
 
     except BaseException as e:
-        messages.error(request, 'Error import: {}'.format(e))
+        messages.error(request, 'Error import: {}, Line {}'.format(e, sys.exc_info()[2].tb_lineno))
         return HttpResponseRedirect('/')
 
 @login_required
