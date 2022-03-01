@@ -969,9 +969,15 @@ def importAnimalCsv(request): #https://simpleisbetterthancomplex.com/packages/20
     try:
         if request.method == 'POST':
             dataset = Dataset()
-            new_animal = request.FILES['importfile']
+            
+            new_animal = request.FILES['importfile'].read()
 
-            imported_data = dataset.load(new_animal.read())
+            #with open('uploads/name.csv', 'wb') as destination:
+            #    for chunk in new_animal.chunks():
+            #        destination.write(chunk)
+            #        destination.close
+            
+            imported_data = dataset.load(new_animal)
             #messages.success(request, len(imported_data))
             imported_animals = []
             for i in range(0,len(imported_data)):
