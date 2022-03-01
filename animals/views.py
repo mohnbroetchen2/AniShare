@@ -971,11 +971,10 @@ def importAnimalCsv(request): #https://simpleisbetterthancomplex.com/packages/20
             dataset = Dataset()
             
             new_animal = request.FILES['importfile'].read()
-
-            #with open('uploads/name.csv', 'wb') as destination:
-            #    for chunk in new_animal.chunks():
-            #        destination.write(chunk)
-            #        destination.close
+            #new_animal.save('uploads/name.csv')
+            with open('uploads/name.csv', 'wb') as destination:
+                    destination.write(new_animal)
+                    destination.close
             
             imported_data = dataset.load(new_animal)
             #messages.success(request, len(imported_data))
