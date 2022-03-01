@@ -27,6 +27,8 @@ STATIC_URL = ''
 DEBUG = False # SECURITY WARNING: don't run with debug turned on in production!
 ADMIN_EMAIL = ''
 LINES_PROHIBIT_SACRIFICE =[]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Quick-start development settings - unsuitable for production
