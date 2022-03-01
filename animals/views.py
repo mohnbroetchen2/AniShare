@@ -972,7 +972,7 @@ def importAnimalCsv(request): #https://simpleisbetterthancomplex.com/packages/20
             
             new_animal = request.FILES['importfile'].read()
             #new_animal.save('uploads/name.csv')
-            with open('uploads/name.csv', 'wb') as destination:
+            with open('uploads/name.csv', 'wb+') as destination:
                     destination.write(new_animal)
                     destination.close
             
