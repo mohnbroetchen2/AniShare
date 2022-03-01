@@ -970,13 +970,13 @@ def importAnimalCsv(request): #https://simpleisbetterthancomplex.com/packages/20
         if request.method == 'POST':
             dataset = Dataset()
             
-            new_animal = request.FILES['importfile'].read()
+            new_animal = request.FILES.get('importfile')
             #new_animal.save('uploads/name.csv')
-            with open('uploads/name.csv', 'wb+') as destination:
-                    destination.write(new_animal)
-                    destination.close
-            
+            #with open('uploads/name.csv', 'w+') as destination:
+            #        destination.write(new_animal)
+            #        destination.close
             imported_data = dataset.load(new_animal)
+            #imported_data = dataset.load(open('uploads/name.csv').read())
             #messages.success(request, len(imported_data))
             imported_animals = []
             for i in range(0,len(imported_data)):
