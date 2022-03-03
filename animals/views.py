@@ -969,14 +969,9 @@ def importAnimalCsv(request): #https://simpleisbetterthancomplex.com/packages/20
     try:
         if request.method == 'POST':
             dataset = Dataset()
-            
-            new_animal = request.FILES.get('importfile')
-            #new_animal.save('uploads/name.csv')
-            #with open('uploads/name.csv', 'w+') as destination:
-            #        destination.write(new_animal)
-            #        destination.close
-            imported_data = dataset.load(new_animal)
-            #imported_data = dataset.load(open('uploads/name.csv').read())
+            new_animal = request.FILES['importfile']
+
+            imported_data = dataset.load(new_animal.read())
             #messages.success(request, len(imported_data))
             imported_animals = []
             for i in range(0,len(imported_data)):
@@ -1026,6 +1021,7 @@ def importAnimalCsv(request): #https://simpleisbetterthancomplex.com/packages/20
     except BaseException as e:
         messages.error(request, 'Error import: {}, Line {}'.format(e, sys.exc_info()[2].tb_lineno))
         return HttpResponseRedirect('/')
+
 
 @login_required
 def confirmImportAnimalCsv(request):
