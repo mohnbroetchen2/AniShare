@@ -1000,6 +1000,7 @@ def importAnimalCsv(request): #https://simpleisbetterthancomplex.com/packages/20
                 strain                          = imported_data['strain'][i]
                 line                            = imported_data['line'][i]
                 new_animal.line                 = "{} {}".format(strain, line)
+                new_animal.licence_number       = imported_data['current/last experiment'][i]
                 new_animal.cage                 = imported_data['cage'][i]
                 room                            = imported_data['room/rack'][i]
                 try:        
