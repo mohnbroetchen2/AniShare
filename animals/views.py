@@ -985,7 +985,7 @@ def importAnimalCsv(request): #https://simpleisbetterthancomplex.com/packages/20
                         new_person.name         = "{} {}".format(request.user.first_name, request.user.last_name)
                     else:
                         new_person.name         = request.user.username
-                        new_person.responsible_for_lab = Lab.objects.all()[0]
+                    new_person.responsible_for_lab = Lab.objects.all()[0]
                     new_person.save()
                     new_animal.responsible_person = new_person
                 new_animal.animal_type          = 'mouse'
