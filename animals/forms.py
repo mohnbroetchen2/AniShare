@@ -11,4 +11,4 @@ class addAnimalForm(forms.ModelForm):
 
     class Meta:
         model = Animal
-        exclude = ('databse_id','fish_id','mouse_id','pup_id','fish_specie','new_owner','added_by','pyrat_incidentid','lab_id')
+        exclude = ('database_id','fish_id','mouse_id','pup_id','fish_specie','new_owner','added_by','pyrat_incidentid','lab_id')

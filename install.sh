@@ -1,5 +1,5 @@
 #!/bin/bash
-secret_key=L1sGylot3UqsL0hA9UWv # Please set your own secret_key
+secret_key=1238sdfn12 # Please set your own secret_key
 host=anishare.com		# Please set your domain anishare will be available
 user=user			# enter your linux username			
 group=www-data			# www-data is the apache group. you don't need to edit this
