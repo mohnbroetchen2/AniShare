@@ -23,7 +23,7 @@ chmod 664 /var/www/AniShare/db/db.sqlite3
 chmod g+w /var/www/AniShare/db
 cd /var/www/
 chown $user:$group AniShare -R
-rm /etc/apache2/sites-enabled/000-default.conf
+mv /etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-enabled/000-default.conf.bak
 cp /var/www/AniShare/apache_conf.template /etc/apache2/sites-available/anishare.conf
 ln -s /etc/apache2/sites-available/anishare.conf /etc/apache2/sites-enabled/anishare.conf
 service apache2 restart

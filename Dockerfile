@@ -25,7 +25,7 @@ RUN mv db/db_docker.sqlite3 db/db.sqlite3
 
 RUN useradd -rm -d /home/myuser -s /bin/bash -g users -G users -u 1001 myuser
 RUN chown myuser:users /usr/src/app -R
-RUN 
+RUN python manage.py makemigrations adminrestrict; python manage.py migrate
 
 EXPOSE 8000
 
