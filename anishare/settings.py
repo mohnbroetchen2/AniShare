@@ -21,6 +21,7 @@ AUTH_LDAP_BIND_DN = ''
 AUTH_LDAP_BIND_PASSWORD = ''
 EMAIL_HOST = ''
 # SECURITY WARNING: keep the secret key used in production secret!
+SYNC_WITH_OTHER_SYSTEMS = False
 SECRET_KEY = ''
 ALLOWED_HOSTS = [ ]
 STATIC_URL = ''

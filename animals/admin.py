@@ -269,10 +269,17 @@ class AnimalForm(forms.ModelForm):
     """
     class Meta:
         model = Animal
-        fields = ('amount', 'animal_type', 'fish_specie','day_of_birth',
-                  'available_from', 'available_to', 'sex', 'database_id',
-                  'lab_id', 'line', 'location', 'responsible_person', 'responsible_person2',
-                  'licence_number', 'genetic_background','mutations', 'comment', 'new_owner',)
+        SYNC_WITH_OTHER_SYSTEMS = getattr(settings, "SYNC_WITH_OTHER_SYSTEMS", None)
+        if SYNC_WITH_OTHER_SYSTEMS:            
+            fields = ('amount', 'animal_type', 'fish_specie','day_of_birth',
+                    'available_from', 'available_to', 'sex', 'database_id',
+                    'lab_id', 'line', 'location', 'responsible_person', 'responsible_person2',
+                    'licence_number', 'genetic_background','mutations', 'comment', 'new_owner','sync_with_other_sharing_system')
+        else:
+            fields = ('amount', 'animal_type', 'fish_specie','day_of_birth',
+                    'available_from', 'available_to', 'sex', 'database_id',
+                    'lab_id', 'line', 'location', 'responsible_person', 'responsible_person2',
+                    'licence_number', 'genetic_background','mutations', 'comment', 'new_owner',)
     def clean(self):
         available_from = self.cleaned_data.get('available_from')
         available_to = self.cleaned_data.get('available_to')
