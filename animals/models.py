@@ -39,6 +39,14 @@ class Person(models.Model):
     def __str__(self):
         return self.name + ' (' + str(self.responsible_for_lab) + ')'
 
+class Institution(models.Model):
+    """
+    Institution from which the animal/organ is offered
+    """
+    name = models.CharField(max_length=200)
+    def __str__(self):
+        return self.name
+
 class Location(models.Model):
     """
     Location of animals. Eg. animal house, fish facilities etc.
@@ -101,6 +109,7 @@ class Animal(models.Model):
     line = models.CharField(max_length=200, help_text="genetic trait of animal")
     sex = models.CharField(max_length=2, choices=(('m', 'male'), ('f', 'female'), ('u', 'unknown')),
                            help_text='Select "unknown" if multiple animals.')
+    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, null=True, blank=True, help_text="The institut where the animal is located")
     location = models.ForeignKey(Location, on_delete=models.CASCADE,
                                  help_text='Where is the animal housed?')
     mutations = models.TextField(blank=True, null=True,
@@ -152,6 +161,7 @@ class Animal(models.Model):
                                  help_text='Person claiming this animal for themselves') # turn into foreignkey to auth_users?
     added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, default=1)
     pyrat_incidentid = models.CharField(max_length=20, null=True, blank=True)
+    sync_with_other_sharing_system = models.BooleanField(default=False,null=False, blank=False) # If true the object can be syncronised with an other sharing platform 
     history = HistoricalRecords()
 
     def validate_amount(value):
@@ -449,6 +459,7 @@ class Organ(models.Model):
     entry_date = models.DateField(null=False, auto_now_add=True)
     line = models.CharField(max_length=200, help_text="genetic trait of animal")
     genetic_background = models.CharField(max_length=200, blank=True, null=True)
+    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, null=True, blank=True, help_text="Institution from which the organ is offered")
     location = models.ForeignKey(Location, on_delete=models.CASCADE, help_text='Where is the animal housed?')
     licence_number = models.CharField(max_length=200, blank=True, verbose_name='License number')
     responsible_person = models.ForeignKey(Person, related_name='rperson_organ', on_delete=models.CASCADE, default=0,
@@ -462,6 +473,7 @@ class Organ(models.Model):
 #                                 help_text='Person claiming this animal for themselves') # turn into foreignkey to auth_users?
     creation_date = models.DateTimeField(null=False, auto_now_add=True)
     modification_date = models.DateTimeField(null=False, auto_now=True)
+    sync_with_other_sharing_system = models.BooleanField(default=False,null=False, blank=False) # If true the object can be syncronised with an other sharing platform 
     added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, default=1)
 
     def get_organtypes(self):
