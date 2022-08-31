@@ -8,6 +8,7 @@
 
         WSGIDaemonProcess anishare python-path=/var/www/AniShare python-home=/var/www/AniShare
         WSGIProcessGroup anishare
+        WSGIApplicationGroup %{GLOBAL}
         WSGIScriptAlias / /var/www/AniShare/anishare/wsgi.py
 
         <Directory /var/www/AniShare/anishare>
