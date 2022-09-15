@@ -41,6 +41,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +56,6 @@ INSTALLED_APPS = [
     'admin_reorder',
    # 'admin_interface',  # https://github.com/fabiocaccamo/django-admin-interface
     'colorfield',
-    'django.contrib.admin',
     'django_admin_listfilter_dropdown',
     'bootstrap_email',
     'django_extensions', # for jobs scheduling

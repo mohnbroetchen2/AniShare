@@ -161,7 +161,7 @@ class Animal(models.Model):
                                  help_text='Person claiming this animal for themselves') # turn into foreignkey to auth_users?
     added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, default=1)
     pyrat_incidentid = models.CharField(max_length=20, null=True, blank=True)
-    sync_with_other_sharing_system = models.BooleanField(default=False,null=False, blank=False) # If true the object can be syncronised with an other sharing platform 
+    #sync_with_other_sharing_system = models.BooleanField(default=False,null=False, blank=False) # If true the object can be syncronised with an other sharing platform 
     history = HistoricalRecords()
 
     def validate_amount(value):

@@ -274,7 +274,7 @@ class AnimalForm(forms.ModelForm):
             fields = ('amount', 'animal_type', 'fish_specie','day_of_birth',
                     'available_from', 'available_to', 'sex', 'database_id',
                     'lab_id', 'line', 'location', 'responsible_person', 'responsible_person2',
-                    'licence_number', 'genetic_background','mutations', 'comment', 'new_owner','sync_with_other_sharing_system')
+                    'licence_number', 'genetic_background','mutations', 'comment', 'new_owner')
         else:
             fields = ('amount', 'animal_type', 'fish_specie','day_of_birth',
                     'available_from', 'available_to', 'sex', 'database_id',
