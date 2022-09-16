@@ -46,7 +46,7 @@ class Job(HourlyJob):
                             ani_mouse.pyrat_incidentid = incident.incidentid # Save the new PyRAT request id
                             ani_mouse.available_from = datetime.today().date()
                             ani_mouse.available_to   = datetime.today().date() + timedelta(days=14)
-			    ani_mouse.save()
+                            ani_mouse.save()
                             datasetMouse = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid) 
                             #send_mail("AniShare: Mouse already offered", 'You created a work request with the ID {} to add the mouse {} to AniShare. The mouse has already been offered. A second time is not possible'.format(incident.incidentid, datasetMouse.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
                             new_comment = WIncidentcomment() # Create a comment to the PyRAT request that mouse has already been imported
@@ -141,7 +141,7 @@ class Job(HourlyJob):
                             ani_mouse.pyrat_incidentid = incident.incidentid # Save the new PyRAT request id
                             ani_mouse.available_from = datetime.today().date()
                             ani_mouse.available_to   = datetime.today().date() + timedelta(days=7)
-		            ani_mouse.save()
+                            ani_mouse.save()
 
                             new_comment = WIncidentcomment()
                             new_comment.incidentid = incident
