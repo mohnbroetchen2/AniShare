@@ -598,20 +598,21 @@ def importmicetoanishare(request):
 def tickatlabfishlist(request):
     
     try:
+        logger.debug('{}:tickatlabfishlist'.format(datetime.now()))
         fishuser = FishPeople.objects.using('fishdb').get(login=request.user.username)	
         fishteams = FishTeam.objects.using('fishdb').all().filter(userid=fishuser.id)
-        #logger.debug('{}:fishteams {}'.format(datetime.now(), fishteams))
+        logger.debug('{}:fishteams {}'.format(datetime.now(), fishteams))
         fishteamsid = []
         i=0
         fishteamsid.insert(i,fishuser.mainteamid)
         i=1
         for t in fishteams:
             fishteamsid.insert(i,t.teamid)
-            #logger.debug('{}:fishteamsid {}'.format(datetime.now(), t.teamid))
+            logger.debug('{}:fishteamsid {}'.format(datetime.now(), t.teamid))
             i=i+1
-        #logger.debug('{}:fishteamsid {}'.format(datetime.now(), fishteamsid))
+        logger.debug('{}:fishteamsid {}'.format(datetime.now(), fishteamsid))
         fishlist = Fish.objects.using('fishdb').all().filter(teamid__in=fishteamsid).order_by('id')
-        #logger.debug('{}:fishlist {}'.format(datetime.now(), fishlist))
+        logger.debug('{}:fishlist {}'.format(datetime.now(), fishlist))
         f = FishFilter(request.GET, queryset=fishlist)
         return render(request, 'animals/fishfromtickatlab.html', {'filter': f})
     except BaseException as e:                            
