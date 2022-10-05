@@ -597,12 +597,11 @@ def importmicetoanishare(request):
 @login_required
 def tickatlabfishlist(request):
     
-    try:
-        messages.add_message(request, messages.success,'Go') 
-        logger.debug('{}:tickatlabfishlist'.format(datetime.now()))
+    try: 
+        #logger.debug('{}:tickatlabfishlist'.format(datetime.now()))
         fishuser = FishPeople.objects.using('fishdb').get(login=request.user.username)	
         fishteams = FishTeam.objects.using('fishdb').all().filter(userid=fishuser.id)
-        logger.debug('{}:fishteams {}'.format(datetime.now(), fishteams))
+        #logger.debug('{}:fishteams {}'.format(datetime.now(), fishteams))
         fishteamsid = []
         i=0
         fishteamsid.insert(i,fishuser.mainteamid)
@@ -611,13 +610,13 @@ def tickatlabfishlist(request):
             fishteamsid.insert(i,t.teamid)
             logger.debug('{}:fishteamsid {}'.format(datetime.now(), t.teamid))
             i=i+1
-        logger.debug('{}:fishteamsid {}'.format(datetime.now(), fishteamsid))
+        #logger.debug('{}:fishteamsid {}'.format(datetime.now(), fishteamsid))
         fishlist = Fish.objects.using('fishdb').all().filter(teamid__in=fishteamsid).order_by('id')
-        logger.debug('{}:fishlist {}'.format(datetime.now(), fishlist))
+        #logger.debug('{}:fishlist {}'.format(datetime.now(), fishlist))
         f = FishFilter(request.GET, queryset=fishlist)
         return render(request, 'animals/fishfromtickatlab.html', {'filter': f})
     except BaseException as e:   
-        messages.add_message(request, messages.ERROR,'There was an error {} {}'.format(e, sys.exc_info()[2].tb_lineno))                         
+        #messages.add_message(request, messages.ERROR,'There was an error {} {}'.format(e, sys.exc_info()[2].tb_lineno))                         
         logger.debug('{}:tickatlabfishlist except Fehler {} in Zeile {}'.format(datetime.now(),e,sys.exc_info()[2].tb_lineno))
         return render(request, 'animals/fishfromtickatlab.html')
 
