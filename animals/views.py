@@ -598,6 +598,7 @@ def importmicetoanishare(request):
 def tickatlabfishlist(request):
     
     try:
+        messages.add_message(request, messages.success,'Go') 
         logger.debug('{}:tickatlabfishlist'.format(datetime.now()))
         fishuser = FishPeople.objects.using('fishdb').get(login=request.user.username)	
         fishteams = FishTeam.objects.using('fishdb').all().filter(userid=fishuser.id)
@@ -615,7 +616,8 @@ def tickatlabfishlist(request):
         logger.debug('{}:fishlist {}'.format(datetime.now(), fishlist))
         f = FishFilter(request.GET, queryset=fishlist)
         return render(request, 'animals/fishfromtickatlab.html', {'filter': f})
-    except BaseException as e:                            
+    except BaseException as e:   
+        messages.add_message(request, messages.ERROR,'There was an error {}'.format(e))                         
         logger.debug('{}:tickatlabfishlist except Fehler {} in Zeile {}'.format(datetime.now(),e,sys.exc_info()[2].tb_lineno))
         return render(request, 'animals/fishfromtickatlab.html')
 
