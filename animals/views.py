@@ -701,6 +701,7 @@ def importfishtoanishare(request):
                 new_fish.save()
                 messages.add_message(request, messages.SUCCESS,'The fish {} has been imported.'.format(dataset.animalnumber))
             except Exception:
+                ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
                 messages.add_message(request, messages.ERROR,'Becaus of an error the fish {} has NOT been imported. The AniShare admin is informed about the error'.format(dataset.animalnumber))
                 send_mail("AniShare Importfehler", 'Fehler beim Fishimport von Fish  {} mit Fehler {} '.format(dataset.animalnumber, Exception), request.user.email, [ADMIN_EMAIL])
             i = i + 1
