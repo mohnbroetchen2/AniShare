@@ -62,9 +62,10 @@ class FishFilter(FilterSet):
     responsible = django_filters.CharFilter(lookup_expr='icontains')
     strain = django_filters.CharFilter(lookup_expr='icontains')
     mutation = django_filters.CharFilter(lookup_expr='icontains')
+    tag = django_filters.CharFilter(lookup_expr='icontains')
     class Meta:
         model = Fish
-        fields = ['specie','sex','strain','responsible','license','location','mutation',]
+        fields = ['specie','sex','strain','responsible','license','location','mutation','tag']
 
 class MouseFilter(FilterSet):
     location = django_filters.CharFilter(lookup_expr='icontains')
