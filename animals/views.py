@@ -37,7 +37,7 @@ from .models import SacrificeIncidentToken, WIncident_write, WIncident, WInciden
 from .importscript import runimport
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.utils.html import strip_tags
-from .forms import addAnimalForm
+from .forms import addAnimalForm, addOrganForm
 
 logger = logging.getLogger('mylogger')
 
@@ -963,6 +963,21 @@ def addAnimal(request):
                 return HttpResponseRedirect('/')  # Redirect after POST
         else:
             return render(request, 'animals/add-animal.html', {'form': addAnimalForm()})
+    except BaseException as e:
+        messages.error(request, 'Error creating a new entry {}'.format(e))
+        return HttpResponseRedirect('/')  # Redirect after POST
+
+@login_required
+def addOrgan(request):
+    try:
+        if request.method == 'POST':  # If the form has been submitted...
+            form = addOrganForm(request.POST, request.FILES)  # A form bound to the POST data
+            if form.is_valid(): 
+                form.save()
+                messages.success(request, 'New entry successfully created')
+                return HttpResponseRedirect('/')  # Redirect after POST
+        else:
+            return render(request, 'animals/add-organ.html', {'form': addOrganForm()})
     except BaseException as e:
         messages.error(request, 'Error creating a new entry {}'.format(e))
         return HttpResponseRedirect('/')  # Redirect after POST
