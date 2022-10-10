@@ -43,6 +43,7 @@ urlpatterns = [
     path('animals/importfishtoanishare', animals.views.importfishtoanishare, name='importfishtoanishare'),
     path('animals/importpuptoanishare', animals.views.importpuptoanishare, name='importpuptoanishare'),
     path('organs/claim/<int:primary_key>', animals.views.claim_organ, name='claim_organ'),
+    path('organs/add',  animals.views.addOrgan, name='addorgan'),
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     #re_path(r'^jet/', jet.urls, name='jet'),  # Django JET URLS
     path('admin/', admin.site.urls),

@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% load static %} {% load widget_tweaks %} {% block extrascripts %}
+{% load crispy_forms_tags %}
+{% endblock %}{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.datetimepicker.min.css' %}"/>
+<script type="text/javascript" src="{% static 'js/jquery.datetimepicker.full.min.js'%}"></script>
+<h1 class="text-center"> AniShare - New Organ</h1>
+<div class="container">
+  <form  enctype="multipart/form-data" action="/organs/add" method="post">
+  <table>
+      {% csrf_token %}
+      {{ form|crispy }}
+  </table>
+  <input type="submit" value="Submit" class="btn btn-success">
+  </form>
+</div>
+<script>
+  $(function () {
+    $("#id_available_from").datetimepicker({
+      format: 'd/m/Y',
+      timepicker:false,
+    });
+    $("#id_available_to").datetimepicker({
+      format: 'd/m/Y',
+      timepicker:false,
+    });
+    $("#id_day_of_birth").datetimepicker({
+      format: 'd/m/Y',
+      timepicker:false,
+    });
+    $("#id_day_of_death").datetimepicker({
+      format: 'd/m/Y',
+      timepicker:false,
+    });
+  });
+</script>
+{% endblock %}

@@ -460,7 +460,7 @@ class Organ(models.Model):
     line = models.CharField(max_length=200, help_text="genetic trait of animal")
     genetic_background = models.CharField(max_length=200, blank=True, null=True)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE, null=True, blank=True, help_text="Institution from which the organ is offered")
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, help_text='Where is the animal housed?')
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True, help_text='Where is the animal housed?')
     licence_number = models.CharField(max_length=200, blank=True, verbose_name='License number')
     responsible_person = models.ForeignKey(Person, related_name='rperson_organ', on_delete=models.CASCADE, default=0,
                                            help_text='Person who is responsible in the lab for dealing with the animals')
@@ -473,7 +473,7 @@ class Organ(models.Model):
 #                                 help_text='Person claiming this animal for themselves') # turn into foreignkey to auth_users?
     creation_date = models.DateTimeField(null=False, auto_now_add=True)
     modification_date = models.DateTimeField(null=False, auto_now=True)
-    sync_with_other_sharing_system = models.BooleanField(default=False,null=False, blank=False) # If true the object can be syncronised with an other sharing platform 
+    #sync_with_other_sharing_system = models.BooleanField(default=False,null=False, blank=False) # If true the object can be syncronised with an other sharing platform 
     added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, default=1)
 
     def get_organtypes(self):

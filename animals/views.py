@@ -616,7 +616,7 @@ def tickatlabfishlist(request):
         f = FishFilter(request.GET, queryset=fishlist)
         return render(request, 'animals/fishfromtickatlab.html', {'filter': f})
     except BaseException as e:   
-        #messages.add_message(request, messages.ERROR,'There was an error {} {}'.format(e, sys.exc_info()[2].tb_lineno))                         
+        messages.add_message(request, messages.ERROR,'There was an error {} {}'.format(e, sys.exc_info()[2].tb_lineno))                         
         logger.debug('{}:tickatlabfishlist except Fehler {} in Zeile {}'.format(datetime.now(),e,sys.exc_info()[2].tb_lineno))
         return render(request, 'animals/fishfromtickatlab.html')
 
