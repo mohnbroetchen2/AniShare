@@ -44,15 +44,17 @@ class Job(HourlyJob):
                                 else:
                                     ani_mouse.comment = "Ursprünglich über AddToAniShare Auftrag: {} importiert; ".format(ani_mouse.pyrat_incidentid)
                             ani_mouse.pyrat_incidentid = incident.incidentid # Save the new PyRAT request id
+                            ani_mouse.available_from = datetime.today().date()
+                            ani_mouse.available_to   = datetime.today().date() + timedelta(days=14)
                             ani_mouse.save()
-                            datasetMouse = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid) 
+                            #datasetMouse = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid) 
                             #send_mail("AniShare: Mouse already offered", 'You created a work request with the ID {} to add the mouse {} to AniShare. The mouse has already been offered. A second time is not possible'.format(incident.incidentid, datasetMouse.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
-                            new_comment = WIncidentcomment() # Create a comment to the PyRAT request that mouse has already been imported
-                            new_comment.incidentid = incident
-                            new_comment.comment = 'AniShare: Mouse {} already offered'.format(datasetMouse.eartag)
-                            new_comment.save(using=mousedb_write)
-                            new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
-                            new_comment.save(using=mousedb_write)
+                            #new_comment = WIncidentcomment() # Create a comment to the PyRAT request that mouse has already been imported
+                            #new_comment.incidentid = incident
+                            #new_comment.comment = 'AniShare: Mouse {} already offered'.format(datasetMouse.eartag)
+                            #new_comment.save(using=mousedb_write)
+                            #new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
+                            #new_comment.save(using=mousedb_write)
                             continue
                         new_mouse = Animal()
                         new_mouse.animal_type    = "mouse"
@@ -137,20 +139,9 @@ class Job(HourlyJob):
                             if ani_mouse.pyrat_incidentid: # Save the original PyRAT request id using the comment field
                                 ani_mouse.comment = ani_mouse.comment + "Ursprünglich über AddToAniShare Auftrag: {} importiert;".format(ani_mouse.pyrat_incidentid)
                             ani_mouse.pyrat_incidentid = incident.incidentid # Save the new PyRAT request id
+                            ani_mouse.available_from = datetime.today().date()
+                            ani_mouse.available_to   = datetime.today().date() + timedelta(days=7)
                             ani_mouse.save()
-
-                            new_comment = WIncidentcomment()
-                            new_comment.incidentid = incident
-                            if dataset.eartag:
-                                new_comment.comment = 'AniShare: Pup {} already offered'.format(dataset.eartag)
-                                #send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.incidentid, dataset.eartag), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
-                            else:
-                                new_comment.comment = 'AniShare: Pup {} already offered'.format(pyratpup.pupid)
-                                #send_mail("AniShare: Pup already offered", 'You created a work request with the ID {} to add the pup {} to AniShare. The pup has already been offered. A second time is not possible'.format(incident.incidentid, dataset.id), ADMIN_EMAIL, [initiator_mail,ADMIN_EMAIL])
-                            new_comment.save(using=mousedb_write)
-                            new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
-                            new_comment.save(using=mousedb_write) 
-                            # Benachrichtigung, dass Maus bereits angeboten wird?
                             continue
                         new_pup = Animal()
                         new_pup.animal_type    = "pup"
