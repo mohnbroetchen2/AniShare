@@ -12,7 +12,7 @@ from django.contrib import admin
 from django import forms
 from django.conf import settings
 from rangefilter.filter import DateRangeFilter # , DateTimeRangeFilter
-from .models import Animal, Person, Lab, Location, Organ, Change, Organtype, SacrificeIncidentToken
+from .models import Animal, Person, Lab, Location, Organ, Change, Organtype, SacrificeIncidentToken, SearchRequestAnimal
 from import_export.formats import base_formats
 from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter
 from simple_history.admin import SimpleHistoryAdmin
@@ -514,3 +514,10 @@ class LabAdmin(admin.ModelAdmin):
 class SacrificeIncidentToken(admin.ModelAdmin):
     list_display = ('initiator', 'incidentid','urltoken','created','confirmed')
     search_fields = ('initiator', 'incidentid','urltoken','created','confirmed')
+
+@admin.register(SearchRequestAnimal)
+class SearchRequestAnimal(admin.ModelAdmin):
+    list_display = ('user', 'animal_type','sex','wild_type','active_from','active_until')
+    search_fields = ('user', 'animal_type','sex','wild_type')
+    pass
+

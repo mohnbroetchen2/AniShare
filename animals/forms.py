@@ -1,5 +1,5 @@
 from django import forms
-from .models import Animal, Organ, Organtype, Person
+from .models import Animal, Organ, Organtype, Person, SearchRequestAnimal
 from datetime import datetime, timedelta
 
 class addAnimalForm(forms.ModelForm): 
@@ -30,3 +30,17 @@ class addOrganForm(forms.ModelForm):
     class Meta:
         model = Organ
         exclude = ('database_id','lab_id','entry_date','institution','creation_date','modification_date','added_by','responsible_person2','killing_person')
+
+class searchRequestAnimalForm(forms.ModelForm):
+    date_from = datetime.today()
+    active_from   = forms.DateTimeField(input_formats=['%d/%m/%Y'], initial=date_from.strftime("%d/%m/%Y")) #https://simpleisbetterthancomplex.com/tutorial/2019/01/03/how-to-use-date-picker-with-django.html
+    active_until     = forms.DateTimeField(input_formats=['%d/%m/%Y'])
+    field_order = ['animal_type','fish_specie','sex','wild_type','active_from','active_until']
+    class Meta:
+        model = SearchRequestAnimal
+        exclude = ('user','found_animals')
+        help_texts = {
+            'fish_specie': 'You can leave it blank if the specie does not matter',
+            'sex': 'You can leave it blank if the sex does not matter',
+            'wild_type': 'All wild type lines will be included in your search request, if it is checked',
+        }

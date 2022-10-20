@@ -11,6 +11,8 @@ from django.utils.translation import gettext_lazy as _
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from simple_history.models import HistoricalRecords
+from django_currentuser.middleware import (get_current_user, get_current_authenticated_user)
+from django_currentuser.db.models import CurrentUserField
 
 
 class Lab(models.Model):
@@ -626,20 +628,20 @@ class WIncident_write(models.Model):
         db_table = 'w_incident'
 
 class WIncidentAnimals(models.Model):
-    id = models.IntegerField(db_column='id', primary_key=True)
+    id          = models.IntegerField(db_column='id', primary_key=True)
     #animalid = models.ForeignKey('Mouse', models.DO_NOTHING, db_column='animalid', blank=True, null=True)
     #incidentid = models.ForeignKey('WIncident', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
-    animalid = models.IntegerField(blank=False, null=False)
-    incidentid = models.IntegerField(blank=False, null=False)
+    animalid    = models.IntegerField(blank=False, null=False)
+    incidentid  = models.IntegerField(blank=False, null=False)
 
     class Meta:
         managed = False
         db_table = 'w_incident_animals'
 
 class WIncidentPups(models.Model):
-    id = models.IntegerField(db_column='id', primary_key=True)
-    pupid = models.IntegerField(blank=False, null=False)
-    incidentid = models.IntegerField(blank=False, null=False)
+    id          = models.IntegerField(db_column='id', primary_key=True)
+    pupid       = models.IntegerField(blank=False, null=False)
+    incidentid  = models.IntegerField(blank=False, null=False)
 
     class Meta:
         managed = False
@@ -647,27 +649,27 @@ class WIncidentPups(models.Model):
 
 
 class WIncidentcomment(models.Model):
-    incidentid = models.ForeignKey('WIncident', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
-    comment = models.TextField()
-    commentdate = models.DateTimeField(null=False, auto_now_add=True)
+    incidentid      = models.ForeignKey('WIncident', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
+    comment         = models.TextField()
+    commentdate     = models.DateTimeField(null=False, auto_now_add=True)
 
     class Meta:
         managed = False
         db_table = 'w_incidentcomment'
 
 class WIncidentanimals_write(models.Model):
-    incidentid = models.ForeignKey('WIncident_write', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
-    animalid = models.IntegerField(db_column='animalid',blank=False, null=False)
-    perform_status = models.CharField(max_length=20, blank=False, null=False,db_column='perform_status')
+    incidentid      = models.ForeignKey('WIncident_write', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
+    animalid        = models.IntegerField(db_column='animalid',blank=False, null=False)
+    perform_status  = models.CharField(max_length=20, blank=False, null=False,db_column='perform_status')
 
     class Meta:
         managed = False
         db_table = 'w_incident_animals'
 
 class WIncidentpups_write(models.Model):
-    incidentid = models.ForeignKey('WIncident_write', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
-    pupid = models.IntegerField(db_column='pupid',blank=False, null=False)
-    perform_status = models.CharField(max_length=20, blank=False, null=False,db_column='perform_status')
+    incidentid      = models.ForeignKey('WIncident_write', models.DO_NOTHING, db_column='incidentid', blank=True, null=True)
+    pupid           = models.IntegerField(db_column='pupid',blank=False, null=False)
+    perform_status  = models.CharField(max_length=20, blank=False, null=False,db_column='perform_status')
 
     class Meta:
         managed = False
@@ -682,3 +684,19 @@ class SacrificeIncidentToken(models.Model):
 
     def __str__(self):
         return self.initiator
+
+class SearchRequestAnimal(models.Model):
+    user            = CurrentUserField()
+    animal_type = models.CharField(max_length=100, choices=(
+        ('fish', 'Fish'),
+        ('mouse', 'Mouse'),
+        ('pup', 'Pup'),
+    ),default='mouse')
+    fish_specie     = models.CharField(max_length=20, null=True, blank=True, choices=(('n', 'Nothobranchius'), ('z', 'Zebrafish')))
+    sex             = models.CharField(max_length=2, null=True, blank=True, choices=(('m', 'male'), ('f', 'female'), ('u', 'unknown')))
+    active_from     = models.DateField(null=False,blank=False, help_text="You will informed about matching entries starting this date")
+    active_until    = models.DateField(null=False, blank=False, help_text="You will informed about matching entries until this date")
+    wild_type       = models.BooleanField(default=True,null=False, blank=False)
+    found_animals   = models.ManyToManyField(Animal, related_name='animal_found')
+
+

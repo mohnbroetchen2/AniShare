@@ -1,0 +1,56 @@
+{% extends "base.html" %} {% load static %} {% load widget_tweaks %} {% block extrascripts %}
+<script src="{% static '/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static '/js/dataTables.bootstrap4.min.js' %}"></script>
+<link rel="stylesheet" href="{% static '/css/dataTables.bootstrap4.min.css' %}">
+<!-- https://datatables.net/reference/option/pageLength -->
+<script>
+  $(document).ready(function () {
+    $('#datatable').DataTable({
+      "searching": true,
+      "scrollX": false,
+      "order": [[0, 'desc']],
+      "scrollCollapse": true,
+      "paging": true,
+      "pageLength": 100, 
+    });
+  });
+</script>
+{% load crispy_forms_tags %}
+{% endblock %}{% block content %}
+
+<h1 class="text-center"> AniShare - Search Requests</h1>
+<div class="container">
+
+  <table class="table table-bordered table-hover table-striped tablesorter">
+    <thead>
+    <tr>
+      <th class="header"> Animal Type<i class="icon-sort"></i></th>
+      <th class="header"> Fish Specie <i class="icon-sort"></i></th>
+      <th class="header"> Sex <i class="icon-sort"></i></th>
+      <th class="header"> Wild type<i class="icon-sort"></i></th>
+      <th class="header"> Active from <i class="icon-sort"></i></th>
+      <th class="header"> Active until<i class="icon-sort"></i></th>
+      <th class="header">Edit</th>
+      <th class="header">Delete</th>
+    </tr>
+</thead>
+<tbody>
+  {% for sr in srequests %}
+        <tr>
+            <td>{{sr.animal_type}}</td>
+            <td>{% if sr.fish_specie%}{% if sr.fish_specie == 'n' %}
+              <span>Notho</span> {% elif sr.fish_specie == 'z' %} <span>Zebra</span>{% endif %}{% endif %}</td>
+            <td>{{sr.sex}}</td>
+            <td>{{sr.wild_type}}</td>
+            <td>{{sr.active_from}}</td>
+            <td>{{sr.active_until}}</td>
+            <td><a href="/searchrequest/animal/edit/{{sr.pk}}"><img src="{% static '/image/edit.svg' %}" width="20" height="21"></img></a></td>
+            <td><a href="/searchrequest/animal/delete/{{sr.pk}}"><img src="{% static '/image/trash.svg' %}" width="20" height="21"></img></a></td>
+        </tr>
+  {% endfor %}
+</tbody>
+</table>
+
+
+</div>
+{% endblock %}

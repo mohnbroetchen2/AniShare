@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% load static %} {% load widget_tweaks %} {% block extrascripts %}
+{% load crispy_forms_tags %}
+{% endblock %}{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.datetimepicker.min.css' %}"/>
+<script type="text/javascript" src="{% static 'js/jquery.datetimepicker.full.min.js'%}"></script>
+<h1 class="text-center"> AniShare - New Search Request</h1>
+<div class="alert alert-info" role="alert">
+  Every hour the system will check for new entries and check with your request. If there is a match you will informed by email.<br/>
+</div>
+<div class="container">
+  <form  enctype="multipart/form-data" action="/searchrequest/animal/add" method="post">
+  <table>
+      {% csrf_token %}
+      {{ form|crispy }}
+  </table>
+  <input type="submit" value="Submit" class="btn btn-success">
+  </form>
+</div>
+<script>
+  $(function () {
+    $("#id_active_from").datetimepicker({
+      format: 'd/m/Y',
+      timepicker:false,
+    });
+    $("#id_active_until").datetimepicker({
+      format: 'd/m/Y',
+      timepicker:false,
+    });
+  });
+</script>
+{% endblock %}

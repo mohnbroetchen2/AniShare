@@ -33,11 +33,11 @@ from tablib import Dataset
 from .filters import AnimalFilter, OrganFilter, ChangeFilter, PersonFilter, FishFilter, MouseFilter, PupFilter
 from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab, FishPeople, FishTeam, FishMutation
 from .models import Mouse, MouseMutation, PyratUser, PyratUserPermission, Pup 
-from .models import SacrificeIncidentToken, WIncident_write, WIncident, WIncidentanimals_write, WIncidentpups_write, WIncidentcomment
+from .models import SacrificeIncidentToken, WIncident_write, WIncident, WIncidentanimals_write, WIncidentpups_write, WIncidentcomment, SearchRequestAnimal
 from .importscript import runimport
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.utils.html import strip_tags
-from .forms import addAnimalForm, addOrganForm
+from .forms import addAnimalForm, addOrganForm, searchRequestAnimalForm
 
 logger = logging.getLogger('mylogger')
 
@@ -1069,3 +1069,77 @@ def confirmImportAnimalCsv(request):
     except BaseException as e:
         messages.error(request, 'Error: {}'.format(e))
         return HttpResponseRedirect('/')
+
+@login_required
+def AddAnimalsSearchRequest(request):
+    try:
+        if request.method == 'POST':  # If the form has been submitted...
+            form = searchRequestAnimalForm(request.POST, request.FILES)  # A form bound to the POST data
+            if form.is_valid(): 
+                form.save()
+                messages.success(request, 'New request successfully created')
+                return HttpResponseRedirect('/searchrequest/animal/list')  # Redirect after POST
+            else:
+                messages.success(request, 'Form is unvalid {}'.format(form.errors))
+                return HttpResponseRedirect('/searchrequest/animal/add') 
+        else:
+            return render(request, 'animals/add-searchrequestanimal.html', {'form': searchRequestAnimalForm()})
+    except BaseException as e: 
+        messages.add_message(request, messages.ERROR,'There was an error. The AniShare admin is informed about the error')
+        ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
+        send_mail("AniShare Fehler", 'Fehler in Funktion AddAnimalsSearchRequest mit Fehler {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno ), request.user.email, [ADMIN_EMAIL])
+        return HttpResponseRedirect('/')  # Redirect after POST
+@login_required
+def ListAnimalsSearchRequest(request):
+    try:
+        srequests = SearchRequestAnimal.objects.filter(user=request.user)
+        return render(request, 'animals/list-searchrequestanimal.html', {'srequests':srequests})
+    except BaseException as e:
+        messages.add_message(request, messages.ERROR,'There was an error. The AniShare admin is informed about the error')
+        ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
+        send_mail("AniShare Fehler", 'Fehler in ListAnimalsSearchRequest {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno ), request.user.email, [ADMIN_EMAIL])
+        return HttpResponseRedirect('/')  # Redirect after POST
+
+@login_required
+def DeleteAnimalsSearchRequest(request,request_id):
+    try:
+        try:
+            srequest = SearchRequestAnimal.objects.get(pk=request_id)
+            if request.user != srequest.user:
+                messages.error(request, 'The search request has been created from someone else. Only the creator can delete their own search requests.')
+                return HttpResponseRedirect('/')
+            srequest.delete()
+            messages.success(request, 'Request deleted')
+            return HttpResponseRedirect('/searchrequest/animal/list') 
+        except:
+            messages.error(request, 'Request could not be found.')
+            return HttpResponseRedirect('/searchrequest/animal/list')  # Redirect after POST 
+    except BaseException as e:
+        messages.add_message(request, messages.ERROR,'There was an error. The AniShare admin is informed about the error')
+        ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
+        send_mail("AniShare Fehler", 'Fehler in DeleteAnimalsSearchRequest {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno ), request.user.email, [ADMIN_EMAIL])
+        return HttpResponseRedirect('/')  # Redirect after POST
+
+@login_required
+def EditAnimalsSearchRequest(request,request_id):
+    try:
+        srequest = SearchRequestAnimal.objects.get(pk=request_id)
+        if request.user != srequest.user:
+            messages.error(request, 'The search request has been created from someone else. Only the creator can delete their own search requests.')
+            return HttpResponseRedirect('/')
+        if request.method == 'POST':
+            form = searchRequestAnimalForm(request.POST, request.FILES, instance=srequest)
+            if form.is_valid():  # All validation rules pass
+                form.save()
+                messages.success(request, 'Search request successfully updated')
+                return HttpResponseRedirect('/searchrequest/animal/list') 
+            else:
+                messages.warning(request, 'Form is not valid. Please try again')
+                return HttpResponseRedirect('/searchrequest/animal/edit/{}'.format(srequest.pk))
+        else:
+            return render(request, 'animals/edit-searchrequestanimal.html', {'form': searchRequestAnimalForm(instance=srequest),'pk':srequest.pk})        
+    except BaseException as e:
+        messages.add_message(request, messages.ERROR,'There was an error. The AniShare admin is informed about the error')
+        ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
+        send_mail("AniShare Fehler", 'Fehler in EditAnimalsSearchRequest {} in Zeile {}'.format(e,sys.exc_info()[2].tb_lineno ), request.user.email, [ADMIN_EMAIL])
+        return HttpResponseRedirect('/')  # Redirect after POST

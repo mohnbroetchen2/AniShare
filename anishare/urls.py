@@ -53,5 +53,9 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('confirmsacrificerequest/<str:token>', animals.views.ConfirmRequest, name='confirm_request'),
     path('admin/defender/', include('defender.urls')),
+    path('searchrequest/animal/add', animals.views.AddAnimalsSearchRequest, name='AddAnimalsSearchRequest'),
+    path('searchrequest/animal/list', animals.views.ListAnimalsSearchRequest, name='ListAnimalsSearchRequest'),
+    path('searchrequest/animal/delete/<int:request_id>', animals.views.DeleteAnimalsSearchRequest, name='DeleteAnimalsSearchRequest'),
+    path('searchrequest/animal/edit/<int:request_id>', animals.views.EditAnimalsSearchRequest, name='EditAnimalsSearchRequest'),
     #path('eln/', animals.views.eln_pyrat_view, name='eln_pyrat_view'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

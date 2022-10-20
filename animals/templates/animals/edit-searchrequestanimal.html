@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% load static %} {% load widget_tweaks %} {% block extrascripts %}
+{% load crispy_forms_tags %}
+{% endblock %}{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.datetimepicker.min.css' %}"/>
+<script type="text/javascript" src="{% static 'js/jquery.datetimepicker.full.min.js'%}"></script>
+<h1 class="text-center"> AniShare - Edit Search Request</h1>
+<div class="container">
+  <form  enctype="multipart/form-data" action="/searchrequest/animal/edit/{{pk}}" method="post">
+  <table>
+      {% csrf_token %}
+      {{ form|crispy }}
+  </table>
+  <input type="submit" value="Submit" class="btn btn-success">
+  </form>
+</div>
+<script>
+  $(function () {
+    $("#id_active_from").datetimepicker({
+      format: 'd/m/Y',
+      timepicker:false,
+    });
+    $("#id_active_until").datetimepicker({
+      format: 'd/m/Y',
+      timepicker:false,
+    });
+  });
+</script>
+{% endblock %}

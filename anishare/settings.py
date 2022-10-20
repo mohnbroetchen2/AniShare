@@ -82,6 +82,7 @@ MIDDLEWARE = [
     'simple_history.middleware.HistoryRequestMiddleware',
     'defender.middleware.FailedLoginMiddleware',
     'defender.middleware.FailedLoginMiddleware',
+    'django_currentuser.middleware.ThreadLocalUserMiddleware',
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
