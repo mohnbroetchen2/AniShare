@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load bootstrap_email %}
+{% load static %}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>AniShare Animals Found</title>
+    <style media="all" type="text/css">
+        {% bootstrap_email_min %}
+    </style>
+    <style>
+        p.ex1 
+        {
+            padding-left:1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading"> Dear {{first_name}},</h4>
+        <p> </p>
+        <p>AniShare found following animals matching your search request: </p>
+    </div>
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+            <td class="navbar navbar-inverse" align="center">
+                <!-- This setup makes the nav background stretch the whole width of the screen. -->
+                <table class="table table-striped" width="80%" cellspacing="1" cellpadding="3">
+                    <thead>
+                        <tr>
+                            <th scope="col">Animal type</th>
+                            <th scope="col">AniShare id</th>
+                            <th scope="col">Database id</th>
+                            <th scope="col">Day of birth</th>
+                            <th scope="col">Sex</th>
+                            <th scope="col">Line</th>
+                            <th scope="col">Mutations</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">License</th>
+                            <th scope="col">Genetic Background</th>
+                            <th scope="col">comment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for a in animals %}
+                        <tr>
+                            <td>{{a.animal_type }}</td>
+                            <td>{{a.pk}}</td>
+                            <td>{{a.database_id }}</td>
+                            <td>{{a.day_of_birth}}</td>
+                            <td>{{a.get_sex_display }}</td>
+                            <td>{{a.line }}</td>
+                            <td>{{a.mutations}}</td>
+                            <td>{{a.location}}</td>
+                            <td>{{a.licence_number}}</td>
+                            <td>{{a.background}}</td>
+                            <td>{{a.comment}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </td>
+        </tr>                  
+    </table>
+        <hr>
+        <div class="alert">
+    <p>   Best, your <a href="http://anishare.leibniz-fli.de">AniShare</a> admin.</p>
+    </div>
+</body>
+</html>

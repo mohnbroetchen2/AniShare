@@ -13,6 +13,8 @@ class Job(HourlyJob):
         from django.conf import settings
         import logging
         import sys
+        from django.template.loader import render_to_string
+        
 
 
         logger = logging.getLogger('myscriptlogger')
@@ -23,18 +25,20 @@ class Job(HourlyJob):
             today = datetime.now().date()
             srequests = SearchRequestAnimal.objects.filter(active_from__lte = today).filter(active_until__gte = today)
             for sr in srequests:
-                print(sr.animal_type)
-                if sr.animal_type == "mouse" or sr.animal_type == "pup" :
-                    if sr.sex:
-                        animallist = Animal.objects.filter(type=sr.animal_type).filter(sex=sr.sex)
-                    else:
-                        animallist = Animal.objects.filter(type=sr.animal_type)
-                if sr.animal_type == "fish":
-                    animallist = Animal.objects.filter(animal_type=sr.animal_type).filter(available_from__lte = today).filter(available_to__gte = today)
-                    if sr.sex:
-                        animallist = animallist.filter(sex=sr.sex)
-                    print(animallist)
-                    #animallist = filter(lambda animallist:)
+                animallist = Animal.objects.filter(animal_type=sr.animal_type).filter(available_from__lte = today).filter(available_to__gte = today)
+                if sr.fish_specie:
+                    animallist= animallist.filter(fish_specie=sr.fish_specie)
+                if sr.sex:
+                    animallist = animallist.filter(sex=sr.sex)
+                animallist = animallist.exclude(pk__in = sr.found_animals.all().values('pk'))
+                if animallist:
+                    print(animallist.values_list)
+                    subject = "AniShare found animals"
+                    message = render_to_string('email_search_request.html', {'first_name': sr.user.first_name, 'animals': animallist})
+                    sender_address = getattr(settings, "SEND_EMAIL_ADDRESS ", 'noreply@anishare.leibniz-fli.de')
+                    send_mail(subject, message, sender_address, [sr.user.email],html_message=message)
+                    for animal in animallist:
+                        sr.found_animals.add(animal)
 
                     
                 
