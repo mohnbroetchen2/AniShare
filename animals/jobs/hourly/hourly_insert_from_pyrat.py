@@ -78,6 +78,7 @@ class Job(HourlyJob):
                         new_mouse.amount         = 1
                         new_mouse.pyrat_incidentid = incident.incidentid
                         new_mouse.genetic_background  = dataset.genetic_bg
+                        new_mouse.medical_condition  = dataset.medical_condition
                         new_mouse.available_from = datetime.today().date()
                         new_mouse.available_to   = datetime.today().date() + timedelta(days=14)
                         new_mouse.licence_number = dataset.licence
@@ -171,6 +172,7 @@ class Job(HourlyJob):
                         new_pup.available_from = datetime.today().date()
                         new_pup.available_to   = datetime.today().date() + timedelta(days=7)
                         new_pup.licence_number = dataset.licence
+                        new_pup.medical_condition  = dataset.medical_condition
                         new_pup.day_of_birth   = dataset.dob
                         new_pup.comment        = incident.incidentdescription
                         mousemutations           = MouseMutation.objects.using('mousedb').filter(pupid = dataset.id)

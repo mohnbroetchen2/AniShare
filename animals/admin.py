@@ -274,12 +274,12 @@ class AnimalForm(forms.ModelForm):
             fields = ('amount', 'animal_type', 'fish_specie','day_of_birth',
                     'available_from', 'available_to', 'sex', 'database_id',
                     'lab_id', 'line', 'location', 'responsible_person', 'responsible_person2',
-                    'licence_number', 'genetic_background','mutations', 'comment', 'new_owner')
+                    'licence_number', 'genetic_background','mutations','medical_condition', 'comment', 'new_owner')
         else:
             fields = ('amount', 'animal_type', 'fish_specie','day_of_birth',
                     'available_from', 'available_to', 'sex', 'database_id',
                     'lab_id', 'line', 'location', 'responsible_person', 'responsible_person2',
-                    'licence_number', 'genetic_background','mutations', 'comment', 'new_owner',)
+                    'licence_number', 'genetic_background','mutations','medical_condition','comment', 'new_owner',)
     def clean(self):
         available_from = self.cleaned_data.get('available_from')
         available_to = self.cleaned_data.get('available_to')
