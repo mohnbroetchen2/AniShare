@@ -118,6 +118,7 @@ class Animal(models.Model):
                                  help_text="Describe the mutations with the grade of this line in as much detail as possible")
     grade = models.CharField(max_length=200, null=True, blank=True, help_text="")
     cage = models.CharField(null=True, blank=True,max_length=200, help_text="cage where the animal is located")
+    medical_condition = models.CharField(max_length=1024, null=True, blank=True, help_text="Describe the medical health of the animal")
     """grade1 = models.CharField(max_length=10, null=True, choices=(
         ('+/+', '+/+'),
         ('+/0', '+/0'),
@@ -363,6 +364,7 @@ class Mouse(models.Model):
     owner = models.CharField(db_column='owner', max_length=255)
     mutation = models.CharField(db_column='mutation', max_length=512)
     project = models.CharField(db_column='projectname', max_length=512)
+    medical_condition = models.CharField(db_column='medical_condition', max_length=1024)
 
     def age(self):
         """
@@ -394,6 +396,8 @@ class Pup(models.Model):
     owner = models.CharField(db_column='owner', max_length=255)
     mutation = models.CharField(db_column='mutation', max_length=512)
     project = models.CharField(db_column='projectname', max_length=512)
+    medical_condition = models.CharField(db_column='medical_condition', max_length=1024)
+
     def age(self):
         """
         Return the age of the animal, calculated by the difference to either

@@ -82,6 +82,7 @@ class Job(HourlyJob):
                         new_mouse.available_to   = datetime.today().date() + timedelta(days=14)
                         new_mouse.licence_number = dataset.licence
                         new_mouse.day_of_birth   = dataset.dob
+                        new_mouse.medical_condition = dataset.medical_condition
                         new_mouse.comment        = incident.incidentdescription
                         mousemutations           = MouseMutation.objects.using(mousedb).filter(animalid = dataset.id)
                         new_mouse.mutations = ''
@@ -172,6 +173,7 @@ class Job(HourlyJob):
                         new_pup.available_to   = datetime.today().date() + timedelta(days=7)
                         new_pup.licence_number = dataset.licence
                         new_pup.day_of_birth   = dataset.dob
+                        new_pup.medical_condition = dataset.medical_condition
                         new_pup.comment        = incident.incidentdescription
                         mousemutations           = MouseMutation.objects.using('mousedb').filter(pupid = dataset.id)
                         new_pup.mutations = ''
