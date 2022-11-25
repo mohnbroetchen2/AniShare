@@ -19,11 +19,12 @@ class AnimalFilter(FilterSet):
     licence_number = django_filters.CharFilter(lookup_expr='icontains')
     mutations = django_filters.CharFilter(lookup_expr='icontains')
     line = django_filters.CharFilter(lookup_expr='icontains')
-    genetic_background  = django_filters.CharFilter(lookup_expr='icontains')
+    #genetic_background  = django_filters.CharFilter(lookup_expr='icontains')
+    medical_condition = django_filters.CharFilter(lookup_expr='icontains')
     age = django_filters.NumberFilter(method='filter_age', label='Age')
     class Meta:
         model = Animal
-        fields = ['animal_type', 'age', 'sex', 'line', 'location','licence_number', 'genetic_background',
+        fields = ['animal_type', 'age', 'sex', 'line', 'location','licence_number', 'medical_condition',
                   'responsible_person','day_of_birth','fish_specie']
     def filter_age(self, queryset, name, value):
         if value:
