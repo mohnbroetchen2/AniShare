@@ -169,7 +169,7 @@
             <td>{{a.location}}</td>
             <td>{{a.licence_number}}</td>
             <td>{{a.lab_id}} </td>
-            <td>{{a.medical_condition}}</td>
+            <td>{% if a.medical_condition %}{{a.medical_condition}}{% endif %}</td>
             <td>{{a.responsible_persons}}</td>
             <td>{% if a.comment%}<span class="d-inline-block" data-toggle="popover" data-trigger="focus" data-content="{{a.comment}}">
               <button class="btn btn-primary" type="button">Show comment</button>
