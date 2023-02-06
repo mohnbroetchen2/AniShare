@@ -47,7 +47,7 @@ class Job(HourlyJob):
                             if line in wild_type_lines:
                                 found_wild_type_line = 1
                         if found_wild_type_line == 0:
-                            animallist = animallist.exclude(pk__in = animal.pk)
+                            animallist = animallist.remove(animal)
 
                 if animallist:
                     print(animallist.values_list)
