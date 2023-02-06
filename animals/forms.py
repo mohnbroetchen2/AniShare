@@ -35,7 +35,7 @@ class searchRequestAnimalForm(forms.ModelForm):
     date_from = datetime.today()
     active_from   = forms.DateTimeField(input_formats=['%d/%m/%Y'], initial=date_from.strftime("%d/%m/%Y")) #https://simpleisbetterthancomplex.com/tutorial/2019/01/03/how-to-use-date-picker-with-django.html
     active_until     = forms.DateTimeField(input_formats=['%d/%m/%Y'])
-    field_order = ['animal_type','fish_specie','sex','wild_type','active_from','active_until']
+    field_order = ['animal_type','fish_specie','sex','wild_type','age_min','age_max','active_from','active_until']
     class Meta:
         model = SearchRequestAnimal
         exclude = ('user','found_animals')
