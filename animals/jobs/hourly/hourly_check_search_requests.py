@@ -19,7 +19,9 @@ class Job(HourlyJob):
 
         logger = logging.getLogger('myscriptlogger')
         ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
+        DOMAIN = getattr(settings, "DOMAIN", None)
         TIMEDIFF = getattr(settings, "TIMEDIFF", 2)
+        wild_type_lines = getattr(settings, "LINES_PROHIBIT_SACRIFICE", None)
 
         try:
             today = datetime.now().date()
@@ -31,10 +33,26 @@ class Job(HourlyJob):
                 if sr.sex:
                     animallist = animallist.filter(sex=sr.sex)
                 animallist = animallist.exclude(pk__in = sr.found_animals.all().values('pk'))
+              
+                if sr.age_min:
+                    animallist= animallist.filter(age__gte=sr.age_min)
+                if sr.age_max:
+                    animallist= animallist.filter(age__lte=sr.age_max)
+
+                if sr.wild_type:
+                    for animal in animallist:
+                        found_wild_type_line = 0
+                        lines = list(animal.line.split(";"))
+                        for line in lines:
+                            if line in wild_type_lines:
+                                found_wild_type_line = 1
+                        if found_wild_type_line == 0:
+                            animallist = animallist.exclude(animal)
+
                 if animallist:
                     print(animallist.values_list)
                     subject = "AniShare found animals"
-                    message = render_to_string('email_search_request.html', {'first_name': sr.user.first_name, 'animals': animallist})
+                    message = render_to_string('email_search_request.html', {'first_name': sr.user.first_name, 'animals': animallist, 'domain':DOMAIN})
                     sender_address = getattr(settings, "SEND_EMAIL_ADDRESS ", 'noreply@anishare.leibniz-fli.de')
                     send_mail(subject, message, sender_address, [sr.user.email],html_message=message)
                     for animal in animallist:

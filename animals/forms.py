@@ -40,7 +40,11 @@ class searchRequestAnimalForm(forms.ModelForm):
         model = SearchRequestAnimal
         exclude = ('user','found_animals')
         help_texts = {
+            'active_from': 'The search request will be active from this date', 
+            'active_until': 'After this date the search request will deactivated', 
             'fish_specie': 'You can leave it blank if the specie does not matter',
             'sex': 'You can leave it blank if the sex does not matter',
-            'wild_type': 'All wild type lines will be included in your search request, if it is checked',
+            'wild_type': 'Only wild type lines will be included in your search request, if it is checked',
+            'age_min': 'Insert the minimum age in weeks. Leave it blank if the age does not matter',
+            'age_max': 'Insert the maximum age in weeks. Leave it blank if the age does not matter',
         }

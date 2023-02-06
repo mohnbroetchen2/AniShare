@@ -37,8 +37,8 @@
                             <th scope="col">Mutations</th>
                             <th scope="col">Location</th>
                             <th scope="col">License</th>
-                            <th scope="col">Genetic Background</th>
                             <th scope="col">comment</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,8 +53,8 @@
                             <td>{{a.mutations}}</td>
                             <td>{{a.location}}</td>
                             <td>{{a.licence_number}}</td>
-                            <td>{{a.background}}</td>
                             <td>{{a.comment}}</td>
+                            <td><a href="{{domain}}/animals/claim/{{a.pk}}">claim</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -64,7 +64,7 @@
     </table>
         <hr>
         <div class="alert">
-    <p>   Best, your <a href="http://anishare.leibniz-fli.de">AniShare</a> admin.</p>
+    <p>   Best, your <a href="{{domain}}">AniShare</a> admin.</p>
     </div>
 </body>
 </html>

@@ -702,5 +702,7 @@ class SearchRequestAnimal(models.Model):
     active_until    = models.DateField(null=False, blank=False, help_text="You will informed about matching entries until this date")
     wild_type       = models.BooleanField(default=True,null=False, blank=False)
     found_animals   = models.ManyToManyField(Animal, related_name='animal_found')
+    age_min         = models.IntegerField(blank=True, null=True)
+    age_max         = models.IntegerField(blank=True, null=True)
 
 

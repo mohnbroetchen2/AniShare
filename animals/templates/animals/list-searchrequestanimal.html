@@ -27,9 +27,11 @@
       <th class="header"> Animal Type<i class="icon-sort"></i></th>
       <th class="header"> Fish Specie <i class="icon-sort"></i></th>
       <th class="header"> Sex <i class="icon-sort"></i></th>
-      <th class="header"> Wild type<i class="icon-sort"></i></th>
+      <th class="header"> Only wild type<i class="icon-sort"></i></th>
       <th class="header"> Active from <i class="icon-sort"></i></th>
-      <th class="header"> Active until<i class="icon-sort"></i></th>
+      <th class="header"> Active until<i class="icon-sort"></i></th> 
+      <th class="header"> Min. age<i class="icon-sort"></i></th>
+      <th class="header"> Max. age<i class="icon-sort"></i></th>
       <th class="header">Edit</th>
       <th class="header">Delete</th>
     </tr>
@@ -44,6 +46,8 @@
             <td>{{sr.wild_type}}</td>
             <td>{{sr.active_from}}</td>
             <td>{{sr.active_until}}</td>
+            <td>{% if sr.age_min %} {{sr.age_min}} {% endif %}</td>
+            <td>{% if sr.age_max %} {{sr.age_max}} {% endif %}</td>
             <td><a href="/searchrequest/animal/edit/{{sr.pk}}"><img src="{% static '/image/edit.svg' %}" width="20" height="21"></img></a></td>
             <td><a href="/searchrequest/animal/delete/{{sr.pk}}"><img src="{% static '/image/trash.svg' %}" width="20" height="21"></img></a></td>
         </tr>
