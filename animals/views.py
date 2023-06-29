@@ -599,7 +599,7 @@ def tickatlabfishlist(request):
     
     try: 
         #logger.debug('{}:tickatlabfishlist'.format(datetime.now()))
-        fishuser = FishPeople.objects.using('fishdb').get(login=request.user.username)	
+        fishuser = FishPeople.objects.using('fishdb').get(login__iexact=request.user.username)	
         fishteams = FishTeam.objects.using('fishdb').all().filter(userid=fishuser.id)
         #logger.debug('{}:fishteams {}'.format(datetime.now(), fishteams))
         fishteamsid = []
