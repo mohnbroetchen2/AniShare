@@ -62,7 +62,7 @@ class Job(HourlyJob):
                             dataset = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid)
                             new_mouse.mouse_id       = dataset.id
                         except: # mouse has no licence
-                            if MouseAll.objects.using(mousedb).get(id=pyratmouse.animalid).exists(): # Prüfe ob Maus noch lebt
+                            if len(MouseAll.objects.using(mousedb).filter(id=pyratmouse.animalid)) > 0: # Prüfe ob Maus noch lebt
                                 continue # Maus ist bereits gestorben
                             count_animals_deferred = count_animals_deferred + 1
                             new_comment = WIncidentcomment()
