@@ -6,7 +6,7 @@ class Job(HourlyJob):
 
     def execute(self):
         from django.core import management
-        from ...models import WIncident, WIncident_write, WIncidentAnimals, Animal, Mouse, Pup, MouseMutation, Location, Person, Lab, WIncidentcomment, WIncidentPups
+        from ...models import WIncident, WIncident_write, WIncidentAnimals, Animal, Mouse, MouseAll, Pup, MouseMutation, Location, Person, Lab, WIncidentcomment, WIncidentPups
         from django.contrib.auth.models import User
         from django.core.mail import EmailMultiAlternatives, send_mail
         from datetime import datetime, timedelta
@@ -58,11 +58,12 @@ class Job(HourlyJob):
                             continue
                         new_mouse = Animal()
                         new_mouse.animal_type    = "mouse"
-                        dataset = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid)
                         try:
                             dataset = Mouse.objects.using(mousedb).get(id=pyratmouse.animalid)
                             new_mouse.mouse_id       = dataset.id
                         except: # mouse has no licence
+                            if MouseAll.objects.using(mousedb).get(id=pyratmouse.animalid).exists(): # Prüfe ob Maus noch lebt
+                                continue # Maus ist bereits gestorben
                             count_animals_deferred = count_animals_deferred + 1
                             new_comment = WIncidentcomment()
                             new_comment.incidentid = incident
