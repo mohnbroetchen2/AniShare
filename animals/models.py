@@ -398,7 +398,6 @@ class MouseAll(models.Model):
     owner = models.CharField(db_column='owner', max_length=255)
     mutation = models.CharField(db_column='mutation', max_length=512)
     project = models.CharField(db_column='projectname', max_length=512)
-    medical_condition = models.CharField(db_column='medical_condition', max_length=1024)
 
     def age(self):
         """
