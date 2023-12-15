@@ -249,6 +249,14 @@ class Organtype(models.Model):
     def __str__(self):
         return self.name
 
+class FishRole(models.Model):
+    rolename = models.IntegerField(db_column='ROLENAME',)
+    userid = models.IntegerField(db_column='USERID',)
+
+    class Meta:
+        managed = False
+        db_table = 'VUSERROLES'
+
 class FishTeam(models.Model):
     teamid = models.IntegerField(db_column='TEAMID',)
     userid = models.IntegerField(db_column='USERID',)
