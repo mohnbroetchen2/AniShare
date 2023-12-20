@@ -7,6 +7,7 @@ class Job(HourlyJob):
     def execute(self):
         from django.core import management
         from ...models import WIncident, WIncident_write, WIncidentAnimals, Animal, Mouse, Pup, MouseMutation, Location, Person, Lab, WIncidentcomment, WIncidentPups
+        from ...models import MouseAll
         from django.contrib.auth.models import User
         from django.core.mail import EmailMultiAlternatives, send_mail
         from datetime import datetime, timedelta

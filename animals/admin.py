@@ -11,7 +11,7 @@ from import_export.widgets import ForeignKeyWidget
 from django.contrib import admin
 from django import forms
 from django.conf import settings
-from rangefilter.filter import DateRangeFilter # , DateTimeRangeFilter
+from rangefilter.filter import DateRangeFilterBuilder # , DateTimeRangeFilter
 from .models import Animal, Person, Lab, Location, Organ, Change, Organtype, SacrificeIncidentToken, SearchRequestAnimal
 from import_export.formats import base_formats
 from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter
@@ -421,7 +421,7 @@ class AnimalAdmin(ImportExportMixin, admin.ModelAdmin):
                      'responsible_person__email', 'added_by__email',)
     autocomplete_fields = ['responsible_person','responsible_person2']
     list_filter = ('animal_type','fish_specie','sex', ('responsible_person__responsible_for_lab',RelatedDropdownFilter),('line', DropdownFilter),('genetic_background', DropdownFilter),
-                   ('day_of_birth', DateRangeFilter),
+                   ('day_of_birth', DateRangeFilterBuilder),
                    'location', ('licence_number', DropdownFilter), ('new_owner', DropdownFilter), 'added_by')
     radio_fields = {'sex':admin.HORIZONTAL}
     readonly_fields = ('creation_date', 'modification_date')
@@ -474,7 +474,7 @@ class OrganAdmin(ImportExportModelAdmin):
                      'sex', 'location__name', 'licence_number', 'responsible_person__name', 'added_by__username')
     autocomplete_fields = ['responsible_person']
     list_filter = (('sex', DropdownFilter),'animal_type','method_of_killing','killing_person','line','genetic_background',
-                   ('day_of_birth', DateRangeFilter), ('day_of_death', DateRangeFilter),
+                   ('day_of_birth', DateRangeFilterBuilder), ('day_of_death', DateRangeFilterBuilder),
                    'responsible_person__responsible_for_lab',
                    'location', 'licence_number', 'added_by',)
     radio_fields = {'sex':admin.HORIZONTAL}
