@@ -421,7 +421,7 @@ class AnimalAdmin(ImportExportMixin, admin.ModelAdmin):
                      'responsible_person__email', 'added_by__email',)
     autocomplete_fields = ['responsible_person','responsible_person2']
     list_filter = ('animal_type','fish_specie','sex', ('responsible_person__responsible_for_lab',RelatedDropdownFilter),('line', DropdownFilter),('genetic_background', DropdownFilter),
-                   ('day_of_birth', DateRangeFilterBuilder),
+                   ('day_of_birth', DateRangeFilterBuilder()),
                    'location', ('licence_number', DropdownFilter), ('new_owner', DropdownFilter), 'added_by')
     radio_fields = {'sex':admin.HORIZONTAL}
     readonly_fields = ('creation_date', 'modification_date')
@@ -474,7 +474,7 @@ class OrganAdmin(ImportExportModelAdmin):
                      'sex', 'location__name', 'licence_number', 'responsible_person__name', 'added_by__username')
     autocomplete_fields = ['responsible_person']
     list_filter = (('sex', DropdownFilter),'animal_type','method_of_killing','killing_person','line','genetic_background',
-                   ('day_of_birth', DateRangeFilterBuilder), ('day_of_death', DateRangeFilterBuilder),
+                   ('day_of_birth', DateRangeFilterBuilder()), ('day_of_death', DateRangeFilterBuilder()),
                    'responsible_person__responsible_for_lab',
                    'location', 'licence_number', 'added_by',)
     radio_fields = {'sex':admin.HORIZONTAL}
