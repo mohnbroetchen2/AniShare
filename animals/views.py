@@ -600,8 +600,8 @@ def tickatlabfishlist(request):
     try: 
         #logger.debug('{}:tickatlabfishlist'.format(datetime.now()))
         fishuser = FishPeople.objects.using('fishdb').get(login__iexact=request.user.username)
-        fishrole = FishRole.objects.using('fishdb').get(userid=fishuser.id)	
-        if fishrole.rolename == "Administrator":
+        fishrole = FishRole.objects.using('fishdb').filter(userid=fishuser.id).filter(rolename="Administrator")	
+        if fishrole:
             fishlist = Fish.objects.using('fishdb').all().order_by('id')
             f = FishFilter(request.GET, queryset=fishlist)
             return render(request, 'animals/fishfromtickatlab.html', {'filter': f})
