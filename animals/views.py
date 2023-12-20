@@ -31,7 +31,7 @@ from django.views import generic
 from tablib import Dataset
 
 from .filters import AnimalFilter, OrganFilter, ChangeFilter, PersonFilter, FishFilter, MouseFilter, PupFilter
-from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab, FishPeople, FishTeam, FishMutation
+from .models import Animal, Organ, Change, FishPeople, Fish, Location, Person, Lab, FishPeople, FishTeam, FishMutation, FishRole
 from .models import Mouse, MouseMutation, PyratUser, PyratUserPermission, Pup 
 from .models import SacrificeIncidentToken, WIncident_write, WIncident, WIncidentanimals_write, WIncidentpups_write, WIncidentcomment, SearchRequestAnimal
 from .importscript import runimport
@@ -599,7 +599,12 @@ def tickatlabfishlist(request):
     
     try: 
         #logger.debug('{}:tickatlabfishlist'.format(datetime.now()))
-        fishuser = FishPeople.objects.using('fishdb').get(login__iexact=request.user.username)	
+        fishuser = FishPeople.objects.using('fishdb').get(login__iexact=request.user.username)
+        fishrole = FishRole.objects.using('fishdb').get(userid=fishuser.id)	
+        if fishrole.rolename == "Administrator":
+            fishlist = Fish.objects.using('fishdb').all().order_by('id')
+            f = FishFilter(request.GET, queryset=fishlist)
+            return render(request, 'animals/fishfromtickatlab.html', {'filter': f})
         fishteams = FishTeam.objects.using('fishdb').all().filter(userid=fishuser.id)
         #logger.debug('{}:fishteams {}'.format(datetime.now(), fishteams))
         fishteamsid = []
