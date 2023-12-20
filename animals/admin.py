@@ -11,7 +11,7 @@ from import_export.widgets import ForeignKeyWidget
 from django.contrib import admin
 from django import forms
 from django.conf import settings
-from rangefilter.filter import DateRangeFilterBuilder # , DateTimeRangeFilter
+from rangefilter.filters import DateRangeFilterBuilder # , DateTimeRangeFilter
 from .models import Animal, Person, Lab, Location, Organ, Change, Organtype, SacrificeIncidentToken, SearchRequestAnimal
 from import_export.formats import base_formats
 from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter
