@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'adminrestrict',
     'defender',
     'crispy_forms',
+    'crispy_bootstrap4'
 ]
 
 X_FRAME_OPTIONS='SAMEORIGIN'
@@ -241,6 +242,7 @@ ADMIN_REORDER = (
     'admin_interface',  
 )
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # https://github.com/jakubroztocil/django-settings-export

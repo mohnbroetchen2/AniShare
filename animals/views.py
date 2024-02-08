@@ -600,7 +600,7 @@ def tickatlabfishlist(request):
     try: 
         #logger.debug('{}:tickatlabfishlist'.format(datetime.now()))
         fishuser = FishPeople.objects.using('fishdb').get(login__iexact=request.user.username)
-        fishrole = FishRole.objects.using('fishdb').filter(userid=fishuser.id).filter(rolename="Administrator")	
+        fishrole = FishRole.objects.using('fishdb').filter(userid=fishuser.id).filter(roleid=20000057)	# 20000057 = Administrator
         if fishrole:
             fishlist = Fish.objects.using('fishdb').all().order_by('id')
             f = FishFilter(request.GET, queryset=fishlist)
@@ -963,7 +963,9 @@ def addAnimal(request):
         if request.method == 'POST':  # If the form has been submitted...
             form = addAnimalForm(request.POST, request.FILES)  # A form bound to the POST data
             if form.is_valid(): 
-                form.save()
+                new_animal = form.save()
+                new_animal.added_by = request.user
+                new_animal.save()
                 messages.success(request, 'New entry successfully created')
                 return HttpResponseRedirect('/')  # Redirect after POST
         else:

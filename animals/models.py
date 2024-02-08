@@ -97,7 +97,7 @@ class Animal(models.Model):
         ('pup', 'Pup'),
     ),
                                    default='mouse')
-    database_id = models.CharField(max_length=200, help_text="ID of animal in eg. PYRAT")
+    database_id = models.CharField(max_length=200, null=True, blank=True, help_text="ID of animal in eg. PYRAT")
     fish_id = models.CharField(max_length=200, null=True, blank=True, help_text="DB ID of fish in tickatlab")
     mouse_id = models.CharField(max_length=200, null=True, blank=True, help_text="DB ID of mouse in PyRat")
     pup_id = models.CharField(max_length=200, null=True, blank=True, help_text="DB ID of pup in PyRat")
@@ -162,7 +162,7 @@ class Animal(models.Model):
                                help_text='Comments, such as individual organs to be offered')
     new_owner = models.CharField(max_length=200, blank=True,
                                  help_text='Person claiming this animal for themselves') # turn into foreignkey to auth_users?
-    added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, default=1)
+    added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, null=True)
     pyrat_incidentid = models.CharField(max_length=20, null=True, blank=True)
     #sync_with_other_sharing_system = models.BooleanField(default=False,null=False, blank=False) # If true the object can be syncronised with an other sharing platform 
     history = HistoricalRecords()
@@ -250,7 +250,7 @@ class Organtype(models.Model):
         return self.name
 
 class FishRole(models.Model):
-    rolename = models.IntegerField(db_column='ROLENAME',)
+    roleid= models.IntegerField(db_column='ROLEID',)
     userid = models.IntegerField(db_column='USERID',)
 
     class Meta:
@@ -521,7 +521,7 @@ class Organ(models.Model):
     creation_date = models.DateTimeField(null=False, auto_now_add=True)
     modification_date = models.DateTimeField(null=False, auto_now=True)
     #sync_with_other_sharing_system = models.BooleanField(default=False,null=False, blank=False) # If true the object can be syncronised with an other sharing platform 
-    added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, default=1)
+    added_by = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, null=True)
 
     def get_organtypes(self):
         """Get all organ types which are used"""
