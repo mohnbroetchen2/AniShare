@@ -14,7 +14,13 @@
             <label class="custom-file-label" for="customFile">Choose file</label>
         </div>
         <div style="margin-left:10px"> </div>
-        <div> <button type="submit" class="btn btn-success">Upload</button></div>
+        <div>
+            {% if settings.IMPORT_QUESTION %} 
+            <button type="submit" class="btn btn-success" onclick="return confirm({{settings.IMPORT_QUESTION }});">Upload</button>
+            {% else %}
+            <button type="submit" class="btn btn-success">Upload</button>
+            {% endif %}
+        </div>
     </div>
 </form>
 </div>
