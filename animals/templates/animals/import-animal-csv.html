@@ -16,7 +16,7 @@
         <div style="margin-left:10px"> </div>
         <div>
             {% if settings.IMPORT_QUESTION %} 
-            <button type="submit" class="btn btn-success" onclick="return confirm({{settings.IMPORT_QUESTION }});">Upload</button>
+            <button type="submit" class="btn btn-success" onclick="return confirm('{{settings.IMPORT_QUESTION }}');">Upload</button>
             {% else %}
             <button type="submit" class="btn btn-success">Upload</button>
             {% endif %}
