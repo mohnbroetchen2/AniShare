@@ -263,6 +263,7 @@ class Job(HourlyJob):
                     URL = join(PYRAT_API_URL,'workrequests',str(incident.incidentid))
                     r = requests.patch(URL,auth=(PYRAT_CLIENT_ID, PYRAT_CLIENT_PASSWORD), data ='{"status_id":5}')
                     print(r.content)
+                    logger.debug('{}: Incident status {} has been changed to 5. Request content:'.format(datetime.now(), incident.incidentid, r.content))
                     #incident_write.save(using=mousedb_write)
                     logger.debug('{}: Incident status {} has been changed to 5.'.format(datetime.now(), incident.incidentid))
                     URL = join(PYRAT_API_URL,'workrequests',str(incident.incidentid),'comments')
