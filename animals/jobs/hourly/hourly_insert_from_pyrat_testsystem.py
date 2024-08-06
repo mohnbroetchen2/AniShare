@@ -265,7 +265,7 @@ class Job(HourlyJob):
                     #incident_write.save(using=mousedb_write)
                     logger.debug('{}: Incident status {} has been changed to 5.'.format(datetime.now(), incident.incidentid))
                     URL = join(PYRAT_API_URL,'workrequests',str(incident.incidentid),'comments')
-                    r = requests.patch(URL, data ={"comment":"AniShare: Request status changed to Added to Anishare"})
+                    r = requests.post(URL, data ={"comment":"AniShare: Request status changed to Added to Anishare"})
                     #new_comment = WIncidentcomment()
                     #new_comment.incidentid = incident
                     #new_comment.comment = 'AniShare: Request status changed to Added to Anishare'
