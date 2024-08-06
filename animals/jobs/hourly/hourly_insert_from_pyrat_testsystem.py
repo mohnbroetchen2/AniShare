@@ -260,11 +260,11 @@ class Job(HourlyJob):
                 elif (error == 0 and count_animals_deferred == 0):
                     incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)
                     incident_write.status = 5 # Added to AniShare
-                    URL = join(PYRAT_API_URL,'workrequests',incident.incidentid)
+                    URL = join(PYRAT_API_URL,'workrequests',str(incident.incidentid))
                     r = requests.patch(URL, data ={"status_id":5})
                     #incident_write.save(using=mousedb_write)
                     logger.debug('{}: Incident status {} has been changed to 5.'.format(datetime.now(), incident.incidentid))
-                    URL = join(PYRAT_API_URL,'workrequests',incident.incidentid,'comments')
+                    URL = join(PYRAT_API_URL,'workrequests',str(incident.incidentid),'comments')
                     r = requests.patch(URL, data ={"comment":"AniShare: Request status changed to Added to Anishare"})
                     #new_comment = WIncidentcomment()
                     #new_comment.incidentid = incident
