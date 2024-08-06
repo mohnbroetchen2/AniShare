@@ -14,12 +14,37 @@ class Job(HourlyJob):
         from django.conf import settings
         import logging
         import sys
+        import requests
+        from os.path import join
 
         mousedb = 'mousedb_test'
         mousedb_write = 'mousedb_test_write'
         logger = logging.getLogger('myscriptlogger')
         ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
         TIMEDIFF = getattr(settings, "TIMEDIFF", 2)
+        PYRAT_API_URL = getattr(settings, "PYRAT_API_URL", None)
+        PYRAT_CLIENT_ID = getattr(settings, "PYRAT_CLIENT_ID", None)
+        PYRAT_CLIENT_PASSWORD = getattr(settings, "PYRAT_CLIENT_PASSWORD", None)
+
+        if (PYRAT_API_URL == None or PYRAT_CLIENT_ID == None or PYRAT_CLIENT_PASSWORD == None):
+            logger.debug('Die Verbindungsparamater zu PyRAT (PYRAT_API_URL, PYRAT_CLIENT_ID, PYRAT_CLIENT_PASSWORD) müssen noch in der local settings Datei gesetzt werden')
+            send_mail("AniShare Importscriptfehler hourly_insert_from_pyrat.py", 'Die Verbindungsparamater zu PyRAT (PYRAT_API_URL, PYRAT_CLIENT_ID, PYRAT_CLIENT_PASSWORD) müssen gesetzt werden', ADMIN_EMAIL, [ADMIN_EMAIL])
+            management.call_command("clearsessions")
+            return()
+        
+        try:
+            URL = join(PYRAT_API_URL,'version')
+            r = requests.get(URL, auth=(PYRAT_CLIENT_ID, PYRAT_CLIENT_PASSWORD))
+            r_status = r.status_code
+            if r_status != 200:
+                logger.debug('Es konnte keine Verbindung zu der PyRAT API aufgebaut werden. Fehler {} wurde zurück gegeben'.format(r_status))
+                send_mail("AniShare Importscriptfehler hourly_insert_from_pyrat.py", 'Es konnte keine Verbindung zu der PyRAT API aufgebaut werden. Fehler {} wurde zurück gegeben'.format(r_status), ADMIN_EMAIL, [ADMIN_EMAIL])    
+                return()
+        except BaseException as e: 
+            management.call_command("clearsessions")
+            ADMIN_EMAIL = getattr(settings, "ADMIN_EMAIL", None)
+            send_mail("AniShare Importscriptfehler hourly_insert_from_pyrat.py", '{}: Fehler bei der Überprüfung der PyRAT API {} in Zeile {}'.format(mousedb, e,sys.exc_info()[2].tb_lineno), ADMIN_EMAIL, [ADMIN_EMAIL])
+
 
         try:
             incidentlist = WIncident.objects.using(mousedb).all().filter(incidentclass=22).filter(status=2)
@@ -68,7 +93,7 @@ class Job(HourlyJob):
                             count_animals_deferred = count_animals_deferred + 1
                             new_comment = WIncidentcomment()
                             new_comment.incidentid = incident
-                            new_comment.comment = 'AniShare: Mouse {} without licence can not be imported'.format(pyratmouse.eartag)
+                            new_comment.comment = 'AniShare: Mouse {} without licence can not be imported'.format(pyratmouse.animalid)
                             new_comment.save(using=mousedb_write)
                             new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
                             new_comment.save(using=mousedb_write)
@@ -235,14 +260,18 @@ class Job(HourlyJob):
                 elif (error == 0 and count_animals_deferred == 0):
                     incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)
                     incident_write.status = 5 # Added to AniShare
-                    incident_write.save(using=mousedb_write)
+                    URL = join(PYRAT_API_URL,'workrequests',incident.incidentid)
+                    r = requests.patch(URL, data ={"status_id":5})
+                    #incident_write.save(using=mousedb_write)
                     logger.debug('{}: Incident status {} has been changed to 5.'.format(datetime.now(), incident.incidentid))
-                    new_comment = WIncidentcomment()
-                    new_comment.incidentid = incident
-                    new_comment.comment = 'AniShare: Request status changed to Added to Anishare'
-                    new_comment.save(using=mousedb_write)
-                    new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
-                    new_comment.save(using=mousedb_write)
+                    URL = join(PYRAT_API_URL,'workrequests',incident.incidentid,'comments')
+                    r = requests.patch(URL, data ={"comment":"AniShare: Request status changed to Added to Anishare"})
+                    #new_comment = WIncidentcomment()
+                    #new_comment.incidentid = incident
+                    #new_comment.comment = 'AniShare: Request status changed to Added to Anishare'
+                    #new_comment.save(using=mousedb_write)
+                    #new_comment.commentdate = new_comment.commentdate + timedelta(hours=TIMEDIFF)
+                    #new_comment.save(using=mousedb_write)
                 
         except BaseException as e: 
             management.call_command("clearsessions")

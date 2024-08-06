@@ -723,7 +723,7 @@ class WIncidentpups_write(models.Model):
 class SacrificeIncidentToken(models.Model):
     initiator   = models.CharField(max_length=50, blank=False, null=False)
     incidentid  = models.IntegerField(blank=False, null=False) # AddToAniShare Incident ID
-    urltoken    = models.CharField(max_length=20, blank=False, null=False)
+    urltoken    = models.CharField(max_length=100, blank=False, null=False)
     created     = models.DateTimeField(null=False, auto_now_add=True)
     confirmed   = models.DateTimeField(null=True)
 
