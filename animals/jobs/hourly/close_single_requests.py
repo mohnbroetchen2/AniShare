@@ -26,10 +26,40 @@ class Job(HourlyJob):
         TIMEDIFF = getattr(settings, "TIMEDIFF", 2)
         try:
             today = datetime.now().date() # Gets today's date
-            incidentlist = WIncident.objects.using(mousedb).all().filter(incidentid=70359) # Retrieves all incidents of class 22 (AddToAniShare) with status 5 (AddedToAniShare) from the database
+            incidentlist = WIncident.objects.using(mousedb).all().filter(incidentid=70278) # Retrieves all incidents of class 22 (AddToAniShare) with status 5 (AddedToAniShare) from the database
             for incident in incidentlist: # for each incident
                 i = 0
                 animallist = WIncidentAnimals.objects.using(mousedb).filter(incidentid = incident.incidentid) # Retrieves all animals for the incident
+
+                incident_write = WIncident_write.objects.using(mousedb_write).get(incidentid=incident.incidentid)
+                incident_write.status = 1
+                incident_write.closedate = datetime.now()
+                incident_write.save(using=mousedb_write)
+                logger.debug('{}: Incident status {} has been changed to 1.'.format(datetime.now(), incident.incidentid))
+
+                incident_animals = WIncidentanimals_write.objects.using(mousedb_write).filter(incidentid = incident_write.incidentid)
+                for entry in incident_animals:
+                    entry.perform_status = 'performed'
+                    entry.save()
+                incident_pups = WIncidentpups_write.objects.using(mousedb_write).filter(incidentid = incident_write.incidentid)
+                for entry in incident_pups:
+                    entry.perform_status = 'performed'
+                    entry.save()
+
+                # add a comment to the incident
+                comment = Comment()
+                anishareuser = PyratUser.objects.using(mousedb).get(username='AniShare')
+                comment.creator_id = anishareuser
+                comment.content = 'AniShare: Request status changed to closed'
+                comment.save(using=mousedb_write)
+                comment.created = comment.created + timedelta(hours=TIMEDIFF)
+                comment.save(using=mousedb_write)
+
+                comment_work_request_ref = Comment_work_request_ref()
+                comment_work_request_ref.comment_id = comment.id
+                comment_work_request_ref.work_request_id = incident.incidentid
+                comment_work_request_ref.save(using=mousedb_write)
+
                 if incident.sacrifice_reason:
 
                     
