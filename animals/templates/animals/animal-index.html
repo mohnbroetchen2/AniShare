@@ -154,7 +154,8 @@
             <td>{{a.animal_type}}{% if a.fish_specie%}{% if a.fish_specie == 'n' %}
               <span>Notho</span> {% elif a.fish_specie == 'z' %} <span>Zebra</span>{% endif %}{% endif %}</td>
             <td>{{a.amount}}</td>
-            <td>{% if a.get_sex_display == 'female' %}
+            <td data-order="{% if a.get_sex_display == 'female' %}1{% elif a.get_sex_display == 'male' %}2{% else %}3{% endif %}">
+              {% if a.get_sex_display == 'female' %}
               <i class="fas fa-venus" style="color:#F77; font-size:13pt;"></i>
               {% elif a.get_sex_display == 'male' %}
               <i class="fas fa-mars" style="color:#77F; font-size:13pt;"></i>
