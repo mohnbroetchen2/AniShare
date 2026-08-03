@@ -59,7 +59,7 @@ class Job(HourlyJob):
                             logger.debug('{} Work Request: {}, {} mouse has been claimed.'.format(datetime.now(), incident.incidentid, animouse.database_id))
                             continue
                         delta = animouse.available_to - today
-                        if (delta.days < 30):
+                        if (0 < delta.days < 30):
                             skip = 1
                             break
                     except BaseException as e: 
@@ -78,7 +78,7 @@ class Job(HourlyJob):
                             logger.debug('{} Work Request: {}, {} pup has been claimed.'.format(datetime.now(), incident.incidentid, anipup.database_id))
                             continue
                         delta = anipup.available_to - today
-                        if (delta.days < 30):
+                        if (0 < delta.days < 30):
                             skip = 1
                             break
                     except BaseException as e:  
