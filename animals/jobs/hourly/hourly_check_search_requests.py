@@ -35,9 +35,9 @@ class Job(HourlyJob):
                 animallist = animallist.exclude(pk__in = sr.found_animals.all().values('pk'))
               
                 if sr.age_min:
-                    animallist= animallist.filter(age__gte=sr.age_min)
+                    animallist = animallist.filter(day_of_birth__lte=today - timedelta(days=sr.age_min * 7))
                 if sr.age_max:
-                    animallist= animallist.filter(age__lte=sr.age_max)
+                    animallist = animallist.filter(day_of_birth__gte=today - timedelta(days=sr.age_max * 7 + 6))
 
                 if sr.wild_type:
                     for animal in animallist:
