@@ -189,7 +189,6 @@ class Animal(models.Model):
             return (str(self.responsible_person) + str(" ") +str(self.responsible_person2))
         return (self.responsible_person)
     
-    @property
     def age(self):
         """
         Return the age of the animal, calculated by the difference to either
